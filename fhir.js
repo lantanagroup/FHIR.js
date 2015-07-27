@@ -1,18 +1,6 @@
 var xml2js = require('xml2js');
 var Q = require('q');
-var fs = require('fs');
-
-var profiles = {};
-var profileFiles = fs.readdirSync('./profiles');
-
-for (var i in profileFiles) {
-    var profileJSON = fs.readFileSync('./profiles/' + profileFiles[i]).toString();
-    var profile = JSON.parse(profileJSON);
-
-    if (profile.structure && profile.structure.length > 0 && profile.structure[0].type) {
-        profiles[profile.structure[0].type] = profile;
-    }
-}
+var profiles = require('./profiles');
 
 var Fhir = function(version) {
     var self = this;

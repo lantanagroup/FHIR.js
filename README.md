@@ -6,6 +6,11 @@ Node.JS library for serializing/deserializing FHIR resources between JS/JSON and
 * xml2js 0.4.9
 * xmlbuilder 2.6.4
 
+# Installation
+```
+npm install fhir
+```
+
 # Documentation
 ## ctor(version)
 Indicate which version of FHIR the module should work with. Only DSTU1 is currently supported. If no version is specified, defaults to DSTU1.

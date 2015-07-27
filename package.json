@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries",
   "readme": "README.md",
   "bugs": {
@@ -31,7 +31,8 @@
     "xpath": "0.0.9"
   },
   "scripts": {
-    "test": "mocha test/*.js"
+    "test": "mocha test/*.js",
+    "prepublish": "node packageProfiles.js"
   },
   "author": "Sean McIlvenna",
   "license": "ISC"
