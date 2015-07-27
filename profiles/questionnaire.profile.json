@@ -1,0 +1,852 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A structured set of questions and their answers. The Questionnaire may contain questions, answers or both. The questions are ordered and grouped into coherent subsets, corresponding to the structure of the grouping of the underlying questions.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire\"><b>Questionnaire</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"The lifecycle status of the questionnaire as a whole (this element modifies the meaning of other elements)\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.status\"><span style=\"text-decoration: underline\"><b>status</b></span></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"questionnaire-status.html\">draft | published | retired | in progress | completed | amended<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The date and/or time that this version of the questionnaire was authored.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.authored\"><b>authored</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#dateTime\">dateTime</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\">Date this version was authored<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The subject of the questionnaires: this is the patient that the answers apply to, but this person is not necessarily the source of information.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.subject\"><b>subject</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>|<a href=\"relatedperson.html#RelatedPerson\">RelatedPerson</a>)</span> <span style=\"color: navy\">The subject of the questions<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/subject&gt;\r\n &lt;<a title=\"Person who received the answers to the questions in the Questionnaire and recorded them in the system.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.author\"><b>author</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"patient.html#Patient\">Patient</a>|<a href=\"relatedperson.html#RelatedPerson\">RelatedPerson</a>)</span> <span style=\"color: navy\">\r\n     Person who received and recorded the answers<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/author&gt;\r\n &lt;<a title=\"The person who answered the questions about the subject. Only used when this is not the subject him/herself.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.source\"><b>source</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>|<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"relatedperson.html#RelatedPerson\">RelatedPerson</a>)</span> <span style=\"color: navy\">\r\n     The person who answered the questions<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/source&gt;\r\n &lt;<a title=\"Structured name for a predefined list of questions this questionnaire is responding to.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.name\"><b>name</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-questionnaire-name.html\">Name/code for a predefined list of questions<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/name&gt;\r\n &lt;<a title=\"This records identifiers associated with this question/answer set that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">External Ids for this questionnaire<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n &lt;<a title=\"Encounter during which this questionnaire answers were collected. When there were multiple encounters, this is the one considered most relevant to the context of the answers.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.encounter\"><b>encounter</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"encounter.html#Encounter\">Encounter</a>)</span> <span style=\"color: navy\">\r\n     Primary encounter during which the answers were collected<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/encounter&gt;\r\n &lt;<a title=\"A group of questions to a possibly similarly grouped set of questions in the questionnaire.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group\"><b>group</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..1</b></span> Grouped questions --&gt;</span>\r\n  &lt;<a title=\"Structured name for a section of a predefined list of questions this questionnaire is responding to.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.name\"><b>name</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-questionnaire-group-name.html\">Code or name of the section on a questionnaire</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/name&gt;\r\n  &lt;<a title=\"Text that is displayed above the contents of the group.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.header\"><b>header</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Text that is displayed above the contents of the group</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Additional text for the group, used for display purposes.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.text\"><b>text</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Additional text for the group</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"More specific subject this section's answers are about, details the subject given in Questionnaire.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.subject\"><b>subject</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"resourcelist.html\">Any</a>)</span> <span style=\"color: navy\">The subject this group's answers are about</span><span style=\"color: Gray\"> --&gt;</span>&lt;/subject&gt;\r\n  &lt;<a title=\"A sub-group within a group. The ordering of groups within this group is relevant.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.group\"><b>group</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-3: Groups may either contain questions or groups but not both\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..*</b></span> <span style=\"color: darkgreen\">Content as for Questionnaire.group</span> <span style=\"color: navy\">Nested questionnaire group</span><span style=\"color: Gray\"> --&gt;</span>&lt;/group&gt;\r\n  &lt;<a title=\"Set of questions within this group. The order of questions within the group is relevant.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question\"><b>question</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span title=\"Inv-3: Groups may either contain questions or groups but not both\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..*</b></span> Questions in this group --&gt;</span>\r\n   &lt;<a title=\"Structured name for the question that identifies this question within the Questionnaire or Group.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.name\"><b>name</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-2: Must supply a name, a question's text or both\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-questionnaire-question-name.html\">Code or name of the question</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/name&gt;\r\n   &lt;<a title=\"Text of the question as it is shown to the user.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.text\"><b>text</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-2: Must supply a name, a question's text or both\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: navy\">Text of the question as it is shown to the user</span><span style=\"color: Gray\"> --&gt;</span>\r\n   &lt;<a title=\"Single-valued answer to the question.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.answer_x_\"><b>answer[x]</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-1: Must supply either a simple answer, a choice, data or nothing\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#decimal\">decimal</a>|<a href=\"datatypes.html#integer\">integer</a>|<a href=\"datatypes.html#boolean\">boolean</a>|<a href=\"datatypes.html#date\">date</a>|<a href=\"datatypes.html#string\">string</a>|<a href=\"datatypes.html#dateTime\">dateTime</a>|<a href=\"datatypes.html#instant\">instant</a></span> <span style=\"color: navy\">\r\n       Single-valued answer to the question</span><span style=\"color: Gray\"> --&gt;</span>&lt;/answer[x]&gt;\r\n   &lt;<a title=\"Selections made by the user from the list of options.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.choice\"><b>choice</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-1: Must supply either a simple answer, a choice, data or nothing\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..*</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Coding\">Coding</a></span> <span style=\"color: navy\">Selected options</span><span style=\"color: Gray\"> --&gt;</span>&lt;/choice&gt;\r\n   &lt;<a title=\"Reference to a valueset containing the possible options.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.options\"><b>options</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"valueset.html#ValueSet\">ValueSet</a>)</span> <span style=\"color: navy\">Valueset containing the possible options</span><span style=\"color: Gray\"> --&gt;</span>&lt;/options&gt;\r\n   &lt;<a title=\"Structured answer in the form of a FHIR Resource or datatype.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.data_x_\"><b>data[x]</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-1: Must supply either a simple answer, a choice, data or nothing\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#open\">*</a></span> <span style=\"color: navy\">Structured answer</span><span style=\"color: Gray\"> --&gt;</span>&lt;/data[x]&gt;\r\n   &lt;<a title=\"The remark contains information about the answer given. This is additional information about the answer the author wishes to convey, but should not be used to contain information that is part of the answer itself.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.remarks\"><b>remarks</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Remarks about the answer given</span><span style=\"color: Gray\"> --&gt;</span>\r\n   &lt;<a title=\"Nested group, containing nested question for this question. The order of groups within the question is relevant.\" class=\"dict\" href=\"questionnaire-definitions.html#Questionnaire.group.question.group\"><b>group</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\">Content as for Questionnaire.group</span> <span style=\"color: navy\">Nested questionnaire group</span><span style=\"color: Gray\"> --&gt;</span>&lt;/group&gt;\r\n  &lt;/question&gt;\r\n &lt;/group&gt;\r\n&lt;/Questionnaire&gt;\r\n</pre></div>"
+	},
+	"name": "questionnaire",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A structured set of questions and their answers. The Questionnaire may contain questions, answers or both. The questions are ordered and grouped into coherent subsets, corresponding to the structure of the grouping of the underlying questions.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage The Questionnaire may be a single list of questions, or can be hierarchically organized in groups and sub-groups, each containing questions. Questions may contain and single answer, which can take the form of simple text, numbers, dates or a set of coded choices. \r\n\r\nQuestionnaires cover the need to communicate data originating from forms used in medical history examinations, research questionnaires and sometimes full clinical speciality records. In many systems this data is collected using user-defined screens and forms. Questionnaires record specifics about data capture - exactly what questions were asked, in what order, what choices for answers were, etc. Each of these questions are part of the Questionnaire, and as such the Questionnaire is a separately identifiable Resource, whereas the individual questions are not. \r\n\r\nExamples of Questionnaires include:\r\n\r\n* Past medical history (PMH)\r\n* Family diseases\r\n* Social history\r\n* Research questionnaires\r\n* Quality and evaluation forms\r\nSupport for validation is outside the scope of this Resource, although basic structural features can be defined using the Questionnaire core extensions.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		}
+	],
+	"structure": [
+		{
+			"type": "Questionnaire",
+			"publish": true,
+			"element": [
+				{
+					"path": "Questionnaire",
+					"definition": {
+						"short": "A structured set of questions and their answers",
+						"formal": "A structured set of questions and their answers. The Questionnaire may contain questions, answers or both. The questions are ordered and grouped into coherent subsets, corresponding to the structure of the grouping of the underlying questions.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Document[moodCode=DEF or EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.status",
+					"definition": {
+						"short": "draft | published | retired | in progress | completed | amended",
+						"formal": "The lifecycle status of the questionnaire as a whole.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": true,
+						"binding": {
+							"name": "QuestionnaireStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/questionnaire-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode (also whether there's a revisionControlAct - and possibly mood to distinguish \"in progress\" from \"published)"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.authored",
+					"definition": {
+						"short": "Date this version was authored",
+						"formal": "The date and/or time that this version of the questionnaire was authored.",
+						"comments": "May be different from the update time of the resource itself, because that is the status of the collection and authoring.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "dateTime"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=AUT].time"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.subject",
+					"definition": {
+						"short": "The subject of the questions",
+						"formal": "The subject of the questionnaires: this is the patient that the answers apply to, but this person is not necessarily the source of information.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/RelatedPerson"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SBJ].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.author",
+					"definition": {
+						"short": "Person who received and recorded the answers",
+						"formal": "Person who received the answers to the questions in the Questionnaire and recorded them in the system.",
+						"comments": "Mapping a subject's answers to multiple choice options and determining what to put in the textual answer is a matter of interpretation.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/RelatedPerson"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=AUT].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.source",
+					"definition": {
+						"short": "The person who answered the questions",
+						"formal": "The person who answered the questions about the subject. Only used when this is not the subject him/herself.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/RelatedPerson"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=INF].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.name",
+					"definition": {
+						"short": "Name/code for a predefined list of questions",
+						"formal": "Structured name for a predefined list of questions this questionnaire is responding to.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "QuestionnaireName",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/questionnaire-name"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".title"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.identifier",
+					"definition": {
+						"short": "External Ids for this questionnaire",
+						"formal": "This records identifiers associated with this question/answer set that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.encounter",
+					"definition": {
+						"short": "Primary encounter during which the answers were collected",
+						"formal": "Encounter during which this questionnaire answers were collected. When there were multiple encounters, this is the one considered most relevant to the context of the answers.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Encounter"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group",
+					"definition": {
+						"short": "Grouped questions",
+						"formal": "A group of questions to a possibly similarly grouped set of questions in the questionnaire.",
+						"comments": "The Questionnaire itself has one \"root\" group with the actual contents of the Questionnaire.",
+						"min": 0,
+						"max": "1",
+						"constraint": [
+							{
+								"key": "3",
+								"name": "GroupHaveSubOrQuestions",
+								"severity": "error",
+								"human": "Groups may either contain questions or groups but not both",
+								"xpath": "not(exists(f:group) and exists(f:question))"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target[classCode=DOCSECT, moodCode=EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.group.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.group.name",
+					"definition": {
+						"short": "Code or name of the section on a questionnaire",
+						"formal": "Structured name for a section of a predefined list of questions this questionnaire is responding to.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "QuestionnaireGroupName",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/questionnaire-group-name"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.header",
+					"definition": {
+						"short": "Text that is displayed above the contents of the group",
+						"formal": "Text that is displayed above the contents of the group.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".title"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.text",
+					"definition": {
+						"short": "Additional text for the group",
+						"formal": "Additional text for the group, used for display purposes.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".text"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.subject",
+					"definition": {
+						"short": "The subject this group's answers are about",
+						"formal": "More specific subject this section's answers are about, details the subject given in Questionnaire.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Any"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SBJ].role\nor\n.outboundRelationship[typeCode=SUBJ].target"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.group",
+					"definition": {
+						"short": "Nested questionnaire group",
+						"formal": "A sub-group within a group. The ordering of groups within this group is relevant.",
+						"min": 0,
+						"max": "*",
+						"nameReference": "Questionnaire.group",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target[classCode=DOCSECT, moodCode=EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question",
+					"definition": {
+						"short": "Questions in this group",
+						"formal": "Set of questions within this group. The order of questions within the group is relevant.",
+						"min": 0,
+						"max": "*",
+						"constraint": [
+							{
+								"key": "2",
+								"name": "MustHaveNameOrText",
+								"severity": "error",
+								"human": "Must supply a name, a question's text or both",
+								"xpath": "count(f:name) + count(f:text) >= 1"
+							},
+							{
+								"key": "1",
+								"name": "SimpleChoiceOrData",
+								"severity": "error",
+								"human": "Must supply either a simple answer, a choice, data or nothing",
+								"xpath": "count(f:data) + count(f:choice) + count(f:answer) <= 1"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=EVN or DEF]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.name",
+					"definition": {
+						"short": "Code or name of the question",
+						"formal": "Structured name for the question that identifies this question within the Questionnaire or Group.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "QuestionName",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/questionnaire-question-name"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.text",
+					"definition": {
+						"short": "Text of the question as it is shown to the user",
+						"formal": "Text of the question as it is shown to the user.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code.display"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.answer[x]",
+					"definition": {
+						"short": "Single-valued answer to the question",
+						"formal": "Single-valued answer to the question.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "decimal"
+							},
+							{
+								"code": "integer"
+							},
+							{
+								"code": "boolean"
+							},
+							{
+								"code": "date"
+							},
+							{
+								"code": "string"
+							},
+							{
+								"code": "dateTime"
+							},
+							{
+								"code": "instant"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".value"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.choice",
+					"definition": {
+						"short": "Selected options",
+						"formal": "Selections made by the user from the list of options.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Coding"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Not supported - MIF/templating layer to capture value set"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.options",
+					"definition": {
+						"short": "Valueset containing the possible options",
+						"formal": "Reference to a valueset containing the possible options.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/ValueSet"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Not supported - MIF/templating layer to capture value set"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.data[x]",
+					"definition": {
+						"short": "Structured answer",
+						"formal": "Structured answer in the form of a FHIR Resource or datatype.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "*"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=VALUE].target"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.remarks",
+					"definition": {
+						"short": "Remarks about the answer given",
+						"formal": "The remark contains information about the answer given. This is additional information about the answer the author wishes to convey, but should not be used to contain information that is part of the answer itself.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value"
+							}
+						]
+					}
+				},
+				{
+					"path": "Questionnaire.group.question.group",
+					"definition": {
+						"short": "Nested questionnaire group",
+						"formal": "Nested group, containing nested question for this question. The order of groups within the question is relevant.",
+						"min": 0,
+						"max": "*",
+						"nameReference": "Questionnaire.group",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target[classCode=DOCSECT, moodCode=EVN]"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "author",
+					"type": "reference",
+					"documentation": "The author of the questionnaire",
+					"xpath": "f:Questionnaire/f:author"
+				},
+				{
+					"name": "authored",
+					"type": "date",
+					"documentation": "When the questionnaire was authored",
+					"xpath": "f:Questionnaire/f:authored"
+				},
+				{
+					"name": "encounter",
+					"type": "reference",
+					"documentation": "Encounter during which questionnaire was authored",
+					"xpath": "f:Questionnaire/f:encounter"
+				},
+				{
+					"name": "identifier",
+					"type": "token",
+					"documentation": "An identifier for the questionnaire",
+					"xpath": "f:Questionnaire/f:identifier"
+				},
+				{
+					"name": "name",
+					"type": "token",
+					"documentation": "Name of the questionnaire",
+					"xpath": "f:Questionnaire/f:name"
+				},
+				{
+					"name": "status",
+					"type": "token",
+					"documentation": "The status of the questionnaire",
+					"xpath": "f:Questionnaire/f:status"
+				},
+				{
+					"name": "subject",
+					"type": "reference",
+					"documentation": "The subject of the questionnaire",
+					"xpath": "f:Questionnaire/f:subject"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/Questionnaire"
+}

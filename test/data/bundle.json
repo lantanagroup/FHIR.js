@@ -1,0 +1,42 @@
+{
+  "resourceType" : "Bundle",
+  "title" : "Search result",
+  "updated" : "2012-09-20T12:04:45.6787909+00:00",
+  "id" : "urn:uuid:50ea3e5e-b6a7-4f55-956c-caef491bbc08",
+  "link" : [{
+    "rel" : "self",
+    "href" : "http://ip-0a7a5abe:16287/fhir/person?format=json"
+  }],
+  "category" : [{
+    "term" : "[Tag Term]",
+    "label" : "[Tag Label]",
+    "scheme" : "[Tag Scheme]"
+  }],
+  "totalResults" : 12,
+  "entry" : [{
+    "title" : "Resource of type Person, with id = 1 and version = 1",
+    "link" : [{
+      "rel" : "self",
+      "href" : "http://fhir.furore.com/fhir/person/@1/history/1"
+    }],
+    "id" : "http://fhir.furore.com/fhir/person/@1",
+    "updated" : "2012-05-29T23:45:32+00:00",
+    "published" : "2012-09-20T12:04:47.3012429+00:00",
+    "author" : [{
+      "name" : "Grahame Grieve / HL7 publishing committee"
+    }],
+    "category" : [{
+      "term" : "[Tag Uri]",
+      "label" : "[Tag Label]",
+      "scheme" : "[Tag Type]"
+    }],
+    "content" : {
+      "resourceType" : "Patient",
+      "identifier": [{
+        "value": "test"
+      }]
+    },
+    "summary" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">(text summary)</div>"
+  }],
+  "signature" : "<signature xmlns=\"http://www.w3.org/2000/09/xmldsig\">...</signature>"
+}

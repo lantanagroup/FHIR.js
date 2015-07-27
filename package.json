@@ -1,0 +1,24 @@
+{
+  "name": "FHIR.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fhir.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "q": "^1.4.1",
+    "xml2js": "^0.4.9",
+    "xmlbuilder": "^2.6.4"
+  },
+  "devDependencies": {
+    "xmldom": "^0.1.19",
+    "xpath": "0.0.9"
+  },
+  "scripts": {
+    "test": "mocha test/*.js",
+    "prepublish": "./node_modules/.bin/uglifyjs -o myfile.min.js myfile.js"
+  },
+  "author": "Sean McIlvenna",
+  "license": "ISC"
+}

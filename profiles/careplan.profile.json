@@ -1,0 +1,1245 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan\"><b>CarePlan</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"This records identifiers associated with this care plan that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">External Ids for this plan</span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n &lt;<a title=\"Identifies the patient/subject whose intended care is described by the plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.patient\"><b>patient</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>)</span> <span style=\"color: navy\">Who care plan is for</span><span style=\"color: Gray\"> --&gt;</span>&lt;/patient&gt;\r\n &lt;<a title=\"Indicates whether the plan is currently being acted upon, represents future intentions or is now just historical record (this element modifies the meaning of other elements)\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.status\"><span style=\"text-decoration: underline\"><b>status</b></span></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"care-plan-status.html\">planned | active | completed</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Indicates when the plan did (or is intended to) come into effect and end.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.period\"><b>period</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Period\">Period</a></span> <span style=\"color: navy\">Time period plan covers</span><span style=\"color: Gray\"> --&gt;</span>&lt;/period&gt;\r\n &lt;<a title=\"Identifies the most recent date on which the plan has been revised.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.modified\"><b>modified</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#dateTime\">dateTime</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">When last updated</span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation are handled by this plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.concern\"><b>concern</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"condition.html#Condition\">Condition</a>)</span> <span style=\"color: navy\">Health issues this plan addresses</span><span style=\"color: Gray\"> --&gt;</span>&lt;/concern&gt;\r\n &lt;<a title=\"Identifies all people and organizations who are expected to be involved in the care envisioned by this plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.participant\"><b>participant</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> Who's involved in plan? --&gt;</span>\r\n  &lt;<a title=\"Indicates specific responsibility of an individual within the care plan.  E.g. &quot;Primary physician&quot;, &quot;Team coordinator&quot;, &quot;Caregiver&quot;, etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.participant.role\"><b>role</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\">Type of involvement</span><span style=\"color: Gray\"> --&gt;</span>&lt;/role&gt;\r\n  &lt;<a title=\"The specific person or organization who is participating/expected to participate in the care plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.participant.member\"><b>member</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"relatedperson.html#RelatedPerson\">RelatedPerson</a>|<a href=\"patient.html#Patient\">Patient</a>|<a href=\"organization.html#Organization\">Organization</a>)</span> <span style=\"color: navy\">Who is involved</span><span style=\"color: Gray\"> --&gt;</span>&lt;/member&gt;\r\n &lt;/participant&gt;\r\n &lt;<a title=\"Describes the intended objective(s) of carrying out the Care Plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.goal\"><b>goal</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> Desired outcome of plan --&gt;</span>\r\n  &lt;<a title=\"Human-readable description of a specific desired objective of the care plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.goal.description\"><b>description</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\">What's the desired outcome?</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Indicates whether the goal has been reached and is still considered relevant.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.goal.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"care-plan-goal-status.html\">in progress | achieved | sustaining | cancelled</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Any comments related to the goal.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.goal.notes\"><b>notes</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Comments about the goal</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"The identified conditions that this goal relates to - the condition that caused it to be created, or that it is intended to address.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.goal.concern\"><b>concern</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"condition.html#Condition\">Condition</a>)</span> <span style=\"color: navy\">Health issues this goal addresses</span><span style=\"color: Gray\"> --&gt;</span>&lt;/concern&gt;\r\n &lt;/goal&gt;\r\n &lt;<a title=\"Identifies a planned action to occur as part of the plan.  For example, a medication to be used, lab tests to perform, self-monitoring, education, etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity\"><b>activity</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> Action to occur as part of plan --&gt;</span>\r\n  &lt;<a title=\"Internal reference that identifies the goals that this activity is intended to contribute towards meeting.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.goal\"><b>goal</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"references.html#idref\">idref</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: navy\">Goals this activity relates to</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Identifies what progress is being made for the specific activity.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"care-plan-activity-status.html\">not started | scheduled | in progress | on hold | completed | cancelled</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"If true, indicates that the described activity is one that must NOT be engaged in when following the plan (this element modifies the meaning of other elements)\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.prohibited\"><span style=\"text-decoration: underline\"><b>prohibited</b></span></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#boolean\">boolean</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\">Do NOT do</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Resources that describe follow-on actions resulting from the plan, such as drug prescriptions, encounter records, appointments, etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.actionResulting\"><b>actionResulting</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"resourcelist.html\">Any</a>)</span> <span style=\"color: navy\">Appointments, orders, etc.</span><span style=\"color: Gray\"> --&gt;</span>&lt;/actionResulting&gt;\r\n  &lt;<a title=\"Notes about the execution of the activity.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.notes\"><b>notes</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Comments about the activity</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"The details of the proposed activity represented in a specific resource.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.detail\"><b>detail</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-3: Only provide a detail reference, or a simple detail summary\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"procedure.html#Procedure\">Procedure</a>|<a href=\"medicationprescription.html#MedicationPrescription\">MedicationPrescription</a>|<a href=\"diagnosticorder.html#DiagnosticOrder\">DiagnosticOrder</a>|\r\n    <a href=\"encounter.html#Encounter\">Encounter</a>)</span> <span style=\"color: navy\">Activity details defined in specific resource</span><span style=\"color: Gray\"> --&gt;</span>&lt;/detail&gt;\r\n  &lt;<a title=\"A simple summary of details suitable for a general care plan system (e.g. form driven) that doesn't know about specific resources such as procedure etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple\"><b>simple</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span title=\"Inv-3: Only provide a detail reference, or a simple detail summary\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> Activity details summarised here --&gt;</span>\r\n   &lt;<a title=\"High-level categorization of the type of activity in a care plan.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.category\"><b>category</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"care-plan-activity-category.html\">diet | drug | encounter | observation | procedure | supply | other</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n   &lt;<a title=\"Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.code\"><b>code</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\">Detail type of activity</span><span style=\"color: Gray\"> --&gt;</span>&lt;/code&gt;\r\n   &lt;<a title=\"The period, timing or frequency upon which the described activity is to occur.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.timing_x_\"><b>timing[x]</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Schedule\">Schedule</a>|<a href=\"datatypes.html#Period\">Period</a>|<a href=\"datatypes.html#string\">string</a></span> <span style=\"color: navy\">When activity is to occur</span><span style=\"color: Gray\"> --&gt;</span>&lt;/timing[x]&gt;\r\n   &lt;<a title=\"Identifies the facility where the activity will occur.  E.g. home, hospital, specific clinic, etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.location\"><b>location</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"location.html#Location\">Location</a>)</span> <span style=\"color: navy\">Where it should happen</span><span style=\"color: Gray\"> --&gt;</span>&lt;/location&gt;\r\n   &lt;<a title=\"Identifies who's expected to be involved in the activity.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.performer\"><b>performer</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"organization.html#Organization\">Organization</a>|<a href=\"relatedperson.html#RelatedPerson\">RelatedPerson</a>|<a href=\"patient.html#Patient\">Patient</a>)</span> <span style=\"color: navy\">\r\n       Who's responsible?</span><span style=\"color: Gray\"> --&gt;</span>&lt;/performer&gt;\r\n   &lt;<a title=\"Identifies the food, drug or other product being consumed or supplied in the activity.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.product\"><b>product</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"medication.html#Medication\">Medication</a>|<a href=\"substance.html#Substance\">Substance</a>)</span> <span style=\"color: navy\">What's administered/supplied</span><span style=\"color: Gray\"> --&gt;</span>&lt;/product&gt;\r\n   &lt;<a title=\"Identifies the quantity expected to be consumed in a given day.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.dailyAmount\"><b>dailyAmount</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-1: DailyDose can only be specified if activity category is drug or food\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Quantity\">Quantity</a></span> <span style=\"color: navy\">How much consumed/day?</span><span style=\"color: Gray\"> --&gt;</span>&lt;/dailyAmount&gt;\r\n   &lt;<a title=\"Identifies the quantity expected to be supplied.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.quantity\"><b>quantity</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-2: Quantity can only be specified if activity category is supply\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Quantity\">Quantity</a></span> <span style=\"color: navy\">How much is administered/supplied/consumed</span><span style=\"color: Gray\"> --&gt;</span>&lt;/quantity&gt;\r\n   &lt;<a title=\"This provides a textual description of constraints on the activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.activity.simple.details\"><b>details</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Extra info on activity occurrence</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;/simple&gt;\r\n &lt;/activity&gt;\r\n &lt;<a title=\"General notes about the care plan not covered elsewhere.\" class=\"dict\" href=\"careplan-definitions.html#CarePlan.notes\"><b>notes</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Comments about the plan</span><span style=\"color: Gray\"> --&gt;</span>\r\n&lt;/CarePlan&gt;\r\n</pre></div>"
+	},
+	"name": "careplan",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage Care Plans are used in many of areas of healthcare with a variety of scopes. They can be as simple as a general practitioner keeping track of when their patient is next due for a tetanus immunization through to a detailed plan for an oncology patient covering diet, chemotherapy, radiation, lab work and counseling with detailed timing relationships, pre-conditions and goals. \r\n\r\nThis resource takes an intermediate approach. It captures basic details about who is involved and what actions are intended without dealing in discrete data about dependencies and timing relationships. These can be supported where necessary using the extension mechanisms. \r\n\r\nComments are welcome about the appropriateness of the proposed level of granularity, whether it's too much detail for what most systems need, or not sufficient for common essential use cases.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		},
+		{
+			"identity": "v2",
+			"uri": "http://hl7.org/v2",
+			"name": "HL7 v2"
+		}
+	],
+	"structure": [
+		{
+			"type": "CarePlan",
+			"publish": true,
+			"element": [
+				{
+					"path": "CarePlan",
+					"definition": {
+						"short": "Healthcare plan for patient",
+						"formal": "Describes the intention of how one or more practitioners intend to deliver care for a particular patient for a period of time, possibly limited to care for a specific condition or set of conditions.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Act[classCode=PCPR, moodCode=INT]"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.identifier",
+					"definition": {
+						"short": "External Ids for this plan",
+						"formal": "This records identifiers associated with this care plan that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.patient",
+					"definition": {
+						"short": "Who care plan is for",
+						"formal": "Identifies the patient/subject whose intended care is described by the plan.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PAT].role[classCode=PAT]"
+							},
+							{
+								"identity": "v2",
+								"map": "PID-3-patient ID list"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.status",
+					"definition": {
+						"short": "planned | active | completed",
+						"formal": "Indicates whether the plan is currently being acted upon, represents future intentions or is now just historical record.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": true,
+						"binding": {
+							"name": "CarePlanStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/care-plan-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nplanned = new\nactive = active\ncompleted = completed"
+							},
+							{
+								"identity": "v2",
+								"map": "PTH-5-pathway life cycle status"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.period",
+					"definition": {
+						"short": "Time period plan covers",
+						"formal": "Indicates when the plan did (or is intended to) come into effect and end.",
+						"comments": "Any activities scheduled as part of the plan should be constrained to the specified period.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Period"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime"
+							},
+							{
+								"identity": "v2",
+								"map": "GOL-7-goal established date/time / GOL-8-expected goal achieve date/time"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.modified",
+					"definition": {
+						"short": "When last updated",
+						"formal": "Identifies the most recent date on which the plan has been revised.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "dateTime"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=AUT].time"
+							},
+							{
+								"identity": "v2",
+								"map": "PTH-6-change pathway life cycle status date/time"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.concern",
+					"definition": {
+						"short": "Health issues this plan addresses",
+						"formal": "Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation are handled by this plan.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Condition"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".actRelationship[typeCode=SUBJ].target[classCode=CONC, moodCode=EVN]"
+							},
+							{
+								"identity": "v2",
+								"map": "PRB-4-Problem instance ID"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.participant",
+					"definition": {
+						"short": "Who's involved in plan?",
+						"formal": "Identifies all people and organizations who are expected to be involved in the care envisioned by this plan.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PFM]"
+							},
+							{
+								"identity": "v2",
+								"map": "REL (REL.4 is always the Patient) ( or PRT?)"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.participant.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.participant.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.participant.role",
+					"definition": {
+						"short": "Type of involvement",
+						"formal": "Indicates specific responsibility of an individual within the care plan.  E.g. \"Primary physician\", \"Team coordinator\", \"Caregiver\", etc.",
+						"comments": "Roles may sometimes be inferred by type of Practitioner.  These are relationships that hold only within the context of the care plan.  General relationships should be handled as properties of the Patient resource directly.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "CarePlanParticipantRole",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"description": "Indicates specific responsibility of an individual within the care plan.  E.g. \"Primary physician\", \"Team coordinator\", \"Caregiver\", etc."
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".functionCode"
+							},
+							{
+								"identity": "v2",
+								"map": "REL.2 (or PRT-4-participation?)"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.participant.member",
+					"definition": {
+						"short": "Who is involved",
+						"formal": "The specific person or organization who is participating/expected to participate in the care plan.",
+						"comments": "Patient only needs to be listed if they have a role other than \"subject of care\".",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/RelatedPerson"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Organization"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".role"
+							},
+							{
+								"identity": "v2",
+								"map": "REL.5 (or PRT-5-participation person : ( PRV-4 e {provider participations} ) / PRT-5-participation person : ( PRV-4 e {non-provider person participations} ) / PRT-5-participation person : ( PRV-4 = (patient non-subject of care) ) / PRT-8-participation organization?)"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.goal",
+					"definition": {
+						"short": "Desired outcome of plan",
+						"formal": "Describes the intended objective(s) of carrying out the Care Plan.",
+						"comments": "Goal can be achieving a particular change or merely maintaining a current state or even slowing a decline.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode<=OBJ]."
+							},
+							{
+								"identity": "v2",
+								"map": "GOL.1"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.goal.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.goal.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.goal.description",
+					"definition": {
+						"short": "What's the desired outcome?",
+						"formal": "Human-readable description of a specific desired objective of the care plan.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".text"
+							},
+							{
+								"identity": "v2",
+								"map": "GOL-3.2-goal ID.text"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.goal.status",
+					"definition": {
+						"short": "in progress | achieved | sustaining | cancelled",
+						"formal": "Indicates whether the goal has been reached and is still considered relevant.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "CarePlanGoalStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/care-plan-goal-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nin progress = active (classCode = OBJ)\nachieved = complete\nsustaining = active (classCode=OBJC)\ncancelled = aborted"
+							},
+							{
+								"identity": "v2",
+								"map": "GOL-18-goal life cycle status"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.goal.notes",
+					"definition": {
+						"short": "Comments about the goal",
+						"formal": "Any comments related to the goal.",
+						"comments": "May be used for progress notes, concerns or other related information that doesn't actually describe the goal itself.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value"
+							},
+							{
+								"identity": "v2",
+								"map": "GOL-16-goal evaluation + NTE?"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.goal.concern",
+					"definition": {
+						"short": "Health issues this goal addresses",
+						"formal": "The identified conditions that this goal relates to - the condition that caused it to be created, or that it is intended to address.",
+						"comments": "The concerns do not also need to be listed under CarePlan.concern, but may be.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Condition"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=SUBJ].target[classCode=CONC]"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity",
+					"definition": {
+						"short": "Action to occur as part of plan",
+						"formal": "Identifies a planned action to occur as part of the plan.  For example, a medication to be used, lab tests to perform, self-monitoring, education, etc.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.activity.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.activity.goal",
+					"definition": {
+						"short": "Goals this activity relates to",
+						"formal": "Internal reference that identifies the goals that this activity is intended to contribute towards meeting.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "idref"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode<=OBJ]."
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.status",
+					"definition": {
+						"short": "not started | scheduled | in progress | on hold | completed | cancelled",
+						"formal": "Identifies what progress is being made for the specific activity.",
+						"comments": "Some aspects of Status can be inferred based on the resources linked in actionTaken.  Note that \"status\" is only as current as the plan was most recently updated.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "CarePlanActivityStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/care-plan-activity-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nnot started = new\nscheduled = not started (and fulfillment relationship to appointent)\nin progress = active\non hold = suspended\ncompleted = completed\ncancelled = aborted"
+							},
+							{
+								"identity": "v2",
+								"map": "ORC-5-order status?"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.prohibited",
+					"definition": {
+						"short": "Do NOT do",
+						"formal": "If true, indicates that the described activity is one that must NOT be engaged in when following the plan.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "boolean"
+							}
+						],
+						"isModifier": true,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "actionNegationInd"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.actionResulting",
+					"definition": {
+						"short": "Appointments, orders, etc.",
+						"formal": "Resources that describe follow-on actions resulting from the plan, such as drug prescriptions, encounter records, appointments, etc.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Any"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=FLFS].source"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.notes",
+					"definition": {
+						"short": "Comments about the activity",
+						"formal": "Notes about the execution of the activity.",
+						"comments": "Doesn't describe the activity - that goes in details.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value"
+							},
+							{
+								"identity": "v2",
+								"map": "NTE?"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.detail",
+					"definition": {
+						"short": "Activity details defined in specific resource",
+						"formal": "The details of the proposed activity represented in a specific resource.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Procedure"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/MedicationPrescription"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/DiagnosticOrder"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Encounter"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple",
+					"definition": {
+						"short": "Activity details summarised here",
+						"formal": "A simple summary of details suitable for a general care plan system (e.g. form driven) that doesn't know about specific resources such as procedure etc.",
+						"min": 0,
+						"max": "1",
+						"constraint": [
+							{
+								"key": "3",
+								"name": "details by reference, or simple details",
+								"severity": "error",
+								"human": "Only provide a detail reference, or a simple detail summary",
+								"xpath": "not(exists(f:detail)) or not(exists(f:simple))"
+							},
+							{
+								"key": "2",
+								"name": "quantity for supply",
+								"severity": "error",
+								"human": "Quantity can only be specified if activity category is supply",
+								"xpath": "(f:category/@value=('supply')) = exists(f:quantity)"
+							},
+							{
+								"key": "1",
+								"name": "dose for food or drug",
+								"severity": "error",
+								"human": "DailyDose can only be specified if activity category is drug or food",
+								"xpath": "(f:category/@value=('drug','diet')) = exists(f:dailyAmount)"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP, subsetCode=SUMM].target"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.category",
+					"definition": {
+						"short": "diet | drug | encounter | observation | procedure | supply | other",
+						"formal": "High-level categorization of the type of activity in a care plan.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "CarePlanActivityCategory",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/care-plan-activity-category"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=COMP].source[classCode=LIST].code"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.code",
+					"definition": {
+						"short": "Detail type of activity",
+						"formal": "Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter.",
+						"comments": "Tends to be less relevant for activities involving particular products.  Codes should not convey negation - use \"prohibited\" instead.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "CarePlanActivityType",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"description": "Detailed description of the type of activity.  E.g. What lab test, what procedure, what kind of encounter."
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							},
+							{
+								"identity": "v2",
+								"map": "OBR-4-universal service ID / RXE-2-Give Code / RXO-1-Requested Give Code / RXD-2-Dispense/Give Code"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.timing[x]",
+					"definition": {
+						"short": "When activity is to occur",
+						"formal": "The period, timing or frequency upon which the described activity is to occur.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Schedule"
+							},
+							{
+								"code": "Period"
+							},
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime"
+							},
+							{
+								"identity": "v2",
+								"map": "TQ1"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.location",
+					"definition": {
+						"short": "Where it should happen",
+						"formal": "Identifies the facility where the activity will occur.  E.g. home, hospital, specific clinic, etc.",
+						"comments": "May reference a specific clinical location or may just identify a type of location.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Location"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=LOC].role"
+							},
+							{
+								"identity": "v2",
+								"map": "OBR-24-diagnostic service section ID (???!!)"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.performer",
+					"definition": {
+						"short": "Who's responsible?",
+						"formal": "Identifies who's expected to be involved in the activity.",
+						"comments": "A performer MAY also be a participant in the care plan.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Organization"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/RelatedPerson"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PFM]"
+							},
+							{
+								"identity": "v2",
+								"map": "PRT-5-participation person : ( PRV-4 e {provider participations} ) / PRT-5-participation person : ( PRV-4 e {non-provider person participations} ) / PRT-5-participation person : ( PRV-4 = (patient non-subject of care) ) / PRT-8-participation organization"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.product",
+					"definition": {
+						"short": "What's administered/supplied",
+						"formal": "Identifies the food, drug or other product being consumed or supplied in the activity.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Medication"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Substance"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PRD].role"
+							},
+							{
+								"identity": "v2",
+								"map": "RXE-2-Give Code / RXO-1-Requested Give Code / RXD-2-Dispense/Give Code"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.dailyAmount",
+					"definition": {
+						"short": "How much consumed/day?",
+						"formal": "Identifies the quantity expected to be consumed in a given day.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Quantity"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP][classCode=SBADM].doseQuantity"
+							},
+							{
+								"identity": "v2",
+								"map": "RXO-23-total daily dose / RXE-19-total daily dose / RXD-12-total daily dose"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.quantity",
+					"definition": {
+						"short": "How much is administered/supplied/consumed",
+						"formal": "Identifies the quantity expected to be supplied.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Quantity"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP][classCode=SPLY].quantity"
+							},
+							{
+								"identity": "v2",
+								"map": "RXO-11-requested dispense amount / RXE-10-dispense amount / RXD-4-actual dispense amount / RXG-5-give amount-minumum / RXA-6-administered amount /  TQ1-2.1-quantity.quantity  *and*  RXO-12-requested dispense units /  RXE-11-dispense units / RXD-5-actual dispense units / RXG-7-give units / RXA-7-administered units / TQ1-2.2-quantity.units"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.activity.simple.details",
+					"definition": {
+						"short": "Extra info on activity occurrence",
+						"formal": "This provides a textual description of constraints on the activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".text"
+							},
+							{
+								"identity": "v2",
+								"map": "NTE?"
+							}
+						]
+					}
+				},
+				{
+					"path": "CarePlan.notes",
+					"definition": {
+						"short": "Comments about the plan",
+						"formal": "General notes about the care plan not covered elsewhere.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=SUBJ].source[classCode=OBS, moodCode=EVN, code=\"annotation\"].value"
+							},
+							{
+								"identity": "v2",
+								"map": "NTE?"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "activitycode",
+					"type": "token",
+					"documentation": "Detail type of activity",
+					"xpath": "f:CarePlan/f:activity/f:simple/f:code"
+				},
+				{
+					"name": "activitydate",
+					"type": "date",
+					"documentation": "Specified date occurs within period specified by CarePlan.activity.timingSchedule",
+					"xpath": "f:CarePlan/f:activity/f:simple/f:timing[x]"
+				},
+				{
+					"name": "activitydetail",
+					"type": "reference",
+					"documentation": "Activity details defined in specific resource",
+					"xpath": "f:CarePlan/f:activity/f:detail"
+				},
+				{
+					"name": "condition",
+					"type": "reference",
+					"documentation": "Health issues this plan addresses",
+					"xpath": "f:CarePlan/f:concern"
+				},
+				{
+					"name": "date",
+					"type": "date",
+					"documentation": "Time period plan covers",
+					"xpath": "f:CarePlan/f:period"
+				},
+				{
+					"name": "participant",
+					"type": "reference",
+					"documentation": "Who is involved",
+					"xpath": "f:CarePlan/f:participant/f:member"
+				},
+				{
+					"name": "patient",
+					"type": "reference",
+					"documentation": "Who care plan is for",
+					"xpath": "f:CarePlan/f:patient"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/CarePlan"
+}

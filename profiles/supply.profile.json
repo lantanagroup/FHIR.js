@@ -1,0 +1,631 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A supply - a  request for something, and provision of what is supplied.\" class=\"dict\" href=\"supply-definitions.html#Supply\"><b>Supply</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process.\" class=\"dict\" href=\"supply-definitions.html#Supply.kind\"><b>kind</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-supply-type.html\">The kind of supply (central, non-stock, etc)</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/kind&gt;\r\n &lt;<a title=\"Unique identifier for this supply request.\" class=\"dict\" href=\"supply-definitions.html#Supply.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">Unique identifier</span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n &lt;<a title=\"Status of the supply request.\" class=\"dict\" href=\"supply-definitions.html#Supply.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-supply-status.html\">requested | dispensed | received | failed | cancelled</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The item that is requested to be supplied.\" class=\"dict\" href=\"supply-definitions.html#Supply.orderedItem\"><b>orderedItem</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"medication.html#Medication\">Medication</a>|<a href=\"substance.html#Substance\">Substance</a>|<a href=\"device.html#Device\">Device</a>)</span> <span style=\"color: navy\">\r\n     Medication, Substance, or Device requested to be supplied</span><span style=\"color: Gray\"> --&gt;</span>&lt;/orderedItem&gt;\r\n &lt;<a title=\"A link to a resource representing the person whom the ordered item is for.\" class=\"dict\" href=\"supply-definitions.html#Supply.patient\"><b>patient</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>)</span> <span style=\"color: navy\">Patient for whom the item is supplied</span><span style=\"color: Gray\"> --&gt;</span>&lt;/patient&gt;\r\n &lt;<a title=\"Indicates the details of the dispense event such as the days supply and quantity of a supply dispensed.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense\"><b>dispense</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> Supply details --&gt;</span>\r\n  &lt;<a title=\"Identifier assigned by the dispensing facility when the dispense occurs.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">External identifier</span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n  &lt;<a title=\"A code specifying the state of the dispense event (this element modifies the meaning of other elements)\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.status\"><span style=\"text-decoration: underline\"><b>status</b></span></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-supply-dispense-status.html\">in progress | dispensed | abandoned</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.type\"><b>type</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-supply-item.html\">Category of dispense event</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/type&gt;\r\n  &lt;<a title=\"The amount of supply that has been dispensed. Includes unit of measure.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.quantity\"><b>quantity</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Quantity\">Quantity</a></span> <span style=\"color: navy\">Amount dispensed</span><span style=\"color: Gray\"> --&gt;</span>&lt;/quantity&gt;\r\n  &lt;<a title=\"Identifies the medication or substance being dispensed. This is either a link to a resource representing the details of the medication or substance or a simple attribute carrying a code that identifies the medication from a known list of medications.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.suppliedItem\"><b>suppliedItem</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"medication.html#Medication\">Medication</a>|<a href=\"substance.html#Substance\">Substance</a>|<a href=\"device.html#Device\">Device</a>)</span> <span style=\"color: navy\">\r\n      Medication, Substance, or Device supplied</span><span style=\"color: Gray\"> --&gt;</span>&lt;/suppliedItem&gt;\r\n  &lt;<a title=\"The individual responsible for dispensing the medication.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.supplier\"><b>supplier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>)</span> <span style=\"color: navy\">Dispenser</span><span style=\"color: Gray\"> --&gt;</span>&lt;/supplier&gt;\r\n  &lt;<a title=\"The time the dispense event occurred.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.whenPrepared\"><b>whenPrepared</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Period\">Period</a></span> <span style=\"color: navy\">Dispensing time</span><span style=\"color: Gray\"> --&gt;</span>&lt;/whenPrepared&gt;\r\n  &lt;<a title=\"The time the dispensed item was sent or handed to the patient (or agent).\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.whenHandedOver\"><b>whenHandedOver</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Period\">Period</a></span> <span style=\"color: navy\">Handover time</span><span style=\"color: Gray\"> --&gt;</span>&lt;/whenHandedOver&gt;\r\n  &lt;<a title=\"Identification of the facility/location where the Supply was shipped to, as part of the dispense event.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.destination\"><b>destination</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"location.html#Location\">Location</a>)</span> <span style=\"color: navy\">Where the Supply was sent</span><span style=\"color: Gray\"> --&gt;</span>&lt;/destination&gt;\r\n  &lt;<a title=\"Identifies the person who picked up the Supply.\" class=\"dict\" href=\"supply-definitions.html#Supply.dispense.receiver\"><b>receiver</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>)</span> <span style=\"color: navy\">Who collected the Supply</span><span style=\"color: Gray\"> --&gt;</span>&lt;/receiver&gt;\r\n &lt;/dispense&gt;\r\n&lt;/Supply&gt;\r\n</pre></div>"
+	},
+	"name": "supply",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A supply - a  request for something, and provision of what is supplied.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage The scope of the supply resource is for supplies used in the healthcare process. This includes supplies specifically used in the treatment of patients as well as supply movement within an institution (transport a set of supplies from materials management to a service unit (nurse station). This resource does not include the provisioning of transportation services.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		}
+	],
+	"structure": [
+		{
+			"type": "Supply",
+			"publish": true,
+			"element": [
+				{
+					"path": "Supply",
+					"definition": {
+						"short": "A supply -  request and provision",
+						"formal": "A supply - a  request for something, and provision of what is supplied.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Supply[moodCode=RQO]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.kind",
+					"definition": {
+						"short": "The kind of supply (central, non-stock, etc)",
+						"formal": "Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "SupplyType",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/supply-type"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.identifier",
+					"definition": {
+						"short": "Unique identifier",
+						"formal": "Unique identifier for this supply request.",
+						"comments": "This is assigned by the orderer, and used to refer to this order in other external standards.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.status",
+					"definition": {
+						"short": "requested | dispensed | received | failed | cancelled",
+						"formal": "Status of the supply request.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "SupplyStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/valueset-supply-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode, also existence of fulfillment events"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.orderedItem",
+					"definition": {
+						"short": "Medication, Substance, or Device requested to be supplied",
+						"formal": "The item that is requested to be supplied.",
+						"comments": "Note that there's a difference between a prescription - an instruction to take a medication, along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit instructions.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Medication"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Substance"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Device"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PRD].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.patient",
+					"definition": {
+						"short": "Patient for whom the item is supplied",
+						"formal": "A link to a resource representing the person whom the ordered item is for.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SBJ].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense",
+					"definition": {
+						"short": "Supply details",
+						"formal": "Indicates the details of the dispense event such as the days supply and quantity of a supply dispensed.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=FLFS].source[classCode=SPLY, moodCode=EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.dispense.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Supply.dispense.identifier",
+					"definition": {
+						"short": "External identifier",
+						"formal": "Identifier assigned by the dispensing facility when the dispense occurs.",
+						"comments": "This is assigned by the dispenser, and used to refer to this order in other external standards.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.status",
+					"definition": {
+						"short": "in progress | dispensed | abandoned",
+						"formal": "A code specifying the state of the dispense event.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": true,
+						"binding": {
+							"name": "SupplyDispenseStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/valueset-supply-dispense-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode, also existence of fulfillment events"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.type",
+					"definition": {
+						"short": "Category of dispense event",
+						"formal": "Indicates the type of dispensing event that is performed. Examples include: Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "SupplyItemType",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/supply-item"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.quantity",
+					"definition": {
+						"short": "Amount dispensed",
+						"formal": "The amount of supply that has been dispensed. Includes unit of measure.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Quantity"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".quantity"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.suppliedItem",
+					"definition": {
+						"short": "Medication, Substance, or Device supplied",
+						"formal": "Identifies the medication or substance being dispensed. This is either a link to a resource representing the details of the medication or substance or a simple attribute carrying a code that identifies the medication from a known list of medications.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Medication"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Substance"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Device"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PRD].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.supplier",
+					"definition": {
+						"short": "Dispenser",
+						"formal": "The individual responsible for dispensing the medication.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=PFM].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.whenPrepared",
+					"definition": {
+						"short": "Dispensing time",
+						"formal": "The time the dispense event occurred.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Period"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime.low"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.whenHandedOver",
+					"definition": {
+						"short": "Handover time",
+						"formal": "The time the dispensed item was sent or handed to the patient (or agent).",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Period"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime.high"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.destination",
+					"definition": {
+						"short": "Where the Supply was sent",
+						"formal": "Identification of the facility/location where the Supply was shipped to, as part of the dispense event.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Location"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=DST].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "Supply.dispense.receiver",
+					"definition": {
+						"short": "Who collected the Supply",
+						"formal": "Identifies the person who picked up the Supply.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=RCV].role"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "dispenseid",
+					"type": "token",
+					"documentation": "External identifier",
+					"xpath": "f:Supply/f:dispense/f:identifier"
+				},
+				{
+					"name": "dispensestatus",
+					"type": "token",
+					"documentation": "in progress | dispensed | abandoned",
+					"xpath": "f:Supply/f:dispense/f:status"
+				},
+				{
+					"name": "identifier",
+					"type": "token",
+					"documentation": "Unique identifier",
+					"xpath": "f:Supply/f:identifier"
+				},
+				{
+					"name": "kind",
+					"type": "token",
+					"documentation": "The kind of supply (central, non-stock, etc)",
+					"xpath": "f:Supply/f:kind"
+				},
+				{
+					"name": "patient",
+					"type": "reference",
+					"documentation": "Patient for whom the item is supplied",
+					"xpath": "f:Supply/f:patient"
+				},
+				{
+					"name": "status",
+					"type": "token",
+					"documentation": "requested | dispensed | received | failed | cancelled",
+					"xpath": "f:Supply/f:status"
+				},
+				{
+					"name": "supplier",
+					"type": "reference",
+					"documentation": "Dispenser",
+					"xpath": "f:Supply/f:dispense/f:supplier"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/Supply"
+}
