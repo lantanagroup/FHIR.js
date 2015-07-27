@@ -43,8 +43,18 @@ var Fhir = function(version) {
     };
 
     self.XmlToJson = function(xmlString) {
-        var obj = self.XmlToObject(xmlString);
-        return JSON.stringify(obj);
+        var deferred = Q.defer();
+
+        self.XmlToObject(xmlString)
+            .then(function(obj) {
+                var json = JSON.stringify(obj);
+                deferred.resolve(json);
+            })
+            .catch(function(err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
     };
 
     self.XmlToObject = function(xmlString) {

@@ -43,8 +43,13 @@ Converts FHIR XML to JSON. Wrapper for XmlToObject that parses JSON into an obje
 ```
 var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
 var fhir = new FHIR(FHIR.DSTU1);
-var myPatientJson = fhir.XmlToJson(myPatientXml);
-var myPatient = JSON.parse(myPatientJson);
+fhir.XmlToJson(myPatientXml)
+    .then(function(myPatientJson) {
+        // Do something with myPatientJson
+    })
+    .catch(function(err) {
+        // Do something with err
+    });
 ```
 ## XmlToObject
 Converts FHIR XML to JS object
@@ -52,7 +57,13 @@ Converts FHIR XML to JS object
 ```
 var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
 var fhir = new FHIR(FHIR.DSTU1);
-var myPatient = fhir.XmlToObject(myPatientXml);
+fhir.XmlToObject(myPatientXml)
+    .then(function(myPatient) {
+        // Do something with myPatient
+    })
+    .catch(function(err) {
+        // Do something with err
+    });
 ```
 
 # Implementation Notes
