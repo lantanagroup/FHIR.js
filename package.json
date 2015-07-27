@@ -1,7 +1,7 @@
 {
   "name": "fhir",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries",
   "bugs": {
     "url" : "https://github.com/lantanagroup/FHIR.js/issues",
     "email" : "sean.mcilvenna@lantanagroup.com"
