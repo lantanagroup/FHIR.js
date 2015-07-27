@@ -16,13 +16,14 @@ npm install fhir
 Indicate which version of FHIR the module should work with. Only DSTU1 is currently supported. If no version is specified, defaults to DSTU1.
 
 ```
-var FHIR = require('FHIR.js');
+var FHIR = require('fhir');
 var fhir = new FHIR(FHIR.DSTU1);
 ```
 ## ObjectToXml
 Converts a JS object to FHIR XML.
 
 ```
+var FHIR = require('fhir');
 var myPatient = {
   resourceType: 'Patient',
   ...
@@ -34,6 +35,7 @@ var xml = fhir.ObjectToXml(myPatient);
 Converts JSON to FHIR XML.
 
 ```
+var FHIR = require('fhir');
 var myPatient = {
   resourceType: 'Patient',
   ...
@@ -46,6 +48,7 @@ var xml = fhir.JsonToXml(myPatientJson);
 Converts FHIR XML to JSON. Wrapper for XmlToObject that parses JSON into an object and returns the object
 
 ```
+var FHIR = require('fhir');
 var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
 var fhir = new FHIR(FHIR.DSTU1);
 fhir.XmlToJson(myPatientXml)
@@ -60,6 +63,7 @@ fhir.XmlToJson(myPatientXml)
 Converts FHIR XML to JS object
 
 ```
+var FHIR = require('fhir');
 var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
 var fhir = new FHIR(FHIR.DSTU1);
 fhir.XmlToObject(myPatientXml)
