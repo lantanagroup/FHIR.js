@@ -9,8 +9,14 @@ module.exports = function(profiles) {
             return;
         }
 
+        var value = obj;
+
+        if (typeof value == 'string') {
+            value = value.replace(/&/g, '&amp;');
+        }
+
         var primitiveNode = node.ele(name);
-        primitiveNode.att('value', obj);
+        primitiveNode.att('value', value);
     };
 
     var buildPrimitiveProperty = function(node, obj, name) {
@@ -45,7 +51,7 @@ module.exports = function(profiles) {
     };
 
     var buildExtensionProperty = function(node, obj) {
-        if (!obj || !obj.extension) {
+        if (!obj || !obj.extension || obj.extension.length == 0) {
             return;
         }
 
@@ -144,10 +150,16 @@ module.exports = function(profiles) {
 
         buildPrimitiveProperty(newNode, obj, 'status');
 
-        if (obj.div) {
+        var divValue = obj.div;
+
+        if (divValue) {
+            if (typeof divValue == 'string') {
+                divValue = divValue.replace(/&/g, '&amp;');
+            }
+
             var childDiv = newNode.ele('div');
             childDiv.att('xmlns', 'http://www.w3.org/1999/xhtml');
-            childDiv.raw(obj.div);
+            childDiv.raw(divValue);
         }
     };
 
@@ -447,6 +459,7 @@ module.exports = function(profiles) {
 
             switch (elementType) {
                 case 'extension':
+                case 'Extension':
                     buildFunction = buildExtension;
                     break;
                 case 'Coding':
@@ -504,7 +517,7 @@ module.exports = function(profiles) {
                     break;
                 default:
                     if (elementType) {
-                        throw 'Type not recognized';
+                        throw 'Type not recognized: ' + elementType;
                     }
             }
 
@@ -530,9 +543,9 @@ module.exports = function(profiles) {
         }
 
         for (var i in obj) {
-            if (i.toString().indexOf('_') == 0) {
+            if (i.toString().indexOf('_') == 0 && obj[i]) {
                 node.att(i.substring(1), obj[i]);
-            } else if (i == "id" && elementPath.indexOf('Bundle') != 0) {
+            } else if (i == "id" && elementPath.indexOf('Bundle') != 0 && obj[i]) {
                 node.att('id', obj[i]);
             }
         }
@@ -601,7 +614,10 @@ module.exports = function(profiles) {
         buildFeedPrimitive(node, obj, 'title');
         buildFeedPrimitive(node, obj, 'updated');
         buildFeedPrimitive(node, obj, 'id');
+
         buildFeedLink(node, obj);
+        buildFeedAuthor(node, obj);
+        buildFeedCategory(node, obj);
 
         if (obj.entry && obj.entry.length > 0) {
             for (var i in obj.entry) {
@@ -612,8 +628,6 @@ module.exports = function(profiles) {
                 buildFeedPrimitive(newEntry, obj.entry[i], 'id');
                 buildFeedPrimitive(newEntry, obj.entry[i], 'updated');
                 buildFeedPrimitive(newEntry, obj.entry[i], 'published');
-                buildFeedAuthor(newEntry, obj.entry[i]);
-                buildFeedCategory(newEntry, obj.entry[i]);
 
                 if (obj.entry[i].content) {
                     var newContent = newEntry.ele('content');
