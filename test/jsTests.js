@@ -209,33 +209,22 @@ describe('XML to JS for FHIR DSTU 1', function() {
                 .then(function (obj) {
                     assert(obj);
 
-                    assert.equal(obj.base, 'http://example.com/base');
-                    assert.equal(obj.id, 'bundle-example');
-                    assert.equal(obj.resourceType, 'Bundle');
-                    assert.equal(obj.type, 'searchset');
-                    assert.equal(obj.total, 3);
+                    assert.equal(obj.title, 'Document Bundle');
+                    assert.equal(obj.updated, '2014-09-09T15:28:48.386Z');
+                    assert.equal(obj.id, 'urn:uuid:da398469-3921-4ab5-9b5e-755d3f88a564');
 
                     // assert entries
                     assert(obj.entry);
-                    assert.equal(obj.entry.length, 2);
-                    assert(obj.entry[0].resource);
-                    assert.equal(obj.entry[0].resource.resourceType, 'MedicationPrescription');
-                    assert(obj.entry[0].resource.medication);
-                    assert(obj.entry[0].resource.patient);
-                    assert(obj.entry[0].search);
-                    assert.equal(obj.entry[0].search.mode, 'match');
-                    assert.equal(obj.entry[0].search.score, 1);
-                    assert.equal(obj.entry[1].resource.resourceType, 'Medication');
-                    assert.equal(obj.entry[1].resource._id, 'example');
-                    assert.equal(obj.entry[1].search.mode, 'include');
+                    assert.equal(obj.entry.length, 11);
+                    assert(obj.entry[0].content);
+                    assert.equal(obj.entry[0].content.resourceType, 'Composition');
+                    assert(obj.entry[0].content.encounter);
+                    assert(obj.entry[0].content.custodian);
+                    assert.equal(obj.entry[0].title, 'Entry 0 for document bundle');
 
                     // assert links
                     assert(obj.link);
                     assert.equal(obj.link.length, 2);
-                    assert.equal(obj.link[0].relation, 'self');
-                    assert.equal(obj.link[0].url, 'https://example.com/base/MedicationPrescription?patient=347&_include=MedicationPrescription.medication');
-                    assert.equal(obj.link[1].relation, 'next');
-                    assert.equal(obj.link[1].url, 'https://example.com/base/MedicationPrescription?patient=347&searchId=ff15fd40-ff71-4b48-b366-09c706bed9d0&page=2');
 
                     done();
                 })

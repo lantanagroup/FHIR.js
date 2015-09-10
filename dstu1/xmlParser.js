@@ -220,12 +220,12 @@ module.exports = function(profiles) {
             return obj;
         }
     };
-    
+
     var parseXmlRatio = function(xmlObj) {
         var obj = {};
 
         populateXmlExtension(obj, xmlObj);
-        
+
         if (xmlObj.numerator && xmlObj.numerator.length > 0) {
             obj.numerator = parseXmlQuantity(xmlObj.numerator[0]);
         }
@@ -516,6 +516,249 @@ module.exports = function(profiles) {
 
         if (!hasOtherProperties && currentJSObj['_value']) {
             currentJSObj = currentJSObj['_value'];
+        }
+
+        return currentJSObj;
+    };
+    
+    var parseFeedLink = function(xmlObj) {
+        if (!xmlObj || !xmlObj['$']) {
+            return;
+        }
+        
+        var feedLink = {};
+
+        if (xmlObj['$'].href) {
+            feedLink.href = xmlObj['$'].href;
+        }
+
+        if (xmlObj['$'].hreflang) {
+            feedLink.hreflang = xmlObj['$'].hreflang;
+        }
+
+        if (xmlObj['$'].length) {
+            try {
+                feedLink.length = parseInt(xmlObj['$'].length);
+            } catch (ex) { }
+        }
+
+        if (xmlObj['$'].rel) {
+            feedLink.rel = xmlObj['$'].rel;
+        }
+
+        if (xmlObj['$'].title) {
+            feedLink.title = xmlObj['$'].title;
+        }
+
+        if (xmlObj['$'].type) {
+            feedLink.type = xmlObj['$'].type;
+        }
+
+        return feedLink;
+    };
+    
+    var parseFeedAuthor = function(xmlObj) {
+        if (!xmlObj) {
+            return;
+        }
+
+        var newAuthor = {};
+
+        if (xmlObj.name && xmlObj.name.length == 1 && typeof xmlObj.name[0] == 'string') {
+            newAuthor.name = xmlObj.name[0];
+        }
+
+        if (xmlObj.uri && xmlObj.uri.length == 1 && typeof xmlObj.uri[0] == 'string') {
+            newAuthor.uri = xmlObj.uri[0];
+        }
+
+        return newAuthor;
+    };
+    
+    var parseFeedCategory = function(xmlObj) {
+        if (!xmlObj) {
+            return;
+        }
+        
+        var newCategory = {};
+
+        if (!xmlObj['$']) {
+            return;
+        }
+
+        if (xmlObj['$'].label) {
+            newCategory.label = xmlObj['$'].label;
+        }
+
+        if (xmlObj['$'].scheme) {
+            newCategory.scheme = xmlObj['$'].scheme;
+        }
+
+        if (xmlObj['$'].term) {
+            newCategory.term = xmlObj['$'].term;
+        }
+        
+        return newCategory;
+    };
+
+    self.PopulateBundle = function(currentJSObj, currentXmlObj) {
+        if (currentXmlObj.title && currentXmlObj.title.length == 1) {
+            currentJSObj.title = currentXmlObj.title[0];
+        }
+
+        if (currentXmlObj.updated && currentXmlObj.updated.length == 1) {
+            currentJSObj.updated = currentXmlObj.updated[0];
+        }
+
+        if (currentXmlObj.id && currentXmlObj.id.length == 1) {
+            currentJSObj.id = currentXmlObj.id[0];
+        }
+
+        // Links
+        if (currentXmlObj.link && currentXmlObj.link.length > 0) {
+            for (var i in currentXmlObj.link) {
+                var currentLink = currentXmlObj.link[i];
+                var newLink = parseFeedLink(currentLink);
+
+                if (!newLink) {
+                    continue;
+                }
+
+                if (!currentJSObj.link) {
+                    currentJSObj.link = [];
+                }
+
+                currentJSObj.link.push(newLink);
+            }
+        }
+
+        // Authors
+        if (currentXmlObj.author && currentXmlObj.author.length > 0) {
+            for (var i in currentXmlObj.author) {
+                var currentAuthor = currentXmlObj.author[i];
+                var newAuthor = parseFeedAuthor(currentAuthor);
+                
+                if (!newAuthor) {
+                    continue;
+                }
+
+                if (!currentJSObj.author) {
+                    currentJSObj.author = [];
+                }
+
+                currentJSObj.author.push(newAuthor);
+            }
+        }
+        
+        // Categories
+        if (currentXmlObj.category && currentXmlObj.category.length > 0) {
+            for (var i in currentXmlObj.category) {
+                var currentCategory = currentXmlObj.category[i];
+                var newCategory = parseFeedCategory(currentCategory);
+                
+                if (!newCategory) {
+                    continue;
+                }
+
+                if (!currentJSObj.category) {
+                    currentJSObj.category = [];
+                }
+
+                currentJSObj.category.push(newCategory);
+            }
+        }
+
+        if (currentXmlObj.entry && currentXmlObj.entry.length > 0) {
+            for (var i in currentXmlObj.entry) {
+                var currentEntry = currentXmlObj.entry[i];
+                var newEntry = {};
+
+                if (currentEntry.title && currentEntry.title.length == 1) {
+                    newEntry.title = currentEntry.title[0];
+                }
+
+                var feedLink = parseFeedLink(currentEntry.link);
+                if (feedLink) {
+                    newEntry.link = feedLink;
+                }
+
+                if (currentEntry.id && currentEntry.id.length == 1) {
+                    newEntry.id = currentEntry.id[0];
+                }
+
+                if (currentEntry.updated && currentEntry.updated.length == 1) {
+                    newEntry.updated = currentEntry.updated[0];
+                }
+
+                if (currentEntry.published && currentEntry.published.length == 1) {
+                    newEntry.published = currentEntry.published[0];
+                }
+
+                // Authors
+                if (currentEntry.author && currentEntry.author.length > 0) {
+                    for (var x in currentEntry.author) {
+                        var currentEntryAuthor = currentEntry.author[x];
+                        var newEntryAuthor = parseFeedAuthor(currentEntryAuthor);
+
+                        if (!newEntryAuthor) {
+                            continue;
+                        }
+
+                        if (!newEntry.author) {
+                            newEntry.author = [];
+                        }
+
+                        newEntry.author.push(newEntryAuthor);
+                    }
+                }
+
+                // Categories
+                if (currentEntry.category && currentEntry.category.length > 0) {
+                    for (var x in currentEntry.category) {
+                        var currentEntryCategory = currentEntry.category[x];
+                        var newEntryCategory = parseFeedCategory(currentEntryCategory);
+
+                        if (!newEntryCategory) {
+                            continue;
+                        }
+
+                        if (!newEntry.category) {
+                            newEntry.category = [];
+                        }
+
+                        newEntry.category.push(newEntryCategory);
+                    }
+                }
+
+                // Content
+                if (currentEntry.content && currentEntry.content.length == 1) {
+                    for (var x in currentEntry.content[0]) {
+                        if (x == '$' || currentEntry.content[0][x].length != 1) {
+                            continue;
+                        }
+
+                        var newEntryContent = {
+                            resourceType: x
+                        };
+
+                        newEntryContent = self.PopulateFromXmlObject(newEntryContent, currentEntry.content[0][x][0], x);
+
+                        if (newEntryContent) {
+                            newEntry.content = newEntryContent;
+                        }
+
+                        break;
+                    }
+                }
+
+                // TODO: Summary
+
+                if (!currentJSObj.entry) {
+                    currentJSObj.entry = [];
+                }
+
+                currentJSObj.entry.push(newEntry);
+            }
         }
 
         return currentJSObj;
