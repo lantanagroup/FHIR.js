@@ -1,0 +1,3480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atom:feed xmlns="http://hl7.org/fhir"
+           xmlns:fhir="http://hl7.org/fhir"
+           xmlns:cda="urn:hl7-org:v3"
+           xmlns:fa="http://www.w3.org/2005/Atom"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xhtml="http://www.w3.org/1999/xhtml"
+           xmlns:sdtc="urn:hl7-org:sdtc"
+           xmlns:atom="http://www.w3.org/2005/Atom">
+    <atom:title>CDA converted to FHIR</atom:title>
+    <atom:id>cid:d9</atom:id>
+    <atom:author>
+        <atom:name>Lantana Consulting Group</atom:name>
+    </atom:author>
+    <atom:category term="http://hl7.org/fhir/tag/document"
+                   scheme="http://hl7.org/fhir/tag"
+                   label="Document"/>
+    <atom:entry>
+        <atom:title>Composition</atom:title>
+        <atom:id>cid:d9e3</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <fhir:Composition>
+                <fhir:extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/CCD"/>
+                </fhir:extension>
+                <fhir:language value="en"/>
+                <fhir:text>
+                    <status value="generated"/>
+                    <xhtml:div>Community Health and Hospitals: Health Summary</xhtml:div>
+                </fhir:text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.99999.1"/>
+                    <value value="TT988"/>
+                </identifier>
+                <date value="2012-09-15T00:00-04:00"/>
+                <type>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="34133-9"/>
+                        <display value="Summarization of Episode Note"/>
+                    </coding>
+                </type>
+                <title value="Community Health and Hospitals: Health Summary"/>
+                <status value="final"/>
+                <confidentiality>
+                    <system value="urn:oid:2.16.840.1.113883.5.25"/>
+                    <code value="N"/>
+                </confidentiality>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <author>
+                    <reference value="cid:d9e220"/>
+                    <display value="Seven, Henry"/>
+                </author>
+                <attester>
+                    <mode value="legal"/>
+                    <time value="2009-02-27T13:00:00+05:00"/>
+                    <party>
+                        <reference value="cid:d9e425"/>
+                    </party>
+                </attester>
+                <attester>
+                    <mode value="professional"/>
+                    <time value="2009-02-27T13:00:00+05:00"/>
+                    <party>
+                        <reference value="cid:d9e469"/>
+                    </party>
+                </attester>
+                <custodian>
+                    <reference value="cid:d9e371"/>
+                    <display value="Community Health and Hospitals"/>
+                </custodian>
+                <event>
+                    <code>
+                        <coding>
+                            <system value="http://hl7.org/fhir/v3/ActClass"/>
+                            <code value="PCPR"/>
+                        </coding>
+                    </code>
+                    <period>
+                        <start value="2012-09-08T00:00-04:00"/>
+                        <end value="2012-09-15T00:00-04:00"/>
+                    </period>
+                </event>
+                <section>
+                    <title value="ADVANCE DIRECTIVES"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="42348-3"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e621"/>
+                        <display value="ADVANCE DIRECTIVES"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="ALLERGIES, ADVERSE REACTIONS, ALERTS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="48765-2"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e806"/>
+                        <display value="ALLERGIES, ADVERSE REACTIONS, ALERTS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="ASSESSMENT"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="51848-0"/>
+                            <display value="ASSESSMENT"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e1423"/>
+                        <display value="ASSESSMENT"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="ENCOUNTERS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="46240-8"/>
+                            <display value="History of encounters"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e1461"/>
+                        <display value="ENCOUNTERS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="FAMILY HISTORY"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="10157-6"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e1627"/>
+                        <display value="FAMILY HISTORY"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="Functional Status"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="47420-5"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e1818"/>
+                        <display value="Functional Status"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="IMMUNIZATIONS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="11369-6"/>
+                            <display value="History of immunizations"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e2298"/>
+                        <display value="IMMUNIZATIONS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="MEDICATIONS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="10160-0"/>
+                            <display value="HISTORY OF MEDICATION USE"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e3130"/>
+                        <display value="MEDICATIONS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="PLAN OF CARE"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="18776-5"/>
+                            <display value="Treatment plan"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e3976"/>
+                        <display value="PLAN OF CARE"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="PROBLEMS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="11450-4"/>
+                            <display value="PROBLEM LIST"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e4114"/>
+                        <display value="PROBLEMS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="PROCEDURES"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="47519-4"/>
+                            <display value="HISTORY OF PROCEDURES"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e4410"/>
+                        <display value="PROCEDURES"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="RESULTS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="30954-2"/>
+                            <display value="RESULTS"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e4807"/>
+                        <display value="RESULTS"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="SOCIAL HISTORY"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="29762-2"/>
+                            <display value="Social History"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e5142"/>
+                        <display value="SOCIAL HISTORY"/>
+                    </content>
+                </section>
+                <section>
+                    <title value="VITAL SIGNS"/>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org"/>
+                            <code value="8716-3"/>
+                            <display value="VITAL SIGNS"/>
+                        </coding>
+                    </code>
+                    <content>
+                        <reference value="cid:d9e5347"/>
+                        <display value="VITAL SIGNS"/>
+                    </content>
+                </section>
+            </fhir:Composition>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e190</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.4.6"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <telecom>
+                    <system value="phone"/>
+                    <value value=" 555-555-5000"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <line value="1001 Village Avenue"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e579</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1393"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="+1-555-555-5000"/>
+                    <use value="home"/>
+                </telecom>
+                <address>
+                    <line value="1001 Village Avenue"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Good Health Clinic</atom:title>
+        <atom:id>cid:d9e2490</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1394"/>
+                </identifier>
+                <name value="Good Health Clinic"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Good Health Clinic</atom:title>
+        <atom:id>cid:d9e2619</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1394"/>
+                </identifier>
+                <name value="Good Health Clinic"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Good Health Clinic</atom:title>
+        <atom:id>cid:d9e2748</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1394"/>
+                </identifier>
+                <name value="Good Health Clinic"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Good Health Clinic</atom:title>
+        <atom:id>cid:d9e2858</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1394"/>
+                </identifier>
+                <name value="Good Health Clinic"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e3292</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1393"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e3575</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1393"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Good Health Insurance</atom:title>
+        <atom:id>cid:d9e3747</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <name value="Good Health Insurance"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="(781)555-1515"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <use value="work"/>
+                    <line value="123 Insurance Road"/>
+                    <city value="Blue Bell"/>
+                    <state value="MA"/>
+                    <zip value="02368"/>
+                    <country value="US"/>
+                </address>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e4527</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.1393"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="555-555-5000"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <line value="1001 Village Avenue"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e4638</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e4745</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <type>
+                    <coding>
+                        <system value="http://hl7.org/fhir/organization-type"/>
+                        <code value="prov"/>
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e371</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.4.6"/>
+                    <value value="99999999"/>
+                </identifier>
+                <name value="Community Health and Hospitals"/>
+                <telecom>
+                    <system value="phone"/>
+                    <value value=" 555-555-1002"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <use value="work"/>
+                    <line value="1002 Healthcare Drive"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Organization Community Health and Hospitals</atom:title>
+        <atom:id>cid:d9e417</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Organization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                </extension>
+                <name value="Community Health and Hospitals"/>
+            </Organization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Person</atom:title>
+        <atom:id>cid:d9e401</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Person</atom:title>
+        <atom:id>cid:d9e405</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Henry Seven</xhtml:div>
+                </text>
+                <name>
+                    <text value="Seven, Henry"/>
+                    <family value="Seven"/>
+                    <given value="Henry"/>
+                </name>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Person</atom:title>
+        <atom:id>cid:d9e142</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Ralph Jones</xhtml:div>
+                </text>
+                <name>
+                    <text value="Jones, Ralph"/>
+                    <family value="Jones"/>
+                    <given value="Ralph"/>
+                </name>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Person</atom:title>
+        <atom:id>cid:d9e353</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Frank Jones</xhtml:div>
+                </text>
+                <name>
+                    <text value="Jones, Frank"/>
+                    <family value="Jones"/>
+                    <given value="Frank"/>
+                </name>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Location</atom:title>
+        <atom:id>cid:d9e157</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Location>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://hl7.org/fhir/profiles/Location"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <address>
+                    <line/>
+                    <city value="Beaverton"/>
+                    <state value="OR"/>
+                    <zip value="97867"/>
+                    <country value="US"/>
+                </address>
+            </Location>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Patient</atom:title>
+        <atom:id>cid:d9e40</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Patient>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-patient"/>
+                </extension>
+                <extension url="http://hl7.org/fhir/Profile/us-core#race">
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                            <code value="2106-3"/>
+                            <display value="White"/>
+                        </coding>
+                    </valueCodeableConcept>
+                </extension>
+                <extension url="http://hl7.org/fhir/Profile/us-core#ethnicity">
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.12.189"/>
+                            <code value="N"/>
+                            <display value="Not Hispanic or Latino"/>
+                        </coding>
+                    </valueCodeableConcept>
+                </extension>
+                <extension url="http://hl7.org/fhir/Profile/us-core#religion">
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.5.1076"/>
+                            <code value="1013"/>
+                            <display value="Christian (non-Catholic, non-specific)"/>
+                        </coding>
+                    </valueCodeableConcept>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Jones, Isabella Isa</xhtml:div>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.99999.2"/>
+                    <value value="998991"/>
+                </identifier>
+                <identifier>
+                    <system value="http://hl7.org/fhir/sid/us-ssn"/>
+                    <value value="http://hl7.org/fhir/sid/us-ssn/111-00-2330"/>
+                </identifier>
+                <name>
+                    <text value="Jones, Isabella Isa"/>
+                    <family value="Jones"/>
+                    <given value="Isabella"/>
+                    <given value="Isa"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="(816)276-6909"/>
+                    <use value="home"/>
+                </telecom>
+                <gender>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.1"/>
+                        <code value="F"/>
+                        <display value="Female"/>
+                    </coding>
+                </gender>
+                <birthDate value="1975-05-01Z"/>
+                <address>
+                    <use value="home"/>
+                    <line value="1357 Amber Drive"/>
+                    <city value="Beaverton"/>
+                    <state value="OR"/>
+                    <zip value="97867"/>
+                    <country value="US"/>
+                </address>
+                <maritalStatus>
+                    <coding>
+                        <system value="http://hl7.org/fhir/v3/MaritalStatus"/>
+                        <code value="M"/>
+                        <display value="Married"/>
+                    </coding>
+                </maritalStatus>
+                <contact>
+                    <relationship>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.5.111"/>
+                            <code value="PRN"/>
+                            <display value="Parent"/>
+                        </coding>
+                        <text value="Parent"/>
+                    </relationship>
+                    <name>
+                        <text value="Jones, Ralph"/>
+                        <family value="Jones"/>
+                        <given value="Ralph"/>
+                    </name>
+                    <telecom>
+                        <system value="phone"/>
+                        <value value="(816)276-6909"/>
+                        <use value="home"/>
+                    </telecom>
+                    <address>
+                        <use value="home"/>
+                        <line value="1357 Amber Drive"/>
+                        <city value="Beaverton"/>
+                        <state value="OR"/>
+                        <zip value="97867"/>
+                        <country value="US"/>
+                    </address>
+                </contact>
+                <communication>
+                    <coding>
+                        <code value="en"/>
+                    </coding>
+                </communication>
+
+
+
+
+                <managingOrganization>
+                    <reference value="cid:d9e190"/>
+                    <display value="Community Health and Hospitals"/>
+                </managingOrganization>
+            </Patient>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Author</atom:title>
+        <atom:id>cid:d9e220</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <extension url="http://hl7.org/fhir/Profile/us-core#authorTime">
+                    <valueDateTime value="2005-03-29T22:44:11+05:00"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Henry Seven</xhtml:div>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.4.6"/>
+                    <value value="99999999"/>
+                </identifier>
+                <name>
+                    <text value="Seven, Henry"/>
+                    <family value="Seven"/>
+                    <given value="Henry"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="555-555-1002"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <line value="1002 Healthcare Drive"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Authenticator: Practitioner</atom:title>
+        <atom:id>cid:d9e425</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.4.6"/>
+                    <value value="999999999"/>
+                </identifier>
+                <name>
+                    <text value="Seven, Henry"/>
+                    <family value="Seven"/>
+                    <given value="Henry"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="555-555-1002"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <line value="1001 Village Avenue"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Authenticator: Practitioner</atom:title>
+        <atom:id>cid:d9e469</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.4.6"/>
+                    <value value="999999999"/>
+                </identifier>
+                <name>
+                    <text value="Seven, Henry"/>
+                    <family value="Seven"/>
+                    <given value="Henry"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="555-555-1002"/>
+                    <use value="work"/>
+                </telecom>
+                <address>
+                    <line value="1001 Village Avenue"/>
+                    <city value="Portland"/>
+                    <state value="OR"/>
+                    <zip value="99123"/>
+                    <country value="US"/>
+                </address>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>ADVANCE DIRECTIVES (section)</atom:title>
+        <atom:id>cid:d9e621</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directives-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directives-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom">
+                            <table xmlns="http://www.w3.org/1999/xhtml" border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Directive</th>
+                                        <th>Description</th>
+                                        <th>Verification</th>
+                                        <th>Supporting Document(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Resuscitation status</td>
+                                        <td>
+                                            <span id="AD1">Do not resuscitate</span>
+                                        </td>
+                                        <td>Dr. Robert Dolin, Feb 13, 2011</td>
+                                        <td>
+                                            Advance directive
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="42348-3"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e687"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Advance Directive Entry</atom:title>
+        <atom:id>cid:entryd9e687</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directive-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="304251008"/>
+                        <display value="Resuscitation"/>
+                    </coding>
+                </name>
+                <appliesPeriod>
+                    <start value="2011-02-13Z"/>
+                </appliesPeriod>
+                <status value="final"/>
+                <reliability value="unknown"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:9b54c3c9-1673-49c7-aef9-b037ed72ed27"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>ALLERGIES, ADVERSE REACTIONS, ALERTS (section)</atom:title>
+        <atom:id>cid:d9e806</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergies-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergies-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="48765-2"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e935"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1096"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1257"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Allergy Problem Act Entry</atom:title>
+        <atom:id>cid:entryd9e935</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:36e3e930-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="48765-2"/>
+                        <display value="Allergies, adverse reactions, alerts"/>
+                    </coding>
+                </code>
+                <date value="2007-05-01Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e952"/>
+                        <display value="ALLERGENIC EXTRACT, PENICILLIN"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Allergy Intolerance Observation Entry</atom:title>
+        <atom:id>cid:entryd9e952</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AllergyIntolerance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <criticality value="high"/>
+                <sensitivityType value="allergy"/>
+                <recordedDate value="2007-05-01Z"/>
+                <status value="resolved"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <substance>
+                    <reference value="cid:subEntryd9e984"/>
+                    <display value="ALLERGENIC EXTRACT, PENICILLIN"/>
+                </substance>
+                <reaction>
+                    <reference value="cid:subEntryd9e1013"/>
+                    <display value="Nausea"/>
+                </reaction>
+            </AllergyIntolerance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Substance Entry</atom:title>
+        <atom:id>cid:subEntryd9e984</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml"><!--In substanceFromCode-->
+            <Substance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>ALLERGENIC EXTRACT, PENICILLIN</xhtml:div>
+                </text>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.88"/>
+                        <code value="314422"/>
+                        <display value="ALLERGENIC EXTRACT, PENICILLIN"/>
+                    </coding>
+                    <text value="Nausea"/>
+                </type>
+            </Substance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Reaction Entry</atom:title>
+        <atom:id>cid:subEntryd9e1013</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AdverseReaction>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a64"/>
+                </identifier>
+                <date value="2007-05-01Z"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <didNotOccurFlag value="false"/>
+                <symptom>
+                    <code>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.6.96"/>
+                            <code value="422587007"/>
+                            <display value="Nausea"/>
+                        </coding>
+                        <text value="Nausea"/>
+                    </code>
+                    <severity value="minor"/>
+                </symptom>
+            </AdverseReaction>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Allergy Problem Act Entry</atom:title>
+        <atom:id>cid:entryd9e1096</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:36e3e930-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="48765-2"/>
+                        <display value="Allergies, adverse reactions, alerts"/>
+                    </coding>
+                </code>
+                <date value="2006-05-01Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1113"/>
+                        <display value="Codeine"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Allergy Intolerance Observation Entry</atom:title>
+        <atom:id>cid:entryd9e1113</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AllergyIntolerance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <criticality value="medium"/>
+                <sensitivityType value="allergy"/>
+                <recordedDate value="2006-05-01Z"/>
+                <status value="confirmed"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <substance>
+                    <reference value="cid:subEntryd9e1145"/>
+                    <display value="Codeine"/>
+                </substance>
+                <reaction>
+                    <reference value="cid:subEntryd9e1174"/>
+                    <display value="Wheezing"/>
+                </reaction>
+            </AllergyIntolerance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Substance Entry</atom:title>
+        <atom:id>cid:subEntryd9e1145</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml"><!--In substanceFromCode-->
+            <Substance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Codeine</xhtml:div>
+                </text>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.88"/>
+                        <code value="2670"/>
+                        <display value="Codeine"/>
+                    </coding>
+                    <text value="Wheezing"/>
+                </type>
+            </Substance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Reaction Entry</atom:title>
+        <atom:id>cid:subEntryd9e1174</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AdverseReaction>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a64"/>
+                </identifier>
+                <date value="2006-05-01Z"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <didNotOccurFlag value="false"/>
+                <symptom>
+                    <code>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.6.96"/>
+                            <code value="56018004"/>
+                            <display value="Wheezing"/>
+                        </coding>
+                        <text value="Wheezing"/>
+                    </code>
+                    <severity value="minor"/>
+                </symptom>
+            </AdverseReaction>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Allergy Problem Act Entry</atom:title>
+        <atom:id>cid:entryd9e1257</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:36e3e930-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="48765-2"/>
+                        <display value="Allergies, adverse reactions, alerts"/>
+                    </coding>
+                </code>
+                <date value="2008-05-01Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1274"/>
+                        <display value="Aspirin"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Allergy Intolerance Observation Entry</atom:title>
+        <atom:id>cid:entryd9e1274</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AllergyIntolerance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <criticality value="medium"/>
+                <sensitivityType value="intolerance"/>
+                <recordedDate value="2008-05-01Z"/>
+                <status value="confirmed"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <substance>
+                    <reference value="cid:subEntryd9e1306"/>
+                    <display value="Aspirin"/>
+                </substance>
+                <reaction>
+                    <reference value="cid:subEntryd9e1335"/>
+                    <display value="Hives"/>
+                </reaction>
+            </AllergyIntolerance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Substance Entry</atom:title>
+        <atom:id>cid:subEntryd9e1306</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml"><!--In substanceFromCode-->
+            <Substance>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div>Aspirin</xhtml:div>
+                </text>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.88"/>
+                        <code value="1191"/>
+                        <display value="Aspirin"/>
+                    </coding>
+                    <text value="Hives"/>
+                </type>
+            </Substance>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Reaction Entry</atom:title>
+        <atom:id>cid:subEntryd9e1335</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <AdverseReaction>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:4adc1020-7b14-11db-9fe1-0800200c9a64"/>
+                </identifier>
+                <date value="2008-05-01Z"/>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <didNotOccurFlag value="false"/>
+                <symptom>
+                    <code>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.6.96"/>
+                            <code value="247472004"/>
+                            <display value="Hives"/>
+                        </coding>
+                        <text value="Hives"/>
+                    </code>
+                    <severity value="moderate"/>
+                </symptom>
+            </AdverseReaction>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>ASSESSMENT (section)</atom:title>
+        <atom:id>cid:d9e1423</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/assessment-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom">
+                            <ol xmlns="http://www.w3.org/1999/xhtml">
+                                <li>Recurrent GI bleed of unknown etiology; hypotension perhaps
+                                    secondary to this but as likely secondary to polypharmacy.</li>
+                                <li>Acute on chronic anemia secondary to #1.</li>
+                                <li>Azotemia, acute renal failure with volume loss secondary to
+                                    #1.</li>
+                                <li>Hyperkalemia secondary to #3 and on ACE and K+ supplement.</li>
+                                <li>Other chronic diagnoses as noted above, currently stable.</li>
+                            </ol>
+                        </xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="51848-0"/>
+                        <display value="ASSESSMENT"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <emptyReason>
+                    <text value="Narrative section"/>
+                </emptyReason>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>ENCOUNTERS (section)</atom:title>
+        <atom:id>cid:d9e1461</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounters-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounters-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="46240-8"/>
+                        <display value="History of encounters"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1523"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Encounter Entry</atom:title>
+        <atom:id>cid:entryd9e1523</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Encounter>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounter-activities"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:2a620155-9d11-439e-92b3-5d9815ff4de8"/>
+                </identifier>
+                <status value="finished"/>
+                <class value="outpatient"/>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.12"/>
+                        <code value="99213"/>
+                        <display value="Office outpatient visit 15 minutes"/>
+                    </coding>
+                    <coding>
+                        <system value="http://hl7.org/fhir/v3/ActCode"/>
+                        <code value="AMB"/>
+                        <display value="Ambulatory"/>
+                    </coding>
+                    <text value="Checkup Examination"/>
+                </type>
+                <participant>
+                    <type>
+                        <coding>
+                            <system value="http://snomed.info/sct"/>
+                            <code value="59058001"/>
+                            <display value="General Physician"/>
+                        </coding>
+                    </type>
+                </participant>
+                <period>
+                    <start value="2009-02-27T13:00:00+05:00"/>
+                </period>
+                <reason>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="233604007"/>
+                        <display value="Pneumonia"/>
+                    </coding>
+                </reason>
+                <location>
+                    <location>
+                        <reference value="cid:d9e1560"/>
+                    </location>
+                    <period/>
+                </location>
+            </Encounter>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Location Entry</atom:title>
+        <atom:id>cid:d9e1560</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Location>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://hl7.org/fhir/profiles/Location"/>
+                </extension>
+                <name value="Community Urgent Care Center"/>
+                <description/>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.259"/>
+                        <code value="1160-1"/>
+                        <display value="Urgent Care Center"/>
+                    </coding>
+                    <text value="Urgent Care Center"/>
+                </type>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+                <address>
+                    <line value="17 Daws Rd."/>
+                    <city value="Blue Bell"/>
+                    <state value="MA"/>
+                    <zip value="02368"/>
+                    <country value="US"/>
+                </address>
+            </Location>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>FAMILY HISTORY (section)</atom:title>
+        <atom:id>cid:d9e1627</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/family-history-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="10157-6"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e1627"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Family History</atom:title>
+        <atom:id>cid:entryd9e1627</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <FamilyHistory>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/family-history"/>
+                </extension>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <relation>
+                    <relationship>
+                        <coding>
+                            <system value="http://hl7.org/fhir/v3/RoleCode"/>
+                            <code value="FTH"/>
+                            <display value="Father"/>
+                        </coding>
+                        <coding>
+                            <system value="http://snomed.info/sct"/>
+                            <code value="9947008"/>
+                            <display value="Biological father"/>
+                        </coding>
+                    </relationship>
+                    <bornDate value="1910"/>
+                    <condition>
+                        <type>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="22298006"/>
+                                <display value="Myocardial infarction"/>
+                            </coding>
+                        </type>
+                    </condition>
+                    <condition>
+                        <type>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="44054006"/>
+                                <display value="Diabetes mellitus type 2"/>
+                            </coding>
+                        </type>
+                    </condition>
+                </relation>
+            </FamilyHistory>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Functional Status (section)</atom:title>
+        <atom:id>cid:d9e1818</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/functional-status-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="47420-5"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Results Organizer</atom:title>
+        <atom:id>cid:entryd9e1923</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:9295dba4-df05-46bb-b94e-f2c4e4b156f8"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.254"/>
+                        <code value="d5"/>
+                        <display value="Self-Care"/>
+                    </coding>
+                </code>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e1942"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Results Observation</atom:title>
+        <atom:id>cid:subEntryd9e1942</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/functional-status-result-observation"/>
+                </extension>
+                <text>
+                    <status value="additional"/>
+                    <xhtml:div>Ambulation(Dependent to Independent)</xhtml:div>
+                </text>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="57251-1"/>
+                        <display value="Ambulation"/>
+                    </coding>
+                </name>
+                <appliesDateTime value="2009-03-11T12:30Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6b5a04b-2bf4-49d1-8336-636a3813df0a"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e2069</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Condition>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:08edb7c0-2111-43f2-a784-9a5fdfaa67f0"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value=" 162891007"/>
+                        <display value="dyspnea"/>
+                    </coding>
+                </code>
+                <category>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="248536006"/>
+                        <display value="Finding of Functional Performance and Activity"/>
+                    </coding>
+                </category>
+                <status value="confirmed"/>
+                <onsetDate value="2007-02Z"/>
+                <abatementDate value="2007-04Z"/>
+            </Condition>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e2104</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Condition>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:08edb7c0-2111-43f2-a784-9a5fdfaa67f0"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="386807006"/>
+                        <display value="Memory impairment"/>
+                    </coding>
+                </code>
+                <category>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="373930000"/>
+                        <display value="Cognitive Function Finding"/>
+                    </coding>
+                </category>
+                <status value="confirmed"/>
+                <onsetDate value="2007-04Z"/>
+                <abatementDate value="2007-06Z"/>
+            </Condition>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Results Organizer</atom:title>
+        <atom:id>cid:entryd9e2139</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:9295dba4-df05-46bb-b94e-f2c4e4b156f8"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.254"/>
+                        <code value="d3"/>
+                        <display value="Communication"/>
+                    </coding>
+                </code>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e2158"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Results Observation</atom:title>
+        <atom:id>cid:subEntryd9e2158</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                </extension>
+                <text>
+                    <status value="additional"/>
+                    <xhtml:div>Cognitive Function Finding(Non-Aggressive to Aggressive)</xhtml:div>
+                </text>
+                <name>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="373930000"/>
+                        <display value="Cognitive function finding"/>
+                    </coding>
+                </name>
+                <appliesDateTime value="2009-03-11T12:30Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6b5a04b-2bf4-49d1-8336-636a3813df0a"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>IMMUNIZATIONS (section)</atom:title>
+        <atom:id>cid:d9e2298</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunizations-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunizations-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="11369-6"/>
+                        <display value="History of immunizations"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e2398"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e2527"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e2656"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e2766"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Immunization Activity Entry</atom:title>
+        <atom:id>cid:entryd9e2398</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Immunization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"/>
+                </identifier>
+                <date value="1999-11Z"/>
+                <vaccineType>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="88"/>
+                        <display value="Influenza virus vaccine"/>
+                    </coding>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="141"/>
+                        <display value="Influenza, seasonal, injectable"/>
+                    </coding>
+                    <text value="Influenza, seasonal, IM"/>
+                </vaccineType>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <refusedIndicator value="false"/>
+                <reported value="false"/>
+                <performer>
+                    <reference value="cid:d9e2454"/>
+                    <display value="Amanda Assigned"/>
+                </performer>
+                <doseQuantity>
+                    <value value="50"/>
+                    <units value="mcg"/>
+                </doseQuantity>
+            </Immunization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Practitioner</atom:title>
+        <atom:id>cid:d9e2454</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.456"/>
+                    <value value="2981824"/>
+                </identifier>
+                <name>
+                    <text value="Assigned, Amanda"/>
+                    <family value="Assigned"/>
+                    <given value="Amanda"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+                <address>
+                    <line value="1021 Health Drive"/>
+                    <city value="Ann Arbor"/>
+                    <state value="MI"/>
+                    <zip value="99099"/>
+                    <country value="US"/>
+                </address>
+                <organization>
+                    <reference value="cid:d9e2490"/>
+                    <display value="Good Health Clinic"/>
+                </organization>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Immunization Activity Entry</atom:title>
+        <atom:id>cid:entryd9e2527</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Immunization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"/>
+                </identifier>
+                <date value="1998-12-15Z"/>
+                <vaccineType>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="88"/>
+                        <display value="Influenza virus vaccine"/>
+                    </coding>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="141"/>
+                        <display value="Influenza, seasonal, injectable"/>
+                    </coding>
+                    <text value="Influenza, seasonal, IM"/>
+                </vaccineType>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <refusedIndicator value="true"/>
+                <reported value="false"/>
+                <performer>
+                    <reference value="cid:d9e2583"/>
+                    <display value="Amanda Assigned"/>
+                </performer>
+                <doseQuantity>
+                    <value value="50"/>
+                    <units value="mcg"/>
+                </doseQuantity>
+            </Immunization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Practitioner</atom:title>
+        <atom:id>cid:d9e2583</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.456"/>
+                    <value value="2981824"/>
+                </identifier>
+                <name>
+                    <text value="Assigned, Amanda"/>
+                    <family value="Assigned"/>
+                    <given value="Amanda"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+                <address>
+                    <line value="1021 Health Drive"/>
+                    <city value="Ann Arbor"/>
+                    <state value="MI"/>
+                    <zip value="99099"/>
+                    <country value="US"/>
+                </address>
+                <organization>
+                    <reference value="cid:d9e2619"/>
+                    <display value="Good Health Clinic"/>
+                </organization>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Immunization Activity Entry</atom:title>
+        <atom:id>cid:entryd9e2656</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Immunization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"/>
+                </identifier>
+                <date value="1998-12-15Z"/>
+                <vaccineType>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="33"/>
+                        <display value="Pneumococcal polysaccharide vaccine"/>
+                    </coding>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="109"/>
+                        <display value="Pneumococcal NOS"/>
+                    </coding>
+                    <text value="Pneumococcal polysaccharide vaccine, IM"/>
+                </vaccineType>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <refusedIndicator value="false"/>
+                <reported value="false"/>
+                <performer>
+                    <reference value="cid:d9e2712"/>
+                    <display value="Amanda Assigned"/>
+                </performer>
+                <doseQuantity>
+                    <value value="50"/>
+                    <units value="mcg"/>
+                </doseQuantity>
+            </Immunization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Practitioner</atom:title>
+        <atom:id>cid:d9e2712</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.456"/>
+                    <value value="2981824"/>
+                </identifier>
+                <name>
+                    <text value="Assigned, Amanda"/>
+                    <family value="Assigned"/>
+                    <given value="Amanda"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+                <address>
+                    <line value="1021 Health Drive"/>
+                    <city value="Ann Arbor"/>
+                    <state value="MI"/>
+                    <zip value="99099"/>
+                    <country value="US"/>
+                </address>
+                <organization>
+                    <reference value="cid:d9e2748"/>
+                    <display value="Good Health Clinic"/>
+                </organization>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Immunization Activity Entry</atom:title>
+        <atom:id>cid:entryd9e2766</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Immunization>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"/>
+                </identifier>
+                <date value="1998-12-15Z"/>
+                <vaccineType>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="103"/>
+                        <display value="Tetanus and diphtheria toxoids - preservative free"/>
+                    </coding>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                        <code value="09"/>
+                        <display value="Tetanus and diphtheria toxoids - preservative free"/>
+                    </coding>
+                    <text value="Tetanus and diphtheria toxoids, IM"/>
+                </vaccineType>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <refusedIndicator value="true"/>
+                <reported value="false"/>
+                <performer>
+                    <reference value="cid:d9e2822"/>
+                    <display value="Amanda Assigned"/>
+                </performer>
+                <doseQuantity>
+                    <value value="50"/>
+                    <units value="mcg"/>
+                </doseQuantity>
+                <explanation>
+                    <refusalReason>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.5.8"/>
+                            <code value="PATOBJ"/>
+                            <display value="Patient Objection"/>
+                        </coding>
+                    </refusalReason>
+                </explanation>
+            </Immunization>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Practitioner</atom:title>
+        <atom:id>cid:d9e2822</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Practitioner>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19.5.9999.456"/>
+                    <value value="2981824"/>
+                </identifier>
+                <name>
+                    <text value="Assigned, Amanda"/>
+                    <family value="Assigned"/>
+                    <given value="Amanda"/>
+                </name>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="Unknown"/>
+                </telecom>
+                <address>
+                    <line value="1021 Health Drive"/>
+                    <city value="Ann Arbor"/>
+                    <state value="MI"/>
+                    <zip value="99099"/>
+                    <country value="US"/>
+                </address>
+                <organization>
+                    <reference value="cid:d9e2858"/>
+                    <display value="Good Health Clinic"/>
+                </organization>
+            </Practitioner>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>MEDICATIONS (section)</atom:title>
+        <atom:id>cid:d9e3130</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medications-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medications-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="10160-0"/>
+                        <display value="HISTORY OF MEDICATION USE"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <flag>
+                        <coding>
+                            <system value="urn:oid:1.2.36.1.2001.1001.101.104.16592"/>
+                            <code value="01"/>
+                            <display value="Unchanged"/>
+                        </coding>
+                    </flag>
+                    <item>
+                        <reference value="cid:entryd9e3207"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Medication Statement Entry</atom:title>
+        <atom:id>cid:entryd9e3207</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <MedicationStatement>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medication-statement"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a66"/>
+                </identifier>
+                <whenGiven>
+                    <start value="2007-01-03Z"/>
+                    <end value="2012-05-15Z"/>
+                </whenGiven>
+                <medication>
+                    <reference value="cid:d9e3251"/>
+                    <display value="Proventil HFA"/>
+                </medication>
+                <dosage>
+                    <timing>
+                        <event>
+                            <start value="2007-01-03Z"/>
+                            <end value="2012-05-15Z"/>
+                        </event>
+                        <repeat>
+                            <frequency value="1"/>
+                            <duration value="6"/>
+                            <units value="h"/>
+                        </repeat>
+                    </timing>
+                    <route>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.113883.3.26.1.1"/>
+                            <code value="C38216"/>
+                            <display value="RESPIRATORY (INHALATION)"/>
+                        </coding>
+                    </route>
+                    <quantity>
+                        <value value="1"/>
+                        <units value="mg/actuat"/>
+                    </quantity>
+                    <rate>
+                        <numerator>
+                            <value value="90"/>
+                            <units value="ml"/>
+                        </numerator>
+                        <denominator>
+                            <value value="1"/>
+                            <units value="min"/>
+                        </denominator>
+                    </rate>
+                </dosage>
+            </MedicationStatement>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Medication Entry</atom:title>
+        <atom:id>cid:d9e3251</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Medication>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medication-information"/>
+                </extension>
+                <name value="Proventil HFA"/>
+                <code>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.88"/>
+                        <code value="219483"/>
+                        <display value="Proventil HFA"/>
+                    </coding>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.6.88"/>
+                        <code value="573621"/>
+                        <display value="Proventil 0.09 MG/ACTUAT inhalant solution"/>
+                    </coding>
+                    <text value="Proventil HFA"/>
+                </code>
+            </Medication>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>PLAN OF CARE (section)</atom:title>
+        <atom:id>cid:d9e3976</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/plan-of-care-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="18776-5"/>
+                        <display value="Treatment plan"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e3976"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>PLAN OF CARE</atom:title>
+        <atom:id>cid:entryd9e3976</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <CarePlan>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/plan-of-care-activities"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div/>
+                </text>
+                <status value="active"/>
+                <activity>
+                    <status value="completed"/>
+                    <prohibited value="false"/>
+                    <simple>
+                        <category value="observation"/>
+                        <code>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="73761001"/>
+                                <display value="Colonoscopy"/>
+                            </coding>
+                        </code>
+                        <timingPeriod/>
+                        <details value="Colonoscopy"/>
+                    </simple>
+                </activity>
+                <activity>
+                    <status value="completed"/>
+                    <prohibited value="false"/>
+                    <simple>
+                        <category value="other"/>
+                        <code>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="73761001"/>
+                                <display value="Colonoscopy"/>
+                            </coding>
+                        </code>
+                        <timingPeriod/>
+                        <details value="Colonoscopy"/>
+                    </simple>
+                </activity>
+                <activity>
+                    <status value="scheduled"/>
+                    <prohibited value="false"/>
+                    <simple>
+                        <category value="encounter"/>
+                        <code>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="73761001"/>
+                                <display value="Colonoscopy"/>
+                            </coding>
+                        </code>
+                        <timingPeriod/>
+                        <details value="Colonoscopy"/>
+                    </simple>
+                </activity>
+                <activity>
+                    <status value="completed"/>
+                    <prohibited value="false"/>
+                    <simple>
+                        <category value="procedure"/>
+                        <code>
+                            <coding>
+                                <system value="http://snomed.info/sct"/>
+                                <code value="73761001"/>
+                                <display value="Colonoscopy"/>
+                            </coding>
+                        </code>
+                        <timingPeriod/>
+                        <details value="Colonoscopy"/>
+                    </simple>
+                </activity>
+            </CarePlan>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>PROBLEMS (section)</atom:title>
+        <atom:id>cid:d9e4114</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="11450-4"/>
+                        <display value="PROBLEM LIST"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4158"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4282"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e4158</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-concern-act"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de7"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.5.6"/>
+                        <code value="CONC"/>
+                        <display value="Concern"/>
+                    </coding>
+                </code>
+                <date value="2008-01-03Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4180"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e4180</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Condition>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a66"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="233604007"/>
+                        <display value="Pneumonia"/>
+                    </coding>
+                </code>
+                <category>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="409586006"/>
+                        <display value="Complaint"/>
+                    </coding>
+                </category>
+                <status value="confirmed"/>
+                <onsetDate value="2008-01-03"/>
+                <abatementDate value="2008-02-22"/>
+            </Condition>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e4282</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-concern-act"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de7"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.5.6"/>
+                        <code value="CONC"/>
+                        <display value="Concern"/>
+                    </coding>
+                </code>
+                <date value="2007-01-03Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4304"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Problem Entry</atom:title>
+        <atom:id>cid:entryd9e4304</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Condition>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a66"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="195967001"/>
+                        <display value="Asthma"/>
+                    </coding>
+                </code>
+                <category>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="409586006"/>
+                        <display value="Complaint"/>
+                    </coding>
+                </category>
+                <status value="confirmed"/>
+                <onsetDate value="2007-01-03"/>
+                <abatementDate value="2008-01-03"/>
+            </Condition>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>PROCEDURES (section)</atom:title>
+        <atom:id>cid:d9e4410</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedures-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedures-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="47519-4"/>
+                        <display value="HISTORY OF PROCEDURES"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4463"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4583"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e4696"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Procedure Entry</atom:title>
+        <atom:id>cid:entryd9e4463</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Procedure>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:d68b7e32-7810-4f5b-9cc2-acd54b0fd85d"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <type>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="73761001"/>
+                        <display value="Colonoscopy"/>
+                    </coding>
+                    <text value="Colonic polypectomy"/>
+                </type>
+                <bodySite>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.3.88.12.3221.8.9"/>
+                        <code value="appropriate_code"/>
+                        <display value="colon"/>
+                    </coding>
+                </bodySite>
+                <date>
+                    <start value="2012-05-12Z"/>
+                </date>
+            </Procedure>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Procedure Entry</atom:title>
+        <atom:id>cid:entryd9e4583</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Procedure>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:2.16.840.1.113883.19"/>
+                    <value value="123456789"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <type>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="274025005"/>
+                        <display value="Colonic polypectomy"/>
+                    </coding>
+                    <text value="Colonic polypectomy"/>
+                </type>
+                <bodySite>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="416949008"/>
+                        <display value="Abdomen and pelvis"/>
+                    </coding>
+                </bodySite>
+                <date>
+                    <start value="2011-02-03Z"/>
+                </date>
+            </Procedure>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Procedure Entry</atom:title>
+        <atom:id>cid:entryd9e4696</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Procedure>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:oid:1.2.3.4.5.6.7.8"/>
+                    <value value="1234567"/>
+                </identifier>
+                <subject>
+                    <reference value="cid:d9e40"/>
+                    <display value="Jones, Isabella Isa"/>
+                </subject>
+                <type>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="274025005"/>
+                        <display value="Colonic polypectomy"/>
+                    </coding>
+                    <text value="Colonic polypectomy"/>
+                </type>
+                <date>
+                    <start value="2011-02-03Z"/>
+                </date>
+            </Procedure>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>RESULTS (section)</atom:title>
+        <atom:id>cid:d9e4807</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="30954-2"/>
+                        <display value="RESULTS"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e5002"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Results Organizer</atom:title>
+        <atom:id>cid:entryd9e5002</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="43789009"/>
+                        <display value="CBC WO DIFFERENTIAL"/>
+                    </coding>
+                </code>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5017"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5054"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5095"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Results Observation</atom:title>
+        <atom:id>cid:subEntryd9e5017</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                </extension>
+                <text>
+                    <status value="additional"/>
+                    <xhtml:div>HGB (M 13-18 g/dl; F 12-16 g/dl)</xhtml:div>
+                </text>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="30313-1"/>
+                        <display value="HGB"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="13.2"/>
+                    <units value="g/dl"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-03-23T14:30Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:107c2dc0-67a5-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Results Observation</atom:title>
+        <atom:id>cid:subEntryd9e5054</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                </extension>
+                <text>
+                    <status value="additional"/>
+                    <xhtml:div>WBC (4.3-10.8 10+3/ul)</xhtml:div>
+                </text>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="33765-9"/>
+                        <display value="WBC"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="6.7"/>
+                    <units value="10+3/ul"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-03-23T14:30Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:107c2dc0-67a5-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Results Observation</atom:title>
+        <atom:id>cid:subEntryd9e5095</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                </extension>
+                <text>
+                    <status value="additional"/>
+                    <xhtml:div>PLT (135-145 meq/l)</xhtml:div>
+                </text>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="26515-7"/>
+                        <display value="PLT"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="123"/>
+                    <units value="10+3/ul"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-03-23T14:30Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:107c2dc0-67a5-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>SOCIAL HISTORY (section)</atom:title>
+        <atom:id>cid:d9e5142</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/social-history-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="29762-2"/>
+                        <display value="Social History"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>VITAL SIGNS (section)</atom:title>
+        <atom:id>cid:d9e5347</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-section"/>
+                </extension>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-section"/>
+                </extension>
+                <text>
+                    <status value="generated"/>
+                    <xhtml:div class="narrative">
+                        <xhtml:div class="additional"/>
+                        <xhtml:hr/>
+                        <xhtml:div class="custom"><!--narrative can be generated from coded entries--></xhtml:div>
+                    </xhtml:div>
+                </text>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="8716-3"/>
+                        <display value="VITAL SIGNS"/>
+                    </coding>
+                </code>
+                <mode value="working"/>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e5443"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:entryd9e5546"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Vital Signs Organizer Entry</atom:title>
+        <atom:id>cid:entryd9e5443</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88320-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="46680005"/>
+                        <display value="Vital signs"/>
+                    </coding>
+                </code>
+                <date value="1999-11-14Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5460"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5488"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5516"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5460</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="8302-2"/>
+                        <display value="Height"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="177"/>
+                    <units value="cm"/>
+                </valueQuantity>
+                <appliesDateTime value="1999-11-14Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5488</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="3141-9"/>
+                        <display value="Patient Body Weight - Measured"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="86"/>
+                    <units value="kg"/>
+                </valueQuantity>
+                <appliesDateTime value="1999-11-14Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5516</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="8480-6"/>
+                        <display value="Intravascular Systolic"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="132"/>
+                    <units value="mm[Hg]"/>
+                </valueQuantity>
+                <appliesDateTime value="1999-11-14Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <!--Generic section entry-->
+    <atom:entry>
+        <atom:title>Vital Signs Organizer Entry</atom:title>
+        <atom:id>cid:entryd9e5546</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <List>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"/>
+                </extension>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88320-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="46680005"/>
+                        <display value="Vital signs"/>
+                    </coding>
+                </code>
+                <date value="2000-04-07Z"/>
+                <mode value="snapshot"/>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5563"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5591"/>
+                    </item>
+                </entry>
+                <entry>
+                    <item>
+                        <reference value="cid:subEntryd9e5619"/>
+                    </item>
+                </entry>
+            </List>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5563</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="8302-2"/>
+                        <display value="Height"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="177"/>
+                    <units value="cm"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-04-07Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5591</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="3141-9"/>
+                        <display value="Patient Body Weight - Measured"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="88"/>
+                    <units value="kg"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-04-07Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+    <atom:entry>
+        <atom:title>Vital Signs Observation Entry</atom:title>
+        <atom:id>cid:subEntryd9e5619</atom:id>
+        <atom:updated>2014-08-26T00:00:00</atom:updated>
+        <atom:content type="text/xml">
+            <Observation>
+                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                </extension>
+                <name>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="8480-6"/>
+                        <display value="Intravascular Systolic"/>
+                    </coding>
+                </name>
+                <valueQuantity>
+                    <value value="145"/>
+                    <units value="mm[Hg]"/>
+                </valueQuantity>
+                <appliesDateTime value="2000-04-07Z"/>
+                <status value="final"/>
+                <reliability value="ok"/>
+                <identifier>
+                    <label value="Unknown ID type"/>
+                    <system value="urn:uuid:c6f88321-67ad-11db-bd13-0800200c9a66"/>
+                </identifier>
+            </Observation>
+        </atom:content>
+    </atom:entry>
+</atom:feed>

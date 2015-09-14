@@ -16,6 +16,8 @@ describe('XML to JS for FHIR DSTU 1', function() {
         var compositionXml = fs.readFileSync('./test/data/composition.xml').toString();
         var patientXml = fs.readFileSync('./test/data/patient.xml').toString();
         var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString();
+        var bundle2Xml = fs.readFileSync('./test/data/bundle2.xml').toString();
+        var bundle3Xml = fs.readFileSync('./test/data/bundle3.xml').toString();
 
         it('should create a JS Composition object', function(done) {
             var fhir = new Fhir(Fhir.DSTU1);
@@ -203,7 +205,7 @@ describe('XML to JS for FHIR DSTU 1', function() {
                 });
         });
 
-        it('should create a JS Bundle object', function(done) {
+        it('should create a JS Bundle object from bundle.xml', function(done) {
             var fhir = new Fhir(Fhir.DSTU1);
             fhir.XmlToObject(bundleXml)
                 .then(function (obj) {
@@ -225,6 +227,75 @@ describe('XML to JS for FHIR DSTU 1', function() {
                     // assert links
                     assert(obj.link);
                     assert.equal(obj.link.length, 2);
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+
+        it('should create a JS Bundle object from bundle2.xml', function(done) {
+            var fhir = new Fhir(Fhir.DSTU1);
+            fhir.XmlToObject(bundle2Xml)
+                .then(function (obj) {
+                    assert(obj);
+
+                    assert.equal(obj.title, 'CDA converted to FHIR');
+                    assert.equal(obj.id, 'cid:d9');
+
+                    // assert entries
+                    assert(obj.entry);
+                    assert.equal(obj.entry.length, 90);
+                    assert(obj.entry[0].content);
+                    assert.equal(obj.entry[0].content.resourceType, 'Composition');
+                    assert(obj.entry[0].content.custodian);
+                    assert.equal(obj.entry[0].content.date, '2012-09-15T00:00-04:00');
+                    assert(obj.entry[0].content.section);
+                    assert.equal(obj.entry[0].content.section.length, 14);
+                    assert.equal(obj.entry[0].content.title, 'Community Health and Hospitals: Health Summary');
+                    assert.equal(obj.entry[0].title, 'Composition');
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+
+        it('should create a JS Bundle object from bundle3.xml', function(done) {
+            var fhir = new Fhir(Fhir.DSTU1);
+            fhir.XmlToObject(bundle3Xml)
+                .then(function (obj) {
+                    assert(obj);
+
+                    assert.equal(obj.title, 'CDA converted to FHIR 2');
+                    assert.equal(obj.id, 'cid:d9');
+
+                    // assert entries
+                    assert(obj.entry);
+                    assert.equal(obj.entry.length, 1);
+                    assert(obj.entry[0].content);
+                    
+                    var composition = obj.entry[0].content;
+                    assert.equal(composition.resourceType, 'Composition');
+                    assert(composition.custodian);
+                    assert.equal(composition.date, '2012-09-15T00:00-04:00');
+                    assert.equal(composition.title, 'Community Health and Hospitals: Health Summary');
+                    assert.equal(obj.entry[0].title, 'Composition');
+                    assert(composition.section);
+                    assert.equal(composition.section.length, 1);
+
+                    var section = composition.section[0];
+                    assert.equal(section.title, 'ADVANCE DIRECTIVES');
+                    assert(section.code);
+                    assert(section.code.coding);
+                    assert.equal(section.code.coding.length, 1);
+                    assert.equal(section.code.coding[0].code, '42348-3');
+                    assert.equal(section.code.coding[0].system, 'http://loinc.org');
+                    assert(section.content);
+                    assert.equal(section.content.display, 'ADVANCE DIRECTIVES');
+                    assert.equal(section.content.reference, 'cid:d9e621');
 
                     done();
                 })

@@ -48,7 +48,10 @@ var Fhir = function(version) {
     self.XmlToObject = function(xmlString) {
         var deferred = Q.defer();
 
-        var parser = new xml2js.Parser();
+        var options = {
+            tagNameProcessors: [xml2js.processors.stripPrefix]
+        };
+        var parser = new xml2js.Parser(options);
 
         try {
             parser.parseString(xmlString, function (err, result) {
@@ -56,23 +59,27 @@ var Fhir = function(version) {
                     return deferred.reject(err);
                 }
 
-                var obj = {};
-                var xmlParser = new XmlParser(profiles);
+                try {
+                    var obj = {};
+                    var xmlParser = new XmlParser(profiles, result);
 
-                for (var i in result) {
-                    obj.resourceType = i;
+                    for (var i in result) {
+                        obj.resourceType = i;
 
-                    if (obj.resourceType == 'atom:feed' || obj.resourceType == 'feed') {
-                        delete obj.resourceType;
-                        obj = xmlParser.PopulateBundle(obj, result[i]);
-                    } else {
-                        obj = xmlParser.PopulateFromXmlObject(obj, result[i], i);
+                        if (obj.resourceType == 'feed') {
+                            delete obj.resourceType;
+                            obj = xmlParser.PopulateBundle(obj, result[i]);
+                        } else {
+                            obj = xmlParser.PopulateFromXmlObject(obj, result[i], i);
+                        }
+
+                        break;
                     }
 
-                    break;
+                    deferred.resolve(obj);
+                } catch (ex) {
+                    deferred.reject(ex);
                 }
-
-                deferred.resolve(obj);
             });
         } catch (ex) {
             deferred.reject(ex);

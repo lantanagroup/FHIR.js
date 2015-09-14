@@ -1,9 +1,36 @@
 var xml2js = require('xml2js');
 var util = require('./util');
 
-module.exports = function(profiles) {
+module.exports = function(profiles, obj) {
     var self = this;
     var builder = new xml2js.Builder({explicitRoot: false, headless: true, rootName: 'div', renderOpts: { 'pretty': false }});
+    var objRoot, objNs;
+    var objNamespaces = {};
+    
+    var ATOM_NS = 'http://www.w3.org/2005/Atom';
+    var FHIR_NS = 'http://hl7.org/fhir';
+    var XHTML_NS = 'http://www.w3.org/1999/xhtml';
+
+    // Get the root property from the obj
+    for (var i in obj) {
+        objRoot = obj[i];
+        break;
+    }
+
+    if (!objRoot) {
+        throw 'No root property found after parsing XML document';
+    }
+
+    if (objRoot['$']) {
+        // Extract the namespaces
+        for (var i in objRoot['$']) {
+            if (i == 'xmlns') {
+                objNs = objRoot['$'][i];
+            } else if (i.indexOf('xmlns:') == 0) {
+                objNamespaces[objRoot['$'][i]] = i.substring(6);
+            }
+        }
+    }
 
     var getXmlValue = function(xmlObj) {
         var hasProperties = false;
@@ -23,18 +50,20 @@ module.exports = function(profiles) {
     };
 
     var populateXmlValue = function(obj, xmlObj, property, isArray) {
+        var xmlObjProp = self.GetProperty(xmlObj, FHIR_NS, property);
+        
         if (isArray) {
-            if (xmlObj[property] && xmlObj[property].length > 0) {
+            if (xmlObjProp && xmlObjProp.length > 0) {
                 obj[property] = [];
 
-                for (var i in xmlObj[property]) {
-                    var value = getXmlValue(xmlObj[property][i]);
+                for (var i in xmlObjProp) {
+                    var value = getXmlValue(xmlObjProp[i]);
                     obj[property].push(value);
                 }
             }
         } else {
-            if (xmlObj[property] && xmlObj[property].length > 0) {
-                obj[property] = getXmlValue(xmlObj[property][0]);
+            if (xmlObjProp && xmlObjProp.length > 0) {
+                obj[property] = getXmlValue(xmlObjProp[0]);
             }
         }
     };
@@ -63,8 +92,9 @@ module.exports = function(profiles) {
         populateXmlValue(obj, xmlObj, 'display');
         populateXmlValue(obj, xmlObj, 'primary');
 
-        if (xmlObj.valueSet && xmlObj.valueSet.length > 0) {
-            obj.valueSet = parseXmlResourceReference(xmlObj.valueSet[0]);
+        var valueSetProp = self.GetProperty(xmlObj, FHIR_NS, 'valueSet');
+        if (valueSetProp && valueSetProp.length > 0) {
+            obj.valueSet = parseXmlResourceReference(valueSetProp[0]);
         }
 
         if (obj.extension || obj.system || obj.version || obj.code || obj.display || obj.primary || obj.valueSet) {
@@ -82,8 +112,9 @@ module.exports = function(profiles) {
         populateXmlValue(obj, xmlObj, 'system');
         populateXmlValue(obj, xmlObj, 'value');
 
-        if (xmlObj.assigner && xmlObj.assigner.length > 0) {
-            obj.assigner = parseXmlResourceReference(xmlObj.assigner[0]);
+        var assignerProp = self.GetProperty(xmlObj, FHIR_NS, 'assigner');
+        if (assignerProp && assignerProp.length > 0) {
+            obj.assigner = parseXmlResourceReference(assignerProp[0]);
         }
 
         if (obj.extension || obj.use || obj.label || obj.system || obj.value || obj.assigner) {
@@ -96,11 +127,12 @@ module.exports = function(profiles) {
 
         populateXmlExtension(obj, xmlObj);
 
-        if (xmlObj.coding && xmlObj.coding.length > 0) {
+        var codingProp = self.GetProperty(xmlObj, FHIR_NS, 'coding');
+        if (codingProp && codingProp.length > 0) {
             obj.coding = [];
 
-            for (var i in xmlObj.coding) {
-                var coding = parseXmlCoding(xmlObj.coding[i]);
+            for (var i in codingProp) {
+                var coding = parseXmlCoding(codingProp[i]);
                 obj.coding.push(coding);
             }
         }
@@ -137,8 +169,9 @@ module.exports = function(profiles) {
         populateXmlValue(obj, xmlObj, 'prefix', true);
         populateXmlValue(obj, xmlObj, 'suffix', true);
 
-        if (xmlObj.period && xmlObj.period.length > 0) {
-            obj.period = parseXmlPeriod(xmlObj.period[0]);
+        var periodProp = self.GetProperty(xmlObj, FHIR_NS, 'period');
+        if (periodProp && periodProp.length > 0) {
+            obj.period = parseXmlPeriod(periodProp[0]);
         }
 
         if (obj.extension || obj.use || obj.text || obj.family || obj.given || obj.prefix || obj.suffix) {
@@ -172,12 +205,27 @@ module.exports = function(profiles) {
     };
 
     var populateXmlExtension = function(obj, xmlObj) {
-        if (xmlObj.extension && xmlObj.extension.length > 0) {
+        if (!xmlObj) {
+            return;
+        }
+        
+        var extensionProp = self.GetProperty(xmlObj, FHIR_NS, 'extension');
+        if (extensionProp && extensionProp.length > 0) {
             obj.extension = [];
 
-            for (var i in xmlObj.extension) {
-                var extension = parseXmlExtension(xmlObj.extension[i]);
+            for (var i in extensionProp) {
+                var extension = parseXmlExtension(extensionProp[i]);
                 obj.extension.push(extension);
+            }
+        }
+        
+        var modifierExtensionProp = self.GetProperty(xmlObj, FHIR_NS, 'modifierExtension');
+        if (modifierExtensionProp && modifierExtensionProp.length > 0) {
+            obj.modifierExtension = [];
+
+            for (var i in modifierExtensionProp) {
+                var extension = parseXmlExtension(modifierExtensionProp[i]);
+                obj.modifierExtension.push(extension);
             }
         }
     };
@@ -187,17 +235,23 @@ module.exports = function(profiles) {
 
         populateXmlExtension(obj, xmlObj);
 
-        if (xmlObj.div && xmlObj.div.length > 0) {
-            if (xmlObj.div[0]['$']) {
-                delete xmlObj.div[0]['$'];
+        var divProp = self.GetProperty(xmlObj, XHTML_NS, 'div');
+        if (divProp && divProp.length > 0) {
+            if (divProp[0]['$']) {
+                delete divProp[0]['$'];
             }
 
-            var xml = builder.buildObject(xmlObj.div[0]);
-            obj.div = xml;
+            if (typeof divProp[0] == 'string') {
+                obj.div = divProp[0];
+            } else {
+                var xml = builder.buildObject(divProp[0]);
+                obj.div = xml;
+            }
         }
 
-        if (xmlObj.status && xmlObj.status.length > 0) {
-            obj.status = getXmlValue(xmlObj.status[0]);
+        var statusProp = self.GetProperty(xmlObj, FHIR_NS, 'status');
+        if (statusProp && statusProp.length > 0) {
+            obj.status = getXmlValue(statusProp[0]);
         }
 
         if (obj.extension || obj.div || obj.status) {
@@ -226,12 +280,14 @@ module.exports = function(profiles) {
 
         populateXmlExtension(obj, xmlObj);
 
-        if (xmlObj.numerator && xmlObj.numerator.length > 0) {
-            obj.numerator = parseXmlQuantity(xmlObj.numerator[0]);
+        var numeratorProp = self.GetProperty(xmlObj, FHIR_NS, 'numerator');
+        if (numeratorProp && numeratorProp.length > 0) {
+            obj.numerator = parseXmlQuantity(numeratorProp[0]);
         }
 
-        if (xmlObj.denominator && xmlObj.denominator.length > 0) {
-            obj.denominator = parseXmlQuantity(xmlObj.denominator[0]);
+        var denominatorProp = self.GetProperty(xmlObj, FHIR_NS, 'denominator');
+        if (denominatorProp && denominatorProp.length > 0) {
+            obj.denominator = parseXmlQuantity(denominatorProp[0]);
         }
 
         if (obj.extension || obj.numerator || obj.denominator) {
@@ -283,8 +339,9 @@ module.exports = function(profiles) {
         populateXmlValue(obj, xmlObj, 'zip');
         populateXmlValue(obj, xmlObj, 'country');
 
-        if (xmlObj.period && xmlObj.period.length > 0) {
-            obj.period = parseXmlPeriod(xmlObj.period[0]);
+        var periodProp = self.GetProperty(xmlObj, FHIR_NS, 'period');
+        if (periodProp && periodProp.length > 0) {
+            obj.period = parseXmlPeriod(periodProp[0]);
         }
 
         if (obj.extension || obj.use || obj.text || obj.line || obj.city || obj.state || obj.zip || obj.country || obj.period) {
@@ -301,8 +358,9 @@ module.exports = function(profiles) {
         populateXmlValue(obj, xmlObj, 'value');
         populateXmlValue(obj, xmlObj, 'use');
 
-        if (xmlObj.period && xmlObj.period.length > 0) {
-            obj.period = parseXmlPeriod(xmlObj.period[0]);
+        var periodProp = self.GetProperty(xmlObj, FHIR_NS, 'period');
+        if (periodProp && periodProp.length > 0) {
+            obj.period = parseXmlPeriod(periodProp[0]);
         }
 
         if (obj.extension || obj.system || obj.value || obj.use || obj.period) {
@@ -333,24 +391,26 @@ module.exports = function(profiles) {
 
         populateXmlExtension(obj, xmlObj);
 
-        if (xmlObj.event && xmlObj.event.length > 0) {
+        var eventProp = self.GetProperty(xmlObj, FHIR_NS, 'event');
+        if (eventProp && eventProp.length > 0) {
             obj.event = [];
 
-            for (var i in xmlObj.event) {
-                var event = parseXmlPeriod(xmlObj.event[i]);
+            for (var i in eventProp) {
+                var event = parseXmlPeriod(eventProp[i]);
                 obj.event.push(event);
             }
         }
 
-        if (xmlObj.repeat && xmlObj.repeat.length > 0) {
+        var repeatProp = self.GetProperty(xmlObj, FHIR_NS, 'repeat');
+        if (repeatProp && repeatProp.length > 0) {
             obj.repeat = {};
 
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequency');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'when');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'duration');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'units');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'count');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'end');
+            populateXmlValue(obj.repeat, repeatProp[0], 'frequency');
+            populateXmlValue(obj.repeat, repeatProp[0], 'when');
+            populateXmlValue(obj.repeat, repeatProp[0], 'duration');
+            populateXmlValue(obj.repeat, repeatProp[0], 'units');
+            populateXmlValue(obj.repeat, repeatProp[0], 'count');
+            populateXmlValue(obj.repeat, repeatProp[0], 'end');
         }
 
         if (obj.extension || obj.event || obj.repeat) {
@@ -370,6 +430,32 @@ module.exports = function(profiles) {
         }
 
         return obj;
+    };
+
+    self.GetProperty = function(obj, ns, propertyName) {
+        if (!obj) {
+            return;
+        }
+
+        /* Code to make sure prefixes match. Now stripping prefixes, though... so no need. Keeping code around in case namespaces are needed in future
+        var nsPrefix = '';
+
+        if (ns != objNs && !obj[propertyName]) {
+            if (!objNamespaces[ns]) {
+                throw 'Namespace not found in XML document: ' + ns;
+            }
+            
+            nsPrefix = objNamespaces[ns] + ':';
+        } else if (obj[propertyName] && obj[propertyName]['$']) {
+            if (obj[propertyName]['$']['xmlns'] && obj[propertyName]['$']['xmlns'] != ns) {
+                throw 'Property found does not have a matching xmlns (expected: ' + ns + ', got ' + obj[propertyName]['$']['xmlns']
+            }
+        }
+         
+        return obj[nsPrefix + propertyName];
+        */
+
+        return obj[propertyName];
     };
 
     self.ParseXmlDataType = function(elementOrType, currentXmlObj) {
@@ -481,7 +567,13 @@ module.exports = function(profiles) {
                 continue;
             }
 
-            var nextElementPath = elementPath + '.' + i;
+            var localName = i;
+
+            if (localName.indexOf(':') > 0) {
+                localName = localName.substring(localName.indexOf(':') + 1);
+            }
+
+            var nextElementPath = elementPath + '.' + localName;
             var element = util.FindElement(nextElementPath, profiles);
 
             if (!element) {
@@ -489,25 +581,25 @@ module.exports = function(profiles) {
             }
 
             if (element.definition.max == '*') {
-                currentJSObj[i] = [];
+                currentJSObj[localName] = [];
 
                 for (var x in currentXmlObj[i]) {
                     var dataTypeValue = self.ParseXmlDataType(element, currentXmlObj[i][x]);
 
                     if (dataTypeValue) {
-                        currentJSObj[i].push(dataTypeValue);
+                        currentJSObj[localName].push(dataTypeValue);
                     } else {
                         var nextXmlObj = self.PopulateFromXmlObject({}, currentXmlObj[i][x], nextElementPath);
-                        currentJSObj[i].push(nextXmlObj);
+                        currentJSObj[localName].push(nextXmlObj);
                     }
                 }
             } else {
                 var dataTypeValue = self.ParseXmlDataType(element, currentXmlObj[i][0]);
 
                 if (dataTypeValue) {
-                    currentJSObj[i] = dataTypeValue;
+                    currentJSObj[localName] = dataTypeValue;
                 } else {
-                    currentJSObj[i] = self.PopulateFromXmlObject({}, currentXmlObj[i][0], nextElementPath);
+                    currentJSObj[localName] = self.PopulateFromXmlObject({}, currentXmlObj[i][0], nextElementPath);
                 }
             }
 
@@ -564,12 +656,14 @@ module.exports = function(profiles) {
 
         var newAuthor = {};
 
-        if (xmlObj.name && xmlObj.name.length == 1 && typeof xmlObj.name[0] == 'string') {
-            newAuthor.name = xmlObj.name[0];
+        var nameProp = self.GetProperty(xmlObj, ATOM_NS, 'name');
+        if (nameProp && nameProp.length == 1 && typeof nameProp[0] == 'string') {
+            newAuthor.name = nameProp[0];
         }
 
-        if (xmlObj.uri && xmlObj.uri.length == 1 && typeof xmlObj.uri[0] == 'string') {
-            newAuthor.uri = xmlObj.uri[0];
+        var uriProp = self.GetProperty(xmlObj, ATOM_NS, 'uri');
+        if (uriProp && uriProp.length == 1 && typeof uriProp[0] == 'string') {
+            newAuthor.uri = uriProp[0];
         }
 
         return newAuthor;
@@ -602,22 +696,26 @@ module.exports = function(profiles) {
     };
 
     self.PopulateBundle = function(currentJSObj, currentXmlObj) {
-        if (currentXmlObj.title && currentXmlObj.title.length == 1) {
-            currentJSObj.title = currentXmlObj.title[0];
+        var titleProp = self.GetProperty(currentXmlObj, ATOM_NS, 'title');
+        if (titleProp && titleProp.length == 1) {
+            currentJSObj.title = titleProp[0];
         }
 
-        if (currentXmlObj.updated && currentXmlObj.updated.length == 1) {
-            currentJSObj.updated = currentXmlObj.updated[0];
+        var updatedProp = self.GetProperty(currentXmlObj, ATOM_NS, 'updated');
+        if (updatedProp && updatedProp.length == 1) {
+            currentJSObj.updated = updatedProp[0];
         }
 
-        if (currentXmlObj.id && currentXmlObj.id.length == 1) {
-            currentJSObj.id = currentXmlObj.id[0];
+        var idProp = self.GetProperty(currentXmlObj, ATOM_NS, 'id');
+        if (idProp && idProp.length == 1) {
+            currentJSObj.id = idProp[0];
         }
 
         // Links
-        if (currentXmlObj.link && currentXmlObj.link.length > 0) {
-            for (var i in currentXmlObj.link) {
-                var currentLink = currentXmlObj.link[i];
+        var linkProp = self.GetProperty(currentXmlObj, ATOM_NS, 'link');
+        if (linkProp && linkProp.length > 0) {
+            for (var i in linkProp) {
+                var currentLink = linkProp[i];
                 var newLink = parseFeedLink(currentLink);
 
                 if (!newLink) {
@@ -633,9 +731,10 @@ module.exports = function(profiles) {
         }
 
         // Authors
-        if (currentXmlObj.author && currentXmlObj.author.length > 0) {
-            for (var i in currentXmlObj.author) {
-                var currentAuthor = currentXmlObj.author[i];
+        var authorProp = self.GetProperty(currentXmlObj, ATOM_NS, 'author');
+        if (authorProp && authorProp.length > 0) {
+            for (var i in authorProp) {
+                var currentAuthor = authorProp[i];
                 var newAuthor = parseFeedAuthor(currentAuthor);
                 
                 if (!newAuthor) {
@@ -651,9 +750,10 @@ module.exports = function(profiles) {
         }
         
         // Categories
-        if (currentXmlObj.category && currentXmlObj.category.length > 0) {
-            for (var i in currentXmlObj.category) {
-                var currentCategory = currentXmlObj.category[i];
+        var categoryProp = self.GetProperty(currentXmlObj, ATOM_NS, 'category');
+        if (categoryProp && categoryProp.length > 0) {
+            for (var i in categoryProp) {
+                var currentCategory = categoryProp[i];
                 var newCategory = parseFeedCategory(currentCategory);
                 
                 if (!newCategory) {
@@ -668,36 +768,43 @@ module.exports = function(profiles) {
             }
         }
 
-        if (currentXmlObj.entry && currentXmlObj.entry.length > 0) {
-            for (var i in currentXmlObj.entry) {
-                var currentEntry = currentXmlObj.entry[i];
+        var entryProp = self.GetProperty(currentXmlObj, ATOM_NS, 'entry');
+        if (entryProp && entryProp.length > 0) {
+            for (var i in entryProp) {
+                var currentEntry = entryProp[i];
                 var newEntry = {};
 
-                if (currentEntry.title && currentEntry.title.length == 1) {
-                    newEntry.title = currentEntry.title[0];
+                var entryTitleProp = self.GetProperty(currentEntry, ATOM_NS, 'title');
+                if (entryTitleProp && entryTitleProp.length == 1) {
+                    newEntry.title = entryTitleProp[0];
                 }
 
-                var feedLink = parseFeedLink(currentEntry.link);
+                var entryLinkProp = self.GetProperty(currentEntry, ATOM_NS, 'link');
+                var feedLink = parseFeedLink(entryLinkProp);
                 if (feedLink) {
                     newEntry.link = feedLink;
                 }
 
-                if (currentEntry.id && currentEntry.id.length == 1) {
-                    newEntry.id = currentEntry.id[0];
+                var entryIdProp = self.GetProperty(currentEntry, ATOM_NS, 'id');
+                if (entryIdProp && entryIdProp.length == 1) {
+                    newEntry.id = entryIdProp[0];
                 }
 
-                if (currentEntry.updated && currentEntry.updated.length == 1) {
-                    newEntry.updated = currentEntry.updated[0];
+                var entryUpdatedProp = self.GetProperty(currentEntry, ATOM_NS, 'updated');
+                if (entryUpdatedProp && entryUpdatedProp.length == 1) {
+                    newEntry.updated = entryUpdatedProp[0];
                 }
 
-                if (currentEntry.published && currentEntry.published.length == 1) {
-                    newEntry.published = currentEntry.published[0];
+                var entryPublishedProp = self.GetProperty(currentEntry, ATOM_NS, 'published');
+                if (entryPublishedProp && entryPublishedProp.length == 1) {
+                    newEntry.published = entryPublishedProp[0];
                 }
 
                 // Authors
-                if (currentEntry.author && currentEntry.author.length > 0) {
-                    for (var x in currentEntry.author) {
-                        var currentEntryAuthor = currentEntry.author[x];
+                var entryAuthorsProp = self.GetProperty(currentEntry, ATOM_NS, 'author');
+                if (entryAuthorsProp && entryAuthorsProp.length > 0) {
+                    for (var x in entryAuthorsProp) {
+                        var currentEntryAuthor = entryAuthorsProp[x];
                         var newEntryAuthor = parseFeedAuthor(currentEntryAuthor);
 
                         if (!newEntryAuthor) {
@@ -713,9 +820,10 @@ module.exports = function(profiles) {
                 }
 
                 // Categories
-                if (currentEntry.category && currentEntry.category.length > 0) {
-                    for (var x in currentEntry.category) {
-                        var currentEntryCategory = currentEntry.category[x];
+                var entryCategoriesProp = self.GetProperty(currentEntry, ATOM_NS, 'category');
+                if (entryCategoriesProp && entryCategoriesProp.length > 0) {
+                    for (var x in entryCategoriesProp) {
+                        var currentEntryCategory = entryCategoriesProp[x];
                         var newEntryCategory = parseFeedCategory(currentEntryCategory);
 
                         if (!newEntryCategory) {
@@ -731,17 +839,18 @@ module.exports = function(profiles) {
                 }
 
                 // Content
-                if (currentEntry.content && currentEntry.content.length == 1) {
-                    for (var x in currentEntry.content[0]) {
-                        if (x == '$' || currentEntry.content[0][x].length != 1) {
+                var entryContentProp = self.GetProperty(currentEntry, ATOM_NS, 'content');
+                if (entryContentProp && entryContentProp.length == 1) {
+                    for (var x in entryContentProp[0]) {
+                        if (x == '$' || entryContentProp[0][x].length != 1) {
                             continue;
                         }
 
                         var newEntryContent = {
-                            resourceType: x
+                            resourceType: x.indexOf(':') > 0 ? x.substring(x.indexOf(':') + 1) : x
                         };
 
-                        newEntryContent = self.PopulateFromXmlObject(newEntryContent, currentEntry.content[0][x][0], x);
+                        newEntryContent = self.PopulateFromXmlObject(newEntryContent, entryContentProp[0][x][0], newEntryContent.resourceType);
 
                         if (newEntryContent) {
                             newEntry.content = newEntryContent;

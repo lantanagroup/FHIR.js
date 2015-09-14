@@ -1,39 +1,8 @@
 var Fhir = require('../fhir');
 var fs = require('fs');
-var assert = require('assert');
+var assert = require('./assert');
 var xpath = require('xpath');
 var dom = require('xmldom').DOMParser;
-
-var xpathSelect = xpath.useNamespaces({
-    "fhir": "http://hl7.org/fhir",
-    "atom": "http://www.w3.org/2005/Atom"
-});
-
-assert.xpathEqual = function(node, xpathString, value) {
-    var nodes = xpathSelect(xpathString, node);
-
-    if (nodes.length == 0) {
-        assert.fail('xpath did not return any nodes: ' + xpathString);
-    }
-
-    var node = nodes[0];
-
-    if (!node || (!node.value && !node.data)) {
-        assert.fail('xpath node does not have a value: ' + xpathString);
-    }
-
-    assert.equal(node.value ? node.value : node.data, value);
-};
-
-assert.xpathNodeName = function(node, xpathString, name) {
-    var nodeName = xpathSelect('name(' + xpathString + ')', node);
-    assert.equal(nodeName, name, 'xpath node name does not match: ' + xpathString);
-};
-
-assert.xpathCount = function(node, xpathString, count) {
-    var actual = xpathSelect('count(' + xpathString + ')', node);
-    assert.equal(actual, count, 'Did not find correct number of nodes: ' + xpathString);
-};
 
 describe('JS to XML for FHIR DSTU 1', function() {
     var compositionJson = fs.readFileSync('./test/data/composition.json').toString();

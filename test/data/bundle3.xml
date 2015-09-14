@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed
+    xmlns="http://www.w3.org/2005/Atom"
+    xmlns:fhir="http://hl7.org/fhir"
+    xmlns:cda="urn:hl7-org:v3"
+    xmlns:fa="http://www.w3.org/2005/Atom"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:sdtc="urn:hl7-org:sdtc"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <title>CDA converted to FHIR 2</title>
+    <id>cid:d9</id>
+    <author>
+        <name>Lantana Consulting Group</name>
+    </author>
+    <category term="http://hl7.org/fhir/tag/document" scheme="http://hl7.org/fhir/tag"
+        label="Document"/>
+    <entry>
+        <title>Composition</title>
+        <id>cid:d9e3</id>
+        <updated>2014-08-26T00:00:00</updated>
+        <content type="text/xml">
+            <fhir:Composition>
+                <fhir:extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://www.lantanagroup.com/camara/fhir/CCD"/>
+                </fhir:extension>
+                <fhir:language value="en"/>
+                <fhir:text>
+                    <status value="generated"/>
+                    <xhtml:div>Community Health and Hospitals: Health Summary</xhtml:div>
+                </fhir:text>
+                <fhir:identifier>
+                    <fhir:label value="Unknown ID type"/>
+                    <fhir:system value="urn:oid:2.16.840.1.113883.19.5.99999.1"/>
+                    <fhir:value value="TT988"/>
+                </fhir:identifier>
+                <fhir:date value="2012-09-15T00:00-04:00"/>
+                <fhir:type>
+                    <fhir:coding>
+                        <fhir:system value="http://loinc.org"/>
+                        <fhir:code value="34133-9"/>
+                        <fhir:display value="Summarization of Episode Note"/>
+                    </fhir:coding>
+                </fhir:type>
+                <fhir:title value="Community Health and Hospitals: Health Summary"/>
+                <fhir:status value="final"/>
+                <fhir:confidentiality>
+                    <fhir:system value="urn:oid:2.16.840.1.113883.5.25"/>
+                    <fhir:code value="N"/>
+                </fhir:confidentiality>
+                <fhir:subject>
+                    <fhir:reference value="cid:d9e40"/>
+                    <fhir:display value="Jones, Isabella Isa"/>
+                </fhir:subject>
+                <fhir:author>
+                    <fhir:reference value="cid:d9e220"/>
+                    <fhir:display value="Seven, Henry"/>
+                </fhir:author>
+                <fhir:attester>
+                    <fhir:mode value="legal"/>
+                    <fhir:time value="2009-02-27T13:00:00+05:00"/>
+                    <fhir:party>
+                        <fhir:reference value="cid:d9e425"/>
+                    </fhir:party>
+                </fhir:attester>
+                <fhir:attester>
+                    <fhir:mode value="professional"/>
+                    <fhir:time value="2009-02-27T13:00:00+05:00"/>
+                    <fhir:party>
+                        <fhir:reference value="cid:d9e469"/>
+                    </fhir:party>
+                </fhir:attester>
+                <fhir:custodian>
+                    <fhir:reference value="cid:d9e371"/>
+                    <fhir:display value="Community Health and Hospitals"/>
+                </fhir:custodian>
+                <fhir:event>
+                    <fhir:code>
+                        <fhir:coding>
+                            <fhir:system value="http://hl7.org/fhir/v3/ActClass"/>
+                            <fhir:code value="PCPR"/>
+                        </fhir:coding>
+                    </fhir:code>
+                    <fhir:period>
+                        <fhir:start value="2012-09-08T00:00-04:00"/>
+                        <fhir:end value="2012-09-15T00:00-04:00"/>
+                    </fhir:period>
+                </fhir:event>
+                <fhir:section>
+                    <fhir:title value="ADVANCE DIRECTIVES"/>
+                    <fhir:code>
+                        <fhir:coding>
+                            <fhir:system value="http://loinc.org"/>
+                            <fhir:code value="42348-3"/>
+                        </fhir:coding>
+                    </fhir:code>
+                    <fhir:content>
+                        <fhir:reference value="cid:d9e621"/>
+                        <fhir:display value="ADVANCE DIRECTIVES"/>
+                    </fhir:content>
+                </fhir:section>
+            </fhir:Composition>
+        </content>
+    </entry>
+</feed>
