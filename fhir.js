@@ -67,7 +67,7 @@ var Fhir = function(version) {
                         obj.resourceType = i;
 
                         if (obj.resourceType == 'feed') {
-                            delete obj.resourceType;
+                            obj.resourceType = 'Bundle';
                             obj = xmlParser.PopulateBundle(obj, result[i]);
                         } else {
                             obj = xmlParser.PopulateFromXmlObject(obj, result[i], i);
