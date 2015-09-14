@@ -380,7 +380,7 @@ module.exports = function(profiles) {
         }
 
         if (!profile) {
-            throw 'No profile found for ' + elementPathSplit[0];
+            return [];
         }
 
         if (!profile.structure || profile.structure.length == 0) {
