@@ -4,19 +4,15 @@
   "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries",
   "readme": "README.md",
   "bugs": {
-    "url" : "https://github.com/lantanagroup/FHIR.js/issues",
-    "email" : "sean.mcilvenna@lantanagroup.com"
+    "url": "https://github.com/lantanagroup/FHIR.js/issues",
+    "email": "sean.mcilvenna@lantanagroup.com"
   },
-  "license" : "Apache-2.0",
-  "author": {
-    "name" : "Sean McIlvenna",
-    "email" : "sean.mcilvenna@lantanagroup.com",
-    "url" : "http://www.lantanagroup.com/profile/sean-mcilvenna/"
-  },
+  "license": "ISC",
+  "author": "Sean McIlvenna",
   "main": "fhir.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lantanagroup/FHIR.js/"
+    "type": "git",
+    "url": "https://github.com/lantanagroup/FHIR.js/"
   },
   "directories": {
     "test": "test"
@@ -27,13 +23,12 @@
     "xmlbuilder": "^2.6.4"
   },
   "devDependencies": {
+    "mocha": "^2.3.2",
     "xmldom": "^0.1.19",
     "xpath": "0.0.9"
   },
   "scripts": {
-    "test": "mocha test/*.js",
+    "test": "./node_modules/.bin/mocha test/*.js",
     "prepublish": "node packageProfiles.js"
-  },
-  "author": "Sean McIlvenna",
-  "license": "ISC"
+  }
 }
