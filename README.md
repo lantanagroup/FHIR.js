@@ -1,6 +1,8 @@
 # FHIR.js
 Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries
 
+![Build Status](https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master)
+
 # Dependencies
 * q 1.4.1
 * xml2js 0.4.9
