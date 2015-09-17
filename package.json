@@ -8,7 +8,22 @@
     "email": "sean.mcilvenna@lantanagroup.com"
   },
   "license": "ISC",
-  "author": "Sean McIlvenna",
+  "author": "Sean McIlvenna (sean.mcilvenna@lantanagroup.com)",
+  "contributors": [{
+    "name": "Sean McIlvenna",
+    "email": "sean.mcilvenna@lantanagroup.com"
+  }],
+  "keywords": [
+    "fhir",
+    "healthcare",
+    "interoperability",
+    "xml",
+    "json",
+    "serialization",
+    "hl7",
+    "standards",
+    "clinical"
+  ],
   "main": "fhir.js",
   "repository": {
     "type": "git",
