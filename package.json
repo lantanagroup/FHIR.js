@@ -9,10 +9,12 @@
   },
   "license": "ISC",
   "author": "Sean McIlvenna (sean.mcilvenna@lantanagroup.com)",
-  "contributors": [{
-    "name": "Sean McIlvenna",
-    "email": "sean.mcilvenna@lantanagroup.com"
-  }],
+  "contributors": [
+    {
+      "name": "Sean McIlvenna",
+      "email": "sean.mcilvenna@lantanagroup.com"
+    }
+  ],
   "keywords": [
     "fhir",
     "healthcare",
@@ -39,11 +41,13 @@
   },
   "devDependencies": {
     "mocha": "^2.3.2",
+    "path": "^0.12.7",
     "xmldom": "^0.1.19",
-    "xpath": "0.0.9"
+    "xpath": "0.0.9",
+    "yargs": "^3.25.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*.js",
-    "prepublish": "node packageProfiles.js"
+    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu1 -o profiles/dstu1.js"
   }
 }

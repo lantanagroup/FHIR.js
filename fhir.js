@@ -1,14 +1,20 @@
 var xml2js = require('xml2js');
 var Q = require('q');
-var profiles = require('./profiles');
 
 var Fhir = function(version) {
     var self = this;
+    var profiles;
 
     if (version == Fhir.DSTU2) {
         throw 'FHIR DSTU2 not implemented yet!';
     } else if (!version) {
         version = Fhir.DSTU1;
+    }
+
+    if (version == Fhir.DSTU1) {
+        profiles = require('./profiles/dstu1');
+    } else if (version == Fhir.DSTU2) {
+        profiles = require('./profiles/dstu2');
     }
 
     var XmlParser;
