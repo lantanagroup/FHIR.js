@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (c) 2011-2013, HL7, Inc.
+  All rights reserved.
+  
+  Redistribution and use in source and binary forms, with or without modification, 
+  are permitted provided that the following conditions are met:
+  
+   * Redistributions of source code must retain the above copyright notice, this 
+     list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above copyright notice, 
+     this list of conditions and the following disclaimer in the documentation 
+     and/or other materials provided with the distribution.
+   * Neither the name of HL7 nor the names of its contributors may be used to 
+     endorse or promote products derived from this software without specific 
+     prior written permission.
+  
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+  INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT 
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR 
+  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+  POSSIBILITY OF SUCH DAMAGE.
+  
+
+  Generated on Tue, Sep 30, 2014 18:08+1000 for FHIR v0.0.82 
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="0.0.82">
+  <xs:include schemaLocation="fhir-base.xsd"/>
+  <xs:element name="AdverseReaction" type="AdverseReaction">
+    <xs:annotation>
+      <xs:documentation>Records an unexpected reaction suspected to be related to the exposure of the reaction subject to a substance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AdverseReaction">
+    <xs:annotation>
+      <xs:documentation>Records an unexpected reaction suspected to be related to the exposure of the reaction subject to a substance.</xs:documentation>
+      <xs:documentation>If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Resource">
+        <xs:sequence>
+          <xs:element name="identifier" minOccurs="0" maxOccurs="unbounded" type="Identifier">
+            <xs:annotation>
+              <xs:documentation>This records identifiers associated with this reaction that are defined by business processed and/ or used to refer to it when a direct URL reference to the resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="date" minOccurs="0" maxOccurs="1" type="dateTime">
+            <xs:annotation>
+              <xs:documentation>The date (and possibly time) when the reaction began.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="subject" minOccurs="1" maxOccurs="1" type="ResourceReference">
+            <xs:annotation>
+              <xs:documentation>The subject of the adverse reaction.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="didNotOccurFlag" minOccurs="1" maxOccurs="1" type="boolean">
+            <xs:annotation>
+              <xs:documentation>If true, indicates that no reaction occurred.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="recorder" minOccurs="0" maxOccurs="1" type="ResourceReference">
+            <xs:annotation>
+              <xs:documentation>Identifies the individual responsible for the information in the reaction record.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="symptom" type="AdverseReaction.Symptom" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The signs and symptoms that were observed as part of the reaction.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="exposure" type="AdverseReaction.Exposure" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>An exposure to a substance that preceded a reaction occurrence.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdverseReaction.Symptom">
+    <xs:annotation>
+      <xs:documentation>Records an unexpected reaction suspected to be related to the exposure of the reaction subject to a substance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="code" minOccurs="1" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation>Indicates the specific sign or symptom that was observed.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="severity" minOccurs="0" maxOccurs="1" type="ReactionSeverity">
+            <xs:annotation>
+              <xs:documentation>The severity of the sign or symptom.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AdverseReaction.Exposure">
+    <xs:annotation>
+      <xs:documentation>Records an unexpected reaction suspected to be related to the exposure of the reaction subject to a substance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="date" minOccurs="0" maxOccurs="1" type="dateTime">
+            <xs:annotation>
+              <xs:documentation>Identifies the initial date of the exposure that is suspected to be related to the reaction.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="type" minOccurs="0" maxOccurs="1" type="ExposureType">
+            <xs:annotation>
+              <xs:documentation>The type of exposure: Drug Administration, Immunization, Coincidental.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="causalityExpectation" minOccurs="0" maxOccurs="1" type="CausalityExpectation">
+            <xs:annotation>
+              <xs:documentation>A statement of how confident that the recorder was that this exposure caused the reaction.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="substance" minOccurs="0" maxOccurs="1" type="ResourceReference">
+            <xs:annotation>
+              <xs:documentation>Substance that is presumed to have caused the adverse reaction.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="ReactionSeverity-list">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="severe">
+        <xs:annotation>
+          <xs:documentation>Severe complications arose due to the reaction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="serious">
+        <xs:annotation>
+          <xs:documentation>Serious inconvenience to the subject.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="moderate">
+        <xs:annotation>
+          <xs:documentation>Moderate inconvenience to the subject.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="minor">
+        <xs:annotation>
+          <xs:documentation>Minor inconvenience to the subject.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReactionSeverity">
+    <xs:annotation>
+      <xs:documentation>The severity of an adverse reaction.</xs:documentation>
+      <xs:documentation>If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="ReactionSeverity-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="ExposureType-list">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="drugadmin">
+        <xs:annotation>
+          <xs:documentation>Drug Administration.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="immuniz">
+        <xs:annotation>
+          <xs:documentation>Immunization.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="coincidental">
+        <xs:annotation>
+          <xs:documentation>In the same area as the substance.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ExposureType">
+    <xs:annotation>
+      <xs:documentation>The type of exposure that resulted in an adverse reaction</xs:documentation>
+      <xs:documentation>If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="ExposureType-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="CausalityExpectation-list">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="likely">
+        <xs:annotation>
+          <xs:documentation>Likely that this specific exposure caused the reaction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="unlikely">
+        <xs:annotation>
+          <xs:documentation>Unlikely that this specific exposure caused the reaction - the exposure is being linked to for information purposes.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="confirmed">
+        <xs:annotation>
+          <xs:documentation>It has been confirmed that this exposure was one of the causes of the reaction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="unknown">
+        <xs:annotation>
+          <xs:documentation>It is unknown whether this exposure had anything to do with the reaction.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CausalityExpectation">
+    <xs:annotation>
+      <xs:documentation>How likely is it that the given exposure caused a reaction</xs:documentation>
+      <xs:documentation>If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="CausalityExpectation-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
