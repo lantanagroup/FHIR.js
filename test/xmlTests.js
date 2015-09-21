@@ -4,7 +4,7 @@ var assert = require('./assert');
 var xpath = require('xpath');
 var dom = require('xmldom').DOMParser;
 
-describe('JS to XML for FHIR DSTU 1', function() {
+describe('DSTU1: JS -> XML', function() {
     var compositionJson = fs.readFileSync('./test/data/composition.json').toString();
     var patientJson = fs.readFileSync('./test/data/patient.json').toString();
     var bundleJson = fs.readFileSync('./test/data/bundle.json').toString();

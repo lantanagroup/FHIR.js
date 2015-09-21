@@ -1,5 +1,8 @@
 var xml2js = require('xml2js');
 var Q = require('q');
+var libxml = require('libxmljs');
+var fs = require('fs');
+var path = require('path');
 
 var Fhir = function(version) {
     var self = this;
@@ -19,23 +22,49 @@ var Fhir = function(version) {
 
     var XmlParser;
     var JsParser;
+    var JsValidator;
 
     if (version == Fhir.DSTU1) {
         XmlParser = require('./dstu1/xmlParser');
         JsParser = require('./dstu1/jsParser');
+        JsValidator = require('./dstu1/jsValidator');
     }
 
+    var getSchemaDirectory = function() {
+        switch (version) {
+            case Fhir.DSTU1:
+                return './schemas/dstu1/';
+            case Fhir.DSTU2:
+                return './schemas/dstu2/';
+        }
+    };
+
+    /**
+     * Converts a JS resource object to XML
+     * @param obj The JS object to convert
+     * @returns {string} XML converted from JS resource
+     */
     self.ObjectToXml = function(obj) {
         var jsParser = new JsParser(profiles);
         var xml = jsParser.CreateXml(obj);
         return xml;
     };
 
+    /**
+     * Converts a JSON resource to XML
+     * @param json The JSON resource to convert
+     * @returns {string} XML converted from JSON resource
+     */
     self.JsonToXml = function(json) {
         var obj = JSON.parse(json);
         return self.ObjectToXml(obj);
     };
 
+    /**
+     * Converts XML resource to JSON
+     * @param xmlString
+     * @returns {string|promise} Q promise, which upon completion returns the JSON resource converted from XML
+     */
     self.XmlToJson = function(xmlString) {
         var deferred = Q.defer();
 
@@ -51,6 +80,11 @@ var Fhir = function(version) {
         return deferred.promise;
     };
 
+    /**
+     * Converts XML resource to a JS object
+     * @param xmlString
+     * @returns {resource|promise} Q prmise, which upon completion returns the JS object resource converted from XML
+     */
     self.XmlToObject = function(xmlString) {
         var deferred = Q.defer();
 
@@ -93,9 +127,92 @@ var Fhir = function(version) {
 
         return deferred.promise;
     };
+
+    /**
+     * Validates the XML resource against the FHIR schemas
+     * @param xmlResource
+     * @returns {object} A validation results object that contains properties for whether the XML is valid.
+     * When the XML is not valid, the object contains an array that includes what the errors/warnings are
+     */
+    self.ValidateXMLResource = function(xmlResource) {
+        var xmlDoc = libxml.parseXml(xmlResource);
+        var schemaContent;
+
+        if (xmlDoc.root().name() == 'feed') {
+            schemaContent = fs.readFileSync(path.join(getSchemaDirectory(), 'fhir-atom-single.xsd')).toString('utf8');
+        } else {
+            schemaContent = fs.readFileSync(path.join(getSchemaDirectory(), 'fhir-all.xsd')).toString('utf8');
+        }
+
+        // Change the process' directory to the schema directory so that xsd:import and xsd:include references resolve
+        var baseDir = process.cwd();
+        process.chdir(path.join(baseDir, getSchemaDirectory()));
+
+        // Parse the schema content into a schema doc
+        var schemaDoc = libxml.parseXml(schemaContent);
+
+        // Validate the XML doc against the schema doc
+        var validationResult = xmlDoc.validate(schemaDoc);
+
+        // Change the process' directory back to the original directory
+        process.chdir(baseDir);
+
+        // Build the results returned to the user
+        var results = {
+            valid: validationResult,
+            errors: []
+        };
+
+        if (xmlDoc.validationErrors && xmlDoc.validationErrors.length > 0) {
+            for (var i in xmlDoc.validationErrors) {
+                results.errors.push(xmlDoc.validationErrors[i].message);
+            }
+        }
+
+        return results;
+    };
+
+    /**
+     * Validates the specified JS resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
+     * @param obj The JS resource to validate
+     * @param profile (optional) The profile to validate the resource against. The profile param must be a complete profile JS object.
+     */
+    self.ValidateJSResource = function(obj, profile) {
+        if (version == Fhir.DSTU1) {
+            var validator = new JsValidator(profiles);
+            return validator.Validate(obj, profile);
+        } else {
+            throw 'JS Validation not implemented for ' + version;
+        }
+    };
+
+    /**
+     * Validates the specified JSON resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
+     * @param json The JSON resource to validate
+     * @param profile (optional) The profile to validate the resource against. The profile param must be a complete profile JS object.
+     */
+    self.ValidateJSONResource = function(json, profile) {
+        var obj = JSON.parse(json);
+
+        if (version == Fhir.DSTU1) {
+            var validator = new JsValidator(profiles);
+            return validator.Validate(obj, profile);
+        } else {
+            throw 'JS Validation not implemented for ' + version;
+        }
+    };
 };
 
+/**
+ * Version specified for DSTU 1
+ * @type {string}
+ */
 Fhir.DSTU1 = '1';
+
+/**
+ * Version specifier for DSTU 2
+ * @type {string}
+ */
 Fhir.DSTU2 = '2';
 
 module.exports = Fhir;

@@ -144,7 +144,7 @@
           }
         },
         {
-          "path": "Bundle.entry.resource",
+          "path": "Bundle.entry.content",
           "definition": {
             "short": "",
             "formal": "",

@@ -7,6 +7,7 @@ Node.JS library for serializing/deserializing FHIR resources between JS/JSON and
 * q 1.4.1
 * xml2js 0.4.9
 * xmlbuilder 2.6.4
+* libxmljs 0.14.3
 
 # Installation
 ```
@@ -77,10 +78,42 @@ fhir.XmlToObject(myPatientXml)
     });
 ```
 
+## ValidateXMLResource
+Validates the XML resource against the FHIR schemas
+
+```
+var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString('utf8');
+var fhir = new Fhir(Fhir.DSTU1);
+var result = fhir.ValidateXMLResource(bundleXml);
+
+// result is an object that contains "valid" (true | false) and "errors" (an array of string errors when valid is false).
+```
+
+## ValidateJSResource
+Validates the specified JS resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
+
+```
+var compositionJson = fs.readFileSync('./test/data/composition.json').toString('utf8');
+var composition = JSON.parse(compositionJson);
+var fhir = new Fhir(Fhir.DSTU1);
+var result = fhir.ValidateJSResource(composition);
+```
+
+## ValidateJSONResource
+Validates the specified JSON resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
+
+```
+var bundleJson = fs.readFileSync('./test/data/bundle.json').toString('utf8');
+var bundle = JSON.parse(bundleJson);
+var fhir = new Fhir(Fhir.DSTU1);
+var result = fhir.ValidateJSResource(bundle);
+```
+
 # Implementation Notes
 * **FHIR DSTU2 is not yet supported**
-* Feeds and resources are both supported. There is no need to do anything different for converting feeds vs. resources. The library will automatically detect what should be produced based on the resourceType of the JS object passed, or based on the root element of the XML.
+* Feeds and resources are both supported for DSTU1. There is no need to do anything different for converting feeds vs. resources. The library will automatically detect what should be produced based on the resourceType of the JS object passed, or based on the root element of the XML.
 * Unit tests use samples pulled from the FHIR standard. Mocha is used to execute the unit tests. Either execute "mocha test" or "npm test" to run the unit tests
+* libxmljs is used to validate XML against the FHIR schemas
 * xml2js is used to parse XML and create JS
 * xmlbuilder is used to create XML from JS
 * FHIR profiles (within the "profiles" directory) are used to determine whether properties should be arrays. The profiles are loaded into memory whenever an instance of the FHIR module is created. This could be improved to reduce I/O operations...

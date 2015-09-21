@@ -2,7 +2,7 @@ var Fhir = require('../fhir');
 var fs = require('fs');
 var assert = require('assert');
 
-describe('FHIR DSTU 2', function() {
+describe('DSTU2', function() {
     it('should throw an error', function() {
         try {
             var fhir = new Fhir(Fhir.DSTU2);
@@ -11,7 +11,7 @@ describe('FHIR DSTU 2', function() {
     })
 });
 
-describe('XML to JS for FHIR DSTU 1', function() {
+describe('DSTU1: XML -> JS', function() {
     describe('XmlToObject()', function() {
         var compositionXml = fs.readFileSync('./test/data/composition.xml').toString();
         var patientXml = fs.readFileSync('./test/data/patient.xml').toString();
