@@ -15,6 +15,7 @@ npm install fhir
 ```
 
 # Documentation
+API documentation can be found at http://lantanagroup.github.io/FHIR.js/
 
 # Implementation Notes
 * **FHIR DSTU2 is not yet supported**
