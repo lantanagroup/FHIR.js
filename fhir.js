@@ -4,6 +4,12 @@ var libxml = require('libxmljs');
 var fs = require('fs');
 var path = require('path');
 
+/**
+ * @class
+ * @example
+ * var FHIR = require('fhir');
+ * var fhir = new FHIR(FHIR.DSTU1);
+ */
 var Fhir = function(version) {
     var self = this;
     var profiles;
@@ -41,8 +47,18 @@ var Fhir = function(version) {
 
     /**
      * Converts a JS resource object to XML
-     * @param obj The JS object to convert
+     * @param {obj} obj The JS resource to convert
      * @returns {string} XML converted from JS resource
+     * @alias ObjectToXml
+     * @memberof Fhir#
+     * @example
+     * var FHIR = require('fhir');
+     * var myPatient = {
+     *    resourceType: 'Patient',
+     *    ...
+     * };
+     * var fhir = new FHIR(FHIR.DSTU1);
+     * var xml = fhir.ObjectToXml(myPatient);
      */
     self.ObjectToXml = function(obj) {
         var jsParser = new JsParser(profiles);
@@ -52,8 +68,19 @@ var Fhir = function(version) {
 
     /**
      * Converts a JSON resource to XML
-     * @param json The JSON resource to convert
+     * @param {string} json The JSON resource to convert
      * @returns {string} XML converted from JSON resource
+     * @alias JsonToXml
+     * @memberof Fhir#
+     * @example
+     * var FHIR = require('fhir');
+     * var myPatient = {
+     *    resourceType: 'Patient',
+     *    ...
+     * };
+     * var myPatientJson = JSON.stringify(myPatient);
+     * var fhir = new FHIR(FHIR.DSTU1);
+     * var xml = fhir.JsonToXml(myPatientJson);
      */
     self.JsonToXml = function(json) {
         var obj = JSON.parse(json);
@@ -62,8 +89,21 @@ var Fhir = function(version) {
 
     /**
      * Converts XML resource to JSON
-     * @param xmlString
+     * @param {string} xmlString The XML string (resource) to convert to JSON
      * @returns {string|promise} Q promise, which upon completion returns the JSON resource converted from XML
+     * @alias XmlToJson
+     * @memberof Fhir#
+     * @example
+     * var FHIR = require('fhir');
+     * var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
+     * var fhir = new FHIR(FHIR.DSTU1);
+     * fhir.XmlToJson(myPatientXml)
+     *   .then(function(myPatientJson) {
+            // Do something with myPatientJson
+     *   })
+     *   .catch(function(err) {
+     *      // Do something with err
+     *   });
      */
     self.XmlToJson = function(xmlString) {
         var deferred = Q.defer();
@@ -82,8 +122,21 @@ var Fhir = function(version) {
 
     /**
      * Converts XML resource to a JS object
-     * @param xmlString
-     * @returns {resource|promise} Q prmise, which upon completion returns the JS object resource converted from XML
+     * @param {string} xmlString The XML string (resource) to convert to a JS object
+     * @returns {resource|promise} Q promise, which upon completion returns the JS object resource converted from XML
+     * @alias XmlToObject
+     * @memberof Fhir#
+     * @example
+     * var FHIR = require('fhir');
+     * var myPatientXml = '<Patient xmlns="http://hl7.org/fhir"><name><use value="official"/><family value="Chalmers"/><given value="Peter"/><given value="James"/></name></Patient>';
+     * var fhir = new FHIR(FHIR.DSTU1);
+     * fhir.XmlToObject(myPatientXml)
+     *   .then(function(myPatient) {
+     *      // Do something with myPatient
+     *   })
+     *   .catch(function(err) {
+     *      // Do something with err
+     *   });
      */
     self.XmlToObject = function(xmlString) {
         var deferred = Q.defer();
@@ -130,9 +183,16 @@ var Fhir = function(version) {
 
     /**
      * Validates the XML resource against the FHIR schemas
-     * @param xmlResource
+     * @param {string} xmlResource The XML string to validate
      * @returns {object} A validation results object that contains properties for whether the XML is valid.
      * When the XML is not valid, the object contains an array that includes what the errors/warnings are
+     * @alias ValidateXMLResource
+     * @memberof Fhir#
+     * @example
+     * var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString('utf8');
+     * var fhir = new Fhir(Fhir.DSTU1);
+     * var result = fhir.ValidateXMLResource(bundleXml);
+     * // result is an object that contains "valid" (true | false) and "errors" (an array of string errors when valid is false).
      */
     self.ValidateXMLResource = function(xmlResource) {
         var xmlDoc = libxml.parseXml(xmlResource);
@@ -174,8 +234,15 @@ var Fhir = function(version) {
 
     /**
      * Validates the specified JS resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
-     * @param obj The JS resource to validate
-     * @param profile (optional) The profile to validate the resource against. The profile param must be a complete profile JS object.
+     * @param {obj} obj The JS resource to validate
+     * @param {obj} [profile] The profile to validate the resource against. The profile param must be a complete profile JS object.
+     * @alias ValidateJSResource
+     * @memberof Fhir#
+     * @example
+     * var compositionJson = fs.readFileSync('./test/data/composition.json').toString('utf8');
+     * var composition = JSON.parse(compositionJson);
+     * var fhir = new Fhir(Fhir.DSTU1);
+     * var result = fhir.ValidateJSResource(composition);
      */
     self.ValidateJSResource = function(obj, profile) {
         if (version == Fhir.DSTU1) {
@@ -188,8 +255,15 @@ var Fhir = function(version) {
 
     /**
      * Validates the specified JSON resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
-     * @param json The JSON resource to validate
-     * @param profile (optional) The profile to validate the resource against. The profile param must be a complete profile JS object.
+     * @param {string} json The JSON resource to validate
+     * @param {obj} [profile] The profile to validate the resource against. The profile param must be a complete profile JS object.
+     * @alias ValidateJSONResource
+     * @memberof Fhir#
+     * @example
+     * var bundleJson = fs.readFileSync('./test/data/bundle.json').toString('utf8');
+     * var bundle = JSON.parse(bundleJson);
+     * var fhir = new Fhir(Fhir.DSTU1);
+     * var result = fhir.ValidateJSResource(bundle);
      */
     self.ValidateJSONResource = function(json, profile) {
         var obj = JSON.parse(json);
