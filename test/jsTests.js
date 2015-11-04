@@ -3,12 +3,13 @@ var fs = require('fs');
 var assert = require('assert');
 
 describe('DSTU2: XML -> JS', function() {
-    describe('XmlToObject()', function() {
-        var bundleXml = fs.readFileSync('./test/data/dstu2/bundle-transaction.xml').toString();
+    var bundleTransactionXml = fs.readFileSync('./test/data/dstu2/bundle-transaction.xml').toString();
+    var documentBundleXml = fs.readFileSync('./test/data/dstu2/document-example-dischargesummary.xml').toString();
 
+    describe('XmlToObject(bundle-transaction)', function() {
         it('should create a JS Composition object', function(done) {
             var fhir = new Fhir(Fhir.DSTU2);
-            fhir.XmlToObject(bundleXml)
+            fhir.XmlToObject(bundleTransactionXml)
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
                     assert.equal(obj.resourceType, 'Bundle');
@@ -30,6 +31,22 @@ describe('DSTU2: XML -> JS', function() {
                     // Check meta-data
                     assert(obj.meta);
                     // TODO
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+    });
+
+    describe('XmlToObject(document-bundle)', function() {
+        it('should create a JS Composition object', function(done) {
+            var fhir = new Fhir(Fhir.DSTU2);
+            fhir.XmlToObject(documentBundleXml)
+                .then(function(obj) {
+                    assert(obj, 'Expected XmlToObject to return an object');
+                    assert.equal(obj.resourceType, 'Bundle');
 
                     done();
                 })

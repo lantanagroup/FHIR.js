@@ -1,5 +1,6 @@
 var xml2js = require('xml2js');
 var util = require('./util');
+var _ = require('lodash');
 
 module.exports = function(profiles, obj) {
     var self = this;
@@ -349,7 +350,7 @@ module.exports = function(profiles, obj) {
         }
     };
 
-    var parseXmlContact = function(xmlObj) {
+    var parseXmlContactPoint = function(xmlObj) {
         var obj = {};
 
         populateXmlExtension(obj, xmlObj);
@@ -386,34 +387,102 @@ module.exports = function(profiles, obj) {
         }
     };
 
-    var parseXmlSchedule = function(xmlObj) {
+    var parseXmlMeta = function(xmlObj) {
         var obj = {};
 
         populateXmlExtension(obj, xmlObj);
 
-        var eventProp = self.GetProperty(xmlObj, FHIR_NS, 'event');
-        if (eventProp && eventProp.length > 0) {
-            obj.event = [];
+        populateXmlValue(obj, xmlObj, 'versionId');
+        populateXmlValue(obj, xmlObj, 'lastUpdated');
 
-            for (var i in eventProp) {
-                var event = parseXmlPeriod(eventProp[i]);
-                obj.event.push(event);
-            }
+        _.forEach(obj.profile, function(profile) {
+            populateXmlValue(obj, profile, 'profile');
+        });
+
+        if (obj.security && obj.security.length > 0) {
+            obj.security = [];
+
+            _.forEach(obj.security, function(security) {
+                obj.security.push(parseXmlCoding(security));
+            });
         }
 
-        var repeatProp = self.GetProperty(xmlObj, FHIR_NS, 'repeat');
-        if (repeatProp && repeatProp.length > 0) {
+        if (obj.tag && obj.tag.length > 0) {
+            obj.tag = [];
+
+            _.forEach(obj.tag, function(tag) {
+                obj.tag.push(parseXmlCoding(tag));
+            });
+        }
+
+        if (obj.extension || obj.versionId || obj.lastUpdated || obj.profile || obj.security || obj.tag) {
+            return obj;
+        }
+    };
+
+    var parseXmlTiming = function(xmlObj) {
+        var obj = {};
+
+        populateXmlExtension(obj, xmlObj);
+
+        populateXmlValue(obj, xmlObj, 'event', true);
+
+        if (xmlObj.repeat && xmlObj.repeat.length == 1) {
             obj.repeat = {};
 
-            populateXmlValue(obj.repeat, repeatProp[0], 'frequency');
-            populateXmlValue(obj.repeat, repeatProp[0], 'when');
-            populateXmlValue(obj.repeat, repeatProp[0], 'duration');
-            populateXmlValue(obj.repeat, repeatProp[0], 'units');
-            populateXmlValue(obj.repeat, repeatProp[0], 'count');
-            populateXmlValue(obj.repeat, repeatProp[0], 'end');
+            if (xmlObj.repeat[0].boundsQuantity && xmlObj.repeat[0].boundsQuantity.length == 1) {
+                obj.repeat.boundsQuantity = parseXmlQuantity(xmlObj.boundsQuantity[0]);
+            } else if (xmlObj.repeat[0].boundsRange && xmlObj.repeat[0].boundsRange.length == 1) {
+                obj.repeat.boundsRange = parseXmlRange(xmlObj.boundsRange[0]);
+            } else if (xmlObj.repeat[0].boundsPeriod && xmlObj.repeat[0].boundsPeriod.length == 1) {
+                obj.repeat.boundsPeriod = parseXmlPeriod(xmlObj.boundsPeriod[0]);
+            }
+
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'count');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'duration');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'durationMax');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'durationUnits');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequency');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequencyMax');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'period');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'periodMax');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'periodUnits');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'when');
         }
 
-        if (obj.extension || obj.event || obj.repeat) {
+        if (xmlObj.code && xmlObj.code.length == 1) {
+            obj.code = parseXmlCodeableConcept(xmlObj.code[0]);
+        }
+
+        if (obj.extension || obj.event || obj.repeat || obj.code) {
+            return obj;
+        }
+    };
+
+    var parseXmlSignature = function(xmlObj) {
+        var obj = {};
+
+        populateXmlExtension(obj, xmlObj);
+
+        if (xmlObj.type && xmlObj.type.length > 0) {
+            obj.type = [];
+
+            _.forEach(xmlObj.type, function(type) {
+                obj.type.push(parseXmlCoding(type));
+            });
+        }
+
+        populateXmlValue(obj, xmlObj, 'when');
+        populateXmlValue(obj, xmlObj, 'whoUri');
+
+        if (xmlObj.whoReference && xmlObj.whoReference.length == 1) {
+            obj.whoReference = parseXmlReference(xmlObj.whoReference[0]);
+        }
+
+        populateXmlValue(obj, xmlObj, 'contentType');
+        populateXmlValue(obj, xmlObj, 'blob');
+
+        if (obj.extension || obj.type || obj.when || obj.whoUri || obj.whoReference || obj.contentType || obj.blob) {
             return obj;
         }
     };
@@ -530,15 +599,18 @@ module.exports = function(profiles, obj) {
                     return parseXmlAttachment(currentXmlObj);
                 case 'Address':
                     return parseXmlAddress(currentXmlObj);
-                case 'Contact':
-                    return parseXmlContact(currentXmlObj);
+                case 'ContactPoint':
+                    return parseXmlContactPoint(currentXmlObj);
                 case 'SampledData':
                     return parseXmlSampledData(currentXmlObj);
-                case 'Schedule':
-                    return parseXmlSchedule(currentXmlObj);
+                case 'Timing':
+                    return parseXmlTiming(currentXmlObj);
                 case 'Resource':
                     return parseXmlResource(currentXmlObj);
                 case 'Meta':
+                    return parseXmlMeta(currentXmlObj);
+                case 'Signature':
+                    return parseXmlSignature(currentXmlObj);
                 case 'BackboneElement':
                     return;
                 default:

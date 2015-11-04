@@ -1,5 +1,6 @@
 var util = require('./util');
 var xmlBuilder = require('xmlbuilder');
+var _ = require('lodash');
 
 module.exports = function(profiles) {
     var self = this;
@@ -275,13 +276,15 @@ module.exports = function(profiles) {
             throw 'Embedded resource does not have resourceType';
         }
 
+        var newNode = node.ele(name);
+
         var resourceType = obj.resourceType;
-        var newNode = node.ele(resourceType);
-        newNode.att('xmlns', 'http://hl7.org/fhir');
+        var resourceNode = newNode.ele(resourceType);
+        resourceNode.att('xmlns', 'http://hl7.org/fhir');
 
         delete obj.resourceType;
 
-        buildObject(newNode, obj, resourceType);
+        buildObject(resourceNode, obj, resourceType);
     };
 
     var buildQuantity = function(node, obj, name) {
@@ -351,7 +354,7 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'postalCode');         // DSTU2 changed "zip" to "postalCode"
         buildPrimitiveProperty(newNode, obj, 'country');
 
-        buildPeriod(newNode, obj.period, 'period');
+        buildQuantity(newNode, obj.period, 'period');
     };
 
     var buildContactPoint = function(node, obj, name) {
@@ -388,6 +391,95 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'upperLimit');
         buildPrimitiveProperty(newNode, obj, 'dimensions');
         buildPrimitiveProperty(newNode, obj, 'data');
+    };
+
+    var buildTiming = function(node, obj, name) {
+        if (!obj) {
+            return;
+        }
+
+        var newNode = node.ele(name);
+
+        buildExtensionProperty(newNode, obj);
+
+        _.forEach(obj.event, function(event) {
+            buildPrimitive(newNode, event, 'event');
+        });
+
+        if (obj.repeat) {
+            var repeatNode = newNode.ele('repeat');
+
+            if (obj.repeat.boundsQuantity) {
+                buildQuantity(repeatNode, obj.repeat.boundsQuantity, 'boundsQuantity');
+            } else if (obj.repeat.boundsRange) {
+                buildRange(repeatNode, obj.repeat.boundsRange, 'boundsRange');
+            } else if (obj.repeat.boundsPeriod) {
+                buildPeriod(repeatNode, obj.repeat.boundsPeriod, 'boundsPeriod');
+            }
+        }
+
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'count');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'duration');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'durationMax');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'durationUnits');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'frequency');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'frequencyMax');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'period');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'periodMax');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'periodUnits');
+        buildPrimitiveProperty(repeatNode, obj.repeat, 'when');
+
+        buildCodeableConcept(newNode, obj.code, 'code');
+    };
+
+    var buildSignature = function(node, obj, name) {
+        if (!obj) {
+            return;
+        }
+
+        var newNode = node.ele(name);
+
+        buildExtensionProperty(newNode, obj);
+
+        _.forEach(obj.type, function(type) {
+            buildCoding(newNode, type, 'type');
+        });
+
+        buildPrimitive(newNode, obj.when, 'when');
+
+        if (obj.whoUri) {
+            buildPrimitive(newNode, obj.whoUri, 'whoUri');
+        } else if (obj.whoReference) {
+            buildReference(newNode, obj.whoReference, 'whoReference');
+        }
+
+        buildPrimitive(newNode, obj.contentType, 'contentType');
+        buildPrimitive(newNode, obj.blob, 'blob');
+    };
+
+    var buildMeta = function(node, obj, name) {
+        if (!obj) {
+            return;
+        }
+
+        var newNode = node.ele(name);
+
+        buildExtensionProperty(newNode, obj);
+
+        buildPrimitiveProperty(newNode, obj, 'versionId');
+        buildPrimitiveProperty(newNode, obj, 'lastUpdated');
+
+        _.forEach(obj.profile, function(profile) {
+            buildPrimitiveProperty(newNode, profile, 'profile');
+        });
+
+        _.forEach(obj.security, function(security) {
+            buildCoding(newNode, security, 'security');
+        });
+
+        _.forEach(obj.tag, function(tag) {
+            buildCoding(newNode, tag, 'tag');
+        });
     };
 
     var getChildElements = function(elementPath) {
@@ -459,6 +551,11 @@ module.exports = function(profiles) {
             var nextElementPath = elementPath + '.' + propertyName;
             var element = util.FindElement(nextElementPath, profiles);
             var elementType = element && element && element.type && element.type.length > 0 ? element.type[0].code : null;
+
+            if (util.ChoiceElements[propertyName]) {
+                elementType = util.ChoiceElements[propertyName];
+            }
+
             var isPrimitive = util.IsPrimitive(elementType);
 
             if (isPrimitive) {
@@ -527,6 +624,14 @@ module.exports = function(profiles) {
                     buildFunction = buildResource;
                     break;
                 case 'Meta':
+                    buildFunction = buildMeta;
+                    break;
+                case 'Timing':
+                    buildFunction = buildTiming;
+                    break;
+                case 'Signature':
+                    buildFunction = buildSignature;
+                    break;
                 case 'BackboneElement':
                     break;
                 default:
@@ -557,10 +662,8 @@ module.exports = function(profiles) {
         }
 
         for (var i in obj) {
-            if (i.toString().indexOf('_') == 0 && obj[i]) {
+            if (i.toString().indexOf('_') == 0 && obj[i] && typeof obj[i] != 'object') {
                 node.att(i.substring(1), obj[i]);
-            } else if (i == "id" && elementPath.indexOf('Bundle') != 0 && obj[i]) {
-                node.att('id', obj[i]);
             }
         }
     };

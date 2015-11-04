@@ -3,7 +3,8 @@ var xpath = require('xpath');
 
 var xpathSelect = xpath.useNamespaces({
     "fhir": "http://hl7.org/fhir",
-    "atom": "http://www.w3.org/2005/Atom"
+    "atom": "http://www.w3.org/2005/Atom",
+    "xhtml": "http://www.w3.org/1999/xhtml"
 });
 
 module.exports = require('assert');
