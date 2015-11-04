@@ -2,22 +2,51 @@ var Fhir = require('../fhir');
 var fs = require('fs');
 var assert = require('assert');
 
-describe('DSTU2', function() {
-    it('should throw an error', function() {
-        try {
+describe('DSTU2: XML -> JS', function() {
+    describe('XmlToObject()', function() {
+        var bundleXml = fs.readFileSync('./test/data/dstu2/bundle-transaction.xml').toString();
+
+        it('should create a JS Composition object', function(done) {
             var fhir = new Fhir(Fhir.DSTU2);
-            assert.fail('Expected FHIR class to throw an error for DSTU2 version');
-        } catch (ex) { }
-    })
+            fhir.XmlToObject(bundleXml)
+                .then(function(obj) {
+                    assert(obj, 'Expected XmlToObject to return an object');
+                    assert.equal(obj.resourceType, 'Bundle');
+                    assert.equal(obj.id, 'bundle-transaction');
+                    assert.equal(obj.type, 'transaction');
+
+                    // Check entries
+                    assert(obj.entry);
+                    assert.equal(obj.entry.length, 10);
+                    assert(obj.entry[0].request);
+                    assert.equal(obj.entry[0].fullUrl, 'urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0a');
+                    assert.equal(obj.entry[0].request.method, 'POST');
+                    assert.equal(obj.entry[0].request.url, 'Patient');
+                    assert(obj.entry[0].resource);
+                    assert.equal(obj.entry[0].resource.active, true);
+                    assert.equal(obj.entry[0].resource.birthDate, '1974-12-25');
+                    assert.equal(obj.entry[0].resource.resourceType, 'Patient');
+
+                    // Check meta-data
+                    assert(obj.meta);
+                    // TODO
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+    });
 });
 
 describe('DSTU1: XML -> JS', function() {
     describe('XmlToObject()', function() {
-        var compositionXml = fs.readFileSync('./test/data/composition.xml').toString();
-        var patientXml = fs.readFileSync('./test/data/patient.xml').toString();
-        var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString();
-        var bundle2Xml = fs.readFileSync('./test/data/bundle2.xml').toString();
-        var bundle3Xml = fs.readFileSync('./test/data/bundle3.xml').toString();
+        var compositionXml = fs.readFileSync('./test/data/dstu1/composition.xml').toString();
+        var patientXml = fs.readFileSync('./test/data/dstu1/patient.xml').toString();
+        var bundleXml = fs.readFileSync('./test/data/dstu1/bundle.xml').toString();
+        var bundle2Xml = fs.readFileSync('./test/data/dstu1/bundle2.xml').toString();
+        var bundle3Xml = fs.readFileSync('./test/data/dstu1/bundle3.xml').toString();
 
         it('should create a JS Composition object', function(done) {
             var fhir = new Fhir(Fhir.DSTU1);

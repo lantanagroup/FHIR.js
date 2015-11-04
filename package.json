@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "libxmljs": "^0.14.3",
+    "lodash": "^3.10.1",
     "path": "^0.12.7",
     "q": "^1.4.1",
     "xml2js": "^0.4.9",
@@ -49,6 +50,6 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*.js",
-    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu1 -o profiles/dstu1.js"
+    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js"
   }
 }

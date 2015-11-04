@@ -4,15 +4,36 @@ var assert = require('./assert');
 var xpath = require('xpath');
 var dom = require('xmldom').DOMParser;
 
+describe('DSTU2: JS -> XML', function() {
+    var bundleJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString();
+
+    describe('ObjectToXml()', function() {
+        var bundle = JSON.parse(bundleJson);
+
+        it('should create XML Bundle', function() {
+            var fhir = new Fhir(Fhir.DSTU2);
+            var xml = fhir.ObjectToXml(bundle);
+
+            assert(xml);
+
+            var doc = new dom().parseFromString(xml);
+
+            assert.equal(doc.documentElement.localName, 'Bundle');
+            assert.equal(doc.documentElement.namespaceURI, 'http://hl7.org/fhir');
+            assert.xpathEqual(doc, '/fhir:Bundle/fhir:id/@value', 'bundle-transaction');
+        });
+    });
+});
+
 describe('DSTU1: JS -> XML', function() {
-    var compositionJson = fs.readFileSync('./test/data/composition.json').toString();
-    var patientJson = fs.readFileSync('./test/data/patient.json').toString();
-    var bundleJson = fs.readFileSync('./test/data/bundle.json').toString();
-    var observation1Json = fs.readFileSync('./test/data/observation1.json').toString();
-    var observation2Json = fs.readFileSync('./test/data/observation2.json').toString();
-    var observation3Json = fs.readFileSync('./test/data/observation3.json').toString();
-    var medicationAdministrationJson = fs.readFileSync('./test/data/medicationAdministration.json').toString();
-    var medicationPrescriptionJson = fs.readFileSync('./test/data/medicationPrescription.json').toString();
+    var compositionJson = fs.readFileSync('./test/data/dstu1/composition.json').toString();
+    var patientJson = fs.readFileSync('./test/data/dstu1/patient.json').toString();
+    var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString();
+    var observation1Json = fs.readFileSync('./test/data/dstu1/observation1.json').toString();
+    var observation2Json = fs.readFileSync('./test/data/dstu1/observation2.json').toString();
+    var observation3Json = fs.readFileSync('./test/data/dstu1/observation3.json').toString();
+    var medicationAdministrationJson = fs.readFileSync('./test/data/dstu1/medicationAdministration.json').toString();
+    var medicationPrescriptionJson = fs.readFileSync('./test/data/dstu1/medicationPrescription.json').toString();
 
     describe('ObjectToXml()', function() {
         var composition = JSON.parse(compositionJson);

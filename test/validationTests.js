@@ -5,7 +5,7 @@ var assert = require('assert');
 describe('DSTU1: Validation', function() {
     describe('ValidateXMLResource(bundle)', function() {
         it('should validate successfully', function() {
-            var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString('utf8');
+            var bundleXml = fs.readFileSync('./test/data/dstu1/bundle.xml').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateXMLResource(bundleXml);
 
@@ -16,7 +16,7 @@ describe('DSTU1: Validation', function() {
 
     describe('ValidateXMLResource(composition)', function() {
         it('should return four validation errors', function() {
-            var compositionXml = fs.readFileSync('./test/data/composition.xml').toString('utf8');
+            var compositionXml = fs.readFileSync('./test/data/dstu1/composition.xml').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateXMLResource(compositionXml);
 
@@ -30,7 +30,7 @@ describe('DSTU1: Validation', function() {
 
     describe('ValidateJSResource(composition)', function() {
         it ('should validate successfully', function() {
-            var compositionJson = fs.readFileSync('./test/data/composition.json').toString('utf8');
+            var compositionJson = fs.readFileSync('./test/data/dstu1/composition.json').toString('utf8');
             var composition = JSON.parse(compositionJson);
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateJSResource(composition);
@@ -44,7 +44,7 @@ describe('DSTU1: Validation', function() {
 
     describe('ValidateJSResource(bundle)', function() {
         it ('should validate with three errors', function() {
-            var bundleJson = fs.readFileSync('./test/data/bundle.json').toString('utf8');
+            var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString('utf8');
             var bundle = JSON.parse(bundleJson);
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateJSResource(bundle);
@@ -61,7 +61,7 @@ describe('DSTU1: Validation', function() {
 
     describe('ValidateJSResource(bundle2)', function() {
         it ('should validate with three errors', function() {
-            var bundle2Json = fs.readFileSync('./test/data/bundle2.json').toString('utf8');
+            var bundle2Json = fs.readFileSync('./test/data/dstu1/bundle2.json').toString('utf8');
             var bundle2 = JSON.parse(bundle2Json);
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateJSResource(bundle2);
@@ -78,7 +78,7 @@ describe('DSTU1: Validation', function() {
 
     describe('ValidateJSONResource(bundle3)', function() {
         it ('should validate with three errors', function() {
-            var bundle3Json = fs.readFileSync('./test/data/bundle3.json').toString('utf8');
+            var bundle3Json = fs.readFileSync('./test/data/dstu1/bundle3.json').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateJSONResource(bundle3Json);
 

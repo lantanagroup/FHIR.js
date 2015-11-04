@@ -1,0 +1,149 @@
+<Composition xmlns="http://hl7.org/fhir" id="testComposition1">
+    <extension url="http://fhir.js/extension">
+        <valueCode value="some_code"/>
+    </extension>
+    <language value="en"/>
+    <identifier>
+        <system value="http://fhir.js/"/>
+        <value value="7d5eef26-b715-4c87-f0a6-8b537b5e36bb"/>
+    </identifier>
+    <date value="2013-02-29T10:33:17-07:00"/>
+    <text>
+        <status value="additional"/>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <div class="narrative">
+                <div class="additional">
+                    <p>Wed Jan 02 2008 4:00:00 PM</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Onset Date</th>
+                                <th>Abatement Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pneumonia (233604007)</td>
+                                <td>Complaint (409586006)</td>
+                                <td>Confirmed</td>
+                                <td>Wed Jan 02 2008 4:00:00 PM</td>
+                                <td>Thu Feb 21 2008 4:00:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Abdominal aortic aneurysm (disorder) (233985008)</td>
+                                <td>Cognitive function family member HL7.CCDAR2 (75312-9)</td>
+                                <td>Provisional</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </text>
+    <type>
+        <coding>
+            <system value="urn:oid:2.16.840.1.113883.6.1"/>
+            <code value="34133-9"/>
+            <display value="Summarization of Episode Note"/>
+        </coding>
+    </type>
+    <title value="Continuity of Care Document (CCD)"/>
+    <status value="preliminary"/>
+    <confidentiality>
+        <system value="urn:oid:2.16.840.1.113883.5.25"/>
+        <code value="N"/>
+        <display value="Normal"/>
+    </confidentiality>
+    <subject>
+        <reference
+                value="http://localhost:8080/fhir/Patient/c65adf01-b514-49ca-b281-ce817043a189/_history/f5f132f1-8733-4168-9c9a-f1404d61678f"/>
+        <display value="Doe, Jane"/>
+    </subject>
+    <event>
+        <code>
+            <coding>
+                <system value="http://hl7.org/fhir/v3/ActClass"/>
+                <code value="PCPR"/>
+            </coding>
+        </code>
+        <period>
+            <start value="2012-09-08T00:00:00-04:00"/>
+            <end value="2012-09-15T00:00:00-04:00"/>
+        </period>
+    </event>
+    <section>
+        <title value="Allergies"/>
+        <code>
+            <coding>
+                <system value="urn:oid:2.16.840.1.113883.6.1"/>
+                <code value="48765-2"/>
+                <display value="Allergies, adverse reactions, alerts"/>
+            </coding>
+        </code>
+        <content>
+            <reference value="http://localhost:8080/fhir/List/e4f044a1-946b-4237-97e7-d97e9e29984e"/>
+            <display value="Allergies, adverse reactions, alerts (0 entries)"/>
+        </content>
+    </section>
+    <section>
+        <title value="Problems"/>
+        <code>
+            <coding>
+                <system value="urn:oid:2.16.840.1.113883.6.1"/>
+                <code value="11450-4"/>
+                <display value="Problem List"/>
+            </coding>
+        </code>
+        <content>
+            <reference value="http://localhost:8080/fhir/List/11a4eeb1-faec-428f-962f-9ec7b435cf9c"/>
+            <display value="Problem List (0 entries)"/>
+        </content>
+    </section>
+    <section>
+        <title value="Medications"/>
+        <code>
+            <coding>
+                <system value="urn:oid:2.16.840.1.113883.6.1"/>
+                <code value="10160-0"/>
+                <display value="History of medication use"/>
+            </coding>
+        </code>
+        <content>
+            <reference value="http://localhost:8080/fhir/List/bbc3beac-c492-4658-8de0-601fdfd62e9c"/>
+            <display value="History of medication use (0 entries)"/>
+        </content>
+    </section>
+    <section>
+        <title value="Results"/>
+        <code>
+            <coding>
+                <system value="urn:oid:2.16.840.1.113883.6.1"/>
+                <code value="30954-2"/>
+                <display value="Relevant diagnostic tests and/or laboratory data"/>
+            </coding>
+        </code>
+        <content>
+            <reference value="http://localhost:8080/fhir/List/d4f7a705-e571-448d-ba12-07778a8e3b32"/>
+            <display value="Relevant diagnostic tests and/or laboratory data (0 entries)"/>
+        </content>
+    </section>
+    <section>
+        <title value="Procedures"/>
+        <code>
+            <coding>
+                <system value="urn:oid:2.16.840.1.113883.6.1"/>
+                <code value="47519-4"/>
+                <display value="History of Procedures"/>
+            </coding>
+        </code>
+        <content>
+            <reference value="http://localhost:8080/fhir/List/77cada95-eb3c-4647-999e-ae591e3fe850"/>
+            <display value="History of Procedures (0 entries)"/>
+        </content>
+    </section>
+</Composition>

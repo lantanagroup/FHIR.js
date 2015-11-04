@@ -64,6 +64,22 @@ var util = {
         return;
     },
 
+    IsPrimitive: function(elementType) {
+        if (!elementType) {
+            return false;
+        }
+
+        for (var x in primitiveTypes) {
+            var primitiveType = primitiveTypes[x];
+
+            if (primitiveType.toLowerCase() == elementType.toLowerCase()) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
     ChoiceElements: {
         "valueBoolean": "boolean",
         "valueInteger": "integer",

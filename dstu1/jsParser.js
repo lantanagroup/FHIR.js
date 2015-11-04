@@ -1,5 +1,6 @@
 var util = require('./util');
 var xmlBuilder = require('xmlbuilder');
+var _ = require('lodash');
 
 module.exports = function(profiles) {
     var self = this;
@@ -39,14 +40,55 @@ module.exports = function(profiles) {
                 continue;
             }
 
+            var valueElementType = i.length > 5 ? i.substring(5) : '';
+            var isPrimitive = util.IsPrimitive(valueElementType);
+
+            if (isPrimitive) {
+                buildPrimitive(extensionNode, obj[i], i);
+                continue;
+            }
+
+            var builder = null;
+
             switch (i) {
                 case 'valueCode':
-                    buildPrimitive(extensionNode, obj[i], i);
+                    builder = buildPrimitive;
                     break;
                 case 'valueCoding':
-                    buildCoding(extensionNode, obj[i], 'valueCode');
+                    builder = buildCoding;
                     break;
+                case 'valueAttachment':
+                    builder = buildAttachment;
+                    break;
+                case 'valueIdentifier':
+                    builder = buildIdentifier;
+                    break;
+                case 'valueQuantity':
+                    builder = buildQuantity;
+                    break;
+                case 'valueRange':
+                    builder = buildRange;
+                    break;
+                case 'valuePeriod':
+                    builder = buildPeriod;
+                    break;
+                case 'valueRatio':
+                    builder = buildRatio;
+                    break;
+                case 'valueHumanName':
+                    builder = buildHumanName;
+                    break;
+                case 'valueAddress':
+                    builder = buildAddress;
+                    break;
+                case 'valueResourceReference':
+                    builder = buildResourceReference;
+                    break;
+                default:
+                    throw 'Unexpected extension value type: ' + i;
             }
+
+            builder(extensionNode, obj[i], i);
         }
     };
 
@@ -99,9 +141,9 @@ module.exports = function(profiles) {
         buildExtensionProperty(newNode, obj);
 
         if (obj.coding && obj.coding.length > 0) {
-            for (var i in obj.coding) {
-                buildCoding(newNode, obj.coding[0], 'coding');
-            }
+            _.forEach(obj.coding, function(coding) {
+                buildCoding(newNode, coding, 'coding');
+            });
         }
 
         buildPrimitiveProperty(newNode, obj, 'text');
@@ -175,29 +217,21 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'use');
         buildPrimitiveProperty(newNode, obj, 'text');
 
-        if (obj.family && obj.family.length > 0) {
-            for (var i in obj.family) {
-                buildPrimitive(newNode, obj.family[i], 'family');
-            }
-        }
+        _.forEach(obj.family, function(family) {
+            buildPrimitive(newNode, family, 'family');
+        })
 
-        if (obj.given && obj.given.length > 0) {
-            for (var i in obj.given) {
-                buildPrimitive(newNode, obj.given[i], 'given');
-            }
-        }
+        _.forEach(obj.given, function(given) {
+            buildPrimitive(newNode, given, 'given');
+        });
 
-        if (obj.prefix && obj.prefix.length > 0) {
-            for (var i in obj.prefix) {
-                buildPrimitive(newNode, obj.prefix[i], 'prefix');
-            }
-        }
+        _.forEach(obj.prefix, function(prefix) {
+            buildPrimitive(newNode, prefix, 'prefix');
+        });
 
-        if (obj.suffix && obj.suffix.length > 0) {
-            for (var i in obj.suffix) {
-                buildPrimitive(newNode, obj.suffix[i], 'suffix');
-            }
-        }
+        _.forEach(obj.suffix, function(suffix) {
+            buildPrimitive(newNode, suffix, 'suffix');
+        });
 
         buildPeriod(newNode, obj.period, 'period');
     };
@@ -292,11 +326,9 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'use');
         buildPrimitiveProperty(newNode, obj, 'text');
 
-        if (obj.line && obj.line.length > 0) {
-            for (var i in obj.line) {
-                buildPrimitive(newNode, obj.line[i], 'line');
-            }
-        }
+        _.forEach(obj.line, function(line) {
+            buildPrimitive(newNode, line, 'line');
+        });
 
         buildPrimitiveProperty(newNode, obj, 'city');
         buildPrimitiveProperty(newNode, obj, 'state');
@@ -350,11 +382,9 @@ module.exports = function(profiles) {
 
         buildExtensionProperty(newNode, obj);
 
-        if (obj.event && obj.event.length > 0) {
-            for (var i in obj.event) {
-                buildPeriod(newNode, obj.event[i], 'event');
-            }
-        }
+        _.forEach(obj.event, function(event) {
+            buildPeriod(newNode, event, 'event');
+        });
 
         if (obj.repeat) {
             var newRepeat = newNode.ele('repeat');
@@ -437,22 +467,11 @@ module.exports = function(profiles) {
             var nextElementPath = elementPath + '.' + propertyName;
             var element = util.FindElement(nextElementPath, profiles);
             var elementType = element && element.definition && element.definition.type && element.definition.type.length > 0 ? element.definition.type[0].code : null;
+            var isPrimitive = util.IsPrimitive(elementType);
 
-            if (elementType) {
-                var isPrimitive = false;
-
-                for (var x in util.PrimitiveTypes) {
-                    var primitiveType = util.PrimitiveTypes[x];
-
-                    if (primitiveType.toLowerCase() == elementType.toLowerCase()) {
-                        isPrimitive = true;
-                    }
-                }
-
-                if (isPrimitive) {
-                    buildPrimitive(node, obj[propertyName], propertyName);
-                    continue;
-                }
+            if (isPrimitive) {
+                buildPrimitive(node, obj[propertyName], propertyName);
+                continue;
             }
 
             var buildFunction = null;

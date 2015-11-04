@@ -14,9 +14,7 @@ var Fhir = function(version) {
     var self = this;
     var profiles;
 
-    if (version == Fhir.DSTU2) {
-        throw 'FHIR DSTU2 not implemented yet!';
-    } else if (!version) {
+    if (!version) {
         version = Fhir.DSTU1;
     }
 
@@ -34,6 +32,10 @@ var Fhir = function(version) {
         XmlParser = require('./dstu1/xmlParser');
         JsParser = require('./dstu1/jsParser');
         JsValidator = require('./dstu1/jsValidator');
+    } else if (version == Fhir.DSTU2) {
+        XmlParser = require('./dstu2/xmlParser');
+        JsParser = require('./dstu2/jsParser');
+        JsValidator = require('./dstu2/jsValidator');
     }
 
     var getSchemaDirectory = function() {
@@ -42,6 +44,8 @@ var Fhir = function(version) {
                 return './schemas/dstu1/';
             case Fhir.DSTU2:
                 return './schemas/dstu2/';
+            default:
+                throw 'Cannot get schema directory for unexpected version of FHIR';
         }
     };
 
@@ -159,7 +163,7 @@ var Fhir = function(version) {
                     for (var i in result) {
                         obj.resourceType = i;
 
-                        if (obj.resourceType == 'feed') {
+                        if (version == Fhir.DSTU1 && obj.resourceType == 'feed') {
                             obj.resourceType = 'Bundle';
                             obj = xmlParser.PopulateBundle(obj, result[i]);
                         } else {
