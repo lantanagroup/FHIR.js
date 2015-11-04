@@ -249,12 +249,8 @@ var Fhir = function(version) {
      * var result = fhir.ValidateJSResource(composition);
      */
     self.ValidateJSResource = function(obj, profile) {
-        if (version == Fhir.DSTU1) {
-            var validator = new JsValidator(profiles);
-            return validator.Validate(obj, profile);
-        } else {
-            throw 'JS Validation not implemented for ' + version;
-        }
+        var validator = new JsValidator(profiles);
+        return validator.Validate(obj, profile);
     };
 
     /**
@@ -271,13 +267,8 @@ var Fhir = function(version) {
      */
     self.ValidateJSONResource = function(json, profile) {
         var obj = JSON.parse(json);
-
-        if (version == Fhir.DSTU1) {
-            var validator = new JsValidator(profiles);
-            return validator.Validate(obj, profile);
-        } else {
-            throw 'JS Validation not implemented for ' + version;
-        }
+        var validator = new JsValidator(profiles);
+        return validator.Validate(obj, profile);
     };
 };
 

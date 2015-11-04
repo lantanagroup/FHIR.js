@@ -1,0 +1,35 @@
+{
+  "resourceType": "Condition",
+  "id": "example2",
+  "text": {
+    "status": "generated",
+    "div": "<div>Mild Asthma (Date: 21-Nov 2012)</div>"
+  },
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "code": {
+    "text": "Asthma"
+  },
+  "category": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/condition-category",
+        "code": "finding",
+        "display": "Finding"
+      }
+    ]
+  },
+  "clinicalStatus": "active",
+  "verificationStatus": "confirmed",
+  "severity": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "255604002",
+        "display": "Mild"
+      }
+    ]
+  },
+  "onsetDateTime": "2012-11-12"
+}

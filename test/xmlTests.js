@@ -5,13 +5,10 @@ var xpath = require('xpath');
 var dom = require('xmldom').DOMParser;
 
 describe('DSTU2: JS -> XML', function() {
-    var bundleTransactionJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString();
-    var documentBundleJson = fs.readFileSync('./test/data/dstu2/document-example-dischargesummary.json').toString();
-
-    describe('ObjectToXml(bundle-transaction)', function() {
-        var bundle = JSON.parse(bundleTransactionJson);
-
-        it('should create XML Bundle', function() {
+    describe('ObjectToXml()', function() {
+        it('should create XML Bundle from bundle-transaction.json', function() {
+            var bundleTransactionJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString();
+            var bundle = JSON.parse(bundleTransactionJson);
             var fhir = new Fhir(Fhir.DSTU2);
             var xml = fhir.ObjectToXml(bundle);
 
@@ -34,12 +31,10 @@ describe('DSTU2: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[8]/fhir:resource/fhir:Parameters/fhir:parameter/fhir:valueCoding/fhir:system/@value', 'http://loinc.org');
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[8]/fhir:resource/fhir:Parameters/fhir:parameter/fhir:valueCoding/fhir:code/@value', '1963-8');
         });
-    });
 
-    describe('ObjectToXml(document-bundle)', function() {
-        var bundle = JSON.parse(documentBundleJson);
-
-        it('should create XML Bundle', function() {
+        it('should create XML Bundle from document-example-dischargesummary.json', function() {
+            var documentBundleJson = fs.readFileSync('./test/data/dstu2/document-example-dischargesummary.json').toString();
+            var bundle = JSON.parse(documentBundleJson);
             var fhir = new Fhir(Fhir.DSTU2);
             var xml = fhir.ObjectToXml(bundle);
 
@@ -67,23 +62,40 @@ describe('DSTU2: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:signature/fhir:contentType/@value', 'image/jpg');
             assert.xpathCount(doc, '/fhir:Bundle/fhir:signature/fhir:blob/@value', 1);
         });
+
+        it('should create XML Condition from condition-example2.json', function() {
+            var condition2Json = fs.readFileSync('./test/data/dstu2/condition-example2.json').toString();
+            var condition2 = JSON.parse(condition2Json);
+            var fhir = new Fhir(Fhir.DSTU2);
+            var xml = fhir.ObjectToXml(condition2);
+
+            assert(xml);
+
+            var doc = new dom().parseFromString(xml);
+
+            assert.equal(doc.documentElement.localName, 'Condition');
+            assert.equal(doc.documentElement.namespaceURI, 'http://hl7.org/fhir');
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:id/@value', 'example2');
+
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:code/fhir:text/@value', 'Asthma');
+
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:clinicalStatus/@value', 'active');
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:verificationStatus/@value', 'confirmed');
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:onsetDateTime/@value', '2012-11-12');
+
+            assert.xpathCount(doc, '/fhir:Condition/fhir:severity/fhir:coding', 1);
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:severity/fhir:coding/fhir:system/@value', 'http://snomed.info/sct');
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:severity/fhir:coding/fhir:code/@value', '255604002');
+            assert.xpathEqual(doc, '/fhir:Condition/fhir:severity/fhir:coding/fhir:display/@value', 'Mild');
+        });
     });
 });
 
 describe('DSTU1: JS -> XML', function() {
-    var compositionJson = fs.readFileSync('./test/data/dstu1/composition.json').toString();
-    var patientJson = fs.readFileSync('./test/data/dstu1/patient.json').toString();
-    var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString();
-    var observation1Json = fs.readFileSync('./test/data/dstu1/observation1.json').toString();
-    var observation2Json = fs.readFileSync('./test/data/dstu1/observation2.json').toString();
-    var observation3Json = fs.readFileSync('./test/data/dstu1/observation3.json').toString();
-    var medicationAdministrationJson = fs.readFileSync('./test/data/dstu1/medicationAdministration.json').toString();
-    var medicationPrescriptionJson = fs.readFileSync('./test/data/dstu1/medicationPrescription.json').toString();
-
     describe('ObjectToXml()', function() {
-        var composition = JSON.parse(compositionJson);
-
         it('should create XML Composition', function() {
+            var compositionJson = fs.readFileSync('./test/data/dstu1/composition.json').toString();
+            var composition = JSON.parse(compositionJson);
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.ObjectToXml(composition);
 
@@ -131,10 +143,9 @@ describe('DSTU1: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:Composition/fhir:section[1]/fhir:content/fhir:reference/@value', 'http://localhost:8080/fhir/List/e4f044a1-946b-4237-97e7-d97e9e29984e');
             assert.xpathEqual(doc, '/fhir:Composition/fhir:section[1]/fhir:content/fhir:display/@value', 'Allergies, adverse reactions, alerts (0 entries)');
         });
-    });
 
-    describe('JsonToXml()', function() {
         it('should create XML Patient', function() {
+            var patientJson = fs.readFileSync('./test/data/dstu1/patient.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(patientJson);
 
@@ -164,6 +175,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML Observation (with valueQuantity)', function() {
+            var observation1Json = fs.readFileSync('./test/data/dstu1/observation1.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(observation1Json);
 
@@ -178,6 +190,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML Observation (with valueRange)', function() {
+            var observation2Json = fs.readFileSync('./test/data/dstu1/observation2.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(observation2Json);
 
@@ -196,6 +209,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML Observation (with valueRatio)', function() {
+            var observation3Json = fs.readFileSync('./test/data/dstu1/observation3.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(observation3Json);
 
@@ -214,6 +228,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML MedicationAdministration', function() {
+            var medicationAdministrationJson = fs.readFileSync('./test/data/dstu1/medicationAdministration.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(medicationAdministrationJson);
 
@@ -231,6 +246,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML MedicationPrescription', function() {
+            var medicationPrescriptionJson = fs.readFileSync('./test/data/dstu1/medicationPrescription.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(medicationPrescriptionJson);
 
@@ -244,6 +260,7 @@ describe('DSTU1: JS -> XML', function() {
         });
 
         it('should create XML Bundle', function() {
+            var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(bundleJson);
 

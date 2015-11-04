@@ -2,9 +2,63 @@ var fs = require('fs');
 var Fhir = require('../fhir');
 var assert = require('assert');
 
+describe('DSTU2: Validation', function() {
+    describe('ValidateXMLResource()', function() {
+        it('should validate bundle-transaction successfully', function() {
+            var bundleXml = fs.readFileSync('./test/data/dstu2/bundle-transaction.xml').toString('utf8');
+            var fhir = new Fhir(Fhir.DSTU2);
+            var result = fhir.ValidateXMLResource(bundleXml);
+
+            assert(result);
+            assert.equal(result.valid, true);
+        });
+
+        it('should return validation errors for bundle-transaction_bad', function() {
+            var bundleXml = fs.readFileSync('./test/data/dstu2/bundle-transaction_bad.xml').toString('utf8');
+            var fhir = new Fhir(Fhir.DSTU2);
+            var result = fhir.ValidateXMLResource(bundleXml);
+
+            assert(result);
+            assert.equal(result.valid, false);
+            assert(result.errors);
+            assert.equal(result.errors.length, 1);
+            assert.equal(result.errors[0], "Element '{http://hl7.org/fhir}fullUrl': This element is not expected. Expected is ( {http://hl7.org/fhir}response ).\n");
+        });
+    });
+
+    describe('ValidateJSONResource()', function() {
+        it('should validate bundle-transaction.json successfully', function() {
+            var bundleJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString('utf8');
+            var bundle = JSON.parse(bundleJson);
+            var fhir = new Fhir(Fhir.DSTU2);
+            var result = fhir.ValidateJSResource(bundle);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.errors);
+            assert.equal(result.errors.length, 0);
+        });
+    });
+
+    describe('ValidateJSResource()', function() {
+        it('should validate bundle-transaction.json successfully', function() {
+            var bundleJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString('utf8');
+            var fhir = new Fhir(Fhir.DSTU2);
+            var result = fhir.ValidateJSONResource(bundleJson);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.errors);
+            assert.equal(result.errors.length, 0);
+        });
+    });
+});
+
 describe('DSTU1: Validation', function() {
-    describe('ValidateXMLResource(bundle)', function() {
-        it('should validate successfully', function() {
+    describe('ValidateXMLResource()', function() {
+        it('should validate bundle successfully', function() {
             var bundleXml = fs.readFileSync('./test/data/dstu1/bundle.xml').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateXMLResource(bundleXml);
@@ -12,10 +66,8 @@ describe('DSTU1: Validation', function() {
             assert(result);
             assert.equal(result.valid, true);
         });
-    });
 
-    describe('ValidateXMLResource(composition)', function() {
-        it('should return four validation errors', function() {
+        it('should return four validation errors for composition', function() {
             var compositionXml = fs.readFileSync('./test/data/dstu1/composition.xml').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateXMLResource(compositionXml);
@@ -28,8 +80,8 @@ describe('DSTU1: Validation', function() {
         });
     });
 
-    describe('ValidateJSResource(composition)', function() {
-        it ('should validate successfully', function() {
+    describe('ValidateJSResource()', function() {
+        it ('should validate composition successfully', function() {
             var compositionJson = fs.readFileSync('./test/data/dstu1/composition.json').toString('utf8');
             var composition = JSON.parse(compositionJson);
             var fhir = new Fhir(Fhir.DSTU1);
@@ -40,10 +92,8 @@ describe('DSTU1: Validation', function() {
             assert.equal(false, result.valid);
             assert.equal(1, result.errors.length);
         });
-    });
 
-    describe('ValidateJSResource(bundle)', function() {
-        it ('should validate with three errors', function() {
+        it ('should return 3 validation errors for bundle', function() {
             var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString('utf8');
             var bundle = JSON.parse(bundleJson);
             var fhir = new Fhir(Fhir.DSTU1);
@@ -57,10 +107,8 @@ describe('DSTU1: Validation', function() {
             assert.equal(result.errors[1], 'Element Bundle.link.relation does not meet the minimal cardinality of 1 (actual: 0)');
             assert.equal(result.errors[2], 'Element Bundle.link.url does not meet the minimal cardinality of 1 (actual: 0)');
         });
-    });
 
-    describe('ValidateJSResource(bundle2)', function() {
-        it ('should validate with three errors', function() {
+        it ('should return three validation errors for bundle2', function() {
             var bundle2Json = fs.readFileSync('./test/data/dstu1/bundle2.json').toString('utf8');
             var bundle2 = JSON.parse(bundle2Json);
             var fhir = new Fhir(Fhir.DSTU1);
@@ -74,10 +122,8 @@ describe('DSTU1: Validation', function() {
             assert.equal(result.errors[1], 'Element Bundle.link does not meet the minimal cardinality of 1 (actual: 0)');
             assert.equal(result.errors[2], 'Bundle.entry.content "Family History": Element FamilyHistory.relation.condition.type does not meet the minimal cardinality of 1 (actual: 0)');
         });
-    });
 
-    describe('ValidateJSONResource(bundle3)', function() {
-        it ('should validate with three errors', function() {
+        it ('should return three validation errors for bundle3', function() {
             var bundle3Json = fs.readFileSync('./test/data/dstu1/bundle3.json').toString('utf8');
             var fhir = new Fhir(Fhir.DSTU1);
             var result = fhir.ValidateJSONResource(bundle3Json);

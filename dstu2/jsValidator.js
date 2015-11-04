@@ -7,7 +7,7 @@ module.exports = function(profiles) {
         for (var i in profiles) {
             var profile = profiles[i];
 
-            if (profile.name == resourceType.toLowerCase()) {
+            if (profile.name.toLowerCase() == resourceType.toLowerCase()) {
                 return profile;
             }
         }
@@ -99,7 +99,7 @@ module.exports = function(profiles) {
             profile = findProfileByResourceType(jsObj.resourceType);
         }
 
-        elements = profile && profile.structure && profile.structure.length > 0 ? profile.structure[0].element : null;
+        elements = profile && profile.snapshot ? profile.snapshot.element : null;
         result = {
             valid: true,
             errors: []
@@ -110,7 +110,7 @@ module.exports = function(profiles) {
         }
 
         if (!elements) {
-            throw 'No structure/elements found for profile ' + profile.name;
+            throw 'No snapshot/elements found for profile ' + profile.name;
         }
 
         for (var i in elements) {
