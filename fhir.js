@@ -41,9 +41,9 @@ var Fhir = function(version) {
     var getSchemaDirectory = function() {
         switch (version) {
             case Fhir.DSTU1:
-                return './schemas/dstu1/';
+                return path.join(__dirname, 'schemas/dstu1/');
             case Fhir.DSTU2:
-                return './schemas/dstu2/';
+                return path.join(__dirname, 'schemas/dstu2/');
             default:
                 throw 'Cannot get schema directory for unexpected version of FHIR';
         }
@@ -210,7 +210,7 @@ var Fhir = function(version) {
 
         // Change the process' directory to the schema directory so that xsd:import and xsd:include references resolve
         var baseDir = process.cwd();
-        process.chdir(path.join(baseDir, getSchemaDirectory()));
+        process.chdir(getSchemaDirectory());
 
         // Parse the schema content into a schema doc
         var schemaDoc = libxml.parseXml(schemaContent);
