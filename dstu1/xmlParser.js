@@ -461,7 +461,7 @@ module.exports = function(profiles, obj) {
     self.ParseXmlDataType = function(elementOrType, currentXmlObj) {
         var type = typeof elementOrType == 'string' ?
             elementOrType :
-            (elementOrType.definition && elementOrType.definition.type && elementOrType.definition.type.length == 1 ? elementOrType.definition.type[0].code : null);
+            (elementOrType.definition && elementOrType.definition.type && elementOrType.definition.type.length >= 1 ? elementOrType.definition.type[0].code : null);
 
         if (type) {
             if (type.toLowerCase() == 'boolean') {

@@ -186,7 +186,25 @@ describe('DSTU1: XML -> JS', function() {
                 })
                 .catch(function(err) {
                     done(err);
+                });
+        });
+
+        it('should create a JS Composition object with subject', function(done) {
+            var compositionXml = fs.readFileSync('./test/data/dstu1/composition2.xml').toString();
+            var fhir = new Fhir(Fhir.DSTU1);
+            fhir.XmlToObject(compositionXml)
+                .then(function(obj) {
+                    assert(obj, 'Expected XmlToObject to return an object');
+
+                    assert(obj.subject);
+                    assert(obj.subject.reference);
+                    assert(obj.subject.display);
+
+                    done();
                 })
+                .catch(function(err) {
+                    done(err);
+                });
         });
 
         it('should create a JS Patient object', function(done) {
