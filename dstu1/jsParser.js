@@ -82,6 +82,7 @@ module.exports = function(profiles) {
                     builder = buildAddress;
                     break;
                 case 'valueResourceReference':
+                case 'valueResource':
                     builder = buildResourceReference;
                     break;
                 default:

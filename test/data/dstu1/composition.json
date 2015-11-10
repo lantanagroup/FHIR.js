@@ -5,6 +5,13 @@
     {
       "url": "http://fhir.js/extension",
       "valueCode": "some_code"
+    },
+    {
+      "url": "http://fhir.js/extension2",
+      "valueResource": {
+        "reference": "http://testserver.com/fhir/Patient/1",
+        "display": "Test Patient"
+      }
     }
   ],
   "language": "en",

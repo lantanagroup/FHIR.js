@@ -549,7 +549,7 @@ module.exports = function(profiles) {
             }
 
             var nextElementPath = elementPath + '.' + propertyName;
-            var element = util.FindElement(nextElementPath, profiles);
+            var element = util.FindElement(nextElementPath, profiles, 2);
             var elementType = element && element && element.type && element.type.length > 0 ? element.type[0].code : null;
 
             if (util.ChoiceElements[propertyName]) {

@@ -47,6 +47,11 @@ describe('DSTU2: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:id/@value', 'father');
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:meta/fhir:lastUpdated/@value', '2013-05-28T22:12:21Z');
 
+            assert.xpathCount(doc, '/fhir:Bundle/fhir:entry[1]/fhir:resource/fhir:Composition/fhir:extension', 1);
+            assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[1]/fhir:resource/fhir:Composition/fhir:extension[1]/@url', 'http://testserver.com/fhir/Profile/extension1');
+            assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[1]/fhir:resource/fhir:Composition/fhir:extension[1]/fhir:valueReference/fhir:display/@value', 'Test Patient');
+            assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[1]/fhir:resource/fhir:Composition/fhir:extension[1]/fhir:valueReference/fhir:reference/@value', 'http://testserver.com/fhir/Patient/1');
+
             assert.xpathCount(doc, '/fhir:Bundle/fhir:entry[6]/fhir:resource/fhir:MedicationOrder/fhir:dosageInstruction/fhir:timing', 1);
             assert.xpathCount(doc, '/fhir:Bundle/fhir:entry[6]/fhir:resource/fhir:MedicationOrder/fhir:dosageInstruction/fhir:timing/fhir:repeat', 1);
             assert.xpathEqual(doc, '/fhir:Bundle/fhir:entry[6]/fhir:resource/fhir:MedicationOrder/fhir:dosageInstruction/fhir:timing/fhir:repeat/fhir:frequency/@value', '2');
@@ -107,9 +112,12 @@ describe('DSTU1: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:Composition/@id', '234234');
 
             // assert extension
-            assert.xpathCount(doc, '/fhir:Composition/fhir:extension', 1);
+            assert.xpathCount(doc, '/fhir:Composition/fhir:extension', 2);
             assert.xpathEqual(doc, '/fhir:Composition/fhir:extension[1]/@url', 'http://fhir.js/extension');
             assert.xpathEqual(doc, '/fhir:Composition/fhir:extension[1]/fhir:valueCode/@value', 'some_code');
+            assert.xpathEqual(doc, '/fhir:Composition/fhir:extension[2]/@url', 'http://fhir.js/extension2');
+            assert.xpathEqual(doc, '/fhir:Composition/fhir:extension[2]/fhir:valueResource/fhir:reference/@value', 'http://testserver.com/fhir/Patient/1');
+            assert.xpathEqual(doc, '/fhir:Composition/fhir:extension[2]/fhir:valueResource/fhir:display/@value', 'Test Patient');
 
             // assert language, date, title, status
             assert.xpathEqual(doc, '/fhir:Composition/fhir:language/@value', 'en');

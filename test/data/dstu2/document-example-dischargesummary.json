@@ -21,6 +21,15 @@
           "status": "generated",
           "div": "<div><p><b>Generated Narrative with Details</b></p><p><b>id</b>: 180f219f-97a8-486d-99d9-ed631fe4fc57</p><p><b>meta</b>: </p><p><b>date</b>: 01/02/2013 11:30:02 PM</p><p><b>type</b>: Discharge Summary from Responsible Clinician <span>(Details : {LOINC code '28655-9' = 'Physician attending Discharge summary)</span></p><p><b>title</b>: Discharge Summary</p><p><b>status</b>: final</p><p><b>confidentiality</b>: N</p><p><b>author</b>: <a>Doctor Dave</a></p><p><b>encounter</b>: <a>http://fhir.healthintersections.com.au/open/Encounter/doc-example</a></p></div>"
         },
+        "extension": [
+          {
+            "url": "http://testserver.com/fhir/Profile/extension1",
+            "valueReference": {
+              "display": "Test Patient",
+              "reference": "http://testserver.com/fhir/Patient/1"
+            }
+          }
+        ],
         "date": "2013-02-01T12:30:02Z",
         "type": {
           "coding": [
