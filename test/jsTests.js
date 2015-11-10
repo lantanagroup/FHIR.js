@@ -57,6 +57,16 @@ describe('DSTU2: XML -> JS', function() {
                     assert(obj.entry[0].resource);
                     assert.equal(obj.entry[0].resource.resourceType, 'Composition');
                     assert.equal(obj.entry[0].resource.id, '180f219f-97a8-486d-99d9-ed631fe4fc57');
+                    assert(obj.entry[0].resource.extension);
+
+                    // Test extensions
+                    assert.equal(obj.entry[0].resource.extension.length, 2);
+                    assert.equal(obj.entry[0].resource.extension[0].url, 'http://testserver.com/fhir/Profile/SomeTest1');
+                    assert.equal(obj.entry[0].resource.extension[0].valueCode, 'testCode');
+                    assert.equal(obj.entry[0].resource.extension[1].url, 'http://testserver.com/fhir/Profile/SomeTest2');
+                    assert(obj.entry[0].resource.extension[1].valueReference);
+                    assert.equal(obj.entry[0].resource.extension[1].valueReference.display, 'Test Patient');
+                    assert.equal(obj.entry[0].resource.extension[1].valueReference.reference, 'http://testserver.com/fhir/Patient/1');
 
                     assert(obj.signature);
                     assert(obj.signature.blob);
@@ -199,6 +209,16 @@ describe('DSTU1: XML -> JS', function() {
                     assert(obj.subject);
                     assert(obj.subject.reference);
                     assert(obj.subject.display);
+
+                    // Test extensions
+                    assert(obj.extension);
+                    assert.equal(obj.extension.length, 2);
+                    assert.equal(obj.extension[0].url, 'http://testserver.com/fhir/Profile/ProfileId');
+                    assert.equal(obj.extension[0].valueCode, 'http://testserver.com/fhir/CCD');
+                    assert.equal(obj.extension[1].url, 'http://testserver.com/fhir/Profile/SomeTest');
+                    assert(obj.extension[1].valueResource);
+                    assert.equal(obj.extension[1].valueResource.display, 'Test Display');
+                    assert.equal(obj.extension[1].valueResource.reference, 'http://test.com/some/resource');
 
                     done();
                 })

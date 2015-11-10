@@ -47,6 +47,8 @@ module.exports = function(profiles, obj) {
 
         if (xmlObj && xmlObj['$'] && xmlObj['$']['value'] && !hasProperties) {
             return xmlObj['$']['value'];
+        } else if (typeof xmlObj == 'string') {
+            return xmlObj;
         }
     };
 
@@ -581,6 +583,7 @@ module.exports = function(profiles, obj) {
                 case 'HumanName':
                     return parseXmlHumanName(currentXmlObj);
                 case 'extension':
+                case 'Extension':
                     return parseXmlExtension(currentXmlObj);
                 case 'Narrative':
                     return parseXmlNarrative(currentXmlObj);
@@ -645,7 +648,7 @@ module.exports = function(profiles, obj) {
             }
 
             var nextElementPath = elementPath + '.' + localName;
-            var element = util.FindElement(nextElementPath, profiles);
+            var element = util.FindElement(nextElementPath, profiles, 2);
 
             if (!element) {
                 continue;

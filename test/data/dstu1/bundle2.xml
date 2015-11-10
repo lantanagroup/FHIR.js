@@ -21,8 +21,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <fhir:Composition>
-                <fhir:extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/CCD"/>
+                <fhir:extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/CCD"/>
                 </fhir:extension>
                 <fhir:language value="en"/>
                 <fhir:text>
@@ -287,8 +287,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -316,8 +316,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -351,8 +351,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -378,8 +378,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -405,8 +405,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -432,8 +432,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -459,8 +459,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -486,8 +486,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -513,8 +513,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <name value="Good Health Insurance"/>
                 <type>
@@ -545,8 +545,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -580,8 +580,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -607,8 +607,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -634,8 +634,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -665,8 +665,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Organization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-custodian"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-custodian"/>
                 </extension>
                 <name value="Community Health and Hospitals"/>
             </Organization>
@@ -678,8 +678,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -694,8 +694,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -715,8 +715,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -736,8 +736,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -757,7 +757,7 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Location>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
                     <valueCode value="http://hl7.org/fhir/profiles/Location"/>
                 </extension>
                 <text>
@@ -780,8 +780,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Patient>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-patient"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-patient"/>
                 </extension>
                 <extension url="http://hl7.org/fhir/Profile/us-core#race">
                     <valueCodeableConcept>
@@ -907,8 +907,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <extension url="http://hl7.org/fhir/Profile/us-core#authorTime">
                     <valueDateTime value="2005-03-29T22:44:11+05:00"/>
@@ -948,8 +948,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -986,8 +986,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1024,11 +1024,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directives-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/advance-directives-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directives-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/advance-directives-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1083,8 +1083,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/advance-directive-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/advance-directive-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -1111,11 +1111,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergies-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergies-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergies-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergies-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1157,8 +1157,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-problem-act"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1188,8 +1188,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AllergyIntolerance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1220,8 +1220,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml"><!--In substanceFromCode-->
             <Substance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation-substance"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1244,8 +1244,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AdverseReaction>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-reaction-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1278,8 +1278,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-problem-act"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1309,8 +1309,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AllergyIntolerance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1341,8 +1341,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml"><!--In substanceFromCode-->
             <Substance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation-substance"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1365,8 +1365,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AdverseReaction>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-reaction-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1399,8 +1399,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-problem-act"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-problem-act"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1430,8 +1430,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AllergyIntolerance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1462,8 +1462,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml"><!--In substanceFromCode-->
             <Substance>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-observation-substance"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1486,8 +1486,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <AdverseReaction>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/allergy-intolerance-reaction-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1519,8 +1519,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/assessment-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/assessment-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1560,11 +1560,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounters-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/encounters-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounters-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/encounters-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1597,8 +1597,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Encounter>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/encounter-activities"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/encounter-activities"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1653,7 +1653,7 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Location>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
                     <valueCode value="http://hl7.org/fhir/profiles/Location"/>
                 </extension>
                 <name value="Community Urgent Care Center"/>
@@ -1686,8 +1686,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/family-history-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/family-history-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1718,8 +1718,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <FamilyHistory>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/family-history"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/family-history"/>
                 </extension>
                 <subject>
                     <reference value="cid:d9e40"/>
@@ -1767,8 +1767,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/functional-status-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/functional-status-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -1795,8 +1795,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/results-organizer"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1824,11 +1824,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/result-observation"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/functional-status-result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/functional-status-result-observation"/>
                 </extension>
                 <text>
                     <status value="additional"/>
@@ -1858,8 +1858,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Condition>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1896,8 +1896,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Condition>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1934,8 +1934,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/results-organizer"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -1963,8 +1963,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/result-observation"/>
                 </extension>
                 <text>
                     <status value="additional"/>
@@ -1993,11 +1993,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunizations-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunizations-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunizations-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunizations-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2045,8 +2045,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Immunization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunization-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2089,8 +2089,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2131,8 +2131,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Immunization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunization-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2175,8 +2175,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2217,8 +2217,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Immunization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunization-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2261,8 +2261,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2303,8 +2303,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Immunization>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/immunization-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/immunization-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2356,8 +2356,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Practitioner>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/us-realm-author"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/us-realm-author"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2397,11 +2397,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medications-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/medications-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medications-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/medications-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2441,8 +2441,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <MedicationStatement>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medication-statement"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/medication-statement"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2499,8 +2499,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Medication>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/medication-information"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/medication-information"/>
                 </extension>
                 <name value="Proventil HFA"/>
                 <code>
@@ -2525,8 +2525,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/plan-of-care-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/plan-of-care-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2558,8 +2558,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <CarePlan>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/plan-of-care-activities"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/plan-of-care-activities"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2639,11 +2639,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2681,8 +2681,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-concern-act"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-concern-act"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2711,8 +2711,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Condition>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2749,8 +2749,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-concern-act"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-concern-act"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2779,8 +2779,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Condition>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/problem-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/problem-observation"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2816,11 +2816,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedures-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/procedures-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedures-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/procedures-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -2863,8 +2863,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Procedure>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/procedure-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2902,8 +2902,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Procedure>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/procedure-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2942,8 +2942,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Procedure>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/procedure-activity"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/procedure-activity"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -2974,11 +2974,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/results-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/results-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -3011,8 +3011,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/results-organizer"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/results-organizer"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -3050,8 +3050,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/result-observation"/>
                 </extension>
                 <text>
                     <status value="additional"/>
@@ -3084,8 +3084,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/result-observation"/>
                 </extension>
                 <text>
                     <status value="additional"/>
@@ -3118,8 +3118,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/result-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/result-observation"/>
                 </extension>
                 <text>
                     <status value="additional"/>
@@ -3152,8 +3152,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/social-history-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/social-history-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -3180,11 +3180,11 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-section"/>
                 </extension>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-section"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-section"/>
                 </extension>
                 <text>
                     <status value="generated"/>
@@ -3222,8 +3222,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-organizer"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -3262,8 +3262,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -3292,8 +3292,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -3322,8 +3322,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -3353,8 +3353,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <List>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-organizer"/>
                 </extension>
                 <identifier>
                     <label value="Unknown ID type"/>
@@ -3393,8 +3393,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -3423,8 +3423,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>
@@ -3453,8 +3453,8 @@
         <atom:updated>2014-08-26T00:00:00</atom:updated>
         <atom:content type="text/xml">
             <Observation>
-                <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/vital-signs-observation"/>
+                <extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/vital-signs-observation"/>
                 </extension>
                 <name>
                     <coding>

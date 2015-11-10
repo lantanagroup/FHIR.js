@@ -117,10 +117,11 @@ describe('DSTU1: Validation', function() {
             assert(result);
             assert(result.errors);
             assert.equal(result.valid, false);
-            assert.equal(result.errors.length, 3);
+            assert.equal(result.errors.length, 4);
             assert.equal(result.errors[0], 'Element Bundle.type does not meet the minimal cardinality of 1 (actual: 0)');
             assert.equal(result.errors[1], 'Element Bundle.link does not meet the minimal cardinality of 1 (actual: 0)');
-            assert.equal(result.errors[2], 'Bundle.entry.content "Family History": Element FamilyHistory.relation.condition.type does not meet the minimal cardinality of 1 (actual: 0)');
+            assert.equal(result.errors[2], 'Bundle.entry.content "Composition": Element Composition.author does not meet the minimal cardinality of 1 (actual: 0)');
+            assert.equal(result.errors[3], 'Bundle.entry.content "Family History": Element FamilyHistory.relation.condition.type does not meet the minimal cardinality of 1 (actual: 0)');
         });
 
         it ('should return three validation errors for bundle3', function() {

@@ -28,8 +28,8 @@
         "resourceType": "Composition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/CCD"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/CCD"
           }
         ],
         "language": "en",

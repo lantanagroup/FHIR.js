@@ -21,8 +21,8 @@
         <updated>2014-08-26T00:00:00</updated>
         <content type="text/xml">
             <fhir:Composition>
-                <fhir:extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-                    <valueCode value="http://www.lantanagroup.com/camara/fhir/CCD"/>
+                <fhir:extension url="http://testserver.com/fhir/Profile/ProfileId">
+                    <valueCode value="http://testserver.com/fhir/CCD"/>
                 </fhir:extension>
                 <fhir:language value="en"/>
                 <fhir:text>

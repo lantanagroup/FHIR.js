@@ -23,8 +23,8 @@
         "resourceType": "Composition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/CCD"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/CCD"
           }
         ],
         "language": "en",
@@ -54,9 +54,6 @@
           "code": "N"
         },
         "subject": {},
-        "author": [
-          {}
-        ],
         "attester": [
           {
             "mode": [
@@ -325,8 +322,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -364,8 +361,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -411,8 +408,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -446,8 +443,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -481,8 +478,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -516,8 +513,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -551,8 +548,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -586,8 +583,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -621,8 +618,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "name": "Good Health Insurance",
@@ -663,8 +660,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -710,8 +707,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -745,8 +742,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -780,8 +777,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "identifier": [
@@ -821,8 +818,8 @@
         "resourceType": "Organization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-custodian"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-custodian"
           }
         ],
         "name": "Community Health and Hospitals"
@@ -836,8 +833,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -854,8 +851,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -881,8 +878,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -908,8 +905,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -935,7 +932,7 @@
         "resourceType": "Location",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
             "valueCode": "http://hl7.org/fhir/profiles/Location"
           }
         ],
@@ -962,8 +959,8 @@
         "resourceType": "Patient",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-patient"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-patient"
           },
           {
             "url": "http://hl7.org/fhir/Profile/us-core#race",
@@ -1132,8 +1129,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           },
           {
             "url": "http://hl7.org/fhir/Profile/us-core#authorTime",
@@ -1186,8 +1183,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -1236,8 +1233,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -1286,12 +1283,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/advance-directives-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/advance-directives-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/advance-directives-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/advance-directives-section"
           }
         ],
         "text": {
@@ -1324,8 +1321,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/advance-directive-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/advance-directive-observation"
           }
         ],
         "name": {
@@ -1356,12 +1353,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergies-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergies-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergies-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergies-section"
           }
         ],
         "text": {
@@ -1404,8 +1401,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-problem-act"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-problem-act"
           }
         ],
         "identifier": [
@@ -1443,8 +1440,8 @@
         "resourceType": "AllergyIntolerance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation"
           }
         ],
         "identifier": [
@@ -1481,8 +1478,8 @@
         "resourceType": "Substance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation-substance"
           }
         ],
         "text": {
@@ -1509,8 +1506,8 @@
         "resourceType": "AdverseReaction",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-reaction-observation"
           }
         ],
         "identifier": [
@@ -1550,8 +1547,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-problem-act"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-problem-act"
           }
         ],
         "identifier": [
@@ -1589,8 +1586,8 @@
         "resourceType": "AllergyIntolerance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation"
           }
         ],
         "identifier": [
@@ -1627,8 +1624,8 @@
         "resourceType": "Substance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation-substance"
           }
         ],
         "text": {
@@ -1655,8 +1652,8 @@
         "resourceType": "AdverseReaction",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-reaction-observation"
           }
         ],
         "identifier": [
@@ -1696,8 +1693,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-problem-act"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-problem-act"
           }
         ],
         "identifier": [
@@ -1735,8 +1732,8 @@
         "resourceType": "AllergyIntolerance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation"
           }
         ],
         "identifier": [
@@ -1773,8 +1770,8 @@
         "resourceType": "Substance",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-observation-substance"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-observation-substance"
           }
         ],
         "text": {
@@ -1801,8 +1798,8 @@
         "resourceType": "AdverseReaction",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/allergy-intolerance-reaction-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/allergy-intolerance-reaction-observation"
           }
         ],
         "identifier": [
@@ -1842,8 +1839,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/assessment-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/assessment-section"
           }
         ],
         "text": {
@@ -1873,12 +1870,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/encounters-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/encounters-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/encounters-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/encounters-section"
           }
         ],
         "text": {
@@ -1912,8 +1909,8 @@
         "resourceType": "Encounter",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/encounter-activities"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/encounter-activities"
           }
         ],
         "identifier": [
@@ -1986,7 +1983,7 @@
         "resourceType": "Location",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
             "valueCode": "http://hl7.org/fhir/profiles/Location"
           }
         ],
@@ -2027,8 +2024,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/family-history-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/family-history-section"
           }
         ],
         "text": {
@@ -2061,8 +2058,8 @@
         "resourceType": "FamilyHistory",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/family-history"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/family-history"
           }
         ],
         "subject": {
@@ -2113,8 +2110,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/functional-status-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/functional-status-section"
           }
         ],
         "text": {
@@ -2140,8 +2137,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/results-organizer"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/results-organizer"
           }
         ],
         "identifier": [
@@ -2177,12 +2174,12 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/result-observation"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/functional-status-result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/functional-status-result-observation"
           }
         ],
         "text": {
@@ -2215,8 +2212,8 @@
         "resourceType": "Condition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-observation"
           }
         ],
         "identifier": [
@@ -2260,8 +2257,8 @@
         "resourceType": "Condition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-observation"
           }
         ],
         "identifier": [
@@ -2305,8 +2302,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/results-organizer"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/results-organizer"
           }
         ],
         "identifier": [
@@ -2342,8 +2339,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/result-observation"
           }
         ],
         "text": {
@@ -2376,12 +2373,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunizations-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunizations-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunizations-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunizations-section"
           }
         ],
         "text": {
@@ -2430,8 +2427,8 @@
         "resourceType": "Immunization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunization-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunization-activity"
           }
         ],
         "identifier": [
@@ -2480,8 +2477,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -2533,8 +2530,8 @@
         "resourceType": "Immunization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunization-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunization-activity"
           }
         ],
         "identifier": [
@@ -2583,8 +2580,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -2636,8 +2633,8 @@
         "resourceType": "Immunization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunization-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunization-activity"
           }
         ],
         "identifier": [
@@ -2686,8 +2683,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -2739,8 +2736,8 @@
         "resourceType": "Immunization",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/immunization-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/immunization-activity"
           }
         ],
         "identifier": [
@@ -2802,8 +2799,8 @@
         "resourceType": "Practitioner",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/us-realm-author"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/us-realm-author"
           }
         ],
         "text": {
@@ -2855,12 +2852,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/medications-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/medications-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/medications-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/medications-section"
           }
         ],
         "text": {
@@ -2905,8 +2902,8 @@
         "resourceType": "MedicationStatement",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/medication-statement"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/medication-statement"
           }
         ],
         "identifier": [
@@ -2973,8 +2970,8 @@
         "resourceType": "Medication",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/medication-information"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/medication-information"
           }
         ],
         "name": "Proventil HFA",
@@ -3003,8 +3000,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/plan-of-care-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/plan-of-care-section"
           }
         ],
         "text": {
@@ -3038,8 +3035,8 @@
         "resourceType": "CarePlan",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/plan-of-care-activities"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/plan-of-care-activities"
           }
         ],
         "text": {
@@ -3131,12 +3128,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-section"
           }
         ],
         "text": {
@@ -3175,8 +3172,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-concern-act"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-concern-act"
           }
         ],
         "identifier": [
@@ -3213,8 +3210,8 @@
         "resourceType": "Condition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-observation"
           }
         ],
         "identifier": [
@@ -3258,8 +3255,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-concern-act"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-concern-act"
           }
         ],
         "identifier": [
@@ -3296,8 +3293,8 @@
         "resourceType": "Condition",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/problem-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/problem-observation"
           }
         ],
         "identifier": [
@@ -3341,12 +3338,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/procedures-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/procedures-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/procedures-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/procedures-section"
           }
         ],
         "text": {
@@ -3390,8 +3387,8 @@
         "resourceType": "Procedure",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/procedure-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/procedure-activity"
           }
         ],
         "identifier": [
@@ -3438,8 +3435,8 @@
         "resourceType": "Procedure",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/procedure-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/procedure-activity"
           }
         ],
         "identifier": [
@@ -3487,8 +3484,8 @@
         "resourceType": "Procedure",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/procedure-activity"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/procedure-activity"
           }
         ],
         "identifier": [
@@ -3525,12 +3522,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/results-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/results-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/results-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/results-section"
           }
         ],
         "text": {
@@ -3564,8 +3561,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/results-organizer"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/results-organizer"
           }
         ],
         "identifier": [
@@ -3611,8 +3608,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/result-observation"
           }
         ],
         "text": {
@@ -3649,8 +3646,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/result-observation"
           }
         ],
         "text": {
@@ -3687,8 +3684,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/result-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/result-observation"
           }
         ],
         "text": {
@@ -3725,8 +3722,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/social-history-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/social-history-section"
           }
         ],
         "text": {
@@ -3753,12 +3750,12 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-section"
           },
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-section"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-section"
           }
         ],
         "text": {
@@ -3797,8 +3794,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-organizer"
           }
         ],
         "identifier": [
@@ -3845,8 +3842,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {
@@ -3879,8 +3876,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {
@@ -3913,8 +3910,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {
@@ -3947,8 +3944,8 @@
         "resourceType": "List",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-organizer"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-organizer"
           }
         ],
         "identifier": [
@@ -3995,8 +3992,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {
@@ -4029,8 +4026,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {
@@ -4063,8 +4060,8 @@
         "resourceType": "Observation",
         "extension": [
           {
-            "url": "http://camara.lantanagroup.com/fhir/Profile/ProfileId",
-            "valueCode": "http://www.lantanagroup.com/camara/fhir/vital-signs-observation"
+            "url": "http://testserver.com/fhir/Profile/ProfileId",
+            "valueCode": "http://testserver.com/fhir/vital-signs-observation"
           }
         ],
         "name": {

@@ -4,11 +4,11 @@ var choiceTypes = ['Integer', 'Decimal', 'DateTime', 'Date', 'Instant', 'String'
 var util = {
     PrimitiveTypes: primitiveTypes,
     ChoiceTypes: choiceTypes,
-    FindElement: function(elementPath, profiles) {
+    FindElement: function(elementPath, profiles, fhirVersion) {
         var elementPathSplit = elementPath.split('.');
         var profile = profiles[elementPathSplit[0]];
 
-        if (elementPathSplit[elementPathSplit.length-1] == 'extension') {
+        if (fhirVersion != 2 && elementPathSplit[elementPathSplit.length - 1] == 'extension') {
             return {
                 path: elementPath,
                 definition: {
@@ -21,7 +21,7 @@ var util = {
                     }]
                 }
             };
-        };
+        }
 
         var profileElementPath = elementPath;
         var elementPathSplit = elementPath.split('.');

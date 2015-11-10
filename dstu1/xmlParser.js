@@ -46,6 +46,8 @@ module.exports = function(profiles, obj) {
 
         if (xmlObj && xmlObj['$'] && xmlObj['$']['value'] && !hasProperties) {
             return xmlObj['$']['value'];
+        } else if (typeof xmlObj == 'string') {
+            return xmlObj;
         }
     };
 
@@ -509,7 +511,8 @@ module.exports = function(profiles, obj) {
                     return parseXmlCoding(currentXmlObj);
                 case 'Identifier':
                     return parseXmlIdentifier(currentXmlObj);
-                case 'ResourceReference':
+                case 'ResourceReference':       // Used by profile element type
+                case 'Resource':                // Used by extensions
                     return parseXmlResourceReference(currentXmlObj);
                 case 'Period':
                     return parseXmlPeriod(currentXmlObj);

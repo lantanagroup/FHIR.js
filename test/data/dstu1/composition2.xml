@@ -1,6 +1,12 @@
 <Composition>
-    <extension url="http://camara.lantanagroup.com/fhir/Profile/ProfileId">
-        <valueCode value="http://www.lantanagroup.com/camara/fhir/CCD"/>
+    <extension url="http://testserver.com/fhir/Profile/ProfileId">
+        <valueCode value="http://testserver.com/fhir/CCD"/>
+    </extension>
+    <extension url="http://testserver.com/fhir/Profile/SomeTest">
+        <valueResource>
+            <display>Test Display</display>
+            <reference>http://test.com/some/resource</reference>
+        </valueResource>
     </extension>
     <language value="en"/>
     <text>
@@ -39,7 +45,7 @@
         <display value="University of Michigan Health System - POC"/>
     </custodian>
     <event>
-        <extension url="http://camara.lantanagroup.com/fhir/event-performers">
+        <extension url="http://testserver.com/fhir/event-performers">
             <valueResource>
                 <reference value="cid:d10e238"/>
             </valueResource>
