@@ -57,6 +57,9 @@ module.exports = function(profiles) {
                 case 'valueCoding':
                     builder = buildCoding;
                     break;
+                case 'valueCodeableConcept':
+                    builder = buildCodeableConcept;
+                    break;
                 case 'valueAttachment':
                     builder = buildAttachment;
                     break;

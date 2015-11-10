@@ -12,6 +12,19 @@
         "reference": "http://testserver.com/fhir/Patient/1",
         "display": "Test Patient"
       }
+    },
+    {
+      "url": "http://fhir.js/extension3",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "test_code",
+            "system": "http://fhir.js/cs/1",
+            "display": "Test Code"
+          }
+        ],
+        "text": "Test Code Display"
+      }
     }
   ],
   "language": "en",
