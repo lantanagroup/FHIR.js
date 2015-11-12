@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries. Validating XML against the schemas is supported. Basic JS validation is supported against the core FHIR profile definitions.",
   "readme": "README.md",
   "bugs": {
@@ -51,5 +51,13 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*.js",
     "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js"
-  }
+  },
+  "bundleDependencies": [
+    "libxmljs",
+    "lodash",
+    "path",
+    "q",
+    "xml2js",
+    "xmlbuilder"
+  ]
 }

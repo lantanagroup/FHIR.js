@@ -52,7 +52,7 @@ var util = {
                         // Maybe a completely custom return type for FindElement
                         element = JSON.parse(JSON.stringify(element));
                         element.definition.type = [{
-                            code: choiceType
+                            code: selectedChoiceType
                         }] ;
                     }
 

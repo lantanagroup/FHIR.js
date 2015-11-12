@@ -36,7 +36,7 @@ var util = {
                 if (choiceIndex > 0 && leafPath.indexOf(choiceType) == choiceIndex) {
                     elementPathSplit[elementPathSplit.length-1] = leafPath.substring(0, leafPath.length - choiceType.length) + '[x]';
                     profileElementPath = elementPathSplit.join('.');
-                    selectedChoiceType = choiceType;
+                    selectedChoiceType = choiceType == 'Resource' ? 'ResourceReference' : choiceType;
                     break;
                 }
             }
@@ -52,7 +52,7 @@ var util = {
                         // Maybe a completely custom return type for FindElement
                         element = JSON.parse(JSON.stringify(element));
                         element.definition.type = [{
-                            code: choiceType
+                            code: selectedChoiceType
                         }] ;
                     }
 

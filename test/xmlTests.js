@@ -279,7 +279,7 @@ describe('DSTU1: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:MedicationPrescription/fhir:dosageInstruction/fhir:timingSchedule/fhir:repeat/fhir:units/@value', 'd');
         });
 
-        it('should create XML Bundle', function() {
+        it('should create XML Bundle from bundle.json', function() {
             var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
             var xml = fhir.JsonToXml(bundleJson);
@@ -308,6 +308,20 @@ describe('DSTU1: JS -> XML', function() {
             // assert entry content resource
             assert.xpathCount(doc, '/atom:feed/atom:entry/atom:content/fhir:Patient', 1);
             assert.xpathCount(doc, '/atom:feed/atom:entry/atom:content/fhir:Patient/fhir:identifier', 1);
+        });
+
+        it('should create a reasonResource element for medicationPrescription1.json', function() {
+            var bundleJson = fs.readFileSync('./test/data/dstu1/medicationPrescription1.json').toString();
+            var fhir = new Fhir(Fhir.DSTU1);
+            var xml = fhir.JsonToXml(bundleJson);
+
+            assert(xml);
+
+            var doc = new dom().parseFromString(xml);
+
+            assert.xpathCount(doc, '/fhir:MedicationPrescription/fhir:reasonResource', 1);
+            assert.xpathEqual(doc, '/fhir:MedicationPrescription/fhir:reasonResource/fhir:reference/@value', 'https://localhost:11444/fhir/Condition/3730c5d7-7a16-4aab-bdf3-e3bbb220f655/_history/38129900-6a0b-41c0-8158-7bf299fd6633');
+            assert.xpathEqual(doc, '/fhir:MedicationPrescription/fhir:reasonResource/fhir:display/@value', 'Asthma');
         });
     });
 });
