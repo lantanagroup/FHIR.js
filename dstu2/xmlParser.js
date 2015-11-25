@@ -33,7 +33,33 @@ module.exports = function(profiles, obj) {
         }
     }
 
-    var getXmlValue = function(xmlObj) {
+    var formatIntegerCallback = function(value) {
+        if (!value || typeof value != 'string') {
+            return value;
+        }
+
+        try {
+            var integerValue = parseInt(value);
+            return integerValue;
+        } catch (ex) {
+            return value;
+        }
+    };
+
+    var formatFloatCallback = function(value) {
+        if (!value || typeof value != 'string') {
+            return value;
+        }
+
+        try {
+            var integerValue = parseFloat(value);
+            return integerValue;
+        } catch (ex) {
+            return value;
+        }
+    };
+
+    var getXmlValue = function(xmlObj, formatCallback) {
         var hasProperties = false;
 
         for (var i in xmlObj) {
@@ -46,13 +72,21 @@ module.exports = function(profiles, obj) {
         }
 
         if (xmlObj && xmlObj['$'] && xmlObj['$']['value'] && !hasProperties) {
+            if (formatCallback) {
+                return formatCallback(xmlObj['$']['value']);
+            }
+
             return xmlObj['$']['value'];
         } else if (typeof xmlObj == 'string') {
+            if (formatCallback) {
+                return formatCallback(xmlObj);
+            }
+
             return xmlObj;
         }
     };
 
-    var populateXmlValue = function(obj, xmlObj, property, isArray) {
+    var populateXmlValue = function(obj, xmlObj, property, isArray, formatCallback) {
         var xmlObjProp = self.GetProperty(xmlObj, FHIR_NS, property);
         
         if (isArray) {
@@ -61,12 +95,23 @@ module.exports = function(profiles, obj) {
 
                 for (var i in xmlObjProp) {
                     var value = getXmlValue(xmlObjProp[i]);
+
+                    if (formatCallback) {
+                        value = formatCallback(value);
+                    }
+
                     obj[property].push(value);
                 }
             }
         } else {
             if (xmlObjProp && xmlObjProp.length > 0) {
-                obj[property] = getXmlValue(xmlObjProp[0]);
+                var value = getXmlValue(xmlObjProp[0]);
+
+                if (formatCallback) {
+                    value = formatCallback(value);
+                }
+
+                obj[property] = value;
             }
         }
     };
@@ -267,7 +312,7 @@ module.exports = function(profiles, obj) {
 
         populateXmlExtension(obj, xmlObj);
 
-        populateXmlValue(obj, xmlObj, 'value');
+        populateXmlValue(obj, xmlObj, 'value', undefined, formatFloatCallback);
         populateXmlValue(obj, xmlObj, 'comparator');
         populateXmlValue(obj, xmlObj, 'units');
         populateXmlValue(obj, xmlObj, 'system');
@@ -377,10 +422,10 @@ module.exports = function(profiles, obj) {
         populateXmlExtension(obj, xmlObj);
 
         populateXmlValue(obj, xmlObj, 'origin');
-        populateXmlValue(obj, xmlObj, 'period');
-        populateXmlValue(obj, xmlObj, 'factor');
-        populateXmlValue(obj, xmlObj, 'lowerLimit');
-        populateXmlValue(obj, xmlObj, 'upperLimit');
+        populateXmlValue(obj, xmlObj, 'period', undefined, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'factor', undefined, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'lowerLimit', undefined, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'upperLimit', undefined, formatFloatCallback);
         populateXmlValue(obj, xmlObj, 'dimensions');
         populateXmlValue(obj, xmlObj, 'data');
 
@@ -440,14 +485,14 @@ module.exports = function(profiles, obj) {
                 obj.repeat.boundsPeriod = parseXmlPeriod(xmlObj.boundsPeriod[0]);
             }
 
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'count');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'duration');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'durationMax');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'count', undefined, formatIntegerCallback);
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'duration', undefined, formatFloatCallback);
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'durationMax', undefined, formatFloatCallback);
             populateXmlValue(obj.repeat, xmlObj.repeat[0], 'durationUnits');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequency');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequencyMax');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'period');
-            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'periodMax');
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequency', undefined, formatIntegerCallback);
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'frequencyMax', undefined, formatIntegerCallback);
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'period', undefined, formatFloatCallback);
+            populateXmlValue(obj.repeat, xmlObj.repeat[0], 'periodMax', undefined, formatFloatCallback);
             populateXmlValue(obj.repeat, xmlObj.repeat[0], 'periodUnits');
             populateXmlValue(obj.repeat, xmlObj.repeat[0], 'when');
         }

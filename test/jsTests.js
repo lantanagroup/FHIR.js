@@ -110,6 +110,29 @@ describe('DSTU2: XML -> JS', function() {
                     done(err);
                 });
         });
+
+        it('should create MedicationStatement object with integers', function(done) {
+            var medicationStatementXml = fs.readFileSync('./test/data/dstu2/medicationStatement.xml').toString();
+            var fhir = new Fhir(Fhir.DSTU2);
+            fhir.XmlToObject(medicationStatementXml)
+                .then(function(obj) {
+                    assert(obj, 'Expected XmlToObject to return an object');
+
+                    assert(obj.dosage);
+                    assert.equal(obj.dosage.length, 1);
+                    assert(obj.dosage[0].timing);
+                    assert(obj.dosage[0].timing.repeat);
+                    assert.equal(typeof(obj.dosage[0].timing.repeat.frequency), 'number');
+                    assert.equal(obj.dosage[0].timing.repeat.frequency, 3);
+                    assert.equal(typeof(obj.dosage[0].timing.repeat.period), 'number');
+                    assert.equal(obj.dosage[0].timing.repeat.period, 1);
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
     });
 });
 
@@ -425,6 +448,29 @@ describe('DSTU1: XML -> JS', function() {
                     assert(section.content);
                     assert.equal(section.content.display, 'ADVANCE DIRECTIVES');
                     assert.equal(section.content.reference, 'cid:d9e621');
+
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
+        });
+
+        it('should create a JS MedicationStatement object with non-quoted integers', function(done) {
+            var compositionXml = fs.readFileSync('./test/data/dstu1/medicationStatement.xml').toString();
+            var fhir = new Fhir(Fhir.DSTU1);
+            fhir.XmlToObject(compositionXml)
+                .then(function(obj) {
+                    assert(obj, 'Expected XmlToObject to return an object');
+
+                    assert(obj.dosage);
+                    assert.equal(obj.dosage.length, 1);
+                    assert(obj.dosage[0].timing);
+                    assert(obj.dosage[0].timing.repeat);
+                    assert.equal(typeof(obj.dosage[0].timing.repeat.duration), 'number');
+                    assert.equal(obj.dosage[0].timing.repeat.duration, 6);
+                    assert.equal(typeof(obj.dosage[0].timing.repeat.frequency), 'number');
+                    assert.equal(obj.dosage[0].timing.repeat.frequency, 1);
 
                     done();
                 })

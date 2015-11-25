@@ -32,7 +32,33 @@ module.exports = function(profiles, obj) {
         }
     }
 
-    var getXmlValue = function(xmlObj) {
+    var formatIntegerCallback = function(value) {
+        if (!value || typeof value != 'string') {
+            return value;
+        }
+
+        try {
+            var integerValue = parseInt(value);
+            return integerValue;
+        } catch (ex) {
+            return value;
+        }
+    };
+
+    var formatFloatCallback = function(value) {
+        if (!value || typeof value != 'string') {
+            return value;
+        }
+
+        try {
+            var integerValue = parseFloat(value);
+            return integerValue;
+        } catch (ex) {
+            return value;
+        }
+    };
+
+    var getXmlValue = function(xmlObj, formatCallback) {
         var hasProperties = false;
 
         for (var i in xmlObj) {
@@ -45,13 +71,21 @@ module.exports = function(profiles, obj) {
         }
 
         if (xmlObj && xmlObj['$'] && xmlObj['$']['value'] && !hasProperties) {
+            if (formatCallback) {
+                return formatCallback(xmlObj['$']['value']);
+            }
+
             return xmlObj['$']['value'];
         } else if (typeof xmlObj == 'string') {
+            if (formatCallback) {
+                return formatCallback(xmlObj);
+            }
+
             return xmlObj;
         }
     };
 
-    var populateXmlValue = function(obj, xmlObj, property, isArray) {
+    var populateXmlValue = function(obj, xmlObj, property, isArray, formatCallback) {
         var xmlObjProp = self.GetProperty(xmlObj, FHIR_NS, property);
         
         if (isArray) {
@@ -60,12 +94,23 @@ module.exports = function(profiles, obj) {
 
                 for (var i in xmlObjProp) {
                     var value = getXmlValue(xmlObjProp[i]);
+
+                    if (formatCallback) {
+                        value = formatCallback(value);
+                    }
+
                     obj[property].push(value);
                 }
             }
         } else {
             if (xmlObjProp && xmlObjProp.length > 0) {
-                obj[property] = getXmlValue(xmlObjProp[0]);
+                var value = getXmlValue(xmlObjProp[0]);
+
+                if (formatCallback) {
+                    value = formatCallback(value);
+                }
+
+                obj[property] = value;
             }
         }
     };
@@ -266,7 +311,7 @@ module.exports = function(profiles, obj) {
 
         populateXmlExtension(obj, xmlObj);
 
-        populateXmlValue(obj, xmlObj, 'value');
+        populateXmlValue(obj, xmlObj, 'value', false, formatFloatCallback);
         populateXmlValue(obj, xmlObj, 'comparator');
         populateXmlValue(obj, xmlObj, 'units');
         populateXmlValue(obj, xmlObj, 'system');
@@ -319,7 +364,7 @@ module.exports = function(profiles, obj) {
         populateXmlValue(obj, xmlObj, 'language');
         populateXmlValue(obj, xmlObj, 'data');
         populateXmlValue(obj, xmlObj, 'url');
-        populateXmlValue(obj, xmlObj, 'size');
+        populateXmlValue(obj, xmlObj, 'size', false, formatIntegerCallback);
         populateXmlValue(obj, xmlObj, 'hash');
         populateXmlValue(obj, xmlObj, 'title');
 
@@ -376,11 +421,11 @@ module.exports = function(profiles, obj) {
         populateXmlExtension(obj, xmlObj);
 
         populateXmlValue(obj, xmlObj, 'origin');
-        populateXmlValue(obj, xmlObj, 'period');
-        populateXmlValue(obj, xmlObj, 'factor');
-        populateXmlValue(obj, xmlObj, 'lowerLimit');
-        populateXmlValue(obj, xmlObj, 'upperLimit');
-        populateXmlValue(obj, xmlObj, 'dimensions');
+        populateXmlValue(obj, xmlObj, 'period', false, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'factor', false, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'lowerLimit', false, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'upperLimit', false, formatFloatCallback);
+        populateXmlValue(obj, xmlObj, 'dimensions', false, formatIntegerCallback);
         populateXmlValue(obj, xmlObj, 'data');
 
         if (obj.extension || obj.origin || obj.period || obj.factor || obj.lowerLimit || obj.upperLimit || obj.dimensions || obj.data) {
@@ -407,11 +452,11 @@ module.exports = function(profiles, obj) {
         if (repeatProp && repeatProp.length > 0) {
             obj.repeat = {};
 
-            populateXmlValue(obj.repeat, repeatProp[0], 'frequency');
+            populateXmlValue(obj.repeat, repeatProp[0], 'frequency', false, formatIntegerCallback);
             populateXmlValue(obj.repeat, repeatProp[0], 'when');
-            populateXmlValue(obj.repeat, repeatProp[0], 'duration');
+            populateXmlValue(obj.repeat, repeatProp[0], 'duration', false, formatFloatCallback);
             populateXmlValue(obj.repeat, repeatProp[0], 'units');
-            populateXmlValue(obj.repeat, repeatProp[0], 'count');
+            populateXmlValue(obj.repeat, repeatProp[0], 'count', false, formatIntegerCallback);
             populateXmlValue(obj.repeat, repeatProp[0], 'end');
         }
 
