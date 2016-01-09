@@ -442,22 +442,22 @@ module.exports = function(profiles, obj) {
         populateXmlValue(obj, xmlObj, 'versionId');
         populateXmlValue(obj, xmlObj, 'lastUpdated');
 
-        _.forEach(obj.profile, function(profile) {
+        _.forEach(xmlObj.profile, function(profile) {
             populateXmlValue(obj, profile, 'profile');
         });
 
-        if (obj.security && obj.security.length > 0) {
+        if (xmlObj.security && xmlObj.security.length > 0) {
             obj.security = [];
 
-            _.forEach(obj.security, function(security) {
+            _.forEach(xmlObj.security, function(security) {
                 obj.security.push(parseXmlCoding(security));
             });
         }
 
-        if (obj.tag && obj.tag.length > 0) {
+        if (xmlObj.tag && xmlObj.tag.length > 0) {
             obj.tag = [];
 
-            _.forEach(obj.tag, function(tag) {
+            _.forEach(xmlObj.tag, function(tag) {
                 obj.tag.push(parseXmlCoding(tag));
             });
         }
