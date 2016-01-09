@@ -51,7 +51,7 @@ var util = {
                         // TODO: Should figure out a better way not to modify the base profile (since JSON.parse/stringify is a little costly)...
                         // Maybe a completely custom return type for FindElement
                         element = JSON.parse(JSON.stringify(element));
-                        element.definition.type = [{
+                        element.type = [{
                             code: selectedChoiceType
                         }] ;
                     }
@@ -471,7 +471,9 @@ var util = {
         "collectedSampledDate": "SampledDate",
         "collectedHumanName": "HumanName",
         "collectedAddress": "Address",
-        "collectedContactPoint": "ContactPoint"
+        "collectedContactPoint": "ContactPoint",
+        "pAttachment": "Attachment",
+        "pReference": "Reference"
     }
 };
 
