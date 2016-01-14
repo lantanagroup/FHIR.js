@@ -660,6 +660,8 @@ module.exports = function(profiles, obj) {
                 case 'Signature':
                     return parseXmlSignature(currentXmlObj);
                 case 'BackboneElement':
+                case 'ElementDefinition':
+                    // TODO: Parse the core properties supported by these data-types
                     return;
                 default:
                     throw 'Unexpected data-type: ' + type;

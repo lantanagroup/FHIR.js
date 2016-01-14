@@ -636,6 +636,8 @@ module.exports = function(profiles) {
                     buildFunction = buildSignature;
                     break;
                 case 'BackboneElement':
+                case 'ElementDefinition':
+                    // TODO: Parse the core properties supported by these data-types
                     break;
                 default:
                     if (elementType) {
