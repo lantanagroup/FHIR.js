@@ -310,6 +310,19 @@ describe('DSTU1: JS -> XML', function() {
             assert.xpathCount(doc, '/atom:feed/atom:entry/atom:content/fhir:Patient/fhir:identifier', 1);
         });
 
+        it('should create XML Bundle from bundle4.json', function() {
+            var bundleJson = fs.readFileSync('./test/data/dstu1/bundle4.json').toString();
+            var fhir = new Fhir(Fhir.DSTU1);
+            var xml = fhir.JsonToXml(bundleJson);
+
+            assert(xml);
+
+            var doc = new dom().parseFromString(xml);
+
+            // assert feed
+            assert.equal(doc.documentElement.nodeName, 'feed');
+        });
+
         it('should create a reasonResource element for medicationPrescription1.json', function() {
             var bundleJson = fs.readFileSync('./test/data/dstu1/medicationPrescription1.json').toString();
             var fhir = new Fhir(Fhir.DSTU1);
