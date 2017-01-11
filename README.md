@@ -1,7 +1,7 @@
 # FHIR.js
 Node.JS library for DSTU1 and DSTU2, for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries, and for validating FHIR JSON and XML 
 
-![Build Status](https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true)
+[![Build Status](https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true)](https://ci.appveyor.com/project/seanmcilvenna/fhir-js)
 
 # Dependencies
 * q 1.4.1
