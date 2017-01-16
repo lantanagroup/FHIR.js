@@ -15,13 +15,15 @@ var Fhir = function(version) {
     var profiles;
 
     if (!version) {
-        version = Fhir.DSTU1;
+        version = Fhir.STU3;
     }
 
     if (version == Fhir.DSTU1) {
         profiles = require('./profiles/dstu1');
     } else if (version == Fhir.DSTU2) {
         profiles = require('./profiles/dstu2');
+    } else if (version == Fhir.STU3) {
+        profiles = require('./profiles/stu3');
     }
 
     var XmlParser;
@@ -36,6 +38,10 @@ var Fhir = function(version) {
         XmlParser = require('./dstu2/xmlParser');
         JsParser = require('./dstu2/jsParser');
         JsValidator = require('./dstu2/jsValidator');
+    } else if (version == Fhir.STU3) {
+        XmlParser = require('./stu3/xmlParser');
+        JsParser = require('./stu3/jsParser');
+        JsValidator = require('./stu3/jsValidator');
     }
 
     var getSchemaDirectory = function() {
@@ -44,6 +50,8 @@ var Fhir = function(version) {
                 return path.join(__dirname, 'schemas/dstu1/');
             case Fhir.DSTU2:
                 return path.join(__dirname, 'schemas/dstu2/');
+            case Fhir.STU3:
+                return path.join(__dirname, 'schemas/stu3/');
             default:
                 throw 'Cannot get schema directory for unexpected version of FHIR';
         }
@@ -283,5 +291,11 @@ Fhir.DSTU1 = '1';
  * @type {string}
  */
 Fhir.DSTU2 = '2';
+
+/**
+ * Version specifier for STU 3
+ * @type {string}
+ */
+Fhir.STU3 = '3';
 
 module.exports = Fhir;

@@ -6,7 +6,7 @@ var profiles = ['AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'Aud
 
 var getProfile = function(profileName) {
     var deferred = q.defer();
-    var url = 'http://www.hl7.org/fhir/' + profileName.toLowerCase() + '.profile.json';
+    var url = 'http://www.hl7.org/fhir/DSTU2/' + profileName.toLowerCase() + '.profile.json';
     var req = http.get(url, function(res) {res.setEncoding('utf8');
         var profileContent = '';
         res.on('data', function (chunk) {

@@ -17,12 +17,15 @@ module.exports.xpathEqual = function(node, xpathString, value) {
     }
 
     var node = nodes[0];
+    var nodeValue = node && node.attributes && node.attributes.length > 0 && node.attributes[0].name == 'value' ? node.attributes[0].value : null;
 
-    if (!node || (!node.value && !node.data)) {
+    if (!node || (!node.value && !node.data && !nodeValue)) {
         assert.fail('xpath node does not have a value: ' + xpathString);
     }
 
-    assert.equal(node.value ? node.value : node.data, value);
+    var actualValue = node.value || node.data || nodeValue;
+
+    assert.equal(actualValue, value);
 };
 
 module.exports.xpathNodeName = function(node, xpathString, name) {
