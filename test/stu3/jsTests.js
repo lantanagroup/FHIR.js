@@ -7,7 +7,7 @@ describe('STU3: XML -> JS', function() {
         it('should create a bundle object for a transaction', function(done) {
             var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 
-            var fhir = new Fhir(Fhir.DSTU2);
+            var fhir = new Fhir(Fhir.STU3);
             fhir.XmlToObject(bundleTransactionXml)
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
@@ -40,7 +40,7 @@ describe('STU3: XML -> JS', function() {
 
         it('should create a discharge summary document bundle object', function(done) {
             var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
-            var fhir = new Fhir(Fhir.DSTU2);
+            var fhir = new Fhir(Fhir.STU3);
             fhir.XmlToObject(documentBundleXml)
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
@@ -57,16 +57,6 @@ describe('STU3: XML -> JS', function() {
                     assert(obj.entry[0].resource);
                     assert.equal(obj.entry[0].resource.resourceType, 'Composition');
                     assert.equal(obj.entry[0].resource.id, '180f219f-97a8-486d-99d9-ed631fe4fc57');
-                    assert(obj.entry[0].resource.extension);
-
-                    // Test extensions
-                    assert.equal(obj.entry[0].resource.extension.length, 2);
-                    assert.equal(obj.entry[0].resource.extension[0].url, 'http://testserver.com/fhir/Profile/SomeTest1');
-                    assert.equal(obj.entry[0].resource.extension[0].valueCode, 'testCode');
-                    assert.equal(obj.entry[0].resource.extension[1].url, 'http://testserver.com/fhir/Profile/SomeTest2');
-                    assert(obj.entry[0].resource.extension[1].valueReference);
-                    assert.equal(obj.entry[0].resource.extension[1].valueReference.display, 'Test Patient');
-                    assert.equal(obj.entry[0].resource.extension[1].valueReference.reference, 'http://testserver.com/fhir/Patient/1');
 
                     assert(obj.signature);
                     assert(obj.signature.blob);
@@ -76,7 +66,7 @@ describe('STU3: XML -> JS', function() {
                     assert(obj.signature.type);
                     assert.equal(obj.signature.type.length, 1);
                     assert.equal(obj.signature.type[0].code, '1.2.840.10065.1.12.1.1');
-                    assert.equal(obj.signature.type[0].display, 'AuthorID');
+                    assert.equal(obj.signature.type[0].display, 'Author\'s Signature');
                     assert.equal(obj.signature.type[0].system, 'http://hl7.org/fhir/valueset-signature-type');
 
                     done();
@@ -88,21 +78,21 @@ describe('STU3: XML -> JS', function() {
 
         it('should create Condition object', function(done) {
             var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
-            var fhir = new Fhir(Fhir.DSTU2);
+            var fhir = new Fhir(Fhir.STU3);
             fhir.XmlToObject(condition2Xml)
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
                     assert.equal(obj.resourceType, 'Condition');
-                    assert.equal(obj.onsetDateTime, '2012-11-12');
                     assert.equal(obj.id, 'example2');
                     assert.equal(obj.clinicalStatus, 'active');
 
                     assert(obj.category);
-                    assert(obj.category.coding);
-                    assert.equal(obj.category.coding.length, 1);
-                    assert.equal(obj.category.coding[0].code, 'finding');
-                    assert.equal(obj.category.coding[0].display, 'Finding');
-                    assert.equal(obj.category.coding[0].system, 'http://hl7.org/fhir/condition-category');
+                    assert.equal(1, obj.category.length);
+                    assert(obj.category[0].coding);
+                    assert.equal(obj.category[0].coding.length, 1);
+                    assert.equal(obj.category[0].coding[0].code, 'problem-list-item');
+                    assert.equal(obj.category[0].coding[0].display, 'Problem List Item');
+                    assert.equal(obj.category[0].coding[0].system, 'http://hl7.org/fhir/condition-category');
 
                     done();
                 })
@@ -113,7 +103,7 @@ describe('STU3: XML -> JS', function() {
 
         it('should create MedicationStatement object with integers', function(done) {
             var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
-            var fhir = new Fhir(Fhir.DSTU2);
+            var fhir = new Fhir(Fhir.STU3);
             fhir.XmlToObject(medicationStatementXml)
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
@@ -123,7 +113,7 @@ describe('STU3: XML -> JS', function() {
                     assert(obj.dosage[0].timing);
                     assert(obj.dosage[0].timing.repeat);
                     assert.equal(typeof(obj.dosage[0].timing.repeat.frequency), 'number');
-                    assert.equal(obj.dosage[0].timing.repeat.frequency, 3);
+                    assert.equal(obj.dosage[0].timing.repeat.frequency, 1);
                     assert.equal(typeof(obj.dosage[0].timing.repeat.period), 'number');
                     assert.equal(obj.dosage[0].timing.repeat.period, 1);
 

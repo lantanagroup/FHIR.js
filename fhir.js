@@ -15,7 +15,7 @@ var Fhir = function(version) {
     var profiles;
 
     if (!version) {
-        version = Fhir.STU3;
+        version = Fhir.DSTU1;
     }
 
     if (version == Fhir.DSTU1) {

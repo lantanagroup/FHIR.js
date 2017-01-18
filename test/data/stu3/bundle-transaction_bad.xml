@@ -7,7 +7,7 @@
   <type value="transaction"/>
   <entry>
     <fullUrl value="urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0a"/>
-    <resource>
+    <resources>
       <Patient>
         <text>
           <status value="generated"/>
@@ -23,7 +23,7 @@
         <gender value="male"/>
         <birthDate value="1974-12-25"/>
       </Patient>
-    </resource>
+    </resources>
     <request>
       <method value="POST"/>
       <url value="Patient"/>

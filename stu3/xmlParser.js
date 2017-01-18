@@ -434,6 +434,89 @@ module.exports = function(profiles, obj) {
         }
     };
 
+    var parseXmlDosageInstruction = function(xmlObj) {
+        var obj = {};
+
+        populateXmlExtension(obj, xmlObj);
+
+        // sequence
+        populateXmlValue(obj, xmlObj, 'sequence');
+
+        // text
+        populateXmlValue(obj, xmlObj, 'text');
+
+        // additionalInstructions 0..*
+        if (xmlObj.additionalInstructions && xmlObj.additionalInstructions.length > 0) {
+            obj.additionalInstructions = [];
+            _.forEach(xmlObj.additionalInstructions, function(additionalInstructions) {
+                obj.additionalInstructions.push(parseXmlCodeableConcept(additionalInstructions));
+            });
+        }
+
+        // timing
+        if (xmlObj.timing && xmlObj.timing.length == 1) {
+            obj.timing = parseXmlTiming(xmlObj.timing[0]);
+        }
+
+        // asNeededBoolean
+        populateXmlValue(obj, xmlObj, 'asNeededBoolean');
+
+        // asNeededCodeableConcept
+        if (xmlObj.asNeededCodeableConcept && xmlObj.asNeededCodeableConcept.length == 1) {
+            obj.asNeededCodeableConcept = parseXmlCodeableConcept(xmlObj.asNeededCodeableConcept[0]);
+        }
+
+        // site
+        if (xmlObj.site && xmlObj.site.length == 1) {
+            obj.site = parseXmlCodeableConcept(xmlObj.site[0]);
+        }
+
+        // route
+        if (xmlObj.route && xmlObj.route.length == 1) {
+            obj.route = parseXmlCodeableConcept(xmlObj.route[0]);
+        }
+
+        // method
+        if (xmlObj.method && xmlObj.method.length == 1) {
+            obj.method = parseXmlCodeableConcept(xmlObj.method[0]);
+        }
+
+        // dose[x]
+        if (xmlObj.doseRange && xmlObj.doseRange.length == 1) {
+            obj.doseRange = parseXmlRange(xmlObj.doseRange[0]);
+        } else if (xmlObj.doseQuantity && xmlObj.doseQuantity.length == 1) {
+            obj.doseQuantity = parseXmlQuantity(xmlObj.doseQuantity[0]);
+        }
+
+        // maxDosePerPeriod
+        if (xmlObj.maxDosePerPeriod && xmlObj.maxDosePerPeriod.length == 1) {
+            obj.maxDosePerPeriod = parseXmlPeriod(xmlObj.maxDosePerPeriod[0]);
+        }
+
+        // maxDosePerAdministration
+        if (xmlObj.maxDosePerAdministration && xmlObj.maxDosePerAdministration.length == 1) {
+            obj.maxDosePerAdministration = parseXmlPeriod(xmlObj.maxDosePerAdministration[0]);
+        }
+
+        // maxDosePerLifetime
+        if (xmlObj.maxDosePerLifetime && xmlObj.maxDosePerLifetime.length == 1) {
+            obj.maxDosePerLifetime = parseXmlPeriod(xmlObj.maxDosePerLifetime[0]);
+        }
+
+        // rate[x]
+        if (xmlObj.rateRatio && xmlObj.rateRatio.length == 1) {
+            obj.rateRatio = parseXmlRatio(xmlObj.rateRatio[0]);
+        } else if (xmlObj.rateRange && xmlObj.rateRange.length == 1) {
+            obj.rateRange = parseXmlRange(xmlObj.rateRange[0]);
+        } else if (xmlObj.rateQuantity && xmlObj.rateQuantity.length == 1) {
+            obj.rateQuantity = parseXmlQuantity(xmlObj.rateQuantity[0]);
+        }
+
+        if (obj.extension || obj.sequence || obj.text || obj.additionalInstructions || obj.timing || obj.hasOwnProperty('asNeededBoolean') || obj.asNeededCodeableConcept || obj.site || obj.route || obj.method || obj.doseRange || obj.doseQuantity || obj.maxDosePerPeriod || obj.maxDosePerAdministration || obj.maxDosePerLifetime || obj.rateRatio || obj.rateRange || obj.rateQuantity) {
+            return obj;
+        }
+    };
+
     var parseXmlMeta = function(xmlObj) {
         var obj = {};
 
@@ -530,6 +613,21 @@ module.exports = function(profiles, obj) {
         populateXmlValue(obj, xmlObj, 'blob');
 
         if (obj.extension || obj.type || obj.when || obj.whoUri || obj.whoReference || obj.contentType || obj.blob) {
+            return obj;
+        }
+    };
+
+    var parseXmlAnnotation = function(xmlObj) {
+        var obj = {};
+
+        populateXmlExtension(obj, xmlObj);
+
+        populateXmlValue(obj, xmlObj, 'authorReference');
+        populateXmlValue(obj, xmlObj, 'authorString');
+        populateXmlValue(obj, xmlObj, 'time');
+        populateXmlValue(obj, xmlObj, 'text');
+
+        if (obj.extension || obj.authorReference || obj.authorString || obj.time || obj.text) {
             return obj;
         }
     };
@@ -663,6 +761,10 @@ module.exports = function(profiles, obj) {
                 case 'ElementDefinition':
                     // TODO: Parse the core properties supported by these data-types
                     return;
+                case 'DosageInstruction':
+                    return parseXmlDosageInstruction(currentXmlObj);
+                case 'Annotation':
+                    return parseXmlAnnotation(currentXmlObj);
                 default:
                     throw 'Unexpected data-type: ' + type;
             }

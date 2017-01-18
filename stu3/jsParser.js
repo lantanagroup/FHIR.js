@@ -5,6 +5,12 @@ var _ = require('lodash');
 module.exports = function(profiles) {
     var self = this;
 
+    /**
+     * Creates a plain string/boolean/date-time/etc. property on the specified node using obj as the value.
+     * @param The destination node that the property should be created on
+     * @param obj The source object/value that the property should be taken from
+     * @param name The name of the property to create on the node
+     */
     var buildPrimitive = function(node, obj, name) {
         if (!obj) {
             return;
@@ -20,6 +26,12 @@ module.exports = function(profiles) {
         primitiveNode.att('value', value);
     };
 
+    /**
+     * Creates a plain string/boolnea/date-time/etc. property on the specified node, using the named property on the obj
+     * @param node The destination node that the property should be created on
+     * @param obj The object that contains the specified property (by name), whose value should be used to create the destination property
+     * @param name The name of the property to create on the node, and the name of the property to read on the obj
+     */
     var buildPrimitiveProperty = function(node, obj, name) {
         if (!obj[name]) {
             return;
@@ -28,21 +40,33 @@ module.exports = function(profiles) {
         buildPrimitive(node, obj[name], name);
     };
 
+    var buildArray = function(node, obj, name, builder) {
+        if (obj && obj.length > 0) {
+            for (var i in obj) {
+                builder(node, obj[i], name);
+            }
+        }
+    };
+
     var buildExtension = function(node, obj, name) {
         var extensionNode = node.ele(name);
 
+        // url
         if (obj.url) {
             extensionNode.att('url', obj.url);
         }
 
+        // Loop through all properties on the object so we can determine which value[x] type should be created
         for (var i in obj) {
-            if (i == 'url') {
+            if (i == 'url') {       // Ignore url since we handled it above
                 continue;
             }
 
+            // Determine what the 'x' is in value[x] and if it is a primitive type
             var valueElementType = i.length > 5 ? i.substring(5) : '';
             var isPrimitive = util.IsPrimitive(valueElementType);
 
+            // If it's a primitive type then just create a primitive property out of it
             if (isPrimitive) {
                 buildPrimitive(extensionNode, obj[i], i);
                 continue;
@@ -50,6 +74,7 @@ module.exports = function(profiles) {
 
             var builder = null;
 
+            // It's not a primitive type, need to determine which builder function to use for the type
             switch (i) {
                 case 'valueCode':
                     builder = buildPrimitive;
@@ -225,25 +250,9 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'use');
         buildPrimitiveProperty(newNode, obj, 'text');
         buildPrimitiveProperty(newNode, obj, 'family');
-
-        if (obj.given && obj.given.length > 0) {
-            for (var i in obj.given) {
-                buildPrimitive(newNode, obj.given[i], 'given');
-            }
-        }
-
-        if (obj.prefix && obj.prefix.length > 0) {
-            for (var i in obj.prefix) {
-                buildPrimitive(newNode, obj.prefix[i], 'prefix');
-            }
-        }
-
-        if (obj.suffix && obj.suffix.length > 0) {
-            for (var i in obj.suffix) {
-                buildPrimitive(newNode, obj.suffix[i], 'suffix');
-            }
-        }
-
+        buildArray(newNode, obj.given, 'given', buildPrimitive);
+        buildArray(newNode, obj.prefix, 'prefix', buildPrimitive);
+        buildArray(newNode, obj.suffix, 'suffix', buildPrimitive);
         buildPeriod(newNode, obj.period, 'period');
     };
 
@@ -263,8 +272,6 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'size');
         buildPrimitiveProperty(newNode, obj, 'hash');
         buildPrimitiveProperty(newNode, obj, 'title');
-
-        // DSTU2 added "creation"
         buildPrimitiveProperty(newNode, obj, 'creation');
     };
 
@@ -342,19 +349,12 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'use');
         buildPrimitiveProperty(newNode, obj, 'type');
         buildPrimitiveProperty(newNode, obj, 'text');
-
-        if (obj.line && obj.line.length > 0) {
-            for (var i in obj.line) {
-                buildPrimitive(newNode, obj.line[i], 'line');
-            }
-        }
-
+        buildArray(newNode, obj.line, 'line', buildPrimitive);
         buildPrimitiveProperty(newNode, obj, 'city');
         buildPrimitiveProperty(newNode, obj, 'district');
         buildPrimitiveProperty(newNode, obj, 'state');
         buildPrimitiveProperty(newNode, obj, 'postalCode');         // DSTU2 changed "zip" to "postalCode"
         buildPrimitiveProperty(newNode, obj, 'country');
-
         buildQuantity(newNode, obj.period, 'period');
     };
 
@@ -371,27 +371,7 @@ module.exports = function(profiles) {
         buildPrimitiveProperty(newNode, obj, 'value');
         buildPrimitiveProperty(newNode, obj, 'use');
         buildPrimitiveProperty(newNode, obj, 'rank');
-
         buildQuantity(newNode, obj.period, 'period');
-    };
-
-    var buildSampledData = function(node, obj, name) {
-        if (!obj) {
-            return;
-        }
-
-        var newNode = node.ele(name);
-
-        buildExtensionProperty(newNode, obj);
-
-        buildQuantity(newNode, obj.origin, 'origin');
-
-        buildPrimitiveProperty(newNode, obj, 'period');
-        buildPrimitiveProperty(newNode, obj, 'factor');
-        buildPrimitiveProperty(newNode, obj, 'lowerLimit');
-        buildPrimitiveProperty(newNode, obj, 'upperLimit');
-        buildPrimitiveProperty(newNode, obj, 'dimensions');
-        buildPrimitiveProperty(newNode, obj, 'data');
     };
 
     var buildTiming = function(node, obj, name) {
@@ -458,8 +438,48 @@ module.exports = function(profiles) {
             buildReference(newNode, obj.whoReference, 'whoReference');
         }
 
+        if (obj.onBehalfOfUri) {
+            buildPrimitive(newNode, obj.onBehalfOfUri, 'onBehalfOfUri');
+        } else if (obj.onBehalfOfReference) {
+            buildReference(newNode, obj.onBehalfOfReference, 'onBehalfOfReference');
+        }
+
         buildPrimitive(newNode, obj.contentType, 'contentType');
         buildPrimitive(newNode, obj.blob, 'blob');
+    };
+
+    var buildSampledData = function(node, obj, name) {
+        if (!obj) {
+            return;
+        }
+
+        var newNode = node.ele(name);
+
+        buildExtensionProperty(newNode, obj);
+
+        buildQuantity(newNode, obj.origin, 'origin');
+
+        buildPrimitiveProperty(newNode, obj, 'period');
+        buildPrimitiveProperty(newNode, obj, 'factor');
+        buildPrimitiveProperty(newNode, obj, 'lowerLimit');
+        buildPrimitiveProperty(newNode, obj, 'upperLimit');
+        buildPrimitiveProperty(newNode, obj, 'dimensions');
+        buildPrimitiveProperty(newNode, obj, 'data');
+    };
+
+    var buildAnnotation = function(node, obj, name) {
+        if (!obj) {
+            return;
+        }
+
+        var newNode = node.ele(name);
+
+        buildExtensionProperty(newNode, obj);
+
+        buildPrimitiveProperty(newNode, obj, 'authorReference');
+        buildPrimitiveProperty(newNode, obj, 'authorString');
+        buildPrimitiveProperty(newNode, obj, 'time');
+        buildPrimitiveProperty(newNode, obj, 'text');
     };
 
     var buildMeta = function(node, obj, name) {
@@ -473,18 +493,9 @@ module.exports = function(profiles) {
 
         buildPrimitiveProperty(newNode, obj, 'versionId');
         buildPrimitiveProperty(newNode, obj, 'lastUpdated');
-
-        _.forEach(obj.profile, function(profile) {
-            buildPrimitiveProperty(newNode, profile, 'profile');
-        });
-
-        _.forEach(obj.security, function(security) {
-            buildCoding(newNode, security, 'security');
-        });
-
-        _.forEach(obj.tag, function(tag) {
-            buildCoding(newNode, tag, 'tag');
-        });
+        buildArray(newNode, obj.profile, 'profile', buildPrimitiveProperty);
+        buildArray(newNode, obj.security, 'security', buildCoding);
+        buildArray(newNode, obj.tag, 'tag', buildCoding);
     };
 
     var buildDosageInstruction = function(node, obj, name) {
@@ -688,6 +699,9 @@ module.exports = function(profiles) {
                     break;
                 case 'DosageInstruction':
                     buildFunction = buildDosageInstruction;
+                    break;
+                case 'Annotation':
+                    buildFunction = buildAnnotation;
                     break;
                 default:
                     if (elementType) {
