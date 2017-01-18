@@ -1,6 +1,12 @@
 var xml2js = require('xml2js');
 var util = require('./util');
 
+/**
+ * @class XmlParser
+ * @memberof module:dstu1
+ * @param profiles
+ * @param obj
+ */
 module.exports = function(profiles, obj) {
     var self = this;
     var builder = new xml2js.Builder({explicitRoot: false, headless: true, rootName: 'div', renderOpts: { 'pretty': false }});

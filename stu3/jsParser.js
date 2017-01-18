@@ -2,12 +2,21 @@ var util = require('./util');
 var xmlBuilder = require('xmlbuilder');
 var _ = require('lodash');
 
-module.exports = function(profiles) {
+/**
+ * @class JsParser
+ * @memberof module:stu3
+ * @param profiles
+ */
+var JsParser = function(profiles) {
     var self = this;
 
     /**
      * Creates a plain string/boolean/date-time/etc. property on the specified node using obj as the value.
-     * @param The destination node that the property should be created on
+     * @method buildPrimitive
+     * @memberof module:stu3.JsParser
+     * @private
+     * @instance
+     * @param node The destination node that the property should be created on
      * @param obj The source object/value that the property should be taken from
      * @param name The name of the property to create on the node
      */
@@ -28,6 +37,10 @@ module.exports = function(profiles) {
 
     /**
      * Creates a plain string/boolnea/date-time/etc. property on the specified node, using the named property on the obj
+     * @method buildPrimitiveProperty
+     * @memberof module:stu3.JsParser
+     * @private
+     * @instance
      * @param node The destination node that the property should be created on
      * @param obj The object that contains the specified property (by name), whose value should be used to create the destination property
      * @param name The name of the property to create on the node, and the name of the property to read on the obj
@@ -751,3 +764,5 @@ module.exports = function(profiles) {
         return xml;
     };
 };
+
+module.exports = JsParser;

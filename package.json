@@ -43,6 +43,7 @@
     "xmlbuilder": "^2.6.4"
   },
   "devDependencies": {
+    "jsdoc": "^3.4.3",
     "mocha": "^2.3.2",
     "xmldom": "^0.1.19",
     "xpath": "0.0.9",
@@ -50,7 +51,8 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*.js",
-    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js"
+    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js",
+    "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json"
   },
   "bundleDependencies": [
     "libxmljs",

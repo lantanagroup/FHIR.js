@@ -2,6 +2,11 @@ var util = require('./util');
 var xmlBuilder = require('xmlbuilder');
 var _ = require('lodash');
 
+/**
+ * @class JsParser
+ * @memberof module:dstu1
+ * @param profiles
+ */
 module.exports = function(profiles) {
     var self = this;
 

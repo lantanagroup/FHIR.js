@@ -1,3 +1,8 @@
+/**
+ * @class JsValidator
+ * @memberof module:stu3
+ * @param profiles
+ */
 module.exports = function(profiles) {
     var self = this;
     var result;
