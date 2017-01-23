@@ -7,7 +7,8 @@
     "includePattern": ".+\\.js(doc|x)?$",
     "exclude": [
       "docs",
-      "node_modules"
+      "node_modules",
+      "profiles"
     ]
   },
   "plugins": [],
