@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -66,7 +66,7 @@
           </xs:element>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A summary of the context and/or cause of the assessment - why / where was it peformed, and what patient events/status prompted it.</xs:documentation>
+              <xs:documentation xml:lang="en">A summary of the context and/or cause of the assessment - why / where was it performed, and what patient events/status prompted it.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="subject" minOccurs="1" maxOccurs="1" type="Reference">
@@ -74,14 +74,9 @@
               <xs:documentation xml:lang="en">The patient or group of individuals assessed as part of this record.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="assessor" minOccurs="0" maxOccurs="1" type="Reference">
+          <xs:element name="context" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The clinician performing the assessment.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="date" minOccurs="0" maxOccurs="1" type="dateTime">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Indicates when the documentation of the assessment was complete.</xs:documentation>
+              <xs:documentation xml:lang="en">The encounter or episode of care this impression was created as part of.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:choice minOccurs="0" maxOccurs="1" >
@@ -91,9 +86,14 @@
             <xs:element name="effectiveDateTime" type="dateTime"/>
             <xs:element name="effectivePeriod" type="Period"/>
           </xs:choice>
-          <xs:element name="context" minOccurs="0" maxOccurs="1" type="Reference">
+          <xs:element name="date" minOccurs="0" maxOccurs="1" type="dateTime">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The encounter or episode of care this impression was created as part of.</xs:documentation>
+              <xs:documentation xml:lang="en">Indicates when the documentation of the assessment was complete.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="assessor" minOccurs="0" maxOccurs="1" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The clinician performing the assessment.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="previous" minOccurs="0" maxOccurs="1" type="Reference">

@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -54,7 +54,7 @@
               <xs:documentation xml:lang="en">A unique identifier for this particular sequence instance. This is a FHIR-defined id.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="type" minOccurs="0" maxOccurs="1" type="sequenceType">
+          <xs:element name="type" minOccurs="0" maxOccurs="1" type="code">
             <xs:annotation>
               <xs:documentation xml:lang="en">Amino Acid Sequence/ DNA Sequence / RNA Sequence.</xs:documentation>
            </xs:annotation>
@@ -124,11 +124,6 @@
               <xs:documentation xml:lang="en">Pointer to next atomic sequence which at most contains one variant.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="structureVariant" type="Sequence.StructureVariant" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural variant.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -162,7 +157,7 @@
           </xs:element>
           <xs:element name="referenceSeqString" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A Reference Sequence string.</xs:documentation>
+              <xs:documentation xml:lang="en">A string like &quot;ACGT&quot;.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="strand" minOccurs="0" maxOccurs="1" type="integer">
@@ -259,7 +254,7 @@
           </xs:element>
           <xs:element name="method" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Method for quality.</xs:documentation>
+              <xs:documentation xml:lang="en">Which method is used to get sequence quality.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="truthTP" minOccurs="0" maxOccurs="1" type="decimal">
@@ -347,84 +342,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Sequence.StructureVariant">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">Raw data describing a biological sequence.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="precisionOfBoundaries" minOccurs="0" maxOccurs="1" type="string">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Precision of boundaries.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="reportedaCGHRatio" minOccurs="0" maxOccurs="1" type="decimal">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant reported aCGH ratio.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="length" minOccurs="0" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant Length.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="outer" type="Sequence.Outer" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural variant outer.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="inner" type="Sequence.Inner" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural variant inner.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Sequence.Outer">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">Raw data describing a biological sequence.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="start" minOccurs="0" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant Outer Start.If the coordinate system is either 0-based or 1-based, then start position is inclusive.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="end" minOccurs="0" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant Outer End. If the coordinate system is 0-based then end is is exclusive and does not include the last position. If the coordinate system is 1-base, then end is inclusive and includes the last position.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Sequence.Inner">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">Raw data describing a biological sequence.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="start" minOccurs="0" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant Inner Start.If the coordinate system is either 0-based or 1-based, then start position is inclusive.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="end" minOccurs="0" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Structural Variant Inner End. If the coordinate system is 0-based then end is is exclusive and does not include the last position. If the coordinate system is 1-base, then end is inclusive and includes the last position.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:simpleType name="repositoryType-list">
     <xs:restriction base="code-primitive">
       <xs:enumeration value="directlink">
@@ -434,7 +351,7 @@
       </xs:enumeration>
       <xs:enumeration value="openapi">
         <xs:annotation>
-          <xs:documentation xml:lang="en">The url is the RESTful or other kind of API that can get access to the result.</xs:documentation>
+          <xs:documentation xml:lang="en">The URL is the RESTful or other kind of API that can access to the result.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="login">
@@ -444,19 +361,19 @@
       </xs:enumeration>
       <xs:enumeration value="oauth">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Result need to be fetched with API and need LOGIN( or cookies is required when visit the link of resource)</xs:documentation>
+          <xs:documentation xml:lang="en">Result need to be fetched with API and need LOGIN( or cookies are required when visiting the link of resource)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="other">
         <xs:annotation>
-          <xs:documentation xml:lang="en">Some other complicated or particular way to get resource from url.</xs:documentation>
+          <xs:documentation xml:lang="en">Some other complicated or particular way to get resource from URL.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="repositoryType">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Type for access of external uri</xs:documentation>
+      <xs:documentation xml:lang="en">Type for access of external URI</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -467,17 +384,17 @@
   </xs:complexType>
   <xs:simpleType name="qualityType-list">
     <xs:restriction base="code-primitive">
-      <xs:enumeration value="INDEL">
+      <xs:enumeration value="indel">
         <xs:annotation>
           <xs:documentation xml:lang="en">INDEL Comparison</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="SNP">
+      <xs:enumeration value="snp">
         <xs:annotation>
           <xs:documentation xml:lang="en">SNP Comparison</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="UNKNOWN">
+      <xs:enumeration value="unknown">
         <xs:annotation>
           <xs:documentation xml:lang="en">UNKNOWN Comparison</xs:documentation>
         </xs:annotation>
@@ -492,36 +409,6 @@
     <xs:complexContent>
       <xs:extension base="Element">
         <xs:attribute name="value" type="qualityType-list" use="optional"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:simpleType name="sequenceType-list">
-    <xs:restriction base="code-primitive">
-      <xs:enumeration value="AA">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">AA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="DNA">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">DNA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RNA">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">RNA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:complexType name="sequenceType">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">Type if a sequence -- DNA, RNA, or amino acid sequence</xs:documentation>
-      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="Element">
-        <xs:attribute name="value" type="sequenceType-list" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

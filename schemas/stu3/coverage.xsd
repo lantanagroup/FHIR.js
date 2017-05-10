@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -38,12 +38,12 @@
   <xs:include schemaLocation="fhir-base.xsd"/>
   <xs:element name="Coverage" type="Coverage">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Financial instrument which may be used to pay for or reimburse health care products and services.</xs:documentation>
+      <xs:documentation xml:lang="en">Financial instrument which may be used to reimburse or pay for health care products and services.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="Coverage">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Financial instrument which may be used to pay for or reimburse health care products and services.</xs:documentation>
+      <xs:documentation xml:lang="en">Financial instrument which may be used to reimburse or pay for health care products and services.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -54,7 +54,7 @@
               <xs:documentation xml:lang="en">The main (and possibly only) identifier for the coverage - often referred to as a Member Id, Certificate number, Personal Health Number or Case ID. May be constructed as the concatination of the Coverage.SubscriberID and the Coverage.dependant.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="status" minOccurs="0" maxOccurs="1" type="code">
+          <xs:element name="status" minOccurs="0" maxOccurs="1" type="FinancialResourceStatusCodes">
             <xs:annotation>
               <xs:documentation xml:lang="en">The status of the resource instance.</xs:documentation>
            </xs:annotation>
@@ -99,7 +99,7 @@
               <xs:documentation xml:lang="en">The program or plan underwriter or payor including both insurance and non-insurance agreements, such as patient-pay agreements. May provide multiple identifiers such as insurance company identifier or business identifier (BIN number).</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="group" type="Coverage.Group" minOccurs="0" maxOccurs="1">
+          <xs:element name="grouping" type="Coverage.Grouping" minOccurs="0" maxOccurs="1">
             <xs:annotation>
               <xs:documentation xml:lang="en">A suite of underwrite specific classifiers, for example may be used to identify a class of coverage or employer group, Policy, Plan.</xs:documentation>
            </xs:annotation>
@@ -133,9 +133,9 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Coverage.Group">
+  <xs:complexType name="Coverage.Grouping">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Financial instrument which may be used to pay for or reimburse health care products and services.</xs:documentation>
+      <xs:documentation xml:lang="en">Financial instrument which may be used to reimburse or pay for health care products and services.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -182,7 +182,7 @@
           </xs:element>
           <xs:element name="class" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Identifies a style or collective of coverage issues by the underwriter, for example may be used to identify a class of coverage or employer group.</xs:documentation>
+              <xs:documentation xml:lang="en">Identifies a style or collective of coverage issues by the underwriter, for example may be used to identify a class of coverage such as a level of deductables or co-payment.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="classDisplay" minOccurs="0" maxOccurs="1" type="string">
@@ -192,7 +192,7 @@
           </xs:element>
           <xs:element name="subClass" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Identifies a sub-style or sub-collective of coverage issues by the underwriter, for example may be used to identify a subclass of coverage or employer group.</xs:documentation>
+              <xs:documentation xml:lang="en">Identifies a sub-style or sub-collective of coverage issues by the underwriter, for example may be used to identify a subclass of coverage such as a sub-level of deductables or co-payment.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="subClassDisplay" minOccurs="0" maxOccurs="1" type="string">

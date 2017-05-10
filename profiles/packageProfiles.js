@@ -3,6 +3,7 @@ var path = require('path');
 var argv = require('yargs')
     .alias('d', 'directory')
     .alias('b', 'bundleFile')
+    .array('bundleFile')
     .alias('o', 'outFile')
     .require('o')
     .argv;
@@ -26,19 +27,25 @@ if (argv.directory) {
         }
     }
 } else if (argv.bundleFile) {
-    var bundleJSON = fs.readFileSync(argv.bundleFile);
-    var bundle = JSON.parse(bundleJSON);
+    for (var i in argv.bundleFile) {
+        var bundleFile = argv.bundleFile[i];
 
-    for (var i = 0; i < bundle.entry.length; i++) {
-        var entry = bundle.entry[i];
+        console.log('Reading bundle file ' + bundleFile);
 
-        if (entry.resource.resourceType != 'StructureDefinition' || entry.resource.kind != 'resource') {
-            continue;
+        var bundleJSON = fs.readFileSync(bundleFile);
+        var bundle = JSON.parse(bundleJSON);
+
+        for (var i = 0; i < bundle.entry.length; i++) {
+            var entry = bundle.entry[i];
+
+            if (entry.resource.resourceType != 'StructureDefinition' || (entry.resource.kind != 'resource' && entry.resource.kind != 'complex-type')) {
+                continue;
+            }
+
+            console.log('Packaging ' + entry.resource.name);
+
+            profiles[entry.resource.name] = entry.resource;
         }
-
-        console.log('Packaging ' + entry.resource.name);
-
-        profiles[entry.resource.name] = entry.resource;
     }
 } else {
     console.log('Either --directory or --inFile must be specified');

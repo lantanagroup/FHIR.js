@@ -51,7 +51,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.js",
-    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js",
+    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js & node profiles/packageProfiles.js -b profiles/stu3/profiles-resources.json -b profiles/stu3/profiles-types.json -o profiles/stu3.js",
     "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json --verbose"
   },
   "bundleDependencies": [

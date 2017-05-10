@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -54,9 +54,9 @@
               <xs:documentation xml:lang="en">This records identifiers associated with this care team that are defined by business processes and/or used to refer to it when a direct URL reference to the resource itself is not appropriate.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="status" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+          <xs:element name="status" minOccurs="0" maxOccurs="1" type="CareTeamStatus">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Indicates whether the care team is currently active, suspended, inactive, or entered in error.</xs:documentation>
+              <xs:documentation xml:lang="en">Indicates the current state of the care team.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="category" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
@@ -74,6 +74,11 @@
               <xs:documentation xml:lang="en">Identifies the patient or group whose intended care is handled by the team.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="context" minOccurs="0" maxOccurs="1" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The encounter or episode of care that establishes the context for this care team.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
             <xs:annotation>
               <xs:documentation xml:lang="en">Indicates when the team did (or is intended to) come into effect and end.</xs:documentation>
@@ -84,9 +89,24 @@
               <xs:documentation xml:lang="en">Identifies all people and organizations who are expected to be involved in the care team.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="reasonCode" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Describes why the care team exists.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="reasonReference" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Condition(s) that this care team addresses.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="managingOrganization" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
               <xs:documentation xml:lang="en">The organization responsible for the care team.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Annotation">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Comments made about the CareTeam.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -110,12 +130,57 @@
               <xs:documentation xml:lang="en">The specific person or organization who is participating/expected to participate in the care team.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="onBehalfOf" minOccurs="0" maxOccurs="1" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The organization of the practitioner.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
             <xs:annotation>
               <xs:documentation xml:lang="en">Indicates when the specific member or organization did (or is intended to) come into effect and end.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="CareTeamStatus-list">
+    <xs:restriction base="code-primitive">
+      <xs:enumeration value="proposed">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Proposed</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="active">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Active</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="suspended">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Suspended</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="inactive">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Inactive</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="entered-in-error">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Entered In Error</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CareTeamStatus">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Indicates the status of the care team.</xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="CareTeamStatus-list" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

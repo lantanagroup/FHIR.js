@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -36,12 +36,12 @@
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="1.0">
   <xs:include schemaLocation="fhir-base.xsd"/>
-  <xs:element name="NutritionRequest" type="NutritionRequest">
+  <xs:element name="NutritionOrder" type="NutritionOrder">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:complexType name="NutritionRequest">
+  <xs:complexType name="NutritionOrder">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
@@ -91,20 +91,20 @@
           </xs:element>
           <xs:element name="excludeFoodModifier" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">This modifier is used to convey order-specific modifiers about the type of food that should NOT be given. These can be derived from patient allergies, intolerances, or preferences such as No Red Meat, No Soy or No Wheat or  Gluten-Free.  While it should not be necessary to repeat allergy or intolerance information captured in the referenced allergyIntolerance resource in the excludeFoodModifier, this element may be used to convey additional specificity related to foods that should be eliminated from the patient’s diet for any reason.  This modifier applies to the entire nutrition order inclusive of the oral diet, nutritional supplements and enteral formula feedings.</xs:documentation>
+              <xs:documentation xml:lang="en">This modifier is used to convey order-specific modifiers about the type of food that should NOT be given. These can be derived from patient allergies, intolerances, or preferences such as No Red Meat, No Soy or No Wheat or  Gluten-Free.  While it should not be necessary to repeat allergy or intolerance information captured in the referenced AllergyIntolerance resource in the excludeFoodModifier, this element may be used to convey additional specificity related to foods that should be eliminated from the patient’s diet for any reason.  This modifier applies to the entire nutrition order inclusive of the oral diet, nutritional supplements and enteral formula feedings.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="oralDiet" type="NutritionRequest.OralDiet" minOccurs="0" maxOccurs="1">
+          <xs:element name="oralDiet" type="NutritionOrder.OralDiet" minOccurs="0" maxOccurs="1">
             <xs:annotation>
               <xs:documentation xml:lang="en">Diet given orally in contrast to enteral (tube) feeding.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="supplement" type="NutritionRequest.Supplement" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="supplement" type="NutritionOrder.Supplement" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Oral nutritional products given in order to add further nutritional value to the patient's diet.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="enteralFormula" type="NutritionRequest.EnteralFormula" minOccurs="0" maxOccurs="1">
+          <xs:element name="enteralFormula" type="NutritionOrder.EnteralFormula" minOccurs="0" maxOccurs="1">
             <xs:annotation>
               <xs:documentation xml:lang="en">Feeding provided through the gastrointestinal tract via a tube, catheter, or stoma that delivers nutrition distal to the oral cavity.</xs:documentation>
            </xs:annotation>
@@ -113,7 +113,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.OralDiet">
+  <xs:complexType name="NutritionOrder.OralDiet">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
@@ -127,15 +127,15 @@
           </xs:element>
           <xs:element name="schedule" minOccurs="0" maxOccurs="unbounded" type="Timing">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The time period and frequency at which the diet should be given.</xs:documentation>
+              <xs:documentation xml:lang="en">The time period and frequency at which the diet should be given.  The diet should be given for the combination of all schedules if more than one schedule is present.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="nutrient" type="NutritionRequest.Nutrient" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="nutrient" type="NutritionOrder.Nutrient" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Class that defines the quantity and type of nutrient modifications (for example carbohydrate, fiber or sodium) required for the oral diet.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="texture" type="NutritionRequest.Texture" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="texture" type="NutritionOrder.Texture" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Class that describes any texture modifications required for the patient to safely consume various types of solid foods.</xs:documentation>
            </xs:annotation>
@@ -154,7 +154,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.Nutrient">
+  <xs:complexType name="NutritionOrder.Nutrient">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
@@ -175,7 +175,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.Texture">
+  <xs:complexType name="NutritionOrder.Texture">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
@@ -196,7 +196,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.Supplement">
+  <xs:complexType name="NutritionOrder.Supplement">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
@@ -215,7 +215,7 @@
           </xs:element>
           <xs:element name="schedule" minOccurs="0" maxOccurs="unbounded" type="Timing">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The time period and frequency at which the supplement(s) should be given.</xs:documentation>
+              <xs:documentation xml:lang="en">The time period and frequency at which the supplement(s) should be given.  The supplement should be given for the combination of all schedules if more than one schedule is present.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="Quantity">
@@ -232,7 +232,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.EnteralFormula">
+  <xs:complexType name="NutritionOrder.EnteralFormula">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>
@@ -261,7 +261,7 @@
           </xs:element>
           <xs:element name="caloricDensity" minOccurs="0" maxOccurs="1" type="Quantity">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The amount of energy (Calories) that the formula should provide per specified volume, typically per mL or fluid oz.  For example, an infant may require a formula that provides 24 Calories per fluid ounce or an adult may require an enteral formula that provides 1.5 Calorie/mL.</xs:documentation>
+              <xs:documentation xml:lang="en">The amount of energy (calories) that the formula should provide per specified volume, typically per mL or fluid oz.  For example, an infant may require a formula that provides 24 calories per fluid ounce or an adult may require an enteral formula that provides 1.5 calorie/mL.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="routeofAdministration" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -269,7 +269,7 @@
               <xs:documentation xml:lang="en">The route or physiological path of administration into the patient's gastrointestinal  tract for purposes of providing the formula feeding, e.g. nasogastric tube.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="administration" type="NutritionRequest.Administration" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="administration" type="NutritionOrder.Administration" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Formula administration instructions as structured data.  This repeating structure allows for changing the administration rate or volume over time for both bolus and continuous feeding.  An example of this would be an instruction to increase the rate of continuous feeding every 2 hours.</xs:documentation>
            </xs:annotation>
@@ -288,7 +288,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="NutritionRequest.Administration">
+  <xs:complexType name="NutritionOrder.Administration">
     <xs:annotation>
       <xs:documentation xml:lang="en">A request to supply a diet, formula feeding (enteral) or oral nutritional supplement to a patient/resident.</xs:documentation>
     </xs:annotation>

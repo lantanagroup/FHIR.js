@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -54,7 +54,7 @@
               <xs:documentation xml:lang="en">The business identifier for the instance: claim number, pre-determination or pre-authorization number.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="status" minOccurs="0" maxOccurs="1" type="code">
+          <xs:element name="status" minOccurs="0" maxOccurs="1" type="FinancialResourceStatusCodes">
             <xs:annotation>
               <xs:documentation xml:lang="en">The status of the resource instance.</xs:documentation>
            </xs:annotation>
@@ -161,7 +161,7 @@
           </xs:element>
           <xs:element name="diagnosis" type="Claim.Diagnosis" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Ordered list of patient diagnosis for which care is sought.</xs:documentation>
+              <xs:documentation xml:lang="en">List of patient diagnosis for which care is sought.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="procedure" type="Claim.Procedure" minOccurs="0" maxOccurs="unbounded">
@@ -298,6 +298,11 @@
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
+          <xs:element name="sequence" minOccurs="1" maxOccurs="1" type="positiveInt">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Sequence of the information element which serves to provide a link.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="category" minOccurs="1" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">The general class of the information supplied: information; exception; accident, employment; onset, etc.</xs:documentation>
@@ -342,7 +347,7 @@
         <xs:sequence>
           <xs:element name="sequence" minOccurs="1" maxOccurs="1" type="positiveInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Sequence of diagnosis which serves to order and provide a link.</xs:documentation>
+              <xs:documentation xml:lang="en">Sequence of diagnosis which serves to provide a link.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:choice minOccurs="1" maxOccurs="1" >
@@ -354,7 +359,7 @@
           </xs:choice>
           <xs:element name="type" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The type of the Diagnosis, for example: admitting,.</xs:documentation>
+              <xs:documentation xml:lang="en">The type of the Diagnosis, for example: admitting, primary, secondary, discharge.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="packageCode" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -403,7 +408,7 @@
         <xs:sequence>
           <xs:element name="sequence" minOccurs="1" maxOccurs="1" type="positiveInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A service line item.</xs:documentation>
+              <xs:documentation xml:lang="en">Sequence of coverage which serves to provide a link and convey coordination of benefit order.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="focal" minOccurs="1" maxOccurs="1" type="boolean">
@@ -570,14 +575,14 @@
               <xs:documentation xml:lang="en">A region or surface of the site, eg. limb region or tooth surface(s).</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="encounter" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A billed item may include goods or services provided in multiple encounters.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="detail" type="Claim.Detail" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Second tier of goods and services.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="prosthesis" type="Claim.Prosthesis" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The materials and placement date of prior fixed prosthesis.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -721,32 +726,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Claim.Prosthesis">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">A provider issued list of services and products provided, or to be provided, to a patient which is provided to an insurer for payment recovery.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="initial" minOccurs="0" maxOccurs="1" type="boolean">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Indicates whether this is the initial placement of a fixed prosthesis.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="priorDate" minOccurs="0" maxOccurs="1" type="date">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Date of the initial placement.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="priorMaterial" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Material of the prior denture or bridge prosthesis. (Oral).</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:simpleType name="Use-list">
     <xs:restriction base="code-primitive">
       <xs:enumeration value="complete">
@@ -779,6 +758,41 @@
     <xs:complexContent>
       <xs:extension base="Element">
         <xs:attribute name="value" type="Use-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="FinancialResourceStatusCodes-list">
+    <xs:restriction base="code-primitive">
+      <xs:enumeration value="active">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Active</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cancelled">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Cancelled</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="draft">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Draft</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="entered-in-error">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Entered in Error</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FinancialResourceStatusCodes">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A code specifying the state of the resource instance.</xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="FinancialResourceStatusCodes-list" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

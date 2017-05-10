@@ -706,19 +706,39 @@ var JsParser = function(profiles) {
                 case 'Signature':
                     buildFunction = buildSignature;
                     break;
-                case 'BackboneElement':
-                case 'ElementDefinition':
-                    // TODO: Parse the core properties supported by these data-types
-                    break;
                 case 'DosageInstruction':
                     buildFunction = buildDosageInstruction;
                     break;
                 case 'Annotation':
                     buildFunction = buildAnnotation;
                     break;
+                case 'BackboneElement':
+                case 'ElementDefinition':
+                    if (element && element.path) {
+                        if (element.max == "1") {
+                            buildObject(node.ele(propertyName), obj[propertyName], element.path);
+                        } else if (element.max == "*") {
+                            for (var i in obj[propertyName]) {
+                                buildObject(node.ele(propertyName), obj[propertyName][i], element.path);
+                            }
+                        }
+                    }
+                    break;
                 default:
-                    if (elementType) {
+                    if (profiles[elementType]) {
+                        //buildObject(node, obj[propertyName], )
+                    } else if (elementType) {
                         throw 'Type not recognized: ' + elementType;
+                    } else {
+                        if (obj[propertyName] instanceof Array) {
+                            for (var x in obj[propertyName]) {
+                                var childNode = node.ele(propertyName);
+                                buildObject(childNode, obj[propertyName][x], nextElementPath);
+                            }
+                        } else if (typeof obj[propertyName] == 'object') {
+                            var childNode = node.ele(propertyName);
+                            buildObject(childNode, obj[propertyName], nextElementPath);
+                        }
                     }
             }
 
@@ -729,16 +749,6 @@ var JsParser = function(profiles) {
                     }
                 } else {
                     buildFunction(node, obj[propertyName], propertyName);
-                }
-            } else {
-                if (obj[propertyName] instanceof Array) {
-                    for (var x in obj[propertyName]) {
-                        var childNode = node.ele(propertyName);
-                        buildObject(childNode, obj[propertyName][x], nextElementPath);
-                    }
-                } else if (typeof obj[propertyName] == 'object') {
-                    var childNode = node.ele(propertyName);
-                    buildObject(childNode, obj[propertyName], nextElementPath);
                 }
             }
         }

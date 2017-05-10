@@ -1,6 +1,8 @@
 var primitiveTypes = ['Instant', 'Date', 'DateTime', 'Decimal', 'Boolean', 'Integer', 'String', 'Uri', 'Base64Binary', 'Code', 'Id', 'Oid', 'Uuid', 'markdown', 'unsignedInt', 'positiveInt'];
 var choiceTypes = ['Integer', 'Decimal', 'DateTime', 'Date', 'Instant', 'String', 'Uri', 'Boolean', 'Code', 'base64Binary', 'Coding', 'CodeableConcept', 'Attachment', 'Identifier', 'Quantity', 'Range', 'Period', 'Ratio', 'HumanName', 'Address', 'Reference', 'Signature', 'Timing', 'ContactPoint', 'Markdown'];
 
+var _ = require('lodash');
+
 var util = {
     PrimitiveTypes: primitiveTypes,
     ChoiceTypes: choiceTypes,
@@ -43,21 +45,22 @@ var util = {
         }
 
         if (profile) {
-            for (var i in profile.snapshot.element) {
-                var element = profile.snapshot.element[i];
+            var elementDefinition = _.find(profile.snapshot.element, function(elementDef) {
+                return elementDef.path == profileElementPath;
+            });
 
-                if (element.path == profileElementPath) {
-                    if (profileElementPath != elementPath && element.definition) {
-                        // TODO: Should figure out a better way not to modify the base profile (since JSON.parse/stringify is a little costly)...
-                        // Maybe a completely custom return type for FindElement
-                        element = JSON.parse(JSON.stringify(element));
-                        element.type = [{
-                            code: selectedChoiceType
-                        }] ;
-                    }
+            if (elementDefinition) {
+                // TODO: Should figure out a better way not to modify the base profile (since JSON.parse/stringify is a little costly)...
+                // Maybe a completely custom return type for FindElement
+                var newElement = JSON.parse(JSON.stringify(elementDefinition));
 
-                    return element;
+                if (selectedChoiceType) {
+                    newElement.type = [{
+                        code: selectedChoiceType
+                    }];
                 }
+
+                return newElement;
             }
         }
 

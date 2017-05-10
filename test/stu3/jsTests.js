@@ -26,9 +26,11 @@ describe('STU3: XML -> JS', function() {
                     assert.equal(obj.entry[0].resource.active, true);
                     assert.equal(obj.entry[0].resource.birthDate, '1974-12-25');
                     assert.equal(obj.entry[0].resource.resourceType, 'Patient');
+                    assert.equal(obj.entry[0].resource.text.div, '<div xmlns="http://www.w3.org/1999/xhtml">Some narrative</div>');
 
                     // Check meta-data
                     assert(obj.meta);
+                    assert.equal(obj.meta.lastUpdated, '2014-08-18T01:43:30Z');
                     // TODO
 
                     done();
@@ -108,6 +110,31 @@ describe('STU3: XML -> JS', function() {
                 .then(function(obj) {
                     assert(obj, 'Expected XmlToObject to return an object');
 
+                    assert(obj.identifier);
+                    assert.equal(obj.identifier.length, 1);
+                    assert.equal(obj.identifier[0].system, 'http://www.bmc.nl/portal/medstatements');
+                    assert.equal(obj.identifier[0].use, 'official');
+                    assert.equal(obj.identifier[0].value, '12345689');
+
+                    assert.equal(obj.status, 'active');
+
+                    assert(obj.category);
+                    assert(obj.category.coding);
+                    assert.equal(obj.category.coding.length, 1);
+                    assert.equal(obj.category.coding[0].code, 'inpatient');
+                    assert.equal(obj.category.coding[0].display, 'Inpatient');
+                    assert.equal(obj.category.coding[0].system, 'http://hl7.org/fhir/medication-statement-category');
+
+                    assert(obj.medicationReference);
+                    assert.equal(obj.medicationReference.reference, '#med0309');
+
+                    assert.equal(obj.effectiveDateTime, '2015-01-23');
+                    assert.equal(obj.dateAsserted, '2015-02-22');
+
+                    assert(obj.informationSource);
+                    assert.equal(obj.informationSource.display, 'Donald Duck');
+                    assert.equal(obj.informationSource.reference, 'Patient/pat1');
+
                     assert(obj.dosage);
                     assert.equal(obj.dosage.length, 1);
                     assert(obj.dosage[0].timing);
@@ -116,6 +143,23 @@ describe('STU3: XML -> JS', function() {
                     assert.equal(obj.dosage[0].timing.repeat.frequency, 1);
                     assert.equal(typeof(obj.dosage[0].timing.repeat.period), 'number');
                     assert.equal(obj.dosage[0].timing.repeat.period, 1);
+
+                    // Contained medication
+                    assert(obj.contained);
+                    assert.equal(obj.contained.length, 1);
+
+                    var medication = obj.contained[0];
+
+                    assert.equal(medication.id, 'med0309');
+
+                    assert(medication.code);
+                    assert(medication.code.coding);
+                    assert.equal(medication.code.coding.length, 1);
+                    assert.equal(medication.code.coding[0].system, 'http://hl7.org/fhir/sid/ndc');
+                    assert.equal(medication.code.coding[0].code, '50580-506-02');
+                    assert.equal(medication.code.coding[0].display, 'Tylenol PM');
+
+                    assert.equal(medication.isBrand, true);
 
                     done();
                 })

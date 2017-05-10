@@ -119,19 +119,18 @@ describe('STU3: JS -> XML', function() {
             assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:subject/fhir:reference/@value', 'Patient/pat1');
             assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:subject/fhir:display/@value', 'Donald Duck');
 
-            // not taken
-            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:notTaken/@value', 'n');
-
-            // reason for use
-            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonForUseCodeableConcept/fhir:coding/fhir:system/@value', 'http://snomed.info/sct');
-            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonForUseCodeableConcept/fhir:coding/fhir:code/@value', '32914008');
-            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonForUseCodeableConcept/fhir:coding/fhir:display/@value', 'Restless Legs');
+            // reasonCode
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonCode/fhir:coding/fhir:system/@value', 'http://snomed.info/sct');
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonCode/fhir:coding/fhir:code/@value', '32914008');
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:reasonCode/fhir:coding/fhir:display/@value', 'Restless Legs');
 
             // note
             assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:note/fhir:text/@value', 'Patient indicates they miss the occasional dose');
 
             // category
-            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:category/@value', 'community');
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:category/fhir:coding/fhir:system/@value', 'http://hl7.org/fhir/medication-statement-category');
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:category/fhir:coding/fhir:code/@value', 'inpatient');
+            assert.xpathEqual(doc, '/fhir:MedicationStatement/fhir:category/fhir:coding/fhir:display/@value', 'Inpatient');
         });
     });
 });

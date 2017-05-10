@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Tue, Dec 6, 2016 12:22+1100 for FHIR v1.8.0 
+  Generated on Wed, Apr 19, 2017 07:44+1000 for FHIR v3.0.1 
 
   Note: the schemas &amp; schematrons do not contain all of the rules about what makes resources
   valid. Implementers will still need to be familiar with the content of the specification and with
@@ -54,7 +54,7 @@
               <xs:documentation xml:lang="en">The Response business identifier.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="status" minOccurs="0" maxOccurs="1" type="code">
+          <xs:element name="status" minOccurs="0" maxOccurs="1" type="FinancialResourceStatusCodes">
             <xs:annotation>
               <xs:documentation xml:lang="en">The status of the resource instance.</xs:documentation>
            </xs:annotation>
@@ -99,9 +99,9 @@
               <xs:documentation xml:lang="en">The form to be used for printing the content.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="note" type="ProcessResponse.Note" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="processNote" type="ProcessResponse.ProcessNote" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Suite of processing note or additional requirements is the processing has been held.</xs:documentation>
+              <xs:documentation xml:lang="en">Suite of processing notes or additional requirements if the processing has been held.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="error" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
@@ -118,7 +118,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ProcessResponse.Note">
+  <xs:complexType name="ProcessResponse.ProcessNote">
     <xs:annotation>
       <xs:documentation xml:lang="en">This resource provides processing status, errors and notes from the processing of a resource.</xs:documentation>
     </xs:annotation>
