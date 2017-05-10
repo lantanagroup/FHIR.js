@@ -25,7 +25,7 @@ npm test
 API documentation can be found at http://lantanagroup.github.io/FHIR.js/
 
 # Implementation Notes
-* FHIR STU3 is *now supported* as of 3.0.0
+* FHIR STU3 is updated with the latest published profiles and schemas
 * Feeds and resources are both supported for DSTU1. There is no need to do anything different for converting feeds vs. resources. The library will automatically detect what should be produced based on the resourceType of the JS object passed, or based on the root element of the XML.
 * libxmljs is used to validate XML against the FHIR schemas
 * xml2js is used to parse XML and create JS
