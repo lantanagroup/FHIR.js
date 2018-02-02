@@ -29,9 +29,8 @@ describe('DSTU2: Validation', function() {
     describe('ValidateJSONResource()', function() {
         it('should validate bundle-transaction.json successfully', function() {
             var bundleJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString('utf8');
-            var bundle = JSON.parse(bundleJson);
             var fhir = new Fhir(Fhir.DSTU2);
-            var result = fhir.ValidateJSResource(bundle);
+            var result = fhir.ValidateJSONResource(bundleJson);
 
             assert(result);
             assert.equal(result.valid, true);
@@ -43,15 +42,41 @@ describe('DSTU2: Validation', function() {
 
     describe('ValidateJSResource()', function() {
         it('should validate bundle-transaction.json successfully', function() {
-            var bundleJson = fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString('utf8');
+            var bundleJson = JSON.parse(fs.readFileSync('./test/data/dstu2/bundle-transaction.json').toString('utf8'));
             var fhir = new Fhir(Fhir.DSTU2);
-            var result = fhir.ValidateJSONResource(bundleJson);
+            var result = fhir.ValidateJSResource(bundleJson);
 
             assert(result);
             assert.equal(result.valid, true);
 
             assert(result.errors);
             assert.equal(result.errors.length, 0);
+        });
+
+        it('should validate with a differential profile sucessfully', function () {
+          var profile = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest-diff-profile.json').toString('utf8'));
+          var docManifest = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest.json').toString('utf8'));
+          var fhir = new Fhir(Fhir.STU3);
+          var result = fhir.ValidateJSResource(docManifest, profile);
+
+          assert(result);
+          assert.equal(result.valid, true);
+
+          assert(result.errors);
+          assert.equal(result.errors.length, 0);
+        });
+
+        it('should return errors when validating with a differential profile', function () {
+          var profile = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest-diff-profile.json').toString('utf8'));
+          var docManifest = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest_bad.json').toString('utf8'));
+          var fhir = new Fhir(Fhir.STU3);
+          var result = fhir.ValidateJSResource(docManifest, profile);
+
+          assert(result);
+          assert.equal(result.valid, false);
+
+          assert(result.errors);
+          assert.equal(result.errors.length, 1);
         });
     });
 });
