@@ -32,11 +32,21 @@ module.exports = function(profiles) {
         var pathSplit = element.path.replace(currentPath + '.', '').split('.');
         var current = [ obj ];
 
-        for (var i in pathSplit) {
+        // find current property in object that matches element.path
+        pathSplit.forEach(function (pathSegment) {
             var next = [];
 
-            for (var x in current) {
-                var currentEval = eval('current[x][\'' + pathSplit[i] + '\']');
+            current.forEach(function (currentValue) {
+                var currentEval = currentValue[pathSegment];
+                // support 'choice of types'
+                if (pathSegment.endsWith('[x]')) {
+                  element.type.forEach(function (type) {
+                    var newPathSegment = pathSegment.replace('[x]', type.code)
+                    if (currentValue[newPathSegment]) {
+                      currentEval = currentValue[newPathSegment]
+                    }
+                  })
+                }
 
                 if (currentEval) {
                     if (currentEval instanceof Array) {
@@ -45,10 +55,10 @@ module.exports = function(profiles) {
                         next.push(currentEval);
                     }
                 }
-            }
+            });
 
             current = next;
-        }
+        });
 
         if (current.length < element.min) {
             result.errors.push('Element ' + element.path + ' does not meet the minimal cardinality of ' + element.min + ' (actual: ' + current.length + ')');
