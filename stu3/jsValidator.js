@@ -101,7 +101,22 @@ module.exports = function(profiles) {
 
     self.Validate = function(jsObj, profile) {
         if (!profile) {
+            // set base profile
             profile = findProfileByResourceType(jsObj.resourceType);
+        }
+        if (profile && profile.differential) {
+            // append differential profile with base profile
+            var baseProfile = findProfileByResourceType(jsObj.resourceType);
+            baseProfile.snapshot.element.forEach(function (baseElement, i) {
+                var matchElement = profile.differential.element.find(function (diffElement) {
+                    return baseElement.path === diffElement.path
+                })
+                if (matchElement) {
+                    baseProfile.snapshot.element[i] = matchElement
+                }
+            })
+
+            profile = baseProfile
         }
 
         elements = profile && profile.snapshot ? profile.snapshot.element : null;

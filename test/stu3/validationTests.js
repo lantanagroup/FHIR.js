@@ -53,5 +53,31 @@ describe('STU3: Validation', function() {
             assert(result.errors);
             assert.equal(result.errors.length, 0);
         });
+
+        it('should validate with a differential profile sucessfully', function () {
+          var profile = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest-diff-profile.json').toString('utf8'));
+          var docManifest = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest.json').toString('utf8'));
+          var fhir = new Fhir(Fhir.STU3);
+          var result = fhir.ValidateJSResource(docManifest, profile);
+
+          assert(result);
+          assert.equal(result.valid, true);
+
+          assert(result.errors);
+          assert.equal(result.errors.length, 0);
+        });
+
+        it('should return errors when validating with a differential profile', function () {
+          var profile = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest-diff-profile.json').toString('utf8'));
+          var docManifest = JSON.parse(fs.readFileSync('./test/data/stu3/doc-manifest_bad.json').toString('utf8'));
+          var fhir = new Fhir(Fhir.STU3);
+          var result = fhir.ValidateJSResource(docManifest, profile);
+
+          assert(result);
+          assert.equal(result.valid, false);
+
+          assert(result.errors);
+          assert.equal(result.errors.length, 1);
+        });
     });
 });
