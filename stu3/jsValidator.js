@@ -50,16 +50,16 @@ module.exports = function(profiles) {
             current = next;
         }
 
-        if (current.length < element.definition.min) {
-            result.errors.push('Element ' + element.path + ' does not meet the minimal cardinality of ' + element.definition.min + ' (actual: ' + current.length + ')');
+        if (current.length < element.min) {
+            result.errors.push('Element ' + element.path + ' does not meet the minimal cardinality of ' + element.min + ' (actual: ' + current.length + ')');
         }
 
-        if (current.length > (element.definition.max == '*' ? Number.MAX_SAFE_INTEGER : parseInt(element.definition.max))) {
-            result.errors.push('Element ' + element.path + ' does not meet the maximum cardinality of ' + element.definition.max + ' (actual: ' + current.length + ')');
+        if (current.length > (element.max == '*' ? Number.MAX_SAFE_INTEGER : parseInt(element.max))) {
+            result.errors.push('Element ' + element.path + ' does not meet the maximum cardinality of ' + element.max + ' (actual: ' + current.length + ')');
         }
 
         if (current.length > 0) {
-            if (element.definition.type && element.definition.type.length == 1 && element.definition.type[0].code == 'Resource') {
+            if (element.type && element.type.length == 1 && element.type[0].code == 'Resource') {
                 // Validate child profiles
                 for (var i in current) {
                     var nextObj = current[i];
@@ -121,12 +121,12 @@ module.exports = function(profiles) {
         for (var i in elements) {
             var element = elements[i];
 
-            if (element.path == jsObj.resourceType || !element.definition || !element.path) {
+            if (element.path == jsObj.resourceType || !element.path) {
                 continue;
             }
 
-            // Only call validateCardinality on the first property of the resource. validateCardinality
-            // will be recursively called there-after.
+            // Only call validateCardinality on the root level properties of the resource.
+            // validateCardinality will be recursively called there-after.
             if (element.path.split('.').length == 2) {
                 validateCardinality(element, jsObj, jsObj.resourceType);
             }
