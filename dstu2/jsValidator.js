@@ -32,11 +32,21 @@ module.exports = function(profiles) {
         var pathSplit = element.path.replace(currentPath + '.', '').split('.');
         var current = [ obj ];
 
-        for (var i in pathSplit) {
+        // find current property in object that matches element.path
+        pathSplit.forEach(function (pathSegment) {
             var next = [];
 
-            for (var x in current) {
-                var currentEval = eval('current[x][\'' + pathSplit[i] + '\']');
+            current.forEach(function (currentValue) {
+                var currentEval = currentValue[pathSegment];
+                // support 'choice of types'
+                if (pathSegment.endsWith('[x]')) {
+                  element.type.forEach(function (type) {
+                    var newPathSegment = pathSegment.replace('[x]', type.code)
+                    if (currentValue[newPathSegment]) {
+                      currentEval = currentValue[newPathSegment]
+                    }
+                  })
+                }
 
                 if (currentEval) {
                     if (currentEval instanceof Array) {
@@ -45,21 +55,21 @@ module.exports = function(profiles) {
                         next.push(currentEval);
                     }
                 }
-            }
+            });
 
             current = next;
+        });
+
+        if (current.length < element.min) {
+            result.errors.push('Element ' + element.path + ' does not meet the minimal cardinality of ' + element.min + ' (actual: ' + current.length + ')');
         }
 
-        if (current.length < element.definition.min) {
-            result.errors.push('Element ' + element.path + ' does not meet the minimal cardinality of ' + element.definition.min + ' (actual: ' + current.length + ')');
-        }
-
-        if (current.length > (element.definition.max == '*' ? Number.MAX_SAFE_INTEGER : parseInt(element.definition.max))) {
-            result.errors.push('Element ' + element.path + ' does not meet the maximum cardinality of ' + element.definition.max + ' (actual: ' + current.length + ')');
+        if (current.length > (element.max == '*' ? Number.MAX_SAFE_INTEGER : parseInt(element.max))) {
+            result.errors.push('Element ' + element.path + ' does not meet the maximum cardinality of ' + element.max + ' (actual: ' + current.length + ')');
         }
 
         if (current.length > 0) {
-            if (element.definition.type && element.definition.type.length == 1 && element.definition.type[0].code == 'Resource') {
+            if (element.type && element.type.length == 1 && element.type[0].code == 'Resource') {
                 // Validate child profiles
                 for (var i in current) {
                     var nextObj = current[i];
@@ -101,7 +111,22 @@ module.exports = function(profiles) {
 
     self.Validate = function(jsObj, profile) {
         if (!profile) {
+            // set base profile
             profile = findProfileByResourceType(jsObj.resourceType);
+        }
+        if (profile && profile.differential) {
+            // append differential profile with base profile
+            var baseProfile = findProfileByResourceType(jsObj.resourceType);
+            baseProfile.snapshot.element.forEach(function (baseElement, i) {
+                var matchElement = profile.differential.element.find(function (diffElement) {
+                    return baseElement.path === diffElement.path
+                })
+                if (matchElement) {
+                    baseProfile.snapshot.element[i] = matchElement
+                }
+            })
+
+            profile = baseProfile
         }
 
         elements = profile && profile.snapshot ? profile.snapshot.element : null;
@@ -121,12 +146,12 @@ module.exports = function(profiles) {
         for (var i in elements) {
             var element = elements[i];
 
-            if (element.path == jsObj.resourceType || !element.definition || !element.path) {
+            if (element.path == jsObj.resourceType || !element.path) {
                 continue;
             }
 
-            // Only call validateCardinality on the first property of the resource. validateCardinality
-            // will be recursively called there-after.
+            // Only call validateCardinality on the root level properties of the resource.
+            // validateCardinality will be recursively called there-after.
             if (element.path.split('.').length == 2) {
                 validateCardinality(element, jsObj, jsObj.resourceType);
             }
