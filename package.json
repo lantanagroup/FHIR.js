@@ -1,7 +1,7 @@
 {
   "name": "fhir",
-  "version": "3.1.0",
-  "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries. Validating XML against the schemas is supported. Basic JS validation is supported against the core FHIR profile definitions.",
+  "version": "4.0.0",
+  "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries.",
   "readme": "README.md",
   "bugs": {
     "url": "https://github.com/lantanagroup/FHIR.js/issues",
@@ -35,23 +35,21 @@
     "test": "test"
   },
   "dependencies": {
-    "libxmljs": "0.18.0",
-    "lodash": "^3.10.1",
     "path": "^0.12.7",
     "q": "^1.4.1",
-    "xml2js": "^0.4.9",
-    "xmlbuilder": "^2.6.4"
+    "underscore": "^1.8.3",
+    "xml-js": "^1.6.2"
   },
   "devDependencies": {
     "jsdoc": "^3.4.3",
     "mocha": "^2.3.2",
-    "xmldom": "^0.1.19",
-    "xpath": "0.0.9",
+    "webpack": "^3.10.0",
+    "xpath": "0.0.27",
     "yargs": "^3.25.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.js",
-    "prepublish": "node profiles/packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js & node profiles/packageProfiles.js -b profiles/stu3/profiles-resources.json -b profiles/stu3/profiles-types.json -o profiles/stu3.js",
+    "prepublish": "node profiles/packageProfiles.js -b profiles/r4/profiles-resources.json -b profiles/r4/profiles-types.json -o profiles/r4/index.js & node profiles/findTypes.js",
     "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json --verbose"
   },
   "bundleDependencies": [
