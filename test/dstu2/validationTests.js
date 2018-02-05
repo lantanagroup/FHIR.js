@@ -56,7 +56,7 @@ describe('DSTU2: Validation', function() {
         it('should validate with a differential profile sucessfully', function () {
           var profile = JSON.parse(fs.readFileSync('./test/data/dstu2/doc-manifest-diff-profile.json').toString('utf8'));
           var docManifest = JSON.parse(fs.readFileSync('./test/data/dstu2/doc-manifest.json').toString('utf8'));
-          var fhir = new Fhir(Fhir.STU3);
+          var fhir = new Fhir(Fhir.DSTU2);
           var result = fhir.ValidateJSResource(docManifest, profile);
 
           assert(result);
@@ -69,7 +69,7 @@ describe('DSTU2: Validation', function() {
         it('should return errors when validating with a differential profile', function () {
           var profile = JSON.parse(fs.readFileSync('./test/data/dstu2/doc-manifest-diff-profile.json').toString('utf8'));
           var docManifest = JSON.parse(fs.readFileSync('./test/data/dstu2/doc-manifest_bad.json').toString('utf8'));
-          var fhir = new Fhir(Fhir.STU3);
+          var fhir = new Fhir(Fhir.DSTU2);
           var result = fhir.ValidateJSResource(docManifest, profile);
 
           assert(result);
