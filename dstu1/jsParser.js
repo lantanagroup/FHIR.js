@@ -11,7 +11,7 @@ module.exports = function(profiles) {
     var self = this;
 
     var buildPrimitive = function(node, obj, name) {
-        if (!obj) {
+        if (!obj && obj !== 0) {
             return;
         }
 
@@ -472,7 +472,7 @@ module.exports = function(profiles) {
         for (var i in childElements) {
             var propertyName = findObjectProperty(obj, childElements[i]);
 
-            if (!obj[propertyName]) {
+            if (!obj[propertyName] && obj[propertyName] !== 0) {
                 continue;
             }
 
