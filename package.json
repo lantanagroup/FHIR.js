@@ -53,11 +53,9 @@
     "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json --verbose"
   },
   "bundleDependencies": [
-    "libxmljs",
     "lodash",
     "path",
     "q",
-    "xml2js",
-    "xmlbuilder"
+    "xml-js"
   ]
 }
