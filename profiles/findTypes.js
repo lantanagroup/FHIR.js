@@ -105,9 +105,17 @@ function populateBackboneElement(resourceType, parentElementId, profile) {
 
         if (parentBackboneElement) {
             if (!backboneElement.type) {
+                var type = 'string';
+
+                if (backboneElement.contentReference) {
+                    type = backboneElement.contentReference;
+                }
+
                 parentBackboneElement._properties.push({
                     _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                    _type: 'string'
+                    _type: type,
+                    _multiple: backboneElement.max !== '1',
+                    _required: backboneElement.min === 1
                 });
             } else if (backboneElement.type.length == 1) {
                 var newProperty = {

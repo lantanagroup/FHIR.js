@@ -36,6 +36,7 @@ function resourceToXml(obj, xmlObj) {
     }
 
     _.each(typeDefinitions[obj.resourceType]._properties, function(property) {
+        console.log(xmlObj);
         propertyToXml(resourceElement, typeDefinitions[obj.resourceType], obj, property._name);
     });
 
@@ -99,8 +100,25 @@ function propertyToXml(parentXmlObj, parentType, obj, propertyName) {
             default:
                 var nextType = typeDefinitions[propertyType._type];
 
+                if (propertyType._type.startsWith('#')) {
+                    var typeSplit = propertyType._type.substring(1).split('.');
+                    for (var i = 0; i < typeSplit.length; i++) {
+                        if (i == 0) {
+                            nextType = typeDefinitions[typeSplit[i]];
+                        } else {
+                            nextType = _.find(nextType._properties, function(nextTypeProperty) {
+                                return nextTypeProperty._name === typeSplit[i];
+                            });
+                        }
+
+                        if (!nextType) {
+                            break;
+                        }
+                    }
+                }
+
                 if (!nextType) {
-                    console.log('do something');
+                    console.log('Could not find type ' + propertyType._type);
                 } else {
                     _.each(nextType._properties, function(nextProperty) {
                         propertyToXml(nextXmlObj, nextType, value, nextProperty._name);

@@ -41,6 +41,24 @@ describe('Serialization', function() {
         it('should serialize medication statement xml', function() {
             biDirectionalTest(medicationStatementXml);
         });
+
+        it('should handle an empty array correctly', function() {
+            var questionnaire = {
+                "resourceType": "Questionnaire",
+                "item": [
+                    {
+                        "linkId": "5554",
+                        "text": "test2",
+                        "type": "decimal",
+                        "required": false,
+                        "item": []
+                    }
+                ]
+            };
+            var fhir = new Fhir();
+            var xml = fhir.objToXml(questionnaire);
+            assert(xml === '<?xml version="1.0" encoding="UTF-8"?><Questionnaire xmlns="http://hl7.org/fhir"><item><linkId value="5554"/><text value="test2"/><type value="decimal"/></item></Questionnaire>');
+        });
     });
 
     describe('JS one-way', function() {
