@@ -21,7 +21,7 @@ var JsParser = function(profiles) {
      * @param name The name of the property to create on the node
      */
     var buildPrimitive = function(node, obj, name) {
-        if (!obj) {
+        if (!obj && obj !== 0) {
             return;
         }
 
@@ -618,7 +618,7 @@ var JsParser = function(profiles) {
         for (var i in childElements) {
             var propertyName = findObjectProperty(obj, childElements[i]);
 
-            if (!obj[propertyName]) {
+            if (!obj[propertyName] && obj[propertyName] !== 0) {
                 continue;
             }
 
