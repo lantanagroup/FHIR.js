@@ -81,10 +81,11 @@ function populateValueSet(element, property) {
 }
 
 function populateBackboneElement(resourceType, parentElementId, profile) {
+    console.log('Populating backbone element ' + parentElementId);
     for (var y in profile.snapshot.element) {
         var backboneElement = profile.snapshot.element[y];
         var backboneElementId = backboneElement.id;
-        if (!backboneElementId.startsWith(parentElementId + '.')) {
+        if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
             continue;
         }
 
@@ -131,6 +132,7 @@ function populateBackboneElement(resourceType, parentElementId, profile) {
                     var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
                     var newProperty = {
                         _name: choiceElementId,
+                        _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
                         _type: backboneElement.type[y].code,
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1
@@ -210,6 +212,7 @@ for (var i in profiles) {
                     var choiceElementId = elementId + choiceType;
                     var newProperty = {
                         _name: choiceElementId,
+                        _choice: elementId,
                         _type: element.type[y].code,
                         _multiple: element.max !== '1',
                         _required: element.min === 1
