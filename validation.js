@@ -48,6 +48,10 @@ var PRIMITIVE_CODE_REGEX = /[^\s]+(\s[^\s]+)*/i;
 var PRIMITIVE_OID_REGEX = /urn:oid:[0-2](\.[1-9]\d*)+/i;
 var PRIMITIVE_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/i;
 var PRIMITIVE_MARKDOWN_REGEX = /\s*(\S|\s)*/gi;
+var PRIMITIVE_POSITIVE_INT_REGEX = /^(?!0+$)\d+$/i;
+var PRIMITIVE_UNSIGNED_INT_REGEX = /[0]|([1-9][0-9]*)/i;
+var PRIMITIVE_INTEGER_REGEX = /[0]|[-+]?[1-9][0-9]*/i;
+var PRIMITIVE_DECIMAL_REGEX = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
 
 function getTreeDisplay(tree, isXml, leaf) {
     var display = '';
@@ -180,7 +184,7 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
                 });
 
                 if (!found) {
-                    // TODO?
+                    // TODO: If the CodeableConcept is required, does that mean a coding is required? Don't think so...
                 }
             } else if (property._type === 'Coding') {
                 if (!checkCode(foundValueSet, obj.code, obj.system)) {
@@ -204,10 +208,20 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
     }
 
     if (PRIMITIVE_TYPES.indexOf(property._type) >= 0) {
-        if (property._type === 'boolean') {
-            console.log('test');
+        if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
+            this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
         } else if (PRIMITIVE_NUMBER_TYPES.indexOf(property._type) >= 0) {
-            console.log('test');
+            if (typeof(obj) === 'string') {
+                if (property._type === 'integer' && !PRIMITIVE_INTEGER_REGEX.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
+                } else if (property._type === 'decimal' && !PRIMITIVE_DECIMAL_REGEX.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
+                } else if (property._type === 'unsignedInt' && !PRIMITIVE_UNSIGNED_INT_REGEX.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
+                } else if (property._type === 'positiveInt' && !PRIMITIVE_POSITIVE_INT_REGEX.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
+                }
+            }
         } else if (property._type === 'date' && !PRIMITIVE_DATE_REGEX.test(obj)) {
             this.addError(treeDisplay, 'Invalid date format for value "' + obj + '"');
         } else if (property._type === 'dateTime' && !PRIMITIVE_DATETIME_REGEX.test(obj)) {
