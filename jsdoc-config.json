@@ -8,7 +8,10 @@
     "exclude": [
       "docs",
       "node_modules",
-      "profiles"
+      "profiles",
+      "dist",
+      "test",
+      "webpack.config.js"
     ]
   },
   "plugins": [],

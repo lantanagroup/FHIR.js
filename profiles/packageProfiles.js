@@ -38,13 +38,18 @@ if (argv.directory) {
         for (var i = 0; i < bundle.entry.length; i++) {
             var entry = bundle.entry[i];
 
-            if (entry.resource.resourceType != 'StructureDefinition' || (entry.resource.kind != 'resource' && entry.resource.kind != 'complex-type')) {
+            if (entry.resource.resourceType != 'StructureDefinition' || (entry.resource.kind != 'resource' && entry.resource.kind != 'complex-type' && entry.resource.kind != 'primitive-type')) {
                 continue;
             }
 
             console.log('Packaging ' + entry.resource.name);
 
             profiles[entry.resource.name] = entry.resource;
+
+            // Remove narrative text to reduce size
+            if (profiles[entry.resource.name].text) {
+                delete profiles[entry.resource.name].text;
+            }
         }
     }
 } else {

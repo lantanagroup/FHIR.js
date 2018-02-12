@@ -1,14 +1,5 @@
-## getDstu2Profiles.js
-Retrieves the profiles from the HL7.org website, and places each profile in the dstu2/XXXX.json file.
-
-### Example
-`
-cd profiles
-node getDstu2Profiles.js
-`
-
 ## packageProfiles.js
-Combines all profiles in the specified directory into a single bundle of profiles. This is needed for DSTU1 and DSTU2, but not for STU3 because STU3 already packages all the profiles together in a bundle.
+Combines all profiles in the specified directory into a single bundle of profiles.
 
 ### Parameters
 | Param | Description |
@@ -18,4 +9,4 @@ Combines all profiles in the specified directory into a single bundle of profile
 | -o --outFile | The file to save the combined/bundled profiles to |
 
 ### Example
-`node packageProfiles.js -d profiles/dstu2 -o profiles/dstu2.js`
+`node packageProfiles.js -b r4/profiles-resources.json -b r4/profiles-types.json -o profiles/r4/index.js`

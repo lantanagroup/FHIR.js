@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style type="text/css">
+
+        html, body {
+            height: 100%;
+        }
+        table {
+            width: 100%;
+            height: 100%;
+        }
+        
+        td {
+            width: 50%;
+            padding: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var example = {resourceType: "Observation"};
+            $('#jsonText').val(JSON.stringify(example, null, '\t'));
+            var fhir = new Fhir();
+            var xml = fhir.objToXml(example);
+            $('#xmlText').val(xml);
+            $('#xmlText').change(function() {
+                var xml = $('#xmlText').val();
+                try {
+                    var obj = fhir.xmlToObj(xml);
+                    $('#jsonText').val(JSON.stringify(obj));
+                } catch (ex) { }
+            });
+            $('#jsonText').change(function() {
+                var json = $('#jsonText').val();
+                try {
+                    var obj = JSON.parse(json);
+                    var xml = fhir.objToXml(obj);
+                    $('#xmlText').val(xml);
+                } catch (ex) { }
+            });
+        });
+    </script>
+</head>
+<body>
+<table>
+<tbody>
+<tr>
+    <td>
+        <textarea id="xmlText"></textarea>
+    </td>
+    <td>
+        <textarea id="jsonText"></textarea>
+    </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
