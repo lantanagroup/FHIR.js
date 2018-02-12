@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "6"
+  - "8"
+os:
+ - linux
+ - osx
+matrix:
+ allow_failures:
+   - os: osx

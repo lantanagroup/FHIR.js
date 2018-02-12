@@ -1,0 +1,460 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A homogeneous material with a definite composition.\" class=\"dict\" href=\"substance-definitions.html#Substance\"><b>Substance</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"A code (or set of codes) that identify this substance.\" class=\"dict\" href=\"substance-definitions.html#Substance.type\"><b>type</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-substance-type.html\">What kind of substance this is</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/type&gt;\r\n &lt;<a title=\"A description of the substance - its appearance, handling requirements, and other usage notes.\" class=\"dict\" href=\"substance-definitions.html#Substance.description\"><b>description</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Textual description of the substance, comments</span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Substance may be used to describe a kind of substance, or a specific package/container of the substance: an instance.\" class=\"dict\" href=\"substance-definitions.html#Substance.instance\"><b>instance</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..1</b></span> If this describes a specific package/container of the substance --&gt;</span>\r\n  &lt;<a title=\"Identifier associated with the package/container (usually a label affixed directly).\" class=\"dict\" href=\"substance-definitions.html#Substance.instance.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">Identifier of the package/container</span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n  &lt;<a title=\"When the substance is no longer valid to use. For some substances, a single arbitrary date is used for expiry.\" class=\"dict\" href=\"substance-definitions.html#Substance.instance.expiry\"><b>expiry</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#dateTime\">dateTime</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">When no longer valid to use</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"The amount of the substance.\" class=\"dict\" href=\"substance-definitions.html#Substance.instance.quantity\"><b>quantity</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Quantity\">Quantity</a></span> <span style=\"color: navy\">Amount of substance in the package</span><span style=\"color: Gray\"> --&gt;</span>&lt;/quantity&gt;\r\n &lt;/instance&gt;\r\n &lt;<a title=\"A substance can be composed of other substances.\" class=\"dict\" href=\"substance-definitions.html#Substance.ingredient\"><b>ingredient</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> Composition information about the substance --&gt;</span>\r\n  &lt;<a title=\"The amount of the ingredient in the substance - a concentration ratio.\" class=\"dict\" href=\"substance-definitions.html#Substance.ingredient.quantity\"><b>quantity</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Ratio\">Ratio</a></span> <span style=\"color: navy\">Optional amount (concentration)</span><span style=\"color: Gray\"> --&gt;</span>&lt;/quantity&gt;\r\n  &lt;<a title=\"Another substance that is a component of this substance.\" class=\"dict\" href=\"substance-definitions.html#Substance.ingredient.substance\"><b>substance</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"substance.html#Substance\">Substance</a>)</span> <span style=\"color: navy\">A component of the substance</span><span style=\"color: Gray\"> --&gt;</span>&lt;/substance&gt;\r\n &lt;/ingredient&gt;\r\n&lt;/Substance&gt;\r\n</pre></div>"
+	},
+	"name": "substance",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A homogeneous material with a definite composition.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage This resource allows for a material to be represented. The resource can be used to represent either a kind of a substance - e.g. a formulation commonly used for treating patients, or it can be used to describe a particular package of a known substance (e.g. bottle, jar, packet). \r\n\r\nThe composition of the material can be specified in terms of a mix of other materials, including with precise amounts if required.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		}
+	],
+	"structure": [
+		{
+			"type": "Substance",
+			"publish": true,
+			"element": [
+				{
+					"path": "Substance",
+					"definition": {
+						"short": "A homogeneous material with a definite composition",
+						"formal": "A homogeneous material with a definite composition.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Material"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.type",
+					"definition": {
+						"short": "What kind of substance this is",
+						"formal": "A code (or set of codes) that identify this substance.",
+						"comments": "This could be a reference to an externally defined code.  It could also be a locally assigned code (e.g. a formulary),  optionally with translations to the standard drug codes.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "SubstanceType",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/substance-type"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.description",
+					"definition": {
+						"short": "Textual description of the substance, comments",
+						"formal": "A description of the substance - its appearance, handling requirements, and other usage notes.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".player.desc"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.instance",
+					"definition": {
+						"short": "If this describes a specific package/container of the substance",
+						"formal": "Substance may be used to describe a kind of substance, or a specific package/container of the substance: an instance.",
+						"min": 0,
+						"max": "1",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".player.determinerCode"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.instance.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.instance.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.instance.identifier",
+					"definition": {
+						"short": "Identifier of the package/container",
+						"formal": "Identifier associated with the package/container (usually a label affixed directly).",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.instance.expiry",
+					"definition": {
+						"short": "When no longer valid to use",
+						"formal": "When the substance is no longer valid to use. For some substances, a single arbitrary date is used for expiry.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "dateTime"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".expiryTime"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.instance.quantity",
+					"definition": {
+						"short": "Amount of substance in the package",
+						"formal": "The amount of the substance.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Quantity"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".player.quantity"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.ingredient",
+					"definition": {
+						"short": "Composition information about the substance",
+						"formal": "A substance can be composed of other substances.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".player.scopesRole[classCode=INGR]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.ingredient.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.ingredient.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Substance.ingredient.quantity",
+					"definition": {
+						"short": "Optional amount (concentration)",
+						"formal": "The amount of the ingredient in the substance - a concentration ratio.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Ratio"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".quantity"
+							}
+						]
+					}
+				},
+				{
+					"path": "Substance.ingredient.substance",
+					"definition": {
+						"short": "A component of the substance",
+						"formal": "Another substance that is a component of this substance.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Substance"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".player"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "expiry",
+					"type": "date",
+					"documentation": "When no longer valid to use",
+					"xpath": "f:Substance/f:instance/f:expiry"
+				},
+				{
+					"name": "identifier",
+					"type": "token",
+					"documentation": "Identifier of the package/container",
+					"xpath": "f:Substance/f:instance/f:identifier"
+				},
+				{
+					"name": "quantity",
+					"type": "number",
+					"documentation": "Amount of substance in the package",
+					"xpath": "f:Substance/f:instance/f:quantity"
+				},
+				{
+					"name": "substance",
+					"type": "reference",
+					"documentation": "A component of the substance",
+					"xpath": "f:Substance/f:ingredient/f:substance"
+				},
+				{
+					"name": "type",
+					"type": "token",
+					"documentation": "The type of the substance",
+					"xpath": "f:Substance/f:type"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/Substance"
+}

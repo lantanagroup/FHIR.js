@@ -1,0 +1,814 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A request for a diagnostic investigation service to be performed.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder\"><b>DiagnosticOrder</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.subject\"><b>subject</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>|<a href=\"group.html#Group\">Group</a>|<a href=\"location.html#Location\">Location</a>|<a href=\"device.html#Device\">Device</a>)</span> <span style=\"color: navy\">Who and/or what test is about</span><span style=\"color: Gray\"> --&gt;</span>&lt;/subject&gt;\r\n &lt;<a title=\"The practitioner that holds legal responsibility for ordering the investigation.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.orderer\"><b>orderer</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>)</span> <span style=\"color: navy\">Who ordered the test</span><span style=\"color: Gray\"> --&gt;</span>&lt;/orderer&gt;\r\n &lt;<a title=\"Identifiers assigned to this order by the order or by the receiver.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">Identifiers assigned to this order</span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n &lt;<a title=\"An encounter that provides additional informaton about the healthcare context in which this request is made.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.encounter\"><b>encounter</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"encounter.html#Encounter\">Encounter</a>)</span> <span style=\"color: navy\">\r\n     The encounter that this diagnostic order is associated with</span><span style=\"color: Gray\"> --&gt;</span>&lt;/encounter&gt;\r\n &lt;<a title=\"An explanation or justification for why this diagnostic investigation is being requested.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.clinicalNotes\"><b>clinicalNotes</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Explanation/Justification for test</span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"One or more specimens that the diagnostic investigation is about.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.specimen\"><b>specimen</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"specimen.html#Specimen\">Specimen</a>)</span> <span style=\"color: navy\">If the whole order relates to specific specimens</span><span style=\"color: Gray\"> --&gt;</span>&lt;/specimen&gt;\r\n &lt;<a title=\"The status of the order.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"diagnostic-order-status.html\">requested | received | accepted | in progress | review | completed | suspended | rejected | failed</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The clinical priority associated with this order.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.priority\"><b>priority</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"diagnostic-order-priority.html\">routine | urgent | stat | asap</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"A summary of the events of interest that have occurred as the request is processed. E.g. when the order was made, various processing steps (specimens received), when it was completed.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.event\"><b>event</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> A list of events of interest in the lifecycle --&gt;</span>\r\n  &lt;<a title=\"The status for the event.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.event.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"diagnostic-order-status.html\">requested | received | accepted | in progress | review | completed | suspended | rejected | failed</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"Additional information about the event that occurred - e.g. if the status remained unchanged.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.event.description\"><b>description</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-diagnostic-order-event.html\">More information about the event and it's context</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/description&gt;\r\n  &lt;<a title=\"The date/time at which the event occurred.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.event.dateTime\"><b>dateTime</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#dateTime\">dateTime</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\">The date at which the event happened</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"The person who was responsible for performing or recording the action.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.event.actor\"><b>actor</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"device.html#Device\">Device</a>)</span> <span style=\"color: navy\">Who recorded or did this</span><span style=\"color: Gray\"> --&gt;</span>&lt;/actor&gt;\r\n &lt;/event&gt;\r\n &lt;<a title=\"The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item\"><b>item</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>0..*</b></span> The items the orderer requested --&gt;</span>\r\n  &lt;<a title=\"A code that identifies a particular diagnostic investigation, or panel of investigations, that have been requested.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item.code\"><b>code</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-diagnostic-requests.html\">Code to indicate the item (test or panel) being ordered</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/code&gt;\r\n  &lt;<a title=\"If the item is related to a specific speciment.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item.specimen\"><b>specimen</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"specimen.html#Specimen\">Specimen</a>)</span> <span style=\"color: navy\">If this item relates to specific specimens</span><span style=\"color: Gray\"> --&gt;</span>&lt;/specimen&gt;\r\n  &lt;<a title=\"Anatomical location where the request test should be performed.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item.bodySite\"><b>bodySite</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-body-site.html\">Location of requested test (if applicable)</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/bodySite&gt;\r\n  &lt;<a title=\"The status of this individual item within the order.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item.status\"><b>status</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"diagnostic-order-status.html\">requested | received | accepted | in progress | review | completed | suspended | rejected | failed</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"A summary of the events of interest that have occurred as this item of the request is processed.\" class=\"dict\" href=\"diagnosticorder-definitions.html#DiagnosticOrder.item.event\"><b>event</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\">Content as for DiagnosticOrder.event</span> <span style=\"color: navy\">Events specific to this item</span><span style=\"color: Gray\"> --&gt;</span>&lt;/event&gt;\r\n &lt;/item&gt;\r\n&lt;/DiagnosticOrder&gt;\r\n</pre></div>"
+	},
+	"name": "diagnosticorder",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A request for a diagnostic investigation service to be performed.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage A Diagnostic Order is a record of a request for a set of diagnostic investigations to be performed. The investigation will lead to a Diagnostic Report that summarizes the outcome of the investigation, and includes any useful data and/or images that are relevant to the treatment/management of the subject. \r\n\r\nThe principal intention of the Diagnostic Order is to support ordering diagnostic investigations on patients (which includes non-human patients in veterinary medicine). However in many contexts, healthcare related processes include performing diagnostic investigations on groups of subjects, devices involved in the provision of healthcare, and even environmental locations such as ducts, bodies of water, etc. The Diagnostic Order supports all these usages. \r\n\r\nThe general work flow that this resource facilitates is that a clinical system creates a diagnostic order. The diagnostic order is then exchanged, perhaps via intermediaries, with a system that represents a diagnostic service that can perform the investigation as a request to do so. The diagnostic service will update the request as the work is performed, and then finally issue a report that references the requests that it fulfills.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		},
+		{
+			"identity": "v2",
+			"uri": "http://hl7.org/v2",
+			"name": "HL7 v2"
+		}
+	],
+	"structure": [
+		{
+			"type": "DiagnosticOrder",
+			"publish": true,
+			"element": [
+				{
+					"path": "DiagnosticOrder",
+					"definition": {
+						"short": "A request for a diagnostic service",
+						"formal": "A request for a diagnostic investigation service to be performed.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Observation[classCode=OBS, moodCode=RQO, code<\"diagnostic order\"]"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.subject",
+					"definition": {
+						"short": "Who and/or what test is about",
+						"formal": "Who or what the investigation is to be performed on. This is usually a human patient, but diagnostic tests can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Group"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Location"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Device"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SBJ].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.orderer",
+					"definition": {
+						"short": "Who ordered the test",
+						"formal": "The practitioner that holds legal responsibility for ordering the investigation.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=AUT].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.identifier",
+					"definition": {
+						"short": "Identifiers assigned to this order",
+						"formal": "Identifiers assigned to this order by the order or by the receiver.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.encounter",
+					"definition": {
+						"short": "The encounter that this diagnostic order is associated with",
+						"formal": "An encounter that provides additional informaton about the healthcare context in which this request is made.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Encounter"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=COMP].source[classCode=ENC, moodCode=EVN]"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.clinicalNotes",
+					"definition": {
+						"short": "Explanation/Justification for test",
+						"formal": "An explanation or justification for why this diagnostic investigation is being requested.",
+						"comments": "This may be used to decide how the diagnostic investigation will be performed, or even if it will be performed at all.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".reasonCode.originalText"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.specimen",
+					"definition": {
+						"short": "If the whole order relates to specific specimens",
+						"formal": "One or more specimens that the diagnostic investigation is about.",
+						"comments": "Many investigation requests will create a need for specimens, but the request itself is not actually about the specimens. This is provided for when the diagnostic investigation is requested on already existing specimens.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Specimen"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SPC].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.status",
+					"definition": {
+						"short": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+						"formal": "The status of the order.",
+						"comments": "Typically the system placing the order sets the status to requested. There after, the order is maintained by the receiver that updates the status as the request is handled.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DiagnosticOrderStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-order-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nalso influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.priority",
+					"definition": {
+						"short": "routine | urgent | stat | asap",
+						"formal": "The clinical priority associated with this order.",
+						"comments": "The Order resource also has a priority. Generally, these should be the same, but they can be different, for instance in the case where the clinician indicates that the order is urgent, but the subsequent workflow process overrule this priority for some reason. The effective default value is \"normal\".",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DiagnosticOrderPriority",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-order-priority"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".priorityCode"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event",
+					"definition": {
+						"short": "A list of events of interest in the lifecycle",
+						"formal": "A summary of the events of interest that have occurred as the request is processed. E.g. when the order was made, various processing steps (specimens received), when it was completed.",
+						"comments": "This is not the same as an audit trail - it is a view of the important things that happened in the past. Typically, there would only be one entry for any given status, and systems may not record all the status events.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=FLFS].source"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.status",
+					"definition": {
+						"short": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+						"formal": "The status for the event.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DiagnosticOrderStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-order-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nalso influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.description",
+					"definition": {
+						"short": "More information about the event and it's context",
+						"formal": "Additional information about the event that occurred - e.g. if the status remained unchanged.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DIagnosticOrderEventDescription",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-order-event"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".text"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.dateTime",
+					"definition": {
+						"short": "The date at which the event happened",
+						"formal": "The date/time at which the event occurred.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "dateTime"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.event.actor",
+					"definition": {
+						"short": "Who recorded or did this",
+						"formal": "The person who was responsible for performing or recording the action.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Device"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[AUT or PFM]"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item",
+					"definition": {
+						"short": "The items the orderer requested",
+						"formal": "The specific diagnostic investigations that are requested as part of this request. Sometimes, there can only be one item per request, but in most contexts, more than one investigation can be requested.",
+						"comments": "There would always be at least one item in normal usage, but this is optional so that a workflow can quote order details without having to list the items.",
+						"min": 0,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=COMP].target[classCode=OBS, moodCode=OBS]"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.code",
+					"definition": {
+						"short": "Code to indicate the item (test or panel) being ordered",
+						"formal": "A code that identifies a particular diagnostic investigation, or panel of investigations, that have been requested.",
+						"comments": "Many laboratory tests and radiology tests embed the specimen/organ system in the test name, for example,  serum or serum/plasma glucose, or a chest xray. The specimen may not be recorded separately from the test code.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DiagnosticRequests",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-requests"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							},
+							{
+								"identity": "v2",
+								"map": "OBX-4"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.specimen",
+					"definition": {
+						"short": "If this item relates to specific specimens",
+						"formal": "If the item is related to a specific speciment.",
+						"comments": "A single specimen should not appear in both DIagnosticOrder.specimen and DiagnosticOrder.item.specimen.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Specimen"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=SPC].role"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.bodySite",
+					"definition": {
+						"short": "Location of requested test (if applicable)",
+						"formal": "Anatomical location where the request test should be performed.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "BodySite",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/body-site"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "targetSiteCode"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.status",
+					"definition": {
+						"short": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+						"formal": "The status of this individual item within the order.",
+						"comments": "If the request has multiple items that have their own life cycles, then the items will have their own status while the overall diagnostic order is (usually) \"in progress\".",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "DiagnosticOrderStatus",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/diagnostic-order-status"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".statusCode\nalso influenced by whether a ControlAct fulfillment requeste exists, whether a promise exists, status of the review component, whether a fulfilling observation exists, whether a refusal exists"
+							}
+						]
+					}
+				},
+				{
+					"path": "DiagnosticOrder.item.event",
+					"definition": {
+						"short": "Events specific to this item",
+						"formal": "A summary of the events of interest that have occurred as this item of the request is processed.",
+						"min": 0,
+						"max": "*",
+						"nameReference": "DiagnosticOrder.event",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".inboundRelationship[typeCode=FLFS].source"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "actor",
+					"type": "reference",
+					"documentation": "Who recorded or did this"
+				},
+				{
+					"name": "bodysite",
+					"type": "token",
+					"documentation": "Location of requested test (if applicable)",
+					"xpath": "f:DiagnosticOrder/f:item/f:bodySite"
+				},
+				{
+					"name": "code",
+					"type": "token",
+					"documentation": "Code to indicate the item (test or panel) being ordered",
+					"xpath": "f:DiagnosticOrder/f:item/f:code"
+				},
+				{
+					"name": "encounter",
+					"type": "reference",
+					"documentation": "The encounter that this diagnostic order is associated with",
+					"xpath": "f:DiagnosticOrder/f:encounter"
+				},
+				{
+					"name": "event-date",
+					"type": "date",
+					"documentation": "The date at which the event happened",
+					"xpath": "f:DiagnosticOrder/f:event/f:dateTime"
+				},
+				{
+					"name": "event-status",
+					"type": "token",
+					"documentation": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+					"xpath": "f:DiagnosticOrder/f:event/f:status"
+				},
+				{
+					"name": "event-status-date",
+					"type": "composite",
+					"documentation": "A combination of past-status and date"
+				},
+				{
+					"name": "identifier",
+					"type": "token",
+					"documentation": "Identifiers assigned to this order",
+					"xpath": "f:DiagnosticOrder/f:identifier"
+				},
+				{
+					"name": "item-date",
+					"type": "date",
+					"documentation": "The date at which the event happened",
+					"xpath": "f:DiagnosticOrder/f:item/f:event/f:dateTime"
+				},
+				{
+					"name": "item-past-status",
+					"type": "token",
+					"documentation": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+					"xpath": "f:DiagnosticOrder/f:item/f:event/f:status"
+				},
+				{
+					"name": "item-status",
+					"type": "token",
+					"documentation": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+					"xpath": "f:DiagnosticOrder/f:item/f:status"
+				},
+				{
+					"name": "item-status-date",
+					"type": "composite",
+					"documentation": "A combination of item-past-status and item-date"
+				},
+				{
+					"name": "orderer",
+					"type": "reference",
+					"documentation": "Who ordered the test",
+					"xpath": "f:DiagnosticOrder/f:orderer"
+				},
+				{
+					"name": "specimen",
+					"type": "reference",
+					"documentation": "If the whole order relates to specific specimens"
+				},
+				{
+					"name": "status",
+					"type": "token",
+					"documentation": "requested | received | accepted | in progress | review | completed | suspended | rejected | failed",
+					"xpath": "f:DiagnosticOrder/f:status"
+				},
+				{
+					"name": "subject",
+					"type": "reference",
+					"documentation": "Who and/or what test is about",
+					"xpath": "f:DiagnosticOrder/f:subject"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/DiagnosticOrder"
+}

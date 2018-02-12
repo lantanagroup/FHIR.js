@@ -1,0 +1,347 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A collection of error, warning or information messages that result from a system action.\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome\"><b>OperationOutcome</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"An error, warning or information message that results from a system action.\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome.issue\"><b>issue</b></a>&gt;  <span style=\"color: Gray\">&lt;!-- <span style=\"color: brown\"><b>1..*</b></span> A single issue associated with the action --&gt;</span>\r\n  &lt;<a title=\"Indicates whether the issue indicates a variation from successful processing (this element modifies the meaning of other elements)\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome.issue.severity\"><span style=\"text-decoration: underline\"><b>severity</b></span></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"issue-severity.html\">fatal | error | warning | information</a></span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"A code indicating the type of error, warning or information message.\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome.issue.type\"><b>type</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Coding\">Coding</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"issue-type.html\">Error or warning code</a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/type&gt;\r\n  &lt;<a title=\"Additional description of the issue.\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome.issue.details\"><b>details</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Additional description of the issue</span><span style=\"color: Gray\"> --&gt;</span>\r\n  &lt;<a title=\"A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised.\" class=\"dict\" href=\"operationoutcome-definitions.html#OperationOutcome.issue.location\"><b>location</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: navy\">XPath of element(s) related to issue</span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;/issue&gt;\r\n&lt;/OperationOutcome&gt;\r\n</pre></div>"
+	},
+	"name": "operationoutcome",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A collection of error, warning or information messages that result from a system action.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage Operation Outcomes are sets of error, warning and information messages that provide detailed information about the outcome of some attempted system operation. They are provided as a direct system response, or component of one, where they provide information about the outcome of the operation. \r\n\r\nSpecifically, OperationOutcomes are used in the following circumstances: \r\n\r\n* When an RESTful operation fails\r\n* As the response on a validation operation, to provide information about the outcomes\r\n* As part of a message response, usually when the message has not been processed correctly",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		},
+		{
+			"identity": "v2",
+			"uri": "http://hl7.org/v2",
+			"name": "HL7 v2"
+		}
+	],
+	"structure": [
+		{
+			"type": "OperationOutcome",
+			"publish": true,
+			"element": [
+				{
+					"path": "OperationOutcome",
+					"definition": {
+						"short": "Information about the success/failure of an action",
+						"formal": "A collection of error, warning or information messages that result from a system action.",
+						"comments": "Can result from the failure of a REST call or be part of the response message returned from a request message.  If sent with extensions overriding particular issues, might even appear as part of a request message.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Grouping is handled through multiple repetitions from whatever context references the outcomes (no specific grouper required)"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.issue",
+					"definition": {
+						"short": "A single issue associated with the action",
+						"formal": "An error, warning or information message that results from a system action.",
+						"min": 1,
+						"max": "*",
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "AcknowledgementDetail or Observation[classCode=\"ALRT\" and moodCode=\"EVN\"]"
+							},
+							{
+								"identity": "v2",
+								"map": "ERR"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.severity",
+					"definition": {
+						"short": "fatal | error | warning | information",
+						"formal": "Indicates whether the issue indicates a variation from successful processing.",
+						"comments": "This is labeled as \"Is Modifier\" because applications should not confuse hints and warnings with errors.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": true,
+						"binding": {
+							"name": "IssueSeverity",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/issue-severity"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "./typeCode[parent::AcknowledgmentDetail] or unique(./inboundRelationship[parent::Observation and typeCode='SUBJ' and isNormalActRelationship()]/source[classCode=\"OBS\" and moodCode=\"EVN\" and implies(code, ActCode#SEV and isNormalAct())/value[xsi:type=\"CD\"]"
+							},
+							{
+								"identity": "v2",
+								"map": "ERR-4"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.type",
+					"definition": {
+						"short": "Error or warning code",
+						"formal": "A code indicating the type of error, warning or information message.",
+						"comments": "Codes should only be defined at a level of granularity that reasonably allows distinct actions to be taken by the receiving system.  If the response behavior of all systems is the same for two codes, the codes might as well be merged.  The human-meaningful content of the issue is conveyed in .text.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Coding"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "IssueType",
+							"isExtensible": true,
+							"conformance": "preferred",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/issue-type"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "./code"
+							},
+							{
+								"identity": "v2",
+								"map": "ERR-3, ERR-5"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.details",
+					"definition": {
+						"short": "Additional description of the issue",
+						"formal": "Additional description of the issue.",
+						"comments": "typically this field is used to provide details human-readable information about the error.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "./text[parent::AcknowledgmentDetail]"
+							},
+							{
+								"identity": "v2",
+								"map": "ERR-8"
+							}
+						]
+					}
+				},
+				{
+					"path": "OperationOutcome.issue.location",
+					"definition": {
+						"short": "XPath of element(s) related to issue",
+						"formal": "A simple XPath limited to element names, repetition indicators and the default child access that identifies one of the elements in the resource that caused this issue to be raised.",
+						"comments": "The root of the XPath is the resource or bundle that generated OperationOutcome.  Each XPath SHALL resolve to a single node.  The XPath syntax is used whether the referenced instance is expressed in XML or JSON.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "./location[parent::AcknowledgmentDetail]"
+							},
+							{
+								"identity": "v2",
+								"map": "ERR-2"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/OperationOutcome"
+}

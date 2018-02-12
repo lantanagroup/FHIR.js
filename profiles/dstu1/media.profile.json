@@ -1,0 +1,592 @@
+{
+	"resourceType": "Profile",
+	"text": {
+		"status": "generated",
+		"div": "<div><pre>\r\n&lt;<a title=\"A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by direct reference.\" class=\"dict\" href=\"media-definitions.html#Media\"><b>Media</b></a> xmlns=&quot;http://hl7.org/fhir&quot;&gt; <span style=\"float: right\"><a title=\"Documentation for this format\" href=\"formats.html\"><img alt=\"doco\" src=\"help.png\"/></a></span>\r\n &lt;!-- from <a href=\"resources.html\">Resource</a>: <a href=\"extensibility.html\">extension</a>, <a href=\"extensibility.html#modifierExtension\">modifierExtension</a>, language, <a href=\"narrative.html#Narrative\">text</a>, and <a href=\"references.html#contained\">contained</a> --&gt;\r\n &lt;<a title=\"Whether the media is a photo (still image), an audio recording, or a video recording.\" class=\"dict\" href=\"media-definitions.html#Media.type\"><b>type</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#code\">code</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"media-type.html\">photo | video | audio<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></a></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Details of the type of the media - usually, how it was acquired (what type of device). If images sourced from a DICOM system, are wrapped in a Media resource, then this is the modality.\" class=\"dict\" href=\"media-definitions.html#Media.subtype\"><b>subtype</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-media-subtype.html\">The type of acquisition equipment/process<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/subtype&gt;\r\n &lt;<a title=\"Identifiers associated with the image - these may include identifiers for the image itself, identifiers for the context of its collection (e.g. series ids) and context ids such as accession numbers or other workflow identifiers.\" class=\"dict\" href=\"media-definitions.html#Media.identifier\"><b>identifier</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..*</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Identifier\">Identifier</a></span> <span style=\"color: navy\">Identifier(s) for the image<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/identifier&gt;\r\n &lt;<a title=\"When the media was originally recorded. For video and audio, if the length of the recording is not insignificant, this is the end of the recording.\" class=\"dict\" href=\"media-definitions.html#Media.dateTime\"><b>dateTime</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#dateTime\">dateTime</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">When the media was taken/recorded (end)<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Who/What this Media is a record of.\" class=\"dict\" href=\"media-definitions.html#Media.subject\"><b>subject</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"patient.html#Patient\">Patient</a>|<a href=\"practitioner.html#Practitioner\">Practitioner</a>|<a href=\"group.html#Group\">Group</a>|<a href=\"device.html#Device\">Device</a>|<a href=\"specimen.html#Specimen\">Specimen</a>)</span> <span style=\"color: navy\">\r\n     Who/What this Media is a record of<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/subject&gt;\r\n &lt;<a title=\"The person who administered the collection of the image.\" class=\"dict\" href=\"media-definitions.html#Media.operator\"><b>operator</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"references.html#Resource\">Resource</a>(<a href=\"practitioner.html#Practitioner\">Practitioner</a>)</span> <span style=\"color: navy\">The person who generated the image<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>&lt;/operator&gt;\r\n &lt;<a title=\"The name of the imaging view e.g Lateral or Antero-posterior (AP).\" class=\"dict\" href=\"media-definitions.html#Media.view\"><b>view</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#CodeableConcept\">CodeableConcept</a></span> <span style=\"color: navy\"><a style=\"color: navy\" href=\"valueset-media-view.html\">Imaging view e.g Lateral or Antero-posterior<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></a></span><span style=\"color: Gray\"> --&gt;</span>&lt;/view&gt;\r\n &lt;<a title=\"The name of the device / manufacturer of the device  that was used to make the recording.\" class=\"dict\" href=\"media-definitions.html#Media.deviceName\"><b>deviceName</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#string\">string</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>0..1</b></span> <span style=\"color: navy\">Name of the device/manufacturer<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Height of the image in pixels(photo/video).\" class=\"dict\" href=\"media-definitions.html#Media.height\"><b>height</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#integer\">integer</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-1: Height can only be used for a photo or video\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: navy\">Height of the image in pixels(photo/video)<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"Width of the image in pixels (photo/video).\" class=\"dict\" href=\"media-definitions.html#Media.width\"><b>width</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#integer\">integer</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-2: Width can only be used for a photo or video\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: navy\">Width of the image in pixels (photo/video)<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The number of frames in a photo. This is used with a multi-page fax, or an imaging acquisition context that takes multiple slices in a single image, or an animated gif. If there is more than one frame, this SHALL have a value in order to alert interface software that a multi-frame capable rendering widget is required.\" class=\"dict\" href=\"media-definitions.html#Media.frames\"><b>frames</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#integer\">integer</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-3: Frames can only be used for a photo\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: navy\">Number of frames if &gt; 1 (photo)<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The length of the recording in seconds - for audio and video.\" class=\"dict\" href=\"media-definitions.html#Media.length\"><b>length</b></a> value=&quot;[<span style=\"color: darkgreen\"><a href=\"datatypes.html#integer\">integer</a></span>]&quot;/&gt;<span style=\"color: Gray\">&lt;!--</span> <span title=\"Inv-4: Length can only be used for an audio or a video\" style=\"color: brown\"><b><img alt=\"??\" src=\"lock.png\"/> 0..1</b></span> <span style=\"color: navy\">Length in seconds (audio / video)<span title=\"This element is included in a summary view (See Search/Query)\" style=\"color: Navy\"> &sect;</span></span><span style=\"color: Gray\"> --&gt;</span>\r\n &lt;<a title=\"The actual content of the media - inline or by direct reference to the media source file.\" class=\"dict\" href=\"media-definitions.html#Media.content\"><b>content</b></a>&gt;<span style=\"color: Gray\">&lt;!--</span> <span style=\"color: brown\"><b>1..1</b></span> <span style=\"color: darkgreen\"><a href=\"datatypes.html#Attachment\">Attachment</a></span> <span style=\"color: navy\">Actual Media - reference or data</span><span style=\"color: Gray\"> --&gt;</span>&lt;/content&gt;\r\n&lt;/Media&gt;\r\n</pre></div>"
+	},
+	"name": "media",
+	"publisher": "FHIR Project",
+	"description": "Basic Profile. A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by direct reference.",
+	"status": "draft",
+	"date": "2014-05-09",
+	"requirements": "Scope and Usage The Media resource contains photos, videos, and audio recordings. It is used with media acquired or used as part of the healthcare process. Here are some typical usages: \r\n\r\n* Photos of patients and staff for identification purposes\r\n* Photos and videos of diagnostic or care provision procedures for recording purposes \r\n* Storing scans and faxes of paper documents where not enough metadata exists to create a DocumentReference\r\n* Images on diagnostic reports\r\nThe Media resource may contain medical images in a DICOM format. While such images may also be accessible through an ImagingStudy resource, the Media resource enables \"ready for presentation\" access to a specific image. Such images would preferentially be made available in a FHIR ecosystem by the Media.content.url providing a reference to a WADO-RS service to access the image. That WADO-RS service may include rendering the image with annotations and display parameters from an associated DICOM presentation state. Although the Media resource is allowed to contain images collected by a DICOM based system, DICOM images would preferentially be made available in a FHIR ecosystem by provision of a resource with references to a WADO-RS server.",
+	"mapping": [
+		{
+			"identity": "rim",
+			"uri": "http://hl7.org/v3",
+			"name": "RIM"
+		},
+		{
+			"identity": "dicom",
+			"uri": "http://nema.org/dicom",
+			"name": "DICOM"
+		}
+	],
+	"structure": [
+		{
+			"type": "Media",
+			"publish": true,
+			"element": [
+				{
+					"path": "Media",
+					"definition": {
+						"short": "A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by direct reference",
+						"formal": "A photo, video, or audio recording acquired or used in healthcare. The actual content may be inline or provided by direct reference.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"constraint": [
+							{
+								"key": "3",
+								"name": "Frames rule",
+								"severity": "error",
+								"human": "Frames can only be used for a photo",
+								"xpath": "(f:type/@value='photo') or not(f:frames)"
+							},
+							{
+								"key": "2",
+								"name": "Width rule",
+								"severity": "error",
+								"human": "Width can only be used for a photo or video",
+								"xpath": "not(f:type/@value='audio') or not(f:width)"
+							},
+							{
+								"key": "1",
+								"name": "Height rule",
+								"severity": "error",
+								"human": "Height can only be used for a photo or video",
+								"xpath": "not(f:type/@value='audio') or not(f:height)"
+							},
+							{
+								"key": "4",
+								"name": "Length rule",
+								"severity": "error",
+								"human": "Length can only be used for an audio or a video",
+								"xpath": "not(f:type/@value='photo') or not(f:length)"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "Act[classCode=\"DGIMG\", moodCode=\"EVN\"]"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.extension",
+					"definition": {
+						"short": "Additional Content defined by implementations",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Media.modifierExtension",
+					"definition": {
+						"short": "Extensions that cannot be ignored",
+						"formal": "May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.",
+						"comments": "there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone.",
+						"synonym": [
+							"extensions",
+							"user content"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Extension"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Media.language",
+					"definition": {
+						"short": "The base language in which the resource is written.",
+						"formal": "The base language in which the resource is written.",
+						"comments": "",
+						"synonym": [],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.text",
+					"definition": {
+						"short": "Text summary of the resource, for human interpretation",
+						"formal": "A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it \"clinically safe\" for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety.",
+						"comments": "Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative.",
+						"synonym": [
+							"narrative",
+							"html",
+							"xhtml",
+							"display"
+						],
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "Narrative"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Media.contained",
+					"definition": {
+						"short": "Contained, inline Resources",
+						"formal": "These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope.",
+						"comments": "This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again.",
+						"synonym": [
+							"inline resources",
+							"anonymous resources",
+							"contained resources"
+						],
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Resource"
+							}
+						],
+						"isModifier": false
+					}
+				},
+				{
+					"path": "Media.type",
+					"definition": {
+						"short": "photo | video | audio",
+						"formal": "Whether the media is a photo (still image), an audio recording, or a video recording.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "code"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "MediaType",
+							"isExtensible": false,
+							"conformance": "required",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/media-type"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".code"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.subtype",
+					"definition": {
+						"short": "The type of acquisition equipment/process",
+						"formal": "Details of the type of the media - usually, how it was acquired (what type of device). If images sourced from a DICOM system, are wrapped in a Media resource, then this is the modality.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "MediaSubtype",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/media-subtype"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"LIST\", moodCode=\"EVN\"].code"
+							},
+							{
+								"identity": "dicom",
+								"map": "0008,0060 | 0008,1032"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.identifier",
+					"definition": {
+						"short": "Identifier(s) for the image",
+						"formal": "Identifiers associated with the image - these may include identifiers for the image itself, identifiers for the context of its collection (e.g. series ids) and context ids such as accession numbers or other workflow identifiers.",
+						"comments": "The identifier label and use can be used to determine what kind of identifier it is.",
+						"min": 0,
+						"max": "*",
+						"type": [
+							{
+								"code": "Identifier"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".id"
+							},
+							{
+								"identity": "dicom",
+								"map": "0008,0018 | ~0008,0050 | 0020,000D | 0020,000E"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.dateTime",
+					"definition": {
+						"short": "When the media was taken/recorded (end)",
+						"formal": "When the media was originally recorded. For video and audio, if the length of the recording is not insignificant, this is the end of the recording.",
+						"comments": "For an image including multiple frames, this is the start time.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "dateTime"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".effectiveTime"
+							},
+							{
+								"identity": "dicom",
+								"map": "0008,0020 + 0008,0030"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.subject",
+					"definition": {
+						"short": "Who/What this Media is a record of",
+						"formal": "Who/What this Media is a record of.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Patient"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Group"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Device"
+							},
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Specimen"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=\"SUBJ\"]…"
+							},
+							{
+								"identity": "dicom",
+								"map": "~0010,0020"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.operator",
+					"definition": {
+						"short": "The person who generated the image",
+						"formal": "The person who administered the collection of the image.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "ResourceReference",
+								"profile": "http://hl7.org/fhir/profiles/Practitioner"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=\"PERF\"]…"
+							},
+							{
+								"identity": "dicom",
+								"map": "0008,1060?"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.view",
+					"definition": {
+						"short": "Imaging view e.g Lateral or Antero-posterior",
+						"formal": "The name of the imaging view e.g Lateral or Antero-posterior (AP).",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "CodeableConcept"
+							}
+						],
+						"isModifier": false,
+						"binding": {
+							"name": "MediaView",
+							"isExtensible": true,
+							"conformance": "example",
+							"referenceResource": {
+								"reference": "http://hl7.org/fhir/vs/media-view"
+							}
+						},
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": "DiagnosticImage.subjectOrientationCode"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.deviceName",
+					"definition": {
+						"short": "Name of the device/manufacturer",
+						"formal": "The name of the device / manufacturer of the device  that was used to make the recording.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "string"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".participation[typeCode=\"DEV\"].role.player.Entity[classCode=\"DEV\"].name"
+							},
+							{
+								"identity": "dicom",
+								"map": "0008,0070"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.height",
+					"definition": {
+						"short": "Height of the image in pixels(photo/video)",
+						"formal": "Height of the image in pixels(photo/video).",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "integer"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"OBS\", moodCode=\"EVN\",code=\"<CODE>\"].value"
+							},
+							{
+								"identity": "dicom",
+								"map": "0028,0010"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.width",
+					"definition": {
+						"short": "Width of the image in pixels (photo/video)",
+						"formal": "Width of the image in pixels (photo/video).",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "integer"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"OBS\", moodCode=\"EVN\",code=\"<CODE>\"].value"
+							},
+							{
+								"identity": "dicom",
+								"map": "0028,0011"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.frames",
+					"definition": {
+						"short": "Number of frames if > 1 (photo)",
+						"formal": "The number of frames in a photo. This is used with a multi-page fax, or an imaging acquisition context that takes multiple slices in a single image, or an animated gif. If there is more than one frame, this SHALL have a value in order to alert interface software that a multi-frame capable rendering widget is required.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "integer"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"OBS\", moodCode=\"EVN\",code=\"<CODE>\"].value"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.length",
+					"definition": {
+						"short": "Length in seconds (audio / video)",
+						"formal": "The length of the recording in seconds - for audio and video.",
+						"min": 0,
+						"max": "1",
+						"type": [
+							{
+								"code": "integer"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".outboundRelationship[typeCode=\"COMP].target[classCode=\"OBS\", moodCode=\"EVN\",code=\"<CODE>\"].value"
+							},
+							{
+								"identity": "dicom",
+								"map": "~0028,0002"
+							}
+						]
+					}
+				},
+				{
+					"path": "Media.content",
+					"definition": {
+						"short": "Actual Media - reference or data",
+						"formal": "The actual content of the media - inline or by direct reference to the media source file.",
+						"comments": "Recommended content types: image/jpeg, image/png, image/tiff, video/mpeg, audio/mp4, application/dicom. Application/dicom can contain the transfer syntax as a parameter.",
+						"min": 1,
+						"max": "1",
+						"type": [
+							{
+								"code": "Attachment"
+							}
+						],
+						"isModifier": false,
+						"mapping": [
+							{
+								"identity": "rim",
+								"map": ".text"
+							}
+						]
+					}
+				}
+			],
+			"searchParam": [
+				{
+					"name": "_id",
+					"type": "token",
+					"documentation": "The logical resource id associated with the resource (must be supported by all servers)"
+				},
+				{
+					"name": "_language",
+					"type": "token",
+					"documentation": "The language of the resource"
+				},
+				{
+					"name": "date",
+					"type": "date",
+					"documentation": "When the media was taken/recorded (end)",
+					"xpath": "f:Media/f:dateTime"
+				},
+				{
+					"name": "identifier",
+					"type": "token",
+					"documentation": "Identifier(s) for the image",
+					"xpath": "f:Media/f:identifier"
+				},
+				{
+					"name": "operator",
+					"type": "reference",
+					"documentation": "The person who generated the image",
+					"xpath": "f:Media/f:operator"
+				},
+				{
+					"name": "subject",
+					"type": "reference",
+					"documentation": "Who/What this Media is a record of",
+					"xpath": "f:Media/f:subject"
+				},
+				{
+					"name": "subtype",
+					"type": "token",
+					"documentation": "The type of acquisition equipment/process",
+					"xpath": "f:Media/f:subtype"
+				},
+				{
+					"name": "type",
+					"type": "token",
+					"documentation": "photo | video | audio",
+					"xpath": "f:Media/f:type"
+				},
+				{
+					"name": "view",
+					"type": "token",
+					"documentation": "Imaging view e.g Lateral or Antero-posterior",
+					"xpath": "f:Media/f:view"
+				}
+			]
+		}
+	],
+	"identifier": "http://hl7.org/fhir/profiles/Media"
+}

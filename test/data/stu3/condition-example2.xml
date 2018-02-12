@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Condition xmlns="http://hl7.org/fhir">
+  <id value="example2"/>
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">Mild Asthma (Date: 12-Nov 2012)</div>
+  </text>
+  <clinicalStatus value="active"/>
+  <verificationStatus value="confirmed"/>
+  <category>
+    <coding>
+      <system value="http://hl7.org/fhir/condition-category"/>
+      <code value="problem-list-item"/>
+      <display value="Problem List Item"/>
+    </coding>
+  </category>
+  <severity>
+    <coding>
+      <system value="http://snomed.info/sct"/>
+      <code value="255604002"/>
+      <display value="Mild"/>
+    </coding>
+  </severity>
+  <code>
+    <text value="Asthma"/>
+  </code>
+  <subject>
+    <reference value="Patient/example"/>
+  </subject>
+  <onsetDateTime value="2012-11-12"/>
+</Condition>

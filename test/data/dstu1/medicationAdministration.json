@@ -1,0 +1,43 @@
+{
+  "resourceType": "MedicationAdministration",
+  "text": {
+    "status": "generated",
+    "div": "<div>\n      <p>Penicillin VK 10ml suspension administered by oral route at 14:30 on 1 June 2012</p>\n      <p>on the authority of prescription ref: example</p>\n      <p>to patient ref: a23</p>\n    </div>"
+  },
+  "status": "completed",
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "practitioner": {
+    "reference": "Practitioner/example"
+  },
+  "prescription": {
+    "reference": "MedicationPrescription/example"
+  },
+  "whenGiven": {
+    "start": "2012-06-01T14:30:00",
+    "end": "2012-06-01T14:30:00"
+  },
+  "medication": {
+    "reference": "Medication/example"
+  },
+  "dosage": [
+    {
+      "route": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "394899003",
+            "display": "oral administration of treatment"
+          }
+        ]
+      },
+      "quantity": {
+        "value": 10,
+        "units": "ml",
+        "system": "http://unitsofmeasure.org",
+        "code": "ml"
+      }
+    }
+  ]
+}

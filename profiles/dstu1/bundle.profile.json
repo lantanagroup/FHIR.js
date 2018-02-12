@@ -1,0 +1,373 @@
+{
+  "resourceType": "Profile",
+  "text": {},
+  "name": "bundle",
+  "publisher": "Lantana",
+  "description": "Basic Profile",
+  "status": "draft",
+  "date": "2014-02-11",
+  "requirements": "",
+  "mapping": [ ],
+  "structure": [
+    {
+      "type": "Bundle",
+      "publish": true,
+      "element": [
+        {
+          "path": "Bundle",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "Resource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.id",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.type",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "code"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.base",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "uri"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.total",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "Integer"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.link",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "*"
+          }
+        },
+        {
+          "path": "Bundle.link.relation",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.link.url",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "uri"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "*"
+          }
+        },
+        {
+          "path": "Bundle.entry.base",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "uri"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.content",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "Resource"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.search",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1"
+          }
+        },
+        {
+          "path": "Bundle.entry.search.mode",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "code"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.search.score",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "decimal"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1"
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.method",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "code"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.url",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "uri"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.ifNoneMatch",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.ifMatch",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.ifModifiedSince",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transaction.ifNoneExist",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transactionResponse",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1"
+          }
+        },
+        {
+          "path": "Bundle.entry.transactionResponse.status",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 1,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transactionResponse.location",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "uri"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transactionResponse.etag",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "string"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.entry.transactionResponse.lastModified",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "instant"
+              }
+            ]
+          }
+        },
+        {
+          "path": "Bundle.signature",
+          "definition": {
+            "short": "",
+            "formal": "",
+            "min": 0,
+            "max": "1",
+            "type": [
+              {
+                "code": "base64Binary"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": "http://fhir.js/Bundle"
+}
