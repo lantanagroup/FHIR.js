@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>Fhir</h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Fhir<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -40,7 +40,9 @@
 
     
 
+    
     <h4 class="name" id="Fhir"><span class="type-signature"></span>new Fhir<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
     
 
@@ -87,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line13">line 13</a>
+        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line4">line 4</a>
     </li></ul></dd>
     
 
@@ -112,9 +114,6 @@
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var FHIR = require('fhir');var fhir = new FHIR(FHIR.DSTU1);</code></pre>
 
 
 
@@ -127,230 +126,12 @@
 
     
 
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".DSTU1"><span class="type-signature">(static) </span>DSTU1<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    Version specified for DSTU 1
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
     
 
     
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line287">line 287</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".DSTU2"><span class="type-signature">(static) </span>DSTU2<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    Version specifier for DSTU 2
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line293">line 293</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".STU3"><span class="type-signature">(static) </span>STU3<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    Version specifier for STU 3
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line299">line 299</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
     
 
     
@@ -361,172 +142,16 @@
 
     
 
-    <h4 class="name" id="JsonToXml"><span class="type-signature"></span>JsonToXml<span class="signature">(json)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+    <h4 class="name" id="objToXml"><span class="type-signature"></span>objToXml<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
 
     
 
 
 
 <div class="description">
-    Converts a JSON resource to XML
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>json</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The JSON resource to convert</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line97">line 97</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    XML converted from JSON resource
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var FHIR = require('fhir');var myPatient = {   resourceType: 'Patient',   ...};var myPatientJson = JSON.stringify(myPatient);var fhir = new FHIR(FHIR.DSTU1);var xml = fhir.JsonToXml(myPatientJson);</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="ObjectToXml"><span class="type-signature"></span>ObjectToXml<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Converts a JS resource object to XML
+    Serializes a JS resource object to XML
 </div>
 
 
@@ -568,7 +193,7 @@
             <td class="type">
             
                 
-<span class="param-type">obj</span>
+<span class="param-type">*</span>
 
 
             
@@ -578,7 +203,7 @@
 
             
 
-            <td class="description last">The JS resource to convert</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -619,7 +244,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line75">line 75</a>
+        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -645,10 +270,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    XML converted from JS resource
-</div>
-
 
 
 <dl>
@@ -666,9 +287,6 @@
     
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var FHIR = require('fhir');var myPatient = {   resourceType: 'Patient',   ...};var fhir = new FHIR(FHIR.DSTU1);var xml = fhir.ObjectToXml(myPatient);</code></pre>
 
 
 
@@ -677,372 +295,16 @@
 
     
 
-    <h4 class="name" id="ValidateJSONResource"><span class="type-signature"></span>ValidateJSONResource<span class="signature">(json, profile<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(objOrXml, options)</span><span class="type-signature"> &rarr; {<a href="global.html#ValidationResponse">ValidationResponse</a>}</span></h4>
+    
 
     
 
 
 
 <div class="description">
-    Validates the specified JSON resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>json</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The JSON resource to validate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>profile</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">obj</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The profile to validate the resource against. The profile param must be a complete profile JS object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line276">line 276</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var bundleJson = fs.readFileSync('./test/data/bundle.json').toString('utf8');var bundle = JSON.parse(bundleJson);var fhir = new Fhir(Fhir.DSTU1);var result = fhir.ValidateJSResource(bundle);</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="ValidateJSResource"><span class="type-signature"></span>ValidateJSResource<span class="signature">(obj, profile<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Validates the specified JS resource against a profile. If no profile is specified, the base profile for the resource type will be validated against.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">obj</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The JS resource to validate</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>profile</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">obj</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">The profile to validate the resource against. The profile param must be a complete profile JS object.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line259">line 259</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var compositionJson = fs.readFileSync('./test/data/composition.json').toString('utf8');var composition = JSON.parse(compositionJson);var fhir = new Fhir(Fhir.DSTU1);var result = fhir.ValidateJSResource(composition);</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="ValidateXMLResource"><span class="type-signature"></span>ValidateXMLResource<span class="signature">(xmlResource)</span><span class="type-signature"> &rarr; {object}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Validates the XML resource against the FHIR schemas
+    Validates the specified resource (either a JS object or XML string)
 </div>
 
 
@@ -1078,333 +340,16 @@
 
         <tr>
             
-                <td class="name"><code>xmlResource</code></td>
+                <td class="name"><code>objOrXml</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The XML string to validate</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line209">line 209</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A validation results object that contains properties for whether the XML is valid.When the XML is not valid, the object contains an array that includes what the errors/warnings are
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var bundleXml = fs.readFileSync('./test/data/bundle.xml').toString('utf8');var fhir = new Fhir(Fhir.DSTU1);var result = fhir.ValidateXMLResource(bundleXml);// result is an object that contains "valid" (true | false) and "errors" (an array of string errors when valid is false).</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="XmlToJson"><span class="type-signature"></span>XmlToJson<span class="signature">(xmlString)</span><span class="type-signature"> &rarr; {string|promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Converts XML resource to JSON
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xmlString</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The XML string (resource) to convert to JSON</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line120">line 120</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    Q promise, which upon completion returns the JSON resource converted from XML
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
 <span class="param-type">string</span>
 |
 
-<span class="param-type">promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>var FHIR = require('fhir');var myPatientXml = '&lt;Patient xmlns="http://hl7.org/fhir">&lt;name>&lt;use value="official"/>&lt;family value="Chalmers"/>&lt;given value="Peter"/>&lt;given value="James"/>&lt;/name>&lt;/Patient>';var fhir = new FHIR(FHIR.DSTU1);fhir.XmlToJson(myPatientXml)  .then(function(myPatientJson) {
-            // Do something with myPatientJson  })  .catch(function(err) {     // Do something with err  });</code></pre>
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="XmlToObject"><span class="type-signature"></span>XmlToObject<span class="signature">(xmlString)</span><span class="type-signature"> &rarr; {resource|promise}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Converts XML resource to a JS object
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xmlString</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
+<span class="param-type">*</span>
 
 
             
@@ -1414,7 +359,30 @@
 
             
 
-            <td class="description last">The XML string (resource) to convert to a JS object</td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#ValidationOptions">ValidationOptions</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -1455,7 +423,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line153">line 153</a>
+        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -1481,10 +449,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    Q promise, which upon completion returns the JS object resource converted from XML
-</div>
-
 
 
 <dl>
@@ -1493,10 +457,7 @@
     </dt>
     <dd>
         
-<span class="param-type">resource</span>
-|
-
-<span class="param-type">promise</span>
+<span class="param-type"><a href="global.html#ValidationResponse">ValidationResponse</a></span>
 
 
     </dd>
@@ -1505,9 +466,159 @@
     
 
 
-    <h5>Example</h5>
+
+
+
+        
+            
+
     
-    <pre class="prettyprint"><code>var FHIR = require('fhir');var myPatientXml = '&lt;Patient xmlns="http://hl7.org/fhir">&lt;name>&lt;use value="official"/>&lt;family value="Chalmers"/>&lt;given value="Peter"/>&lt;given value="James"/>&lt;/name>&lt;/Patient>';var fhir = new FHIR(FHIR.DSTU1);fhir.XmlToObject(myPatientXml)  .then(function(myPatient) {     // Do something with myPatient  })  .catch(function(err) {     // Do something with err  });</code></pre>
+
+    
+    <h4 class="name" id="xmlToObj"><span class="type-signature"></span>xmlToObj<span class="signature">(xml)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Serializes an XML resource to a JS object
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xml</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
 
 
 
@@ -1527,13 +638,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-dstu1.html">dstu1</a></li><li><a href="module-dstu2.html">dstu2</a></li><li><a href="module-stu3.html">stu3</a></li></ul><h3>Classes</h3><ul><li><a href="Fhir.html">Fhir</a></li><li><a href="module-dstu1.JsParser.html">JsParser</a></li><li><a href="module-dstu1.JsValidator.html">JsValidator</a></li><li><a href="module-dstu1.XmlParser.html">XmlParser</a></li><li><a href="module-dstu2.JsParser.html">JsParser</a></li><li><a href="module-dstu2.JsValidator.html">JsValidator</a></li><li><a href="module-dstu2.XmlParser.html">XmlParser</a></li><li><a href="module-stu3.JsParser.html">JsParser</a></li><li><a href="module-stu3.JsValidator.html">JsValidator</a></li><li><a href="module-stu3.XmlParser.html">XmlParser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Fhir.html">Fhir</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jan 18 2017 09:39:39 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Feb 12 2018 13:40:29 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
