@@ -1,6 +1,8 @@
 var Fhir = require('../fhir');
+var ParseConformance = require('../parseConformance');
 var fs = require('fs');
 var assert = require('assert');
+var _ = require('underscore');
 
 var bundleTransactionJson = fs.readFileSync('./test/data/stu3/bundle-transaction.json').toString();
 var bundleTransaction = JSON.parse(bundleTransactionJson);
@@ -13,6 +15,9 @@ var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.
 var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
 var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
+
+var dstu2ConformanceXml = fs.readFileSync('./test/data/dstu2/conformance.xml').toString();
+var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json').toString();
 
 function biDirectionalTest(xml) {
     var fhir = new Fhir();
@@ -58,6 +63,24 @@ describe('Serialization', function() {
             var fhir = new Fhir();
             var xml = fhir.objToXml(questionnaire);
             assert(xml === '<?xml version="1.0" encoding="UTF-8"?><Questionnaire xmlns="http://hl7.org/fhir"><item><linkId value="5554"/><text value="test2"/><type value="decimal"/></item></Questionnaire>');
+        });
+
+        it('should fail parsing a DSTU2 conformance resources', function() {
+            var fhir = new Fhir();
+
+            try {
+                var obj = fhir.xmlToObj(dstu2ConformanceXml);
+                throw 'Expected xmlToObj to throw an exception';
+            } catch (ex) {
+                assert(ex.message == 'Unknown resource type: Conformance');
+            }
+
+            try {
+                var obj = fhir.jsonToXml(dstu2ConformanceJson);
+                throw 'Expected jsonToXml to throw an exception';
+            } catch (ex) {
+                assert(ex.message == 'Unknown resource type: Conformance');
+            }
         });
     });
 
@@ -124,15 +147,31 @@ describe('Validation', function() {
             assert(results);
             assert(results.valid === false);
             assert(results.messages);
-            assert(results.messages.length === 2);
-            assert(results.messages[0].location === 'MedicationRequest/intent');
-            assert(results.messages[0].resourceId === 'Bundle/entry[6]/resource');
-            assert(results.messages[0].severity === 'error');
-            assert(results.messages[0].message === 'Missing property');
-            assert(results.messages[1].location === 'Bundle/signature/type[1]');
-            assert(results.messages[1].resourceId === 'father');
-            assert(results.messages[1].severity === 'warning');
-            assert(results.messages[1].message === 'Code "1.2.840.10065.1.12.1.1" (http://hl7.org/fhir/valueset-signature-type) not found in value set');
+
+            var nonInfoMessages = _.filter(results.messages, function(message) { return message.severity !== 'info'; });
+            var infoMessages = _.filter(results.messages, function(message) { return message.severity === 'info'; });
+
+            assert(nonInfoMessages.length === 4);
+            
+            assert(nonInfoMessages[0].location === 'MedicationRequest/intent');
+            assert(nonInfoMessages[0].resourceId === 'Bundle/entry[6]/resource');
+            assert(nonInfoMessages[0].severity === 'error');
+            assert(nonInfoMessages[0].message === 'Missing property');
+
+            assert(nonInfoMessages[1].location === 'MedicationRequest/medicationCodeableConcept');
+            assert(nonInfoMessages[1].resourceId === 'Bundle/entry[6]/resource');
+            assert(nonInfoMessages[1].severity === 'warning');
+            assert(nonInfoMessages[1].message === 'Code "66493003" (http://snomed.info/sct) not found in value set');
+
+            assert(nonInfoMessages[2].location === 'AllergyIntolerance/reaction[1]/manifestation[1]');
+            assert(nonInfoMessages[2].resourceId === 'Bundle/entry[8]/resource');
+            assert(nonInfoMessages[2].severity === 'warning');
+            assert(nonInfoMessages[2].message === 'Code "xxx" (http://example.org/system) not found in value set');
+            
+            assert(nonInfoMessages[3].location === 'Bundle/signature/type[1]');
+            assert(nonInfoMessages[3].resourceId === 'father');
+            assert(nonInfoMessages[3].severity === 'warning');
+            assert(nonInfoMessages[3].message === 'Code "1.2.840.10065.1.12.1.1" (http://hl7.org/fhir/valueset-signature-type) not found in value set');
         });
 
         it('should pass medication statement XML', function() {
@@ -140,7 +179,7 @@ describe('Validation', function() {
             assert(results);
             assert(results.valid === true);
             assert(results.messages);
-            assert(results.messages.length === 0);
+            assert(results.messages.length === 3);
         });
 
         it('should fail JS bundle with incorrect type', function() {
@@ -233,4 +272,17 @@ describe('Validation', function() {
             assert(results.messages[1].message === 'Property is not an array');
         });
     });
+});
+
+describe('Parse', function() {
+   it('should parse all resources and value sets', function() {
+       var coreStructureDefinitions = require('../profiles/r4/index');
+       var coreValueSets = require('../profiles/r4/valuesets');
+       var parse = new ParseConformance(false, coreStructureDefinitions, coreValueSets);
+       parse.parseCoreResources();
+
+       assert(parse.parsedStructureDefinitions);
+       assert(Object.keys(parse.parsedStructureDefinitions).length == 202);
+       assert(Object.keys(parse.parsedValueSets).length == 445);
+   });
 });

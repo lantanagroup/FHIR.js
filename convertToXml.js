@@ -1,15 +1,37 @@
 var convert = require('xml-js');
 var _ = require('underscore');
-var typeDefinitions = require('./profiles/types.json');
+var ParseConformance = require('./parseConformance.js');
 
-module.exports = function(obj) {
+/**
+ * @constructor
+ * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
+ */
+function ConvertToXML(parser) {
+    this.parser = parser || new ParseConformance(true);
+}
+
+/**
+ * Converts the specified object to XML
+ * @param {FHIR.Resource} obj
+ * @returns {string}
+ */
+ConvertToXML.prototype.convert = function(obj) {
+    var self = this;
+
     if (obj.hasOwnProperty('resourceType')) {
-        var xmlObj = resourceToXml(obj);
+        var xmlObj = self.resourceToXML(obj);
         return convert.js2xml(xmlObj);
     }
 }
 
-function resourceToXml(obj, xmlObj) {
+/**
+ * @param obj
+ * @param xmlObj
+ * @returns {*}
+ * @private
+ */
+ConvertToXML.prototype.resourceToXML = function(obj, xmlObj) {
+    var self = this;
     var resourceElement = {
         type: 'element',
         name: obj.resourceType,
@@ -31,18 +53,27 @@ function resourceToXml(obj, xmlObj) {
         };
     }
 
-    if (!typeDefinitions[obj.resourceType]) {
-        throw 'Could not find type for ' + obj.resourceType;
+    if (!self.parser.parsedStructureDefinitions[obj.resourceType]) {
+        throw new Error('Unknown resource type: ' + obj.resourceType);
     }
 
-    _.each(typeDefinitions[obj.resourceType]._properties, function(property) {
-        propertyToXml(resourceElement, typeDefinitions[obj.resourceType], obj, property._name);
+    _.each(self.parser.parsedStructureDefinitions[obj.resourceType]._properties, function(property) {
+        self.propertyToXML(resourceElement, self.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
     });
 
     return xmlObj;
 }
 
-function propertyToXml(parentXmlObj, parentType, obj, propertyName) {
+/**
+ * @param parentXmlObj
+ * @param parentType
+ * @param obj
+ * @param propertyName
+ * @private
+ */
+ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName) {
+    var self = this;
+
     if (!obj || !obj[propertyName]) return;
 
     var propertyType = _.find(parentType._properties, function(property) {
@@ -88,22 +119,22 @@ function propertyToXml(parentXmlObj, parentType, obj, propertyName) {
                 }
                 break;
             case 'Resource':
-                nextXmlObj.elements.push(resourceToXml(value).elements[0]);
+                nextXmlObj.elements.push(self.resourceToXML(value).elements[0]);
                 break;
             case 'BackboneElement':
                 for (var x in propertyType._properties) {
                     var nextProperty = propertyType._properties[x];
-                    propertyToXml(nextXmlObj, propertyType, value, nextProperty._name);
+                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name);
                 }
                 break;
             default:
-                var nextType = typeDefinitions[propertyType._type];
+                var nextType = self.parser.parsedStructureDefinitions[propertyType._type];
 
                 if (propertyType._type.startsWith('#')) {
                     var typeSplit = propertyType._type.substring(1).split('.');
                     for (var i = 0; i < typeSplit.length; i++) {
                         if (i == 0) {
-                            nextType = typeDefinitions[typeSplit[i]];
+                            nextType = self.parser.parsedStructureDefinitions[typeSplit[i]];
                         } else {
                             nextType = _.find(nextType._properties, function(nextTypeProperty) {
                                 return nextTypeProperty._name === typeSplit[i];
@@ -120,7 +151,7 @@ function propertyToXml(parentXmlObj, parentType, obj, propertyName) {
                     console.log('Could not find type ' + propertyType._type);
                 } else {
                     _.each(nextType._properties, function(nextProperty) {
-                        propertyToXml(nextXmlObj, nextType, value, nextProperty._name);
+                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name);
                     });
                 }
         }
@@ -136,3 +167,5 @@ function propertyToXml(parentXmlObj, parentType, obj, propertyName) {
         pushProperty(obj[propertyName]);
     }
 }
+
+module.exports = ConvertToXML;

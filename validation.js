@@ -26,8 +26,9 @@ module.exports = function(objOrXml, options) {
     var isXml = false;
 
     if (typeof(objOrXml) === 'string') {
-        var toJs = require('./toJs');
-        obj = toJs(objOrXml);
+        var ConvertToJS = require('./convertToJs');
+        var convertToJS = new ConvertToJS();
+        obj = convertToJS.convert(objOrXml);
         isXml = true;
     }
 
@@ -38,6 +39,7 @@ module.exports = function(objOrXml, options) {
 var SEVERITY_FATAL = 'fatal';
 var SEVERITY_ERROR = 'error';
 var SEVERITY_WARN = 'warning';
+var SEVERITY_INFO = 'info';
 var PRIMITIVE_TYPES = ['instant','time','date','dateTime','decimal','boolean','integer','base64Binary','string','uri','unsignedInt','positiveInt','code','id','oid','markdown','Element'];
 var DATA_TYPES = ['Reference','Narrative', 'Ratio','Period','Range','Attachment','Identifier','HumanName','Annotation','Address','ContactPoint','SampledData','Quantity','CodeableConcept','Signature','Coding','Timing','Age','Distance','SimpleQuantity','Duration','Count','Money'];
 var PRIMITIVE_NUMBER_TYPES = ['unsignedInt','positiveInt','decimal','integer'];
@@ -158,7 +160,17 @@ FhirInstanceValidation.prototype.addWarn = function(location, message) {
     });
 };
 
+FhirInstanceValidation.prototype.addInfo = function(location, message) {
+    this.response.messages.push({
+        location: location,
+        resourceId: this.resourceId,
+        severity: SEVERITY_INFO,
+        message: message
+    });
+};
+
 FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
+    var self = this;
     var treeDisplay = getTreeDisplay(tree, this.isXml);
 
     if (property._valueSet) {
@@ -166,7 +178,9 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
             return valueSetKey === property._valueSet;
         });
 
-        if (foundValueSet) {
+        if (!foundValueSet) {
+            self.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
+        } else {
             if (property._type === 'CodeableConcept') {
                 var found = false;
 
@@ -176,9 +190,9 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
                     } else {
                         var msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
                         if (property._valueSetStrength === 'required') {
-                            this.addError(treeDisplay, msg);
+                            self.addError(treeDisplay, msg);
                         } else {
-                            this.addWarn(treeDisplay, msg);
+                            self.addWarn(treeDisplay, msg);
                         }
                     }
                 });

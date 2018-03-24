@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries.",
   "readme": "README.md",
   "bugs": {
