@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bundle xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <id value="f95a4413-5a3e-414d-876c-252af7b1ad72"/>
+   <type value="searchset"/>
+   <total value="4"/>
+   <entry>
+	  <fullUrl value="https://10.21.202.82/iar/fhir/v3/QuestionnaireResponse/4855.WOHS.455775"/>
+	  <resource>
+		 <QuestionnaireResponse>
+			<id value="4855.WOHS.455775"/>
+			<questionnaire>
+			   <reference value="Questionnaire/RAI-HC2011"/>
+			</questionnaire>
+			<status value="completed"/>
+			<subject>
+			   <reference value="Patient/4855"/>
+			</subject>
+			<authored value="2017-03-28"/>
+			<item>
+			   <linkId value="common"/>
+			   <item>
+				  <linkId value="common_repository"/>
+				  <answer>
+					 <valueString value="WOHS"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axtype"/>
+				  <answer>
+					 <valueString value="RAI-HC"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axversion"/>
+				  <answer>
+					 <valueString value="2011"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrectype"/>
+				  <answer>
+					 <valueString value="RAI-HC Assessment"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_docversionid"/>
+				  <answer>
+					 <valueString value="455775"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_documentid"/>
+				  <answer>
+					 <valueString value="282396"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_orgid"/>
+				  <answer>
+					 <valueString value="651"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axid"/>
+				  <answer>
+					 <valueString value="1155"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_mpiid"/>
+				  <answer>
+					 <valueString value="4855"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_clientid"/>
+				  <answer>
+					 <valueString value="11551RAI-HC"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrefdate"/>
+				  <answer>
+					 <valueDate value="2017-03-28"/>
+				  </answer>
+			   </item>
+			</item>
+		 </QuestionnaireResponse>
+	  </resource>
+   </entry>
+   <entry>
+	  <fullUrl value="https://10.21.202.82/iar/fhir/v3/QuestionnaireResponse/4855.WOHS.455842"/>
+	  <resource>
+		 <QuestionnaireResponse>
+			<id value="4855.WOHS.455842"/>
+			<questionnaire>
+			   <reference value="Questionnaire/GAIN-Q33.3.7 ONT MI"/>
+			</questionnaire>
+			<status value="completed"/>
+			<subject>
+			   <reference value="Patient/4855"/>
+			</subject>
+			<authored value="2017-01-10"/>
+			<item>
+			   <linkId value="common"/>
+			   <item>
+				  <linkId value="common_repository"/>
+				  <answer>
+					 <valueString value="WOHS"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axtype"/>
+				  <answer>
+					 <valueString value="GAIN-Q3"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axversion"/>
+				  <answer>
+					 <valueString value="3.3.7 ONT MI"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrectype"/>
+				  <answer>
+					 <valueString value="GAIN-Q3"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_docversionid"/>
+				  <answer>
+					 <valueString value="455842"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_documentid"/>
+				  <answer>
+					 <valueString value="282588"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_orgid"/>
+				  <answer>
+					 <valueString value="790"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axid"/>
+				  <answer>
+					 <valueString value="116698"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_mpiid"/>
+				  <answer>
+					 <valueString value="4855"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_clientid"/>
+				  <answer>
+					 <valueString value="11551GAIN-Q3"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrefdate"/>
+				  <answer>
+					 <valueDate value="2017-01-10"/>
+				  </answer>
+			   </item>
+			</item>
+		 </QuestionnaireResponse>
+	  </resource>
+   </entry>
+   <entry>
+	  <fullUrl value="https://10.21.202.82/iar/fhir/v3/QuestionnaireResponse/4855.WOHS.455716"/>
+	  <resource>
+		 <QuestionnaireResponse>
+			<id value="4855.WOHS.455716"/>
+			<questionnaire>
+			   <reference value="Questionnaire/OCAN2.0.7"/>
+			</questionnaire>
+			<status value="completed"/>
+			<subject>
+			   <reference value="Patient/4855"/>
+			</subject>
+			<authored value="2016-12-04"/>
+			<item>
+			   <linkId value="common"/>
+			   <item>
+				  <linkId value="common_repository"/>
+				  <answer>
+					 <valueString value="WOHS"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axtype"/>
+				  <answer>
+					 <valueString value="OCAN"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axversion"/>
+				  <answer>
+					 <valueString value="2.0.7"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrectype"/>
+				  <answer>
+					 <valueString value="Reassessment"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_docversionid"/>
+				  <answer>
+					 <valueString value="455716"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_documentid"/>
+				  <answer>
+					 <valueString value="282406"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_orgid"/>
+				  <answer>
+					 <valueString value="396"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axid"/>
+				  <answer>
+					 <valueString value="44555"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_mpiid"/>
+				  <answer>
+					 <valueString value="4855"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_clientid"/>
+				  <answer>
+					 <valueString value="155OCAN"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrefdate"/>
+				  <answer>
+					 <valueDate value="2016-12-04"/>
+				  </answer>
+			   </item>
+			</item>
+		 </QuestionnaireResponse>
+	  </resource>
+   </entry>
+   <entry>
+	  <fullUrl value="https://10.21.202.82/iar/fhir/v3/QuestionnaireResponse/4855.WOHS.455744"/>
+	  <resource>
+		 <QuestionnaireResponse>
+			<id value="4855.WOHS.455744"/>
+			<questionnaire>
+			   <reference value="Questionnaire/OCAN2.0.7"/>
+			</questionnaire>
+			<status value="completed"/>
+			<subject>
+			   <reference value="Patient/4855"/>
+			</subject>
+			<authored value="2016-06-05"/>
+			<item>
+			   <linkId value="common"/>
+			   <item>
+				  <linkId value="common_repository"/>
+				  <answer>
+					 <valueString value="WOHS"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axtype"/>
+				  <answer>
+					 <valueString value="OCAN"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axversion"/>
+				  <answer>
+					 <valueString value="2.0.7"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrectype"/>
+				  <answer>
+					 <valueString value="Initial OCAN"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_docversionid"/>
+				  <answer>
+					 <valueString value="455744"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_documentid"/>
+				  <answer>
+					 <valueString value="280679"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_orgid"/>
+				  <answer>
+					 <valueString value="396"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axid"/>
+				  <answer>
+					 <valueString value="33555"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_mpiid"/>
+				  <answer>
+					 <valueString value="4855"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_clientid"/>
+				  <answer>
+					 <valueString value="155OCAN"/>
+				  </answer>
+			   </item>
+			   <item>
+				  <linkId value="common_axrefdate"/>
+				  <answer>
+					 <valueDate value="2016-06-05"/>
+				  </answer>
+			   </item>
+			</item>
+		 </QuestionnaireResponse>
+	  </resource>
+   </entry>
+</Bundle>

@@ -49,6 +49,39 @@ ConvertToJS.prototype.resourceToJS = function(xmlObj) {
 }
 
 /**
+ * Finds a property definition based on a reference to another type. Should be a BackboneElement
+ * @param relativeType {string} Example: "#QuestionnaireResponse.item"
+ */
+ConvertToJS.prototype.findReferenceType = function(relativeType) {
+    if (!relativeType || !relativeType.startsWith('#')) {
+        return;
+    }
+
+    var resourceType = relativeType.substring(1, relativeType.indexOf('.'));        // Assume starts with #
+    var path = relativeType.substring(resourceType.length + 2);
+    var resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
+    var pathSplit = path.split('.');
+
+    if (!resourceDefinition) {
+        throw new Error('Could not find resource definition for ' + resourceType);
+    }
+
+    var current = resourceDefinition;
+    for (var i = 0; i < pathSplit.length; i++) {
+        var nextPath = pathSplit[i];
+        current = _.find(current._properties, function(property) {
+            return property._name === nextPath;
+        });
+
+        if (!current) {
+            return;
+        }
+    }
+
+    return current;
+}
+
+/**
  * @param xmlObj
  * @param obj
  * @param property
@@ -62,6 +95,17 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property) {
 
     if (!xmlProperty || xmlProperty.length === 0) {
         return;
+    }
+
+    // If this is a reference type then f
+    if (property._type.startsWith('#')) {
+        var relativeType = this.findReferenceType(property._type);
+
+        if (!relativeType) {
+            throw new Error('Could not find reference to element definition ' + relativeType);
+        }
+
+        property = relativeType;
     }
 
     function pushValue(value) {

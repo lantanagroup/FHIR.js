@@ -3,6 +3,7 @@ var ParseConformance = require('../parseConformance');
 var fs = require('fs');
 var assert = require('assert');
 var _ = require('underscore');
+var xml2js = require('xml-js').xml2js;
 
 var bundleTransactionJson = fs.readFileSync('./test/data/stu3/bundle-transaction.json').toString();
 var bundleTransaction = JSON.parse(bundleTransactionJson);
@@ -10,11 +11,13 @@ var documentBundleJson = fs.readFileSync('./test/data/stu3/document-example-disc
 var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json').toString();
 var condition2 = JSON.parse(condition2Json);
 var medicationStatementJson = fs.readFileSync('./test/data/stu3/medicationStatement.json').toString();
+var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.json').toString();
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
 var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
+var questionnaireResponseXml = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.xml').toString();
 
 var dstu2ConformanceXml = fs.readFileSync('./test/data/dstu2/conformance.xml').toString();
 var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json').toString();
@@ -27,6 +30,20 @@ function biDirectionalTest(xml) {
     var nextXml = fhir.objToXml(nextObj);
 
     assert(xml === nextXml);
+}
+
+function printResults(results) {
+    for (var i in results.messages) {
+        console.log(results.messages[i].severity + ': ' + results.messages[i].message);
+    }
+}
+
+function assertArray(obj, expectedLength) {
+    assert(obj);
+    assert(obj instanceof Array);
+    if (arguments.length == 2) {
+        assert(obj.length === expectedLength);
+    }
 }
 
 describe('Serialization', function() {
@@ -45,6 +62,10 @@ describe('Serialization', function() {
 
         it('should serialize medication statement xml', function() {
             biDirectionalTest(medicationStatementXml);
+        });
+
+        it('should serialize questionnaire response xml', function() {
+            biDirectionalTest(questionnaireResponseXml);
         });
 
         it('should handle an empty array correctly', function() {
@@ -84,20 +105,68 @@ describe('Serialization', function() {
         });
     });
 
+    describe('XML one-way', function() {
+        it('should serialize reference element definitions', function() {
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(questionnaireResponseXml);
+
+            assert(obj);
+            assert(obj.entry);
+            assert(obj.entry.length === 4);
+            assert(obj.entry[0].resource);
+            assert(obj.entry[0].resource.resourceType === 'QuestionnaireResponse');
+            assert(obj.entry[1].resource);
+            assert(obj.entry[1].resource.resourceType === 'QuestionnaireResponse');
+            assert(obj.entry[2].resource);
+            assert(obj.entry[2].resource.resourceType === 'QuestionnaireResponse');
+            assert(obj.entry[3].resource);
+            assert(obj.entry[3].resource.resourceType === 'QuestionnaireResponse');
+
+            var questionnaireResponse1 = obj.entry[0].resource;
+            assert(questionnaireResponse1.item);
+            assert(questionnaireResponse1.item.length === 1);
+            assert(questionnaireResponse1.item[0].item);
+            assert(questionnaireResponse1.item[0].item.length === 11);
+            assert(questionnaireResponse1.item[0].item[0].linkId === 'common_repository');
+            assert(questionnaireResponse1.item[0].item[1].linkId === 'common_axtype');
+            assert(questionnaireResponse1.item[0].item[2].linkId === 'common_axversion');
+            assert(questionnaireResponse1.item[0].item[10].linkId === 'common_axrefdate');
+        });
+    });
+
     describe('JS one-way', function() {
         it('should create XML Bundle from bundle-transaction.json', function() {
             var fhir = new Fhir();
             var xml = fhir.objToXml(bundleTransaction);
             assert(xml);
         });
+
+        it('should create XML bundle of QuestionnaireResponse with item.item', function() {
+            var fhir = new Fhir();
+            var xml = fhir.jsonToXml(questionnaireResponseJson);
+            assert(xml);
+
+            var obj = xml2js(xml);
+            assert(obj);
+            assertArray(obj.elements, 1);
+            assert(obj.elements[0].name === 'Bundle');
+            assertArray(obj.elements[0].elements, 7);
+            assert(obj.elements[0].elements[3].name === 'entry');
+            assertArray(obj.elements[0].elements[3].elements, 2);
+            assert(obj.elements[0].elements[3].elements[1].name === 'resource');
+            assertArray(obj.elements[0].elements[3].elements[1].elements, 1);
+
+            var questionnaireResponseXmlObj = obj.elements[0].elements[3].elements[1].elements[0];
+            assertArray(questionnaireResponseXmlObj.elements, 6);
+            assert(questionnaireResponseXmlObj.elements[5].name === 'item');
+            assertArray(questionnaireResponseXmlObj.elements[5].elements, 12);
+            assert(questionnaireResponseXmlObj.elements[5].elements[1].name === 'item');
+            assertArray(questionnaireResponseXmlObj.elements[5].elements[1].elements, 2);
+            assert(questionnaireResponseXmlObj.elements[5].elements[1].elements[0].name === 'linkId');
+            assert(questionnaireResponseXmlObj.elements[5].elements[1].elements[1].name === 'answer');
+        });
     });
 });
-
-function printResults(results) {
-    for (var i in results.messages) {
-        console.log(results.messages[i].severity + ': ' + results.messages[i].message);
-    }
-}
 
 describe('Validation', function() {
     describe('JS', function() {
