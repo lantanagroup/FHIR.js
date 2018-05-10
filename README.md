@@ -13,7 +13,10 @@ The library uses technologies that are safe for use in browser-only applications
 # Installation
 ```
 npm install fhir
+or
+bower install fhir
 ```
+
 To use in a node.js application, require the "fhir" module.
 ```
 var Fhir = require('fhir');
@@ -23,11 +26,8 @@ To use in a browser application, reference dist/bundle.js.
 
 ```
 <script type="text/javascript" src="node_modules/fhir/dist/bundle.js"></script>
-``` 
-
-# Test
-```
-npm test
+or
+<script type="text/javascript" src="bower_components/fhir/dist/bundle.js"></script>
 ```
 
 # Basic Usage
@@ -49,3 +49,8 @@ API documentation can be found at http://lantanagroup.github.io/FHIR.js/
 # Implementation Notes
 * Compatible with FHIR Release 4 Candidate v3.2.0
 * FHIR profiles (within the "profiles" directory) are used to determine whether properties should be arrays, the data type and cardinality of each property, etc.. The profiles are first combined using packageProfiles.js into a single bundle of all profiles. A second pass over the profiles is performed to create a hierarchy (rather than a flat list) of the properties, and only includes information that validation is concerned about. The result of the second pass is stored in profiles/types.json and profiles/valueSets.json.
+
+# Test
+```
+npm test
+```
