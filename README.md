@@ -14,7 +14,7 @@ The library uses technologies that are safe for use in browser-only applications
 ```
 npm install fhir
 or
-bower install fhir
+bower install fhir-js
 ```
 
 To use in a node.js application, require the "fhir" module.
@@ -27,7 +27,7 @@ To use in a browser application, reference dist/bundle.js.
 ```
 <script type="text/javascript" src="node_modules/fhir/dist/bundle.js"></script>
 or
-<script type="text/javascript" src="bower_components/fhir/dist/bundle.js"></script>
+<script type="text/javascript" src="bower_components/fhir-js/dist/bundle.js"></script>
 ```
 
 # Basic Usage
