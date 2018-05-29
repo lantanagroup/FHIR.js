@@ -112,6 +112,7 @@ describe('Serialization', function() {
             var fhir = new Fhir();
             var obj = fhir.xmlToObj(patient1Xml);
             assert.strictEqual(obj.active, true, "booleans should be converted from strings")
+            assert.strictEqual(obj.photo[0].hash, "sukclAeJAsqUMyvVUHstQw==", "base64 should be kept as a string")
 
             obj = fhir.xmlToObj(medicationStatementXml)
             // decimals not yet supported as BigInts
