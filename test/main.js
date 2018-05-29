@@ -15,6 +15,8 @@ var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireR
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
+var patient1Xml = fs.readFileSync('./test/data/stu3/patient-crucible-1.xml').toString();
+var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toString();
 var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
 var questionnaireResponseXml = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.xml').toString();
@@ -106,6 +108,23 @@ describe('Serialization', function() {
     });
 
     describe('XML one-way', function() {
+        it('should correctly type output json', function() {
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(patient1Xml);
+            assert.strictEqual(obj.active, true, "booleans should be converted from strings")
+
+            obj = fhir.xmlToObj(medicationStatementXml)
+            // decimals not yet supported as BigInts
+
+            obj = fhir.xmlToObj(questionnaireResponseXml)
+            assert.strictEqual(obj.total, 4, "integers should be converted")
+        }),
+
+        it('should correctly parse crucible\'s patient', function() {
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(patient2Xml);
+        }),
+
         it('should serialize reference element definitions', function() {
             var fhir = new Fhir();
             var obj = fhir.xmlToObj(questionnaireResponseXml);

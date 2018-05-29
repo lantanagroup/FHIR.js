@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patient xmlns="http://hl7.org/fhir">
+  <meta>
+    <tag>
+      <system value="http://projectcrucible.org"/>
+      <code value="testdata"/>
+    </tag>
+  </meta>
+  <language value="sv-SE"/>
+  <text>
+    <status value="generated"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">NyqJfQq1kHE1Q4riCizVOA==</div>
+  </text>
+  <identifier>
+    <use value="usual"/>
+    <type>
+      <coding>
+        <system value="http://hl7.org/fhir/identifier-type"/>
+        <code value="UDI"/>
+        <display value="Universal Device Identifier"/>
+        <userSelected value="true"/>
+      </coding>
+      <text value="QuvaoaRv0KBRTw8rERs8vA=="/>
+    </type>
+    <system value="http://projectcrucible.org/EqiG/4NIXkIQdmlnjp7Gxw=="/>
+    <value value="sx0W+9nbaM0IE8yhvHU8kg=="/>
+    <period>
+      <start value="2018-05-29T17:48:53.670Z"/>
+      <end value="2018-05-29T17:48:53.670Z"/>
+    </period>
+    <assigner>
+      <identifier>
+        <use value="official"/>
+        <system value="http://projectcrucible.org/+yxsJrT5h68ceWJkTzOMiQ=="/>
+        <value value="0EznDpIFDuLzjAYVK72HvA=="/>
+      </identifier>
+      <display value="Organization 259JgZ30MXdhXhXhs9xxkg=="/>
+    </assigner>
+  </identifier>
+  <active value="true"/>
+  <name>
+    <use value="maiden"/>
+    <text value="DHWn5gPH2Nb0nxtH7grstQ=="/>
+    <family value="nG2Vc3N/1oCm1GWS0r7JYQ=="/>
+    <given value="IbAMVYFVRL5GOKLf7j9w/w=="/>
+    <prefix value="F9/3OCUk0ZyXFjunmq+yVQ=="/>
+    <suffix value="8qFFIgpbTDGXO1/Pf/C45Q=="/>
+    <period>
+      <start value="2018-05-29T17:48:53.671Z"/>
+      <end value="2018-05-29T17:48:53.671Z"/>
+    </period>
+  </name>
+  <telecom>
+    <system value="sms"/>
+    <value value="44XVdgLbSn7yQej0Uim19w=="/>
+    <use value="old"/>
+    <rank value="69"/>
+    <period>
+      <start value="2018-05-29T17:48:53.671Z"/>
+      <end value="2018-05-29T17:48:53.671Z"/>
+    </period>
+  </telecom>
+  <gender value="male"/>
+  <birthDate value="2018-05-29"/>
+  <deceasedDateTime value="2018-05-29T17:48:53.672Z"/>
+  <address>
+    <use value="old"/>
+    <type value="physical"/>
+    <text value="c03PpwqrMuWp3mWnvRQZGQ=="/>
+    <line value="NUbtgcnTNL4pA6yxRKyUZQ=="/>
+    <city value="1/7xPLOmTmLGyH6GDP3s8Q=="/>
+    <district value="d3HULX6ACZaxaclMMj1cCw=="/>
+    <state value="9sKszxAynXHeNW/7jnDPrg=="/>
+    <postalCode value="Wj+KlxiqoB8HZ5uBoBt0Gg=="/>
+    <country value="Cb5DitJtDgniy/y8ERXPhQ=="/>
+    <period>
+      <start value="2018-05-29T17:48:53.672Z"/>
+      <end value="2018-05-29T17:48:53.672Z"/>
+    </period>
+  </address>
+  <maritalStatus>
+    <coding>
+      <system value="http://hl7.org/fhir/v3/MaritalStatus"/>
+      <code value="S"/>
+    </coding>
+  </maritalStatus>
+  <multipleBirthInteger value="90"/>
+  <photo>
+    <contentType value="application/x-x509-ca-cert"/>
+    <language value="en-GB"/>
+    <url value="http://projectcrucible.org/RGUJzLldrpDcs4RevppMiQ=="/>
+    <size value="17"/>
+    <hash value="dgJhJ2703c0PnSG79ypHeQ=="/>
+    <title value="mUxvOwHQcTGyeSEoT5hx+A=="/>
+    <creation value="2018-05-29T17:48:53.676Z"/>
+  </photo>
+  <contact>
+    <relationship>
+      <coding>
+        <system value="http://hl7.org/fhir/v2/0131"/>
+        <code value="E"/>
+        <display value="Employer"/>
+        <userSelected value="true"/>
+      </coding>
+      <text value="LeJIaPKm+qynGaF5n5v33A=="/>
+    </relationship>
+    <name>
+      <use value="temp"/>
+      <text value="26lKG8zHLtPQ1RsA95p9Og=="/>
+      <family value="ceHskfG5Ci3UHtdGY2FdBg=="/>
+      <given value="Grh8qGXmRxoovIDiFMjGXw=="/>
+      <prefix value="LKed+hOLqHjqLwBDgwQk+Q=="/>
+      <suffix value="kNlMBWUxKpRPbR+RcgRuVw=="/>
+      <period>
+        <start value="2018-05-29T17:48:53.680Z"/>
+        <end value="2018-05-29T17:48:53.680Z"/>
+      </period>
+    </name>
+    <telecom>
+      <system value="fax"/>
+      <value value="7doooLPIsP/YKTVR0ga+mg=="/>
+      <use value="work"/>
+      <rank value="6"/>
+      <period>
+        <start value="2018-05-29T17:48:53.681Z"/>
+        <end value="2018-05-29T17:48:53.681Z"/>
+      </period>
+    </telecom>
+    <address>
+      <use value="work"/>
+      <type value="postal"/>
+      <text value="BHFokvyOzztCHMuZe2nPkg=="/>
+      <line value="R+TW3Y6JTPSIX0MZnmO4wQ=="/>
+      <city value="SXQbzf014g2gcmI/EpW7yw=="/>
+      <district value="Dto/EDdqWWpsFWTITKMNuA=="/>
+      <state value="lDdZC2/s1nqitSXvFB935A=="/>
+      <postalCode value="M2impemRHpCHMzQXi2Su8Q=="/>
+      <country value="GAmT7sonEDYa7o/aUhJYbg=="/>
+      <period>
+        <start value="2018-05-29T17:48:53.681Z"/>
+        <end value="2018-05-29T17:48:53.682Z"/>
+      </period>
+    </address>
+    <gender value="unknown"/>
+    <organization>
+      <identifier>
+        <use value="temp"/>
+        <system value="http://projectcrucible.org/wdVFFIn5+Vqzd6kMr5gVng=="/>
+        <value value="W/jieFje+H+4VGGWjQ6Nsw=="/>
+      </identifier>
+      <display value="Organization 0E4P6YQ58l7CpZa9H8ALBA=="/>
+    </organization>
+    <period>
+      <start value="2018-05-29T17:48:53.682Z"/>
+      <end value="2018-05-29T17:48:53.682Z"/>
+    </period>
+  </contact>
+  <animal>
+    <species>
+      <coding>
+        <system value="http://snomed.info/sct"/>
+        <code value="34618005"/>
+        <display value="cow"/>
+        <userSelected value="true"/>
+      </coding>
+      <text value="uAxCDX2BmeXNbUaJ7sFt6w=="/>
+    </species>
+    <breed>
+      <coding>
+        <system value="http://snomed.info/sct"/>
+        <code value="131801009"/>
+        <display value="Shetland sheep breed (organism)"/>
+        <userSelected value="true"/>
+      </coding>
+      <text value="lTNpIDwZUCRpsMaCX5TlUQ=="/>
+    </breed>
+    <genderStatus>
+      <coding>
+        <system value="http://hl7.org/fhir/animal-genderstatus"/>
+        <code value="neutered"/>
+        <display value="Neutered"/>
+        <userSelected value="true"/>
+      </coding>
+      <text value="khsB5X1GTanFsN511oHsug=="/>
+    </genderStatus>
+  </animal>
+  <communication>
+    <language>
+      <coding>
+        <system value="urn:ietf:bcp:47"/>
+        <code value="ar"/>
+        <display value="Arabisch"/>
+        <userSelected value="false"/>
+      </coding>
+      <text value="LnnauptESueRCYzhCLug7w=="/>
+    </language>
+    <preferred value="false"/>
+  </communication>
+  <generalPractitioner>
+    <identifier>
+      <use value="temp"/>
+      <type>
+        <text value="vLEZ/ppqlJJe3aXV5bXQSg=="/>
+      </type>
+      <system value="http://projectcrucible.org/JSdNDKxQYnbgbK1foXl4LA=="/>
+      <value value="FhtO/fnQHJ53r74o5Kaqsw=="/>
+      <period>
+        <start value="2018-05-29T17:48:53.709Z"/>
+        <end value="2018-05-29T17:48:53.709Z"/>
+      </period>
+      <assigner>
+        <display value="Organization AzGkHbyoRCW2DHbd5QKrvg=="/>
+      </assigner>
+    </identifier>
+    <display value="Practitioner bOhpCJl3+3zJeu9gTLFHgA=="/>
+  </generalPractitioner>
+  <managingOrganization>
+    <identifier>
+      <use value="secondary"/>
+      <type>
+        <text value="F6ycI3QtiBEN0Zd1DWV+Cw=="/>
+      </type>
+      <system value="http://projectcrucible.org/oyiWa3XpXRdaHMNFg2zkrA=="/>
+      <value value="yVtQOWBQ5h+kVyHvD6rLQw=="/>
+      <period>
+        <start value="2018-05-29T17:48:53.710Z"/>
+        <end value="2018-05-29T17:48:53.710Z"/>
+      </period>
+      <assigner>
+        <display value="Organization 1LzLHM0zefZ5VE618hoVgw=="/>
+      </assigner>
+    </identifier>
+    <display value="Organization kTDENFC9ob86n6cR24nbNQ=="/>
+  </managingOrganization>
+  <link>
+    <other>
+      <identifier>
+        <use value="usual"/>
+        <system value="http://projectcrucible.org/ykXdPbPp4xBUEYPEDS8DQQ=="/>
+        <value value="HvaWeeBsFCUVQi8GH559Zg=="/>
+      </identifier>
+      <display value="Patient tzJiOakGGDZZ2AjXy28uRw=="/>
+    </other>
+    <type value="replaces"/>
+  </link>
+</Patient>
+
