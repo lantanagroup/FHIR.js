@@ -3,6 +3,7 @@ Node.JS library for serializing/deserializing FHIR resources between JS and XML,
 The library uses technologies that are safe for use in browser-only applications (node.js is not required). 
 
 [![Build Status](https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true)](https://ci.appveyor.com/project/seanmcilvenna/fhir-js)
+[![Build Status](https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master)](https://travis-ci.org/lantanagroup/FHIR.js)
 
 # Dependencies
 * q 1.4.1
