@@ -113,26 +113,42 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property) {
 
         switch (property._type) {
             case 'string':
-            case 'base64binary':
+            case 'base64Binary':
             case 'code':
             case 'id':
             case 'markdown':
             case 'uri':
             case 'oid':
-            case 'boolean':
-            case 'integer':
-            case 'decimal':
-            case 'unsignedInt':
-            case 'positiveInt':
             case 'date':
             case 'dateTime':
             case 'time':
             case 'instant':
+            case 'decimal': // TODO: keeping it as a string since would otherwise lose precision
                 if (value.attributes['value']) {
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(value.attributes['value'])
                     } else {
                         obj[property._name] = value.attributes['value'];
+                    }
+                }
+                break;
+            case 'boolean':
+                if (value.attributes['value']) {
+                    if (obj[property._name] instanceof Array) {
+                        obj[property._name].push(toBoolean(value.attributes['value']))
+                    } else {
+                        obj[property._name] = toBoolean(value.attributes['value'])
+                    }
+                }
+                break;
+            case 'integer':
+            case 'unsignedInt':
+            case 'positiveInt':
+                if (value.attributes['value']) {
+                    if (obj[property._name] instanceof Array) {
+                        obj[property._name].push(toNumber(value.attributes['value']))
+                    } else {
+                        obj[property._name] = toNumber(value.attributes['value'])
                     }
                 }
                 break;
@@ -189,6 +205,21 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property) {
                 }
                 break;
         }
+    }
+    function toBoolean(value) {
+        if (value === "true") {
+            return true;
+        } else if (value === "false") {
+            return false;
+        } else {
+            throw new Error("value supposed to be a boolean but got: " + value)
+        }
+    }
+    function toNumber(value) {
+        if (/^\d+$/.test(value) == false) {
+            throw new Error("value supposed to be a number but got: " + value)
+        }
+        return parseInt(value, 10)
     }
 
     if (property._multiple) {

@@ -91,7 +91,7 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
 
         switch (propertyType._type) {
             case 'string':
-            case 'base64binary':
+            case 'base64Binary':
             case 'code':
             case 'id':
             case 'markdown':
