@@ -47,8 +47,10 @@ Fhir.prototype.xmlToObj = function(xml) {
  * @returns {string} JSON
  */
 Fhir.prototype.xmlToJson = function(xml) {
-    var obj = this.xmlToObj(xml);
-    return JSON.stringify(obj, null, '\t');
+    var ConvertToJS = require('./convertToJs');
+    var convertToJs = new ConvertToJS(this.parser);
+    var json = convertToJs.convertToJSON(xml);
+    return json;
 };
 
 /**
