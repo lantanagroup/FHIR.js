@@ -5745,7 +5745,7 @@ function ConvertToJS(parser) {
 }
 
 /**
- * Converts the specified XML resource to a JS object, storing arbitrary-length decimals as strings.
+ * Converts the specified XML resource to a JS object, storing arbitrary-length decimals as strings since FHIR spec requires arbitrary precision.
  * @param {string} xml Resource XML string
  * @returns {FHIR.Resource} A Resource object converted from the XML Resource. Decimals stored as strings.
  */
@@ -5754,15 +5754,15 @@ ConvertToJS.prototype.convert = function(xml) {
     var xmlObj = convert.xml2js(xml);
 
     if (xmlObj.elements.length === 1) {
-        return self.resourceToJS(xmlObj.elements[0], "");
+        return self.resourceToJS(xmlObj.elements[0], null);
     }
 };
 
 /**
  * Converts the specified XML resource to JSON,
- *      turning arbitrary-length decimals into JSON numbers as per the FHIR spec..
+ * turning arbitrary-length decimals into JSON numbers as per the FHIR spec.
  * @param {string} xml Resource XML string
- * @returns {string} JSON with Numbers potentially too large for normal JavaScript
+ * @returns {string} JSON with Numbers potentially too large for normal JavaScript & JSON.parse
  */
 ConvertToJS.prototype.convertToJSON = function(xml) {
     var self = this;
@@ -5774,72 +5774,58 @@ ConvertToJS.prototype.convertToJSON = function(xml) {
     /* Decimals are converted into an object with a custom
     toJSON function that wraps them with 'DDDD's of a length
     greater than any length of Ds in the JSON */
-    var surroundDecimalsWith = {}
+    var surroundDecimalsWith = {};
     var jsObj = self.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
-    var maxDLength = self.maxLengthOfDs(jsObj)
+    var maxDLength = self.maxLengthOfDs(jsObj);
     var rpt = '';
     for (var i = 0; i < maxDLength + 5; i++) {
       rpt += 'D';
     }
-    surroundDecimalsWith.str = rpt
-    var json = JSON.stringify(jsObj, null, '\t')
+    surroundDecimalsWith.str = rpt;
+    var json = JSON.stringify(jsObj, null, '\t');
 
-    var replaceRegex = new RegExp('"?' + surroundDecimalsWith.str + '"?', 'g')
+    var replaceRegex = new RegExp('"?' + surroundDecimalsWith.str + '"?', 'g');
     // console.log("replaceRegex", replaceRegex)
-    var json2 = json.replace(replaceRegex, '')
+    var json2 = json.replace(replaceRegex, '');
     return json2
 };
 
 ConvertToJS.prototype.maxLengthOfDs = function(obj) {
     /**
-     * look through object to find longest sequence of 'D' characters
-     * so we can safely wrap decimals
+     * get length of longest sequence of 'D' characters in a string
      * @param {string} str
     */
     function maxSubstringLengthStr(str) {
-        var matches = str.match(/DDDD+/g)
+        var matches = str.match(/DDDD+/g);
         if (!matches) {
             return 0;
         }
         var ret = matches
                 .map(function(substr) { return substr.length })
-                .reduce(function(p,c) { return Math.max(p,c)}, 0)
-        return ret
+                .reduce(function(p,c) { return Math.max(p,c)}, 0);
+        return ret;
     }
     /**
      * look through object to find longest sequence of 'D' characters
+     * so we can safely wrap decimals
     */
     function maxSubstringLength(currentMax, obj) {
-        var ret
+        var ret;
         if (typeof(obj) === 'string') {
-            ret =  Math.max(currentMax, maxSubstringLengthStr(obj))
+            ret =  Math.max(currentMax, maxSubstringLengthStr(obj));
         } else if (typeof(obj) === 'object') {
             ret =  Object.keys(obj)
                     .map(function(k) {
                         return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]))
                     })
-                    .reduce(function(p,c) { return Math.max(p,c) }, currentMax)
+                    .reduce(function(p,c) { return Math.max(p,c) }, currentMax);
         } else {
-            ret =  currentMax
+            ret =  currentMax;
         }
-        return ret
+        return ret;
     }
-    return maxSubstringLength(0, obj)
+    return maxSubstringLength(0, obj);
 }
-
-ConvertToJS.prototype.convertToJSON2 = function(xml) {
-    var self = this;
-    var xmlObj = convert.xml2js(xml);
-
-    if (xmlObj.elements.length === 1) {
-        var surroundDecimalsWith = 'yRmLf0A942S6CAGmR6KJmYsY99t6eHwLj2PngtiD';
-        var jsObj = self.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
-        // var replaceRegex = new RegExp('"?' + surroundDecimalsWith + '"?', 'g')
-        var replaceRegex = new RegExp('(\\"\\: ?)\\"' + surroundDecimalsWith + '(\\d+)' + surroundDecimalsWith + '\\"(,?)$', 'gm')
-        var json = JSON.stringify(jsObj, null, '\t').replace(replaceRegex, '$1$2$3')
-        return json
-    }
-};
 
 /**
  * @param xmlObj
@@ -6054,7 +6040,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
         if (surroundDecimalsWith) {
             return {
                 value: value,
-                toJSON: function() {
+                toJSON() {
                     // surrounding str used as a marker to remove quotes to turn this
                     // into a JSON number as per FHIR spec..
                     return surroundDecimalsWith.str + value + surroundDecimalsWith.str;
