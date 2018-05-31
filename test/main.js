@@ -21,6 +21,11 @@ var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').t
 var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
 var questionnaireResponseXml = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.xml').toString();
 
+var observationF002excessXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess.xml').toString();
+var observationF002excessNegativeXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess-negative.xml').toString();
+var observationSlightlyDehydratedXml = fs.readFileSync('./test/data/stu3/observation-slightly-dehydrated.xml').toString();
+
+
 var dstu2ConformanceXml = fs.readFileSync('./test/data/dstu2/conformance.xml').toString();
 var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json').toString();
 
@@ -64,6 +69,12 @@ describe('Serialization', function() {
 
         it('should serialize medication statement xml', function() {
             biDirectionalTest(medicationStatementXml);
+        });
+
+        it('should serialize observation xml', function() {
+            biDirectionalTest(observationSlightlyDehydratedXml);
+            biDirectionalTest(observationF002excessNegativeXml);
+            biDirectionalTest(observationF002excessXml);
         });
 
         it('should serialize questionnaire response xml', function() {
@@ -115,11 +126,50 @@ describe('Serialization', function() {
             assert.strictEqual(obj.photo[0].hash, "sukclAeJAsqUMyvVUHstQw==", "base64 should be kept as a string")
 
             obj = fhir.xmlToObj(medicationStatementXml)
-            // decimals not yet supported as BigInts
+            // decimals not yet supported as JavaScript objects so are kept as strings
+            assert.strictEqual(obj.contained[0].ingredient[0].amount.numerator.value, "500", "xmlToObj keeps decimals as strings...")
+
+            json = fhir.xmlToJson(medicationStatementXml)
+            jsonAsObj = JSON.parse(json)
+            assert.strictEqual(jsonAsObj.contained[0].ingredient[0].amount.numerator.value, 500, "xmlToJson converts decimals to numbers")
+
+            // even very large decimals should be preserved as numbers
+            json = fhir.xmlToJson(observationSlightlyDehydratedXml)
+            checkJsonHasNumber(json, "1206401306298222237039542544")
+            checkJsonHasNumber(json, "1206401306298222237039542547")
+            checkJsonHasNumber(json, "1349918422375333611314993132")
 
             obj = fhir.xmlToObj(questionnaireResponseXml)
             assert.strictEqual(obj.total, 4, "integers should be converted")
         }),
+
+        it('should allow negative decimals', function() {
+            var fhir = new Fhir();
+            var obj1 = fhir.xmlToObj(observationF002excessXml);
+            var obj2 = fhir.xmlToObj(observationF002excessNegativeXml);
+            assert.strictEqual(obj1.valueQuantity.value, "12.6")
+            assert.strictEqual(obj2.valueQuantity.value, "-1.00")
+
+            var json1 = fhir.xmlToJson(observationF002excessXml);
+            var json2 = fhir.xmlToJson(observationF002excessNegativeXml);
+            assert.strictEqual(JSON.parse(json1).valueQuantity.value, 12.6)
+            assert.strictEqual(JSON.parse(json2).valueQuantity.value, -1.00)
+            checkJsonHasNumber(json1, "12.6")
+            checkJsonHasNumber(json2, "-1.00")
+        })
+
+        it('maxLengthOfDs should work correctly', function() {
+            var ConvertToJS = require('../convertToJs');
+            var j = new ConvertToJS();
+            var tenDs = "DDDDDDDDDD"
+            assert.equal(j.maxLengthOfDs({}), 0)
+            assert.equal(j.maxLengthOfDs(tenDs), 10)
+            assert.equal(j.maxLengthOfDs({"a": tenDs}), 10)
+            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs + tenDs}), 20)
+            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs, "c": {"d": tenDs + tenDs}}), 20)
+            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 20)
+            assert.equal(j.maxLengthOfDs({[tenDs+tenDs+tenDs]: tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 30)
+        })
 
         it('should correctly parse crucible\'s patient', function() {
             var fhir = new Fhir();
@@ -375,3 +425,14 @@ describe('Parse', function() {
        assert(Object.keys(parse.parsedValueSets).length == 445);
    });
 });
+
+function checkJsonHasNumber(json, expectedNumber) {
+    var expectedNumberPos = json.indexOf(expectedNumber)
+    var firstDigit = expectedNumber[0]
+    var lastDigit = expectedNumber[expectedNumber.length-1]
+    assert(expectedNumberPos > 0, "very large decimals kept as JSON numbers")
+    assert(json[expectedNumberPos] == firstDigit, "very large decimals kept as JSON numbers")
+    assert(json[expectedNumberPos - 1] != '"', "very large decimals kept as JSON numbers")
+    assert.equal(json[expectedNumberPos + expectedNumber.length - 1], lastDigit, "very large decimals kept as JSON numbers")
+    assert.equal(json[expectedNumberPos + expectedNumber.length], ",", "very large decimals kept as JSON numbers")
+}
