@@ -52,6 +52,7 @@ are 64-bit floating-point numbers that do lose precision. As a workaround:
 
 * `xmlToObj` keeps decimals as JavaScript strings so as to not lose precision
 * `xmlToJson` converts decimals to JSON numbers, obeying the specification. Consider using it instead of `JSON.stringify(fhir.xmlToObj(xml))`.
+* When parsing FHIR JSON strings, such as those produced by `xmlToJson` or other FHIR libraries, consider using an alternative to `JSON.parse` such as https://github.com/josdejong/lossless-json. This issue is mentioned in the FHIR specification: https://www.hl7.org/fhir/json.html#decimal
 
 # Documentation
 API documentation can be found at http://lantanagroup.github.io/FHIR.js/
