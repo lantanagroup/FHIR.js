@@ -32,7 +32,7 @@
         </itemCodeableConcept>
         <amount>
           <numerator>
-            <value value="500"/>
+            <value value="501"/>
             <system value="http://unitsofmeasure.org"/>
             <code value="mg"/>
           </numerator>
@@ -53,7 +53,7 @@
         </itemCodeableConcept>
         <amount>
           <numerator>
-            <value value="25"/>
+            <value value="25.0"/>
             <system value="http://unitsofmeasure.org"/>
             <code value="mg"/>
           </numerator>

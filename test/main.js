@@ -129,11 +129,14 @@ describe('Serialization', function() {
 
             obj = fhir.xmlToObj(medicationStatementXml)
             // decimals not yet supported as JavaScript objects so are kept as strings
-            assert.strictEqual(obj.contained[0].ingredient[0].amount.numerator.value, "500", "xmlToObj keeps decimals as strings...")
+            assert.strictEqual(obj.contained[0].ingredient[0].amount.numerator.value, "501", "xmlToObj keeps decimals as strings...")
+            assert.strictEqual(obj.contained[0].ingredient[1].amount.numerator.value, "25.0", "xmlToObj keeps decimals as strings...")
 
             json = fhir.xmlToJson(medicationStatementXml)
+            checkJsonHasNumber(json, "501")
+            checkJsonHasNumber(json, "25.0")
             jsonAsObj = JSON.parse(json)
-            assert.strictEqual(jsonAsObj.contained[0].ingredient[0].amount.numerator.value, 500, "xmlToJson converts decimals to numbers")
+            assert.strictEqual(jsonAsObj.contained[0].ingredient[0].amount.numerator.value, 501, "xmlToJson converts decimals to numbers")
 
             // even very large decimals should be preserved as numbers
             json = fhir.xmlToJson(observationSlightlyDehydratedXml)
