@@ -12,6 +12,8 @@ var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json')
 var condition2 = JSON.parse(condition2Json);
 var medicationStatementJson = fs.readFileSync('./test/data/stu3/medicationStatement.json').toString();
 var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.json').toString();
+var operationDefinitionJson = fs.readFileSync('./test/data/stu3/operationdefinition-example.json').toString();
+var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
@@ -241,6 +243,23 @@ describe('Serialization', function() {
 describe('Validation', function() {
     describe('JS', function() {
         var fhir = new Fhir();
+
+        it('should fail on an empty array', function() {
+            var capabilityStatement = JSON.parse(capabilityStatementJson);
+            capabilityStatement.format = [];
+
+            var results = fhir.validate(capabilityStatement);
+
+            assert(results.valid === false);
+        });
+
+        it('should result in success for OperationDefinition JS', function() {
+            var operationDefinition = JSON.parse(operationDefinitionJson);
+            var results = fhir.validate(operationDefinition);
+
+            assert(results.valid === true);
+        });
+
         it('should result in errors for Observation JS', function() {
             var resource = {
                 resourceType: 'Observation',

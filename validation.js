@@ -49,7 +49,6 @@ var PRIMITIVE_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9
 var PRIMITIVE_CODE_REGEX = /[^\s]+(\s[^\s]+)*/i;
 var PRIMITIVE_OID_REGEX = /urn:oid:[0-2](\.[1-9]\d*)+/i;
 var PRIMITIVE_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/i;
-var PRIMITIVE_MARKDOWN_REGEX = /\s*(\S|\s)*/gi;
 var PRIMITIVE_POSITIVE_INT_REGEX = /^(?!0+$)\d+$/i;
 var PRIMITIVE_UNSIGNED_INT_REGEX = /[0]|([1-9][0-9]*)/i;
 var PRIMITIVE_INTEGER_REGEX = /[0]|[-+]?[1-9][0-9]*/i;
@@ -248,8 +247,6 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
             this.addError(treeDisplay, 'Invalid oid format for value "' + obj + '"');
         } else if (property._type === 'id' && !PRIMITIVE_ID_REGEX.test(obj)) {
             this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
-        } else if (property._type === 'markdown' && !PRIMITIVE_MARKDOWN_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid markdown format for value "' + obj + '"');
         }
     } else if (property._type === 'Resource') {
         var typeDefinition = typeDefinitions[obj.resourceType];
@@ -283,7 +280,8 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
 
     for (var i = 0; i < properties.length; i++) {
         var property = properties[i];
-        var foundProperty = obj[property._name];
+        var foundProperty = obj.hasOwnProperty(property._name);
+        var propertyValue = obj[property._name];
 
         // Look for missing properties
         if (property._required && !foundProperty) {
@@ -304,9 +302,13 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
         if (foundProperty) {
             // If this is an array/multiple, loop through each item in the array and validate it, instead of the array as a whole
             if (property._multiple) {
-                if (foundProperty instanceof Array) {
-                    for (var x = 0; x < foundProperty.length; x++) {
-                        var foundPropertyElement = foundProperty[x];
+                if (propertyValue instanceof Array) {
+                    if (property._required && propertyValue.length === 0) {
+                        self.addError(getTreeDisplay(tree.concat([property._name])), 'A ' + property._name + ' entry is required');
+                    }
+
+                    for (var x = 0; x < propertyValue.length; x++) {
+                        var foundPropertyElement = propertyValue[x];
                         var treeItem = property._name;
 
                         if (self.isXml) {
@@ -321,7 +323,7 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
                     self.addError(getTreeDisplay(tree.concat([property._name])), 'Property is not an array');
                 }
             } else {
-                self.validateNext(foundProperty, property, tree.concat([property._name]));
+                self.validateNext(propertyValue, property, tree.concat([property._name]));
             }
         }
     };
