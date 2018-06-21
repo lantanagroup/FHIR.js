@@ -14,6 +14,8 @@ var medicationStatementJson = fs.readFileSync('./test/data/stu3/medicationStatem
 var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.json').toString();
 var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
+var immunizationExampleJson = fs.readFileSync('./test/data/r4/immunization-example.json').toString('utf8');
+var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.json').toString('utf8');
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
@@ -436,6 +438,28 @@ describe('Validation', function() {
             assert(results.messages[1].resourceId === 'samwise');
             assert(results.messages[1].severity === 'error');
             assert(results.messages[1].message === 'Property is not an array');
+        });
+
+        it('should validate immunization-example.json successfully', function() {
+            var immunization = JSON.parse(immunizationExampleJson);
+            var result = fhir.validate(immunization);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.messages);
+            assert.equal(result.messages.length, 5);
+        });
+
+        it('should validate audit-event-example.json successfully, with required boolean', function() {
+            var auditEvent = JSON.parse(auditEventExampleJson);
+            var result = fhir.validate(auditEvent);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.messages);
+            assert.equal(result.messages.length, 5);
         });
     });
 });
