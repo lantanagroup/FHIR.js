@@ -38,7 +38,7 @@ module.exports = function(profiles) {
             for (var x in current) {
                 var currentEval = eval('current[x][\'' + pathSplit[i] + '\']');
 
-                if (currentEval) {
+                if (typeof currentEval !== 'undefined') {
                     if (currentEval instanceof Array) {
                         next = next.concat(currentEval);
                     } else if (currentEval || currentEval == false) {

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Immunization",
+  "text": {
+    "status": "generated",
+    "div": "<div>Authored by Joginder Madra</div>"
+  },
+  "date": "2013-01-10",
+  "vaccineType": {
+    "coding": [
+      {
+        "code": "396427003"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "refusedIndicator": false,
+  "reported": false,
+  "performer": {
+    "reference": "Practitioner/example"
+  },
+  "lotNumber": "AAJN11K",
+  "expirationDate": "2015-02-15"
+}
