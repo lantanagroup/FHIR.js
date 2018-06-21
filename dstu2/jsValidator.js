@@ -48,7 +48,7 @@ module.exports = function(profiles) {
                   })
                 }
 
-                if (currentEval) {
+                if (typeof currentEval !== 'undefined') {
                     if (currentEval instanceof Array) {
                         next = next.concat(currentEval);
                     } else if (currentEval || currentEval == false) {

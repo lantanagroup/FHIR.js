@@ -39,6 +39,18 @@ describe('DSTU1: Validation', function() {
             assert.equal(1, result.errors.length);
         });
 
+        it('should validate immunization-example.json successfully', function() {
+            var immunizationJson = JSON.parse(fs.readFileSync('./test/data/dstu1/immunization-example.json').toString('utf8'));
+            var fhir = new Fhir(Fhir.DSTU1);
+            var result = fhir.ValidateJSResource(immunizationJson);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.errors);
+            assert.equal(result.errors.length, 0);
+        });
+
         it ('should return 3 validation errors for bundle', function() {
             var bundleJson = fs.readFileSync('./test/data/dstu1/bundle.json').toString('utf8');
             var bundle = JSON.parse(bundleJson);
