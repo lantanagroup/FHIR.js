@@ -12,7 +12,7 @@ var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json')
 var condition2 = JSON.parse(condition2Json);
 var medicationStatementJson = fs.readFileSync('./test/data/stu3/medicationStatement.json').toString();
 var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.json').toString();
-var operationDefinitionJson = fs.readFileSync('./test/data/stu3/operationdefinition-example.json').toString();
+var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
@@ -22,6 +22,7 @@ var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toS
 var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
 var questionnaireResponseXml = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.xml').toString();
+var operationDefinitionXml = fs.readFileSync('./test/data/stu3/OperationDefinition_example.xml').toString();
 
 var observationF002excessXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess.xml').toString();
 var observationF002excessNegativeXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess-negative.xml').toString();
@@ -81,6 +82,10 @@ describe('Serialization', function() {
 
         it('should serialize questionnaire response xml', function() {
             biDirectionalTest(questionnaireResponseXml);
+        });
+
+        it('should serialize operation definition xml', function() {
+            biDirectionalTest(operationDefinitionXml);
         });
 
         it('should handle an empty array correctly', function() {
