@@ -58,39 +58,39 @@ function assertArray(obj, expectedLength) {
     }
 }
 
-describe('Serialization', function() {
-    describe('XML bi-directional', function() {
-        it('should serialize bundle xml', function() {
+describe('Serialization', function () {
+    describe('XML bi-directional', function () {
+        it('should serialize bundle xml', function () {
             biDirectionalTest(bundleTransactionXml);
         });
 
-        it('should serialize document xml', function() {
+        it('should serialize document xml', function () {
             biDirectionalTest(documentBundleXml);
         });
 
-        it('should serialize condition xml', function() {
+        it('should serialize condition xml', function () {
             biDirectionalTest(condition2Xml);
         });
 
-        it('should serialize medication statement xml', function() {
+        it('should serialize medication statement xml', function () {
             biDirectionalTest(medicationStatementXml);
         });
 
-        it('should serialize observation xml', function() {
+        it('should serialize observation xml', function () {
             biDirectionalTest(observationSlightlyDehydratedXml);
             biDirectionalTest(observationF002excessNegativeXml);
             biDirectionalTest(observationF002excessXml);
         });
 
-        it('should serialize questionnaire response xml', function() {
+        it('should serialize questionnaire response xml', function () {
             biDirectionalTest(questionnaireResponseXml);
         });
 
-        it('should serialize operation definition xml', function() {
+        it('should serialize operation definition xml', function () {
             biDirectionalTest(operationDefinitionXml);
         });
 
-        it('should handle an empty array correctly', function() {
+        it('should handle an empty array correctly', function () {
             var questionnaire = {
                 "resourceType": "Questionnaire",
                 "item": [
@@ -108,7 +108,7 @@ describe('Serialization', function() {
             assert(xml === '<?xml version="1.0" encoding="UTF-8"?><Questionnaire xmlns="http://hl7.org/fhir"><item><linkId value="5554"/><text value="test2"/><type value="decimal"/></item></Questionnaire>');
         });
 
-        it('should fail parsing a DSTU2 conformance resources', function() {
+        it('should fail parsing a DSTU2 conformance resources', function () {
             var fhir = new Fhir();
 
             try {
@@ -127,8 +127,8 @@ describe('Serialization', function() {
         });
     });
 
-    describe('XML one-way', function() {
-        it('should correctly type output json', function() {
+    describe('XML one-way', function () {
+        it('should correctly type output json', function () {
             var fhir = new Fhir();
             var obj = fhir.xmlToObj(patient1Xml);
             assert.strictEqual(obj.active, true, "booleans should be converted from strings")
@@ -155,22 +155,22 @@ describe('Serialization', function() {
             assert.strictEqual(obj.total, 4, "integers should be converted")
         }),
 
-        it('should allow negative decimals', function() {
-            var fhir = new Fhir();
-            var obj1 = fhir.xmlToObj(observationF002excessXml);
-            var obj2 = fhir.xmlToObj(observationF002excessNegativeXml);
-            assert.strictEqual(obj1.valueQuantity.value, "12.6")
-            assert.strictEqual(obj2.valueQuantity.value, "-1.00")
+            it('should allow negative decimals', function () {
+                var fhir = new Fhir();
+                var obj1 = fhir.xmlToObj(observationF002excessXml);
+                var obj2 = fhir.xmlToObj(observationF002excessNegativeXml);
+                assert.strictEqual(obj1.valueQuantity.value, "12.6")
+                assert.strictEqual(obj2.valueQuantity.value, "-1.00")
 
-            var json1 = fhir.xmlToJson(observationF002excessXml);
-            var json2 = fhir.xmlToJson(observationF002excessNegativeXml);
-            assert.strictEqual(JSON.parse(json1).valueQuantity.value, 12.6)
-            assert.strictEqual(JSON.parse(json2).valueQuantity.value, -1.00)
-            checkJsonHasNumber(json1, "12.6")
-            checkJsonHasNumber(json2, "-1.00")
-        })
+                var json1 = fhir.xmlToJson(observationF002excessXml);
+                var json2 = fhir.xmlToJson(observationF002excessNegativeXml);
+                assert.strictEqual(JSON.parse(json1).valueQuantity.value, 12.6)
+                assert.strictEqual(JSON.parse(json2).valueQuantity.value, -1.00)
+                checkJsonHasNumber(json1, "12.6")
+                checkJsonHasNumber(json2, "-1.00")
+            })
 
-        it('maxLengthOfDs should work correctly', function() {
+        it('maxLengthOfDs should work correctly', function () {
             var ConvertToJS = require('../convertToJs');
             var j = new ConvertToJS();
             var tenDs = "DDDDDDDDDD"
@@ -180,50 +180,50 @@ describe('Serialization', function() {
             assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs + tenDs}), 20)
             assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs, "c": {"d": tenDs + tenDs}}), 20)
             assert.equal(j.maxLengthOfDs({"a": tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 20)
-            assert.equal(j.maxLengthOfDs({[tenDs+tenDs+tenDs]: tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 30)
+            assert.equal(j.maxLengthOfDs({[tenDs + tenDs + tenDs]: tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 30)
         })
 
-        it('should correctly parse crucible\'s patient', function() {
+        it('should correctly parse crucible\'s patient', function () {
             var fhir = new Fhir();
             var obj = fhir.xmlToObj(patient2Xml);
         }),
 
-        it('should serialize reference element definitions', function() {
-            var fhir = new Fhir();
-            var obj = fhir.xmlToObj(questionnaireResponseXml);
+            it('should serialize reference element definitions', function () {
+                var fhir = new Fhir();
+                var obj = fhir.xmlToObj(questionnaireResponseXml);
 
-            assert(obj);
-            assert(obj.entry);
-            assert(obj.entry.length === 4);
-            assert(obj.entry[0].resource);
-            assert(obj.entry[0].resource.resourceType === 'QuestionnaireResponse');
-            assert(obj.entry[1].resource);
-            assert(obj.entry[1].resource.resourceType === 'QuestionnaireResponse');
-            assert(obj.entry[2].resource);
-            assert(obj.entry[2].resource.resourceType === 'QuestionnaireResponse');
-            assert(obj.entry[3].resource);
-            assert(obj.entry[3].resource.resourceType === 'QuestionnaireResponse');
+                assert(obj);
+                assert(obj.entry);
+                assert(obj.entry.length === 4);
+                assert(obj.entry[0].resource);
+                assert(obj.entry[0].resource.resourceType === 'QuestionnaireResponse');
+                assert(obj.entry[1].resource);
+                assert(obj.entry[1].resource.resourceType === 'QuestionnaireResponse');
+                assert(obj.entry[2].resource);
+                assert(obj.entry[2].resource.resourceType === 'QuestionnaireResponse');
+                assert(obj.entry[3].resource);
+                assert(obj.entry[3].resource.resourceType === 'QuestionnaireResponse');
 
-            var questionnaireResponse1 = obj.entry[0].resource;
-            assert(questionnaireResponse1.item);
-            assert(questionnaireResponse1.item.length === 1);
-            assert(questionnaireResponse1.item[0].item);
-            assert(questionnaireResponse1.item[0].item.length === 11);
-            assert(questionnaireResponse1.item[0].item[0].linkId === 'common_repository');
-            assert(questionnaireResponse1.item[0].item[1].linkId === 'common_axtype');
-            assert(questionnaireResponse1.item[0].item[2].linkId === 'common_axversion');
-            assert(questionnaireResponse1.item[0].item[10].linkId === 'common_axrefdate');
-        });
+                var questionnaireResponse1 = obj.entry[0].resource;
+                assert(questionnaireResponse1.item);
+                assert(questionnaireResponse1.item.length === 1);
+                assert(questionnaireResponse1.item[0].item);
+                assert(questionnaireResponse1.item[0].item.length === 11);
+                assert(questionnaireResponse1.item[0].item[0].linkId === 'common_repository');
+                assert(questionnaireResponse1.item[0].item[1].linkId === 'common_axtype');
+                assert(questionnaireResponse1.item[0].item[2].linkId === 'common_axversion');
+                assert(questionnaireResponse1.item[0].item[10].linkId === 'common_axrefdate');
+            });
     });
 
-    describe('JS one-way', function() {
-        it('should create XML Bundle from bundle-transaction.json', function() {
+    describe('JS one-way', function () {
+        it('should create XML Bundle from bundle-transaction.json', function () {
             var fhir = new Fhir();
             var xml = fhir.objToXml(bundleTransaction);
             assert(xml);
         });
 
-        it('should create XML bundle of QuestionnaireResponse with item.item', function() {
+        it('should create XML bundle of QuestionnaireResponse with item.item', function () {
             var fhir = new Fhir();
             var xml = fhir.jsonToXml(questionnaireResponseJson);
             assert(xml);
@@ -250,11 +250,11 @@ describe('Serialization', function() {
     });
 });
 
-describe('Validation', function() {
-    describe('JS', function() {
+describe('Validation', function () {
+    describe('JS', function () {
         var fhir = new Fhir();
 
-        it('should fail on an empty array', function() {
+        it('should fail on an empty array', function () {
             var capabilityStatement = JSON.parse(capabilityStatementJson);
             capabilityStatement.format = [];
 
@@ -263,14 +263,14 @@ describe('Validation', function() {
             assert(results.valid === false);
         });
 
-        it('should result in success for OperationDefinition JS', function() {
+        it('should result in success for OperationDefinition JS', function () {
             var operationDefinition = JSON.parse(operationDefinitionJson);
             var results = fhir.validate(operationDefinition);
 
             assert(results.valid === true);
         });
 
-        it('should result in errors for Observation JS', function() {
+        it('should result in errors for Observation JS', function () {
             var resource = {
                 resourceType: 'Observation',
                 badProperty: 'asdf',
@@ -302,7 +302,7 @@ describe('Validation', function() {
             assert(results.messages[3].resourceId === '#initial');
         });
 
-        it('should pass transaction bundle XML', function() {
+        it('should pass transaction bundle XML', function () {
             var results = fhir.validate(bundleTransactionXml);
             assert(results);
             assert(results.valid === true);
@@ -310,17 +310,21 @@ describe('Validation', function() {
             assert(results.messages.length === 0);
         });
 
-        it('should fail document bundle XML', function() {
+        it('should fail document bundle XML', function () {
             var results = fhir.validate(documentBundleXml);
             assert(results);
             assert(results.valid === false);
             assert(results.messages);
 
-            var nonInfoMessages = _.filter(results.messages, function(message) { return message.severity !== 'info'; });
-            var infoMessages = _.filter(results.messages, function(message) { return message.severity === 'info'; });
+            var nonInfoMessages = _.filter(results.messages, function (message) {
+                return message.severity !== 'info';
+            });
+            var infoMessages = _.filter(results.messages, function (message) {
+                return message.severity === 'info';
+            });
 
             assert(nonInfoMessages.length === 4);
-            
+
             assert(nonInfoMessages[0].location === 'MedicationRequest/intent');
             assert(nonInfoMessages[0].resourceId === 'Bundle/entry[6]/resource');
             assert(nonInfoMessages[0].severity === 'error');
@@ -335,14 +339,14 @@ describe('Validation', function() {
             assert(nonInfoMessages[2].resourceId === 'Bundle/entry[8]/resource');
             assert(nonInfoMessages[2].severity === 'warning');
             assert(nonInfoMessages[2].message === 'Code "xxx" (http://example.org/system) not found in value set');
-            
+
             assert(nonInfoMessages[3].location === 'Bundle/signature/type[1]');
             assert(nonInfoMessages[3].resourceId === 'father');
             assert(nonInfoMessages[3].severity === 'warning');
             assert(nonInfoMessages[3].message === 'Code "1.2.840.10065.1.12.1.1" (http://hl7.org/fhir/valueset-signature-type) not found in value set');
         });
 
-        it('should pass medication statement XML', function() {
+        it('should pass medication statement XML', function () {
             var results = fhir.validate(medicationStatementXml);
             assert(results);
             assert(results.valid === true);
@@ -350,7 +354,7 @@ describe('Validation', function() {
             assert(results.messages.length === 3);
         });
 
-        it('should fail JS bundle with incorrect type', function() {
+        it('should fail JS bundle with incorrect type', function () {
             var bundle = {
                 resourceType: 'Bundle',
                 type: 'test'
@@ -365,7 +369,7 @@ describe('Validation', function() {
             assert(results.messages[0].severity === 'error');
         });
 
-        it('should pass condition JS', function() {
+        it('should pass condition JS', function () {
             var results = fhir.validate(condition2);
             assert(results);
             assert(results.valid === true);
@@ -373,7 +377,7 @@ describe('Validation', function() {
             assert(results.messages.length === 0);
         });
 
-        it('should fail with unexpected properties', function() {
+        it('should fail with unexpected properties', function () {
             var bundle = {
                 resourceType: 'Bundle',
                 id: '1231',
@@ -394,7 +398,7 @@ describe('Validation', function() {
             assert(results.messages[0].severity === 'error');
         });
 
-        it('should pass with unexpected properties', function() {
+        it('should pass with unexpected properties', function () {
             var bundle = {
                 resourceType: 'Bundle',
                 id: '1231',
@@ -415,7 +419,7 @@ describe('Validation', function() {
             assert(results.messages[0].severity === 'warning');
         });
 
-        it('should fail data-type validation', function() {
+        it('should fail data-type validation', function () {
             var patient = {
                 resourceType: 'Patient',
                 id: 'samwise',
@@ -440,7 +444,7 @@ describe('Validation', function() {
             assert(results.messages[1].message === 'Property is not an array');
         });
 
-        it('should validate immunization-example.json successfully', function() {
+        it('should validate immunization-example.json successfully', function () {
             var immunization = JSON.parse(immunizationExampleJson);
             var result = fhir.validate(immunization);
 
@@ -451,7 +455,7 @@ describe('Validation', function() {
             assert.equal(result.messages.length, 5);
         });
 
-        it('should validate audit-event-example.json successfully, with required boolean', function() {
+        it('should validate audit-event-example.json successfully, with required boolean', function () {
             var auditEvent = JSON.parse(auditEventExampleJson);
             var result = fhir.validate(auditEvent);
 
@@ -464,23 +468,52 @@ describe('Validation', function() {
     });
 });
 
-describe('Parse', function() {
-   it('should parse all resources and value sets', function() {
-       var coreStructureDefinitions = require('../profiles/r4/index');
-       var coreValueSets = require('../profiles/r4/valuesets');
-       var parse = new ParseConformance(false, coreStructureDefinitions, coreValueSets);
-       parse.parseCoreResources();
+describe('Parse', function () {
+    it('should load parsed structure definitions and value sets from cache/file', function () {
+        var parser = new ParseConformance(true);
 
-       assert(parse.parsedStructureDefinitions);
-       assert(Object.keys(parse.parsedStructureDefinitions).length == 202);
-       assert(Object.keys(parse.parsedValueSets).length == 445);
-   });
+        assert(parser.parsedStructureDefinitions);
+        assert(Object.keys(parser.parsedStructureDefinitions).length == 202);
+        assert(Object.keys(parser.parsedValueSets).length == 534);
+    });
+
+    it('should parse bundles', function () {
+        var types = require('../profiles/r4/profiles-types.json');
+        var resources = require('../profiles/r4/profiles-resources.json');
+        var valueSets = require('../profiles/r4/valuesets.json');
+
+        var parser = new ParseConformance(false);
+        parser.parseBundle(types);
+        parser.parseBundle(resources);
+        parser.parseBundle(valueSets);
+
+        assert(parser.parsedStructureDefinitions);
+        var structureDefinitionsCount = Object.keys(parser.parsedStructureDefinitions).length;
+        assert(structureDefinitionsCount == 202);
+        assert(parser.parsedValueSets);
+        var valueSetsCount = Object.keys(parser.parsedValueSets).length;
+        assert(valueSetsCount == 534);
+
+        var noCodeValueSets = _.filter(parser.parsedValueSets, function(valueSet) {
+            var systemHasCodes = false;
+
+            _.each(valueSet.systems, function(system) {
+                if (system.codes && system.codes.length >= 0) {
+                    systemHasCodes = true;
+                }
+            });
+
+            return !systemHasCodes;
+        });
+
+        assert(noCodeValueSets.length === 0);   // All value sets have at least one code
+    });
 });
 
 function checkJsonHasNumber(json, expectedNumber) {
     var expectedNumberPos = json.indexOf(expectedNumber)
     var firstDigit = expectedNumber[0]
-    var lastDigit = expectedNumber[expectedNumber.length-1]
+    var lastDigit = expectedNumber[expectedNumber.length - 1]
     assert(expectedNumberPos > 0, "very large decimals kept as JSON numbers")
     assert(json[expectedNumberPos] == firstDigit, "very large decimals kept as JSON numbers")
     assert(json[expectedNumberPos - 1] != '"', "very large decimals kept as JSON numbers")

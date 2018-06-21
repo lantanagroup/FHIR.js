@@ -4,6 +4,8 @@
  */
 var Fhir = function (parser) {
     var ParseConformance = require('./parseConformance.js');
+
+    // If no custom parser is specified, create a new one, loading cached data
     this.parser = parser || new ParseConformance(true);
 };
 

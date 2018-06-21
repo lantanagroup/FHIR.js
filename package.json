@@ -48,7 +48,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.js",
-    "prepublish": "node profiles/packageProfiles.js -b profiles/r4/profiles-resources.json -b profiles/r4/profiles-types.json -o profiles/r4/index.js & node profiles/findTypes.js & webpack --config webpack.config.js",
+    "prepublish": "node profiles/packageProfiles.js & webpack --config webpack.config.js",
     "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json --verbose"
   },
   "bundleDependencies": [

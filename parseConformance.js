@@ -39,7 +39,7 @@ var _ = require('underscore');
  * @param {Bundle} [coreValueSetBundle]
  * @constructor
  */
-function ParseConformance(loadCached, coreStructureDefinitions, coreValueSetBundle) {
+function ParseConformance(loadCached, coreStructureDefinitions) {
     /**
      * @type {ParseStructureDefinitionResponse[]}
      */
@@ -49,31 +49,35 @@ function ParseConformance(loadCached, coreStructureDefinitions, coreValueSetBund
      * @type {ParseValueSetResponse[]}
      */
     this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
-
-    /**
-     * @type {StructureDefinition[]}
-     * @private
-     */
-    this._coreStructureDefinitions = coreStructureDefinitions;
-
-    /**
-     * @type {Bundle}
-     * @private
-     */
-    this._coreValueSetBundle = coreValueSetBundle;
 }
 
 /**
- * Parses all core resources specified as part of the constructor.
- * Only parses value sets referenced by core structure definitions that are in the core value sets
+ * Parses any ValueSet and StructureDefinition resources in the bundle and stores
+ * them in the parser for use by serialization and validation logic.
+ * @param {Bundle} bundle The bundle to parse
  */
-ParseConformance.prototype.parseCoreResources = function() {
-    if (!this._coreStructureDefinitions) {
-        throw 'Core structure definitions not specified';
+ParseConformance.prototype.parseBundle = function(bundle) {
+    if (!bundle || !bundle.entry) {
+        return;
     }
 
-    for (var i in this._coreStructureDefinitions) {
-        this.parseStructureDefinition(this._coreStructureDefinitions[i]);
+    for (var i = 0; i < bundle.entry.length; i++) {
+        var entry = bundle.entry[i];
+        var resource = entry.resource;
+
+        switch (resource.resourceType) {
+            case 'StructureDefinition':
+                // Only parse a few kinds of StructureDefinition resources
+                if (resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type') {
+                    break;
+                }
+
+                this.parseStructureDefinition(resource);
+                break;
+            case 'ValueSet':
+                this.parseValueSet(resource, bundle);
+                break;
+        }
     }
 }
 
@@ -168,9 +172,10 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
  * Parses the ValueSet resource. Parses only bare-minimum information needed for validation against value sets.
  * Currently only supports parsing 'compose'
  * @param {ValueSet} valueSet The ValueSet resource to parse and load into memory
+ * @param {Bundle} bundle A bundle of resources that contains any ValueSet or CodeSystem resources that ValueSet being parsed references
  * @returns {ParseValueSetResponse}
  */
-ParseConformance.prototype.parseValueSet = function(valueSet) {
+ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
     var self = this;
 
     if (valueSet.compose) {
@@ -188,12 +193,12 @@ ParseConformance.prototype.parseValueSet = function(valueSet) {
             var nextCodes = null;
 
             if (!include.concept) {
-                if (!this._coreValueSetBundle) {
+                if (!bundle) {
                     return;
                 }
 
                 // Add all codes from the code system
-                var foundCodeSystem = _.find(this._coreValueSetBundle.entry, function(entry) {
+                var foundCodeSystem = _.find(bundle.entry, function(entry) {
                     return entry.resource.url === include.system
                 });
 
@@ -231,21 +236,22 @@ ParseConformance.prototype.parseValueSet = function(valueSet) {
 /**
  * This method is called to ensure that a value set (by its url) is loaded from the core spec
  * @param {string} valueSetUrl The url of the value set
+ * @param {Bundle} bundle A bundle that ValueSet is stored in, if the value set is not already loaded into the parser
  * @returns {boolean} Returns true if the value set was found/loaded, otherwise false
  * @private
  */
-ParseConformance.prototype.ensureValueSetLoaded = function(valueSetUrl) {
+ParseConformance.prototype.ensureValueSetLoaded = function(valueSetUrl, bundle) {
     var self = this;
 
     if (this.parsedValueSets[valueSetUrl]) {
         return true;
     }
 
-    if (!this._coreValueSetBundle) {
+    if (!bundle) {
         return false;
     }
 
-    var foundValueSetEntry = _.find(this._coreValueSetBundle.entry, function(entry) {
+    var foundValueSetEntry = _.find(bundle.entry, function(entry) {
         return entry.fullUrl === valueSetUrl;
     });
 
