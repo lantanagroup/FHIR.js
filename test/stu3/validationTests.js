@@ -79,5 +79,17 @@ describe('STU3: Validation', function() {
           assert(result.errors);
           assert.equal(result.errors.length, 1);
         });
+
+        it('should validate immunization-example.json successfully', function() {
+            var immunizationJson = JSON.parse(fs.readFileSync('./test/data/stu3/immunization-example.json').toString('utf8'));
+            var fhir = new Fhir(Fhir.STU3);
+            var result = fhir.ValidateJSResource(immunizationJson);
+
+            assert(result);
+            assert.equal(result.valid, true);
+
+            assert(result.errors);
+            assert.equal(result.errors.length, 0);
+        });
     });
 });
