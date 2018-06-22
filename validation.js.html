@@ -54,8 +54,9 @@ module.exports = function(objOrXml, options) {
     var isXml = false;
 
     if (typeof(objOrXml) === 'string') {
-        var toJs = require('./toJs');
-        obj = toJs(objOrXml);
+        var ConvertToJS = require('./convertToJs');
+        var convertToJS = new ConvertToJS();
+        obj = convertToJS.convert(objOrXml);
         isXml = true;
     }
 
@@ -66,6 +67,7 @@ module.exports = function(objOrXml, options) {
 var SEVERITY_FATAL = 'fatal';
 var SEVERITY_ERROR = 'error';
 var SEVERITY_WARN = 'warning';
+var SEVERITY_INFO = 'info';
 var PRIMITIVE_TYPES = ['instant','time','date','dateTime','decimal','boolean','integer','base64Binary','string','uri','unsignedInt','positiveInt','code','id','oid','markdown','Element'];
 var DATA_TYPES = ['Reference','Narrative', 'Ratio','Period','Range','Attachment','Identifier','HumanName','Annotation','Address','ContactPoint','SampledData','Quantity','CodeableConcept','Signature','Coding','Timing','Age','Distance','SimpleQuantity','Duration','Count','Money'];
 var PRIMITIVE_NUMBER_TYPES = ['unsignedInt','positiveInt','decimal','integer'];
@@ -75,7 +77,6 @@ var PRIMITIVE_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9
 var PRIMITIVE_CODE_REGEX = /[^\s]+(\s[^\s]+)*/i;
 var PRIMITIVE_OID_REGEX = /urn:oid:[0-2](\.[1-9]\d*)+/i;
 var PRIMITIVE_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/i;
-var PRIMITIVE_MARKDOWN_REGEX = /\s*(\S|\s)*/gi;
 var PRIMITIVE_POSITIVE_INT_REGEX = /^(?!0+$)\d+$/i;
 var PRIMITIVE_UNSIGNED_INT_REGEX = /[0]|([1-9][0-9]*)/i;
 var PRIMITIVE_INTEGER_REGEX = /[0]|[-+]?[1-9][0-9]*/i;
@@ -186,7 +187,17 @@ FhirInstanceValidation.prototype.addWarn = function(location, message) {
     });
 };
 
+FhirInstanceValidation.prototype.addInfo = function(location, message) {
+    this.response.messages.push({
+        location: location,
+        resourceId: this.resourceId,
+        severity: SEVERITY_INFO,
+        message: message
+    });
+};
+
 FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
+    var self = this;
     var treeDisplay = getTreeDisplay(tree, this.isXml);
 
     if (property._valueSet) {
@@ -194,7 +205,9 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
             return valueSetKey === property._valueSet;
         });
 
-        if (foundValueSet) {
+        if (!foundValueSet) {
+            self.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
+        } else {
             if (property._type === 'CodeableConcept') {
                 var found = false;
 
@@ -204,9 +217,9 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
                     } else {
                         var msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
                         if (property._valueSetStrength === 'required') {
-                            this.addError(treeDisplay, msg);
+                            self.addError(treeDisplay, msg);
                         } else {
-                            this.addWarn(treeDisplay, msg);
+                            self.addWarn(treeDisplay, msg);
                         }
                     }
                 });
@@ -262,8 +275,6 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
             this.addError(treeDisplay, 'Invalid oid format for value "' + obj + '"');
         } else if (property._type === 'id' &amp;&amp; !PRIMITIVE_ID_REGEX.test(obj)) {
             this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
-        } else if (property._type === 'markdown' &amp;&amp; !PRIMITIVE_MARKDOWN_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid markdown format for value "' + obj + '"');
         }
     } else if (property._type === 'Resource') {
         var typeDefinition = typeDefinitions[obj.resourceType];
@@ -297,7 +308,8 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
 
     for (var i = 0; i &lt; properties.length; i++) {
         var property = properties[i];
-        var foundProperty = obj[property._name];
+        var foundProperty = obj.hasOwnProperty(property._name);
+        var propertyValue = obj[property._name];
 
         // Look for missing properties
         if (property._required &amp;&amp; !foundProperty) {
@@ -318,9 +330,13 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
         if (foundProperty) {
             // If this is an array/multiple, loop through each item in the array and validate it, instead of the array as a whole
             if (property._multiple) {
-                if (foundProperty instanceof Array) {
-                    for (var x = 0; x &lt; foundProperty.length; x++) {
-                        var foundPropertyElement = foundProperty[x];
+                if (propertyValue instanceof Array) {
+                    if (property._required &amp;&amp; propertyValue.length === 0) {
+                        self.addError(getTreeDisplay(tree.concat([property._name])), 'A ' + property._name + ' entry is required');
+                    }
+
+                    for (var x = 0; x &lt; propertyValue.length; x++) {
+                        var foundPropertyElement = propertyValue[x];
                         var treeItem = property._name;
 
                         if (self.isXml) {
@@ -335,7 +351,7 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
                     self.addError(getTreeDisplay(tree.concat([property._name])), 'Property is not an array');
                 }
             } else {
-                self.validateNext(foundProperty, property, tree.concat([property._name]));
+                self.validateNext(propertyValue, property, tree.concat([property._name]));
             }
         }
     };
@@ -387,13 +403,13 @@ FhirValidation.prototype.validate = function(obj, isXml) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Fhir.html">Fhir</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConvertToJS.html">ConvertToJS</a></li><li><a href="ConvertToXML.html">ConvertToXML</a></li><li><a href="Fhir.html">Fhir</a></li><li><a href="ParseConformance.html">ParseConformance</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Feb 12 2018 13:40:29 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 12 2018 15:58:58 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

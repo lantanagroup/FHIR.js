@@ -45,28 +45,43 @@
     <section>
         <article><h1>FHIR.js</h1><p>Node.JS library for serializing/deserializing FHIR resources between JS and XML, and validating FHIR resources.
 The library uses technologies that are safe for use in browser-only applications (node.js is not required). </p>
-<p><a href="https://ci.appveyor.com/project/seanmcilvenna/fhir-js"><img src="https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true" alt="Build Status"></a></p>
+<p><a href="https://ci.appveyor.com/project/seanmcilvenna/fhir-js"><img src="https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true" alt="Build Status"></a>
+<a href="https://travis-ci.org/lantanagroup/FHIR.js"><img src="https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master" alt="Build Status"></a></p>
 <h1>Dependencies</h1><ul>
 <li>q 1.4.1</li>
 <li>underscore 1.8.3</li>
 <li>path 0.12.7</li>
 <li>xml-js 1.6.2</li>
 </ul>
-<h1>Installation</h1><pre class="prettyprint source"><code>npm install fhir</code></pre><p>To use in a node.js application, require the &quot;fhir&quot; module.</p>
-<pre class="prettyprint source"><code>var Fhir = require('fhir');</code></pre><p>To use in a browser application, reference dist/bundle.js.</p>
-<pre class="prettyprint source"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/fhir/dist/bundle.js&quot;>&lt;/script></code></pre><h1>Test</h1><pre class="prettyprint source"><code>npm test</code></pre><h1>Basic Usage</h1><pre class="prettyprint source"><code>var resource = {
+<h1>Installation</h1><pre class="prettyprint source"><code>npm install fhir
+or
+bower install fhir-js</code></pre><p>To use in a node.js application, require the &quot;fhir&quot; module.</p>
+<pre class="prettyprint source lang-js"><code>var Fhir = require('fhir');</code></pre><p>To use in a browser application, reference dist/bundle.js.</p>
+<pre class="prettyprint source lang-html"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/fhir/dist/bundle.js&quot;>&lt;/script>
+or
+&lt;script type=&quot;text/javascript&quot; src=&quot;bower_components/fhir-js/dist/bundle.js&quot;>&lt;/script></code></pre><h1>Basic Usage</h1><pre class="prettyprint source lang-js"><code>var resource = {
   resourceType: 'Patient',
   ...
 };
 var fhir = new Fhir();
 var xml = fhir.objToXml(resource);
+var json = fhir.xmlToJson(xml);
 var obj = fhir.xmlToObj(xml);
 var results = fhir.validate(xml, { errorOnUnexpected: true });
-results = fhir.validate(obj, {});</code></pre><h1>Documentation</h1><p>API documentation can be found at http://lantanagroup.github.io/FHIR.js/</p>
+results = fhir.validate(obj, {});</code></pre><h1>Decimal types</h1><p>The FHIR specification requires that decimal values have arbitrary precision
+and be encoded in JSON as numbers. This is problematic since JavaScript numbers
+are 64-bit floating-point numbers that do lose precision. As a workaround:</p>
+<ul>
+<li><code>xmlToObj</code> keeps decimals as JavaScript strings so as to not lose precision</li>
+<li><code>xmlToJson</code> converts decimals to JSON numbers, obeying the specification. Consider using it instead of <code>JSON.stringify(fhir.xmlToObj(xml))</code>.</li>
+<li>When parsing FHIR JSON strings, such as those produced by <code>xmlToJson</code> or other FHIR libraries, consider using an alternative to <code>JSON.parse</code> such as https://github.com/josdejong/lossless-json. This issue is mentioned in the FHIR specification: https://www.hl7.org/fhir/json.html#decimal</li>
+</ul>
+<h1>Documentation</h1><p>API documentation can be found at http://lantanagroup.github.io/FHIR.js/</p>
 <h1>Implementation Notes</h1><ul>
 <li>Compatible with FHIR Release 4 Candidate v3.2.0</li>
 <li>FHIR profiles (within the &quot;profiles&quot; directory) are used to determine whether properties should be arrays, the data type and cardinality of each property, etc.. The profiles are first combined using packageProfiles.js into a single bundle of all profiles. A second pass over the profiles is performed to create a hierarchy (rather than a flat list) of the properties, and only includes information that validation is concerned about. The result of the second pass is stored in profiles/types.json and profiles/valueSets.json.</li>
-</ul></article>
+</ul>
+<h1>Test</h1><pre class="prettyprint source"><code>npm test</code></pre></article>
     </section>
 
 
@@ -77,13 +92,13 @@ results = fhir.validate(obj, {});</code></pre><h1>Documentation</h1><p>API docum
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Fhir.html">Fhir</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConvertToJS.html">ConvertToJS</a></li><li><a href="ConvertToXML.html">ConvertToXML</a></li><li><a href="Fhir.html">Fhir</a></li><li><a href="ParseConformance.html">ParseConformance</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Feb 12 2018 13:40:29 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 12 2018 15:58:58 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

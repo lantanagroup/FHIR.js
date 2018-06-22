@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Fhir</title>
+    <title>JSDoc: Class: ConvertToXML</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Fhir</h1>
+    <h1 class="page-title">Class: ConvertToXML</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>ConvertToXML<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Fhir"><span class="type-signature"></span>new Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ConvertToXML"><span class="type-signature"></span>new ConvertToXML<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -150,7 +150,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line5">line 5</a>
+        <a href="convertToXml.js.html">convertToXml.js</a>, <a href="convertToXml.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -204,7 +204,7 @@
     
 
     
-    <h4 class="name" id="jsonToXml"><span class="type-signature"></span>jsonToXml<span class="signature">(json)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="convert"><span class="type-signature"></span>convert<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -212,164 +212,7 @@
 
 
 <div class="description">
-    Serializes a JSON resource object to XML
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>json</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    XML
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="objToXml"><span class="type-signature"></span>objToXml<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes a JS resource object to XML
+    Converts the specified object to XML
 </div>
 
 
@@ -411,7 +254,7 @@
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">FHIR.Resource</span>
 
 
             
@@ -462,7 +305,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line25">line 25</a>
+        <a href="convertToXml.js.html">convertToXml.js</a>, <a href="convertToXml.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -514,16 +357,12 @@
     
 
     
-    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(objOrXml, options)</span><span class="type-signature"> &rarr; {<a href="global.html#ValidationResponse">ValidationResponse</a>}</span></h4>
+    <h4 class="name" id="propertyToXML"><span class="type-signature">(private) </span>propertyToXML<span class="signature">(parentXmlObj, parentType, obj, propertyName)</span><span class="type-signature"></span></h4>
     
 
     
 
 
-
-<div class="description">
-    Validates the specified resource (either a JS object or XML string)
-</div>
 
 
 
@@ -558,18 +397,10 @@
 
         <tr>
             
-                <td class="name"><code>objOrXml</code></td>
+                <td class="name"><code>parentXmlObj</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">*</span>
-
-
             
             </td>
 
@@ -584,15 +415,46 @@
 
         <tr>
             
-                <td class="name"><code>options</code></td>
+                <td class="name"><code>parentType</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type"><a href="global.html#ValidationOptions">ValidationOptions</a></span>
+            </td>
 
+            
 
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>propertyName</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -641,7 +503,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line62">line 62</a>
+        <a href="convertToXml.js.html">convertToXml.js</a>, <a href="convertToXml.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -664,24 +526,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#ValidationResponse">ValidationResponse</a></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -693,16 +537,12 @@
     
 
     
-    <h4 class="name" id="xmlToJson"><span class="type-signature"></span>xmlToJson<span class="signature">(xml)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="resourceToXML"><span class="type-signature">(private) </span>resourceToXML<span class="signature">(obj, xmlObj)</span><span class="type-signature"> &rarr; {*}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    Serializes an XML resource to JSON
-</div>
 
 
 
@@ -737,15 +577,28 @@
 
         <tr>
             
-                <td class="name"><code>xml</code></td>
+                <td class="name"><code>obj</code></td>
             
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
+            </td>
 
+            
 
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xmlObj</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -794,164 +647,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line49">line 49</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    JSON
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="xmlToObj"><span class="type-signature"></span>xmlToObj<span class="signature">(xml)</span><span class="type-signature"> &rarr; {*}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes an XML resource to a JS object
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line37">line 37</a>
+        <a href="convertToXml.js.html">convertToXml.js</a>, <a href="convertToXml.js.html#line33">line 33</a>
     </li></ul></dd>
     
 

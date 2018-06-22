@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Fhir</title>
+    <title>JSDoc: Class: ConvertToJS</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Fhir</h1>
+    <h1 class="page-title">Class: ConvertToJS</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>ConvertToJS<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,7 +41,7 @@
     
 
     
-    <h4 class="name" id="Fhir"><span class="type-signature"></span>new Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ConvertToJS"><span class="type-signature"></span>new ConvertToJS<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -150,7 +150,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line5">line 5</a>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -204,7 +204,7 @@
     
 
     
-    <h4 class="name" id="jsonToXml"><span class="type-signature"></span>jsonToXml<span class="signature">(json)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="convert"><span class="type-signature"></span>convert<span class="signature">(xml)</span><span class="type-signature"> &rarr; {FHIR.Resource}</span></h4>
     
 
     
@@ -212,7 +212,7 @@
 
 
 <div class="description">
-    Serializes a JSON resource object to XML
+    Converts the specified XML resource to a JS object, storing arbitrary-length decimals as strings since FHIR spec requires arbitrary precision.
 </div>
 
 
@@ -248,7 +248,7 @@
 
         <tr>
             
-                <td class="name"><code>json</code></td>
+                <td class="name"><code>xml</code></td>
             
 
             <td class="type">
@@ -264,7 +264,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Resource XML string</td>
         </tr>
 
     
@@ -305,7 +305,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line15">line 15</a>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -332,7 +332,7 @@
 
         
 <div class="param-desc">
-    XML
+    A Resource object converted from the XML Resource. Decimals stored as strings.
 </div>
 
 
@@ -343,7 +343,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">FHIR.Resource</span>
 
 
     </dd>
@@ -361,7 +361,7 @@
     
 
     
-    <h4 class="name" id="objToXml"><span class="type-signature"></span>objToXml<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="convertToJSON"><span class="type-signature"></span>convertToJSON<span class="signature">(xml)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -369,7 +369,7 @@
 
 
 <div class="description">
-    Serializes a JS resource object to XML
+    Converts the specified XML resource to JSON,turning arbitrary-length decimals into JSON numbers as per the FHIR spec.
 </div>
 
 
@@ -401,6 +401,312 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xml</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Resource XML string</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    JSON with Numbers potentially too large for normal JavaScript & JSON.parse
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="findReferenceType"><span class="type-signature"></span>findReferenceType<span class="signature">(relativeType)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Finds a property definition based on a reference to another type. Should be a BackboneElement
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>relativeType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Example: "#QuestionnaireResponse.item"</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line124">line 124</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="propertyToJS"><span class="type-signature">(private) </span>propertyToJS<span class="signature">(xmlObj, obj, property)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xmlObj</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
     
 
         <tr>
@@ -410,10 +716,23 @@
 
             <td class="type">
             
-                
-<span class="param-type">*</span>
+            </td>
 
+            
 
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>property</code></td>
+            
+
+            <td class="type">
             
             </td>
 
@@ -462,7 +781,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line25">line 25</a>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -485,24 +804,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -514,16 +815,12 @@
     
 
     
-    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(objOrXml, options)</span><span class="type-signature"> &rarr; {<a href="global.html#ValidationResponse">ValidationResponse</a>}</span></h4>
+    <h4 class="name" id="resourceToJS"><span class="type-signature">(private) </span>resourceToJS<span class="signature">(xmlObj)</span><span class="type-signature"> &rarr; {*}</span></h4>
     
 
     
 
 
-
-<div class="description">
-    Validates the specified resource (either a JS object or XML string)
-</div>
 
 
 
@@ -558,41 +855,10 @@
 
         <tr>
             
-                <td class="name"><code>objOrXml</code></td>
+                <td class="name"><code>xmlObj</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ValidationOptions">ValidationOptions</a></span>
-
-
             
             </td>
 
@@ -641,317 +907,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line62">line 62</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#ValidationResponse">ValidationResponse</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="xmlToJson"><span class="type-signature"></span>xmlToJson<span class="signature">(xml)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes an XML resource to JSON
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line49">line 49</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    JSON
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="xmlToObj"><span class="type-signature"></span>xmlToObj<span class="signature">(xml)</span><span class="type-signature"> &rarr; {*}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes an XML resource to a JS object
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line37">line 37</a>
+        <a href="convertToJs.js.html">convertToJs.js</a>, <a href="convertToJs.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
