@@ -473,7 +473,7 @@ describe('Parse', function () {
 
         assert(parser.parsedStructureDefinitions);
         assert(Object.keys(parser.parsedStructureDefinitions).length == 204);
-        assert(Object.keys(parser.parsedValueSets).length == 552);
+        assert(Object.keys(parser.parsedValueSets).length == 555);
     });
 
     it('should parse bundles', function () {
