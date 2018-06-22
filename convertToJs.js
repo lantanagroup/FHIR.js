@@ -118,7 +118,7 @@ ConvertToJS.prototype.resourceToJS = function(xmlObj, surroundDecimalsWith) {
 }
 
 /**
- * Finds a property definition based on a reference to another type. Should be a BackboneElement
+ * Finds a property definition based on a reference to another type. Should be a BackboneElement or Element
  * @param relativeType {string} Example: "#QuestionnaireResponse.item"
  */
 ConvertToJS.prototype.findReferenceType = function(relativeType) {
@@ -187,12 +187,13 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
             case 'id':
             case 'markdown':
             case 'uri':
+            case 'canonical':
             case 'oid':
             case 'date':
             case 'dateTime':
             case 'time':
             case 'instant':
-                if (value.attributes['value']) {
+                if (value.attributes && value.attributes['value']) {
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(value.attributes['value'])
                     } else {
@@ -239,6 +240,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
                     }
                 }
                 break;
+            case 'Element':
             case 'BackboneElement':
                 var newValue = {};
 

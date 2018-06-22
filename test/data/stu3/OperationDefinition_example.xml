@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <OperationDefinition xmlns="http://hl7.org/fhir">
     <id value="example"/>
     <text> <status value="generated"/> <div xmlns="http://www.w3.org/1999/xhtml"><p> <b> Generated Narrative with Details</b> </p> <p> <b> id</b> : example</p> <p> <b> url</b> : <a> http://h7.org/fhir/OperationDefinition/example</a> </p> <p> <b> version</b> : B</p> <p> <b> name</b> : Populate Questionnaire</p> <p> <b> status</b> : draft</p> <p> <b> kind</b> : operation</p> <p> <b> date</b> : 04/08/2015</p> <p> <b> publisher</b> : Acme Healthcare Services</p> <p> <b> contact</b> : </p> <p> <b> description</b> : Limited implementation of the Populate Questionnaire implemenation</p> <p> <b> useContext</b> : </p> <p> <b> jurisdiction</b> : United Kingdom of Great Britain and Northern Ireland (the) <span> (Details : {urn:iso:std:iso:3166 code 'GB' = 'Gabon', given as 'United Kingdom of Great
@@ -75,8 +76,6 @@
         <documentation value="The partially (or fully)-populated set of answers for the specified Questionnaire"/>
         <type value="QuestionnaireResponse"/>
     </parameter>
-    <!--    if generating code for this operation, generate 2 overloads, with and without the local
-     parameter    -->
     <overload>
         <parameterName value="subject"/>
         <parameterName value="local"/>

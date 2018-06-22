@@ -121,7 +121,7 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
 
                 self.populateValueSet(element, newProperty);
 
-                if (element.type[0].code == 'BackboneElement') {
+                if (element.type[0].code == 'BackboneElement' || element.type[0].code == 'Element') {
                     newProperty._properties = [];
                     self.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[x].id, structureDefinition);
                 }
@@ -178,17 +178,49 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
 ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
     var self = this;
 
-    if (valueSet.compose) {
-        var newValueSet = {
-            systems: []
-        };
+    var newValueSet = {
+        systems: []
+    };
 
+    if (valueSet.expansion && valueSet.expansion.contains) {
+        for (var i = 0; i < valueSet.expansion.contains.length; i++) {
+            var contains = valueSet.expansion.contains[i];
+
+            if (contains.inactive || contains.abstract) {
+                continue;
+            }
+
+            var foundSystem = _.find(newValueSet.systmes, function(system) {
+                return system.uri === contains.system;
+            });
+
+            if (!foundSystem) {
+                foundSystem = {
+                    uri: contains.system,
+                    codes: []
+                };
+                newValueSet.systems.push(foundSystem);
+            }
+
+            foundSystem.codes.push({
+                code: contains.code,
+                display: contains.display
+            });
+        }
+    } else if (valueSet.compose) {
         for (var i = 0; i < valueSet.compose.include.length; i++) {
             var include = valueSet.compose.include[i];
-            var newSystem = {
-                uri: include.system,
-                codes: []
-            };
+            var foundSystem = _.find(newValueSet.systems, function (system) {
+                return system.uri === include.system;
+            });
+
+            if (!foundSystem) {
+                foundSystem = {
+                    uri: include.system,
+                    codes: []
+                };
+                newValueSet.systems.push(foundSystem);
+            }
 
             var nextCodes = null;
 
@@ -224,13 +256,12 @@ ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
                 });
             }
 
-            newSystem.codes = newSystem.codes.concat(nextCodes);
-            newValueSet.systems.push(newSystem);
+            foundSystem.codes = foundSystem.codes.concat(nextCodes);
         }
-
-        self.parsedValueSets[valueSet.url] = newValueSet;
-        return newValueSet;
     }
+
+    self.parsedValueSets[valueSet.url] = newValueSet;
+    return newValueSet;
 }
 
 /**
@@ -275,14 +306,14 @@ ParseConformance.prototype.ensureValueSetLoaded = function(valueSetUrl, bundle) 
  */
 ParseConformance.prototype.populateValueSet = function(element, property) {
     var self = this;
-    if (element.binding && element.binding.valueSetReference) {
-        property._valueSet = element.binding.valueSetReference.reference;
+    if (element.binding && element.binding.valueSet) {
+        property._valueSet = element.binding.valueSet;
 
         if (element.binding.strength) {
             property._valueSetStrength = element.binding.strength;
         }
 
-        self.ensureValueSetLoaded(element.binding.valueSetReference.reference);
+        self.ensureValueSetLoaded(element.binding.valueSet);
     }
 }
 
@@ -341,7 +372,7 @@ ParseConformance.prototype.populateBackboneElement = function(resourceType, pare
 
                 self.populateValueSet(backboneElement, newProperty);
 
-                if (backboneElement.type[0].code == 'BackboneElement') {
+                if (backboneElement.type[0].code == 'BackboneElement' || backboneElement.type[0].code == 'Element') {
                     self.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                 }
             } else if (backboneElement.id.endsWith('[x]')) {

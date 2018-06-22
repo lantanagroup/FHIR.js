@@ -10,20 +10,21 @@ var bundleTransaction = JSON.parse(bundleTransactionJson);
 var documentBundleJson = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.json').toString();
 var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json').toString();
 var condition2 = JSON.parse(condition2Json);
-var medicationStatementJson = fs.readFileSync('./test/data/stu3/medicationStatement.json').toString();
-var questionnaireResponseJson = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.json').toString();
+var medicationStatementJson = fs.readFileSync('./test/data/r4/medicationStatement.json').toString();
+var questionnaireResponseJson = fs.readFileSync('./test/data/r4/QuestionnaireResponse_01.json').toString();
 var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
 var immunizationExampleJson = fs.readFileSync('./test/data/r4/immunization-example.json').toString('utf8');
 var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.json').toString('utf8');
 
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
-var documentBundleXml = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.xml').toString();
+var documentBundleXml = fs.readFileSync('./test/data/r4/document-example-dischargesummary.xml').toString();
+var badDocumentBundleXml = fs.readFileSync('./test/data/r4/bad-document-example-dischargesummary.xml').toString();
 var patient1Xml = fs.readFileSync('./test/data/stu3/patient-crucible-1.xml').toString();
 var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toString();
 var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
-var medicationStatementXml = fs.readFileSync('./test/data/stu3/medicationStatement.xml').toString();
-var questionnaireResponseXml = fs.readFileSync('./test/data/stu3/QuestionnaireResponse_01.xml').toString();
+var medicationStatementXml = fs.readFileSync('./test/data/r4/medicationStatement.xml').toString();
+var questionnaireResponseXml = fs.readFileSync('./test/data/r4/QuestionnaireResponse_01.xml').toString();
 var operationDefinitionXml = fs.readFileSync('./test/data/stu3/OperationDefinition_example.xml').toString();
 
 var observationF002excessXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess.xml').toString();
@@ -34,14 +35,28 @@ var observationSlightlyDehydratedXml = fs.readFileSync('./test/data/stu3/observa
 var dstu2ConformanceXml = fs.readFileSync('./test/data/dstu2/conformance.xml').toString();
 var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json').toString();
 
+function cleanXml(xml) {
+    var next = xml;
+    next = next.replace('xmlns="http://hl7.org/fhir"', '');
+    next = next.replace('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"', '');
+    next = next.replace(/\n/g, '');
+    next = next.replace(/\r/g, '');
+    next = next.replace(/\s{2,20}/g, ' ');
+    next = next.replace(/\>\s+\</g, '><');
+    return next.trim();
+}
+
 function biDirectionalTest(xml) {
     var fhir = new Fhir();
+    // Convert to JS obj, and then back to XML
     var obj = fhir.xmlToObj(xml);
-    var xml = fhir.objToXml(obj);
-    var nextObj = fhir.xmlToObj(xml);
-    var nextXml = fhir.objToXml(nextObj);
+    var nextXml = fhir.objToXml(obj);
+    var lastObj = fhir.xmlToObj(nextXml);
+    var lastXml = fhir.objToXml(lastObj);
 
-    assert(xml === nextXml);
+    var cleanInXml = cleanXml(xml);
+    var cleanOutXml = cleanXml(lastXml);
+    assert(cleanInXml === cleanOutXml);
 }
 
 function printResults(results) {
@@ -105,21 +120,21 @@ describe('Serialization', function () {
             };
             var fhir = new Fhir();
             var xml = fhir.objToXml(questionnaire);
-            assert(xml === '<?xml version="1.0" encoding="UTF-8"?><Questionnaire xmlns="http://hl7.org/fhir"><item><linkId value="5554"/><text value="test2"/><type value="decimal"/></item></Questionnaire>');
+            assert(xml === '<?xml version="1.0" encoding="UTF-8"?><Questionnaire xmlns="http://hl7.org/fhir"><item><linkId value="5554"/><text value="test2"/><type value="decimal"/><required value="false"/></item></Questionnaire>');
         });
 
         it('should fail parsing a DSTU2 conformance resources', function () {
             var fhir = new Fhir();
 
             try {
-                var obj = fhir.xmlToObj(dstu2ConformanceXml);
+                var objFromXml = fhir.xmlToObj(dstu2ConformanceXml);
                 throw 'Expected xmlToObj to throw an exception';
             } catch (ex) {
                 assert(ex.message == 'Unknown resource type: Conformance');
             }
 
             try {
-                var obj = fhir.jsonToXml(dstu2ConformanceJson);
+                var xmlFromJson = fhir.jsonToXml(dstu2ConformanceJson);
                 throw 'Expected jsonToXml to throw an exception';
             } catch (ex) {
                 assert(ex.message == 'Unknown resource type: Conformance');
@@ -311,47 +326,31 @@ describe('Validation', function () {
         });
 
         it('should fail document bundle XML', function () {
-            var results = fhir.validate(documentBundleXml);
+            var results = fhir.validate(badDocumentBundleXml);
             assert(results);
             assert(results.valid === false);
             assert(results.messages);
 
-            var nonInfoMessages = _.filter(results.messages, function (message) {
-                return message.severity !== 'info';
-            });
-            var infoMessages = _.filter(results.messages, function (message) {
-                return message.severity === 'info';
+            const errors = _.filter(results.messages, function(message) {
+                return message.severity === 'error';
             });
 
-            assert(nonInfoMessages.length === 4);
-
-            assert(nonInfoMessages[0].location === 'MedicationRequest/intent');
-            assert(nonInfoMessages[0].resourceId === 'Bundle/entry[6]/resource');
-            assert(nonInfoMessages[0].severity === 'error');
-            assert(nonInfoMessages[0].message === 'Missing property');
-
-            assert(nonInfoMessages[1].location === 'MedicationRequest/medicationCodeableConcept');
-            assert(nonInfoMessages[1].resourceId === 'Bundle/entry[6]/resource');
-            assert(nonInfoMessages[1].severity === 'warning');
-            assert(nonInfoMessages[1].message === 'Code "66493003" (http://snomed.info/sct) not found in value set');
-
-            assert(nonInfoMessages[2].location === 'AllergyIntolerance/reaction[1]/manifestation[1]');
-            assert(nonInfoMessages[2].resourceId === 'Bundle/entry[8]/resource');
-            assert(nonInfoMessages[2].severity === 'warning');
-            assert(nonInfoMessages[2].message === 'Code "xxx" (http://example.org/system) not found in value set');
-
-            assert(nonInfoMessages[3].location === 'Bundle/signature/type[1]');
-            assert(nonInfoMessages[3].resourceId === 'father');
-            assert(nonInfoMessages[3].severity === 'warning');
-            assert(nonInfoMessages[3].message === 'Code "1.2.840.10065.1.12.1.1" (http://hl7.org/fhir/valueset-signature-type) not found in value set');
+            assert(errors.length === 1);
+            assert(errors[0].location === 'Bundle/type');
+            assert(errors[0].message === 'Missing property');
+            assert(errors[0].resourceId === 'father');
+            assert(errors[0].severity === 'error');
         });
 
         it('should pass medication statement XML', function () {
             var results = fhir.validate(medicationStatementXml);
             assert(results);
             assert(results.valid === true);
-            assert(results.messages);
-            assert(results.messages.length === 3);
+
+            var warnings = _.filter(results.messages, function(message) {
+                return message.severity === 'warning';
+            });
+            assert(warnings.length === 3);
         });
 
         it('should fail JS bundle with incorrect type', function () {
@@ -452,7 +451,7 @@ describe('Validation', function () {
             assert.equal(result.valid, true);
 
             assert(result.messages);
-            assert.equal(result.messages.length, 5);
+            assert.equal(result.messages.length, 1);
         });
 
         it('should validate audit-event-example.json successfully, with required boolean', function () {
@@ -473,8 +472,8 @@ describe('Parse', function () {
         var parser = new ParseConformance(true);
 
         assert(parser.parsedStructureDefinitions);
-        assert(Object.keys(parser.parsedStructureDefinitions).length == 202);
-        assert(Object.keys(parser.parsedValueSets).length == 534);
+        assert(Object.keys(parser.parsedStructureDefinitions).length == 204);
+        assert(Object.keys(parser.parsedValueSets).length == 552);
     });
 
     it('should parse bundles', function () {
@@ -483,16 +482,16 @@ describe('Parse', function () {
         var valueSets = require('../profiles/r4/valuesets.json');
 
         var parser = new ParseConformance(false);
+        parser.parseBundle(valueSets);
         parser.parseBundle(types);
         parser.parseBundle(resources);
-        parser.parseBundle(valueSets);
 
         assert(parser.parsedStructureDefinitions);
         var structureDefinitionsCount = Object.keys(parser.parsedStructureDefinitions).length;
-        assert(structureDefinitionsCount == 202);
+        assert(structureDefinitionsCount == 204);
         assert(parser.parsedValueSets);
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
-        assert(valueSetsCount == 534);
+        assert(valueSetsCount == 555);
 
         var noCodeValueSets = _.filter(parser.parsedValueSets, function(valueSet) {
             var systemHasCodes = false;
