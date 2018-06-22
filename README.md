@@ -45,6 +45,33 @@ var results = fhir.validate(xml, { errorOnUnexpected: true });
 results = fhir.validate(obj, {});
 ```
 
+# FHIR Version
+**3.4.0-13866**
+
+FHIR.js currently supports FHIR version **3.4.0**.
+
+If your implementation needs to support a more recent FHIR version, you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
+
+```
+var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());
+var newTypes = JSON.parse(fs.readFileSync('..path..to..profiles-types.json').toString());
+var newResources = JSON.parse(fs.readFileSync('..path..to..profiles-resources.json').toString());
+var parser = new ParseConformance(false);           // don't load pre-parsed data
+parser.parseBundle(newValueSets);
+parser.parseBundle(newTypes);
+parser.parseResources(newResources);
+
+var fhir = new Fhir(parser);
+fhir.xmlToJson(...);
+fhir.objToXml(...);
+fhir.validate(...);
+// etc.
+```
+
+Custom-loading a version like this may not work if the FHIR spec includes changes to the StructureDefinition resource that are not accounted for in this version of the FHIR.js module. For example, recently StructureDefinition.element.binding.valueSetReference#Reference was changed to StructureDefinition.element.binding.valueSet#canonical. The FHIR.js module had to be updated to respect this change before it could properly validate value sets referenced by the StructureDefinition. 
+
+*Note: For validation to validate a value set referenced by a StructureDefinition, the ValueSet resource must be loaded into the parser before the StructureDefinition is loaded.*
+
 # Decimal types
 The FHIR specification requires that decimal values have arbitrary precision
 and be encoded in JSON as numbers. This is problematic since JavaScript numbers
