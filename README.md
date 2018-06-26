@@ -5,6 +5,11 @@ The library uses technologies that are safe for use in browser-only applications
 [![Build Status](https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true)](https://ci.appveyor.com/project/seanmcilvenna/fhir-js)
 [![Build Status](https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master)](https://travis-ci.org/lantanagroup/FHIR.js)
 
+# Key features
+* Serialization between XML and JSON
+* Validation against core spec *and* custom profiles
+* Evaluation of [FhirPath](http://build.fhir.org/fhirpath.html)
+
 # Dependencies
 * q 1.4.1
 * underscore 1.8.3
@@ -72,6 +77,9 @@ Custom-loading a version like this may not work if the FHIR spec includes change
 
 *Note: For validation to validate a value set referenced by a StructureDefinition, the ValueSet resource must be loaded into the parser before the StructureDefinition is loaded.*
 
+# Documentation
+API documentation can be found at http://lantanagroup.github.io/FHIR.js/
+
 # Decimal types
 The FHIR specification requires that decimal values have arbitrary precision
 and be encoded in JSON as numbers. This is problematic since JavaScript numbers
@@ -80,9 +88,6 @@ are 64-bit floating-point numbers that do lose precision. As a workaround:
 * `xmlToObj` keeps decimals as JavaScript strings so as to not lose precision
 * `xmlToJson` converts decimals to JSON numbers, obeying the specification. Consider using it instead of `JSON.stringify(fhir.xmlToObj(xml))`.
 * When parsing FHIR JSON strings, such as those produced by `xmlToJson` or other FHIR libraries, consider using an alternative to `JSON.parse` such as https://github.com/josdejong/lossless-json. This issue is mentioned in the FHIR specification: https://www.hl7.org/fhir/json.html#decimal
-
-# Documentation
-API documentation can be found at http://lantanagroup.github.io/FHIR.js/
 
 # Implementation Notes
 * Compatible with FHIR Release 4 Candidate v3.2.0

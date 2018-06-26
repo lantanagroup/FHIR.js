@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Webpack Bundle</title>
+
+    <script type="text/javascript" src="../dist/bundle.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            try {
+                var fhir = new Fhir();
+                var resource = {
+                    resourceType: 'Bundle',
+                    id: 'test',
+                    entry: [{
+                        fullUrl: 'http://test.com/test',
+                        resource: {
+                            resourceType: 'Observation',
+                            id: 'obs1'
+                        }
+                    }]
+                };
+
+                var xml = fhir.objToXml(resource);
+                if (xml.indexOf('<') < 0) {
+                    throw new Error('Converting obj to xml failed');
+                }
+
+                var validationResults = fhir.validate(resource);
+                if (!validationResults || validationResults.valid !== false || validationResults.messages.length === 0) {
+                    throw new Error('Validating failed');
+                }
+
+                var evalResults = fhir.evaluate(resource, "Bundle.id = 'test'");
+                if (evalResults !== true) {
+                    throw new Error('Evaluating FhirPath failed');
+                }
+
+                document.getElementById('main').innerText = 'Success';
+            }
+            catch (ex) {
+                document.getElementById('main').innerText = 'Something went wrong: ' + ex.message;
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="main"></div>
+</body>
+</html>

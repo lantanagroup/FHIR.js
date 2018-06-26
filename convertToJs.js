@@ -285,6 +285,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
                 break;
         }
     }
+
     function toBoolean(value) {
         if (value === "true") {
             return true;
@@ -294,12 +295,14 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
             throw new Error("value supposed to be a boolean but got: " + value)
         }
     }
+
     function toNumber(value) {
         if (/^-?\d+$/.test(value) == false) {
             throw new Error("value supposed to be a number but got: " + value)
         }
         return parseInt(value, 10)
     }
+
     function convertDecimal(value, surroundDecimalsWith) {
         // validation regex from http://hl7.org/fhir/xml.html
         if (/^-?([0]|([1-9][0-9]*))(\.[0-9]+)?$/.test(value) == false) {
@@ -324,6 +327,17 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
     }
 
     for (var i in xmlProperty) {
+        /*
+        TODO: Maybe consider preserving the comments in JSON format.
+        However, according to a FHIR Chat conversation, fhir_comments won't be supported in JSON going forward
+        https://chat.fhir.org/#narrow/stream/4-implementers/subject/fhir_comments
+
+        var xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
+        var xmlComment = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex-1].type === 'comment' ?
+            xmlObj.elements[xmlPropertyIndex-1] :
+            null;
+        */
+
         pushValue(xmlProperty[i]);
     }
 }

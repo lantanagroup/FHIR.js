@@ -92,6 +92,7 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
 
     var parsedStructureDefinition = {
         _type: 'Resource',
+        _kind: structureDefinition.kind,
         _properties: []
     };
     this.parsedStructureDefinitions[structureDefinition.id] = parsedStructureDefinition;         // TODO: Not sure this works for profiles

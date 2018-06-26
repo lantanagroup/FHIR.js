@@ -1,7 +1,7 @@
 {
   "name": "fhir",
-  "version": "4.1.6",
-  "description": "Node.JS library for serializing/deserializing FHIR resources between JS/JSON and XML using various node.js XML libraries.",
+  "version": "4.2.0",
+  "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "bugs": {
     "url": "https://github.com/lantanagroup/FHIR.js/issues",
