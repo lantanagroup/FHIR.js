@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Fhir</title>
+    <title>JSDoc: Class: FhirPath</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Fhir</h1>
+    <h1 class="page-title">Class: FhirPath</h1>
 
     
 
@@ -28,7 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>FhirPath<span class="signature">(resources, parser)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">Handles evaluation of FhirPath against one or more resources. See <a href="http://build.fhir.org/fhirpath.html">http://build.fhir.org/fhirpath.html</a> for more information.</div>
         
     
 </header>
@@ -39,14 +41,20 @@
         
 
     
-
-    
-    <h4 class="name" id="Fhir"><span class="type-signature"></span>new Fhir<span class="signature">(parser<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h2>Constructor</h2>
     
 
     
+    <h4 class="name" id="FhirPath"><span class="type-signature"></span>new FhirPath<span class="signature">(resources, parser)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
+
+<div class="description">
+    Constructs a new instance of the FhirPath class with one or mores resources
+</div>
 
 
 
@@ -69,8 +77,6 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -79,6 +85,32 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>resources</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Resource</span>
+|
+
+<span class="param-type">Array.&lt;Resource></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">One or more resources that the class should evaluate FhirPath against</td>
+        </tr>
+
     
 
         <tr>
@@ -96,20 +128,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last">A parser, which may include specialized StructureDefintion and ValueSet resources</td>
+            <td class="description last">The conformance parser to use when needing to reference definitions of resources</td>
         </tr>
 
     
@@ -150,7 +172,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line5">line 5</a>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -204,7 +226,7 @@
     
 
     
-    <h4 class="name" id="evaluate"><span class="type-signature"></span>evaluate<span class="signature">(resource, fhirPathString)</span><span class="type-signature"> &rarr; {obj|Array}</span></h4>
+    <h4 class="name" id="_evaluate"><span class="type-signature">(private) </span>_evaluate<span class="signature">(resource, statements)</span><span class="type-signature"> &rarr; {*}</span></h4>
     
 
     
@@ -212,7 +234,7 @@
 
 
 <div class="description">
-    Evaluates a FhirPath against the specified resource(s)
+    Evaluates the given statements against the specified single resource.
 </div>
 
 
@@ -255,9 +277,6 @@
             
                 
 <span class="param-type">Resource</span>
-|
-
-<span class="param-type">Array.&lt;Resource></span>
 
 
             
@@ -274,7 +293,259 @@
 
         <tr>
             
-                <td class="name"><code>fhirPathString</code></td>
+                <td class="name"><code>statements</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line299">line 299</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="_getResourceTypes"><span class="type-signature">(private) </span>_getResourceTypes<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets a list of all resource type names from the ParseConformance class loaded with the FhirPath class.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line112">line 112</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="_parse"><span class="type-signature">(private) </span>_parse<span class="signature">(fhirPath)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Parses the specified path into a structure
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fhirPath</code></td>
             
 
             <td class="type">
@@ -331,19 +602,471 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line88">line 88</a>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line128">line 128</a>
     </li></ul></dd>
     
 
     
 
     
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="FhirPath.html">FhirPath</a></li>
-        </ul>
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
     </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="_resolve"><span class="type-signature">(private) </span>_resolve<span class="signature">(reference)</span><span class="type-signature"> &rarr; {Resource}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Attempts to resolve the resource reference using this resources.If no resource is found in the resources provided to the FhirPath class, calls the resolve event.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The resource reference string to resolve</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="FhirPath.html#event:resolve">FhirPath#event:resolve</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Resource</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="_shouldReturnArray"><span class="type-signature">(private) </span>_shouldReturnArray<span class="signature">(statements)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines if the statements specified should result in an array being returned
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>statements</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line347">line 347</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="evaluate"><span class="type-signature"></span>evaluate<span class="signature">(fhirPath)</span><span class="type-signature"> &rarr; {obj|Array}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Evaluates the given fhirPath string against the resources passed in the constructor of the classIn the event of an operator comparison, returns a booleanIn the event of a path evaluation, returns the value of the given path (for each of the resources)
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fhirPath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The FhirPath string to evaluate against the resources provided to the FhirPath class</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line370">line 370</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
@@ -365,7 +1088,7 @@
 
         
 <div class="param-desc">
-    The result of the FhirPath evaluation. Can be a single value or multiple values. When FhirPath represents a operator comparison, returns a single boolean value.
+    The result of the evaluation. Can be either an object, boolean or array of results
 </div>
 
 
@@ -380,814 +1103,6 @@
 |
 
 <span class="param-type">Array</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint"><code>var results = fhir.evaluate(resources, "Bundle.entry.where(fullUrl = 'http://xxx')")// Only one of the 8 resources in the bundle have an entry with that URLassert(results.fullUrl === 'http://xxx')</code></pre>
-
-    <pre class="prettyprint"><code>var results = fhir.evaluate([ resource1, resource2 ], "Bundle.entry.resource.where(resourceType = 'StructureDefinition')")// Only one of the resources was a StructureDefinition, so the one StructureDefinition is returnedassert(results.resourceType === 'StructureDefinition')</code></pre>
-
-    <pre class="prettyprint"><code>var results = fhir.evaluate([ resource1, resource2 ], "StructureDefinition.snapshot.element")// results in a combination of all elements in both StructureDefinition resourcesassert(results.length == 84)</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="jsonToXml"><span class="type-signature"></span>jsonToXml<span class="signature">(json)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes a JSON resource object to XML
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>json</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line17">line 17</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    XML
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="objToXml"><span class="type-signature"></span>objToXml<span class="signature">(obj)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes a JS resource object to XML
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="validate"><span class="type-signature"></span>validate<span class="signature">(objOrXml, options)</span><span class="type-signature"> &rarr; {<a href="global.html#ValidationResponse">ValidationResponse</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Validates the specified resource (either a JS object or XML string)
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>objOrXml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#ValidationOptions">ValidationOptions</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line64">line 64</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="global.html#ValidationResponse">ValidationResponse</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="xmlToJson"><span class="type-signature"></span>xmlToJson<span class="signature">(xml)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes an XML resource to JSON
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line51">line 51</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    JSON
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="xmlToObj"><span class="type-signature"></span>xmlToObj<span class="signature">(xml)</span><span class="type-signature"> &rarr; {*}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Serializes an XML resource to a JS object
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>xml</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line39">line 39</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">*</span>
 
 
     </dd>
@@ -1221,7 +1136,7 @@
 
 
 <div class="description">
-    A callback which is executed when a reference needs to be resolved to a resource during evaluation of FhirPath.This should be overridden by the caller of the class.
+    A callback which is executed when a reference needs to be resolved to a resource.This should be overridden by the caller of the FhirPath class.
 </div>
 
 
@@ -1314,7 +1229,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fhir.js.html">fhir.js</a>, <a href="fhir.js.html#line102">line 102</a>
+        <a href="fhirPath.js.html">fhirPath.js</a>, <a href="fhirPath.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
