@@ -530,6 +530,26 @@ describe('Parse', function () {
 
         assert(noCodeValueSets.length === 0);   // All value sets have at least one code
     });
+
+    it('should parse bundles for STU3', function() {
+        var types = require('./data/stu3/schema/profiles-types.json');
+
+        var parser = new ParseConformance(false, ParseConformance.VERSIONS.STU3);
+        parser.parseBundle(types);
+
+        assert(parser.parsedStructureDefinitions);
+
+        var parsedAddress = parser.parsedStructureDefinitions['Address'];
+        assert(parsedAddress);
+        assert(parsedAddress._properties);
+        assert(parsedAddress._properties.length === 12);
+        assert(parsedAddress._properties[2]._name === 'use');
+        assert(parsedAddress._properties[2]._type === 'code');
+        assert(parsedAddress._properties[2]._valueSet === 'http://hl7.org/fhir/ValueSet/address-use');
+        assert(parsedAddress._properties[2]._valueSetStrength === 'required');
+
+        // TODO: Should have more unit tests to verify that parsing STU3 resources works properly
+    });
 });
 
 describe('FhirPath', function() {

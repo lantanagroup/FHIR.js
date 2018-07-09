@@ -35,11 +35,10 @@ var _ = require('underscore');
  * Class responsible for parsing StructureDefinition and ValueSet resources into bare-minimum information
  * needed for serialization and validation.
  * @param {boolean} loadCached
- * @param {StructureDefinition[]} [coreStructureDefinitions]
- * @param {Bundle} [coreValueSetBundle]
+ * @param {string} [version=R4] The version of FHIR to use with this parser
  * @constructor
  */
-function ParseConformance(loadCached, coreStructureDefinitions) {
+function ParseConformance(loadCached, version) {
     /**
      * @type {ParseStructureDefinitionResponse[]}
      */
@@ -49,7 +48,18 @@ function ParseConformance(loadCached, coreStructureDefinitions) {
      * @type {ParseValueSetResponse[]}
      */
     this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
+
+    this.version = version || ParseConformance.VERSIONS.R4;
 }
+
+/**
+ * Enumeration of FHIR versions supported by FHIR.js
+ * @type {{STU3: string, R4: string}}
+ */
+ParseConformance.VERSIONS = {
+    STU3: 'STU3',
+    R4: 'R4'
+};
 
 /**
  * Parses any ValueSet and StructureDefinition resources in the bundle and stores
@@ -307,14 +317,20 @@ ParseConformance.prototype.ensureValueSetLoaded = function(valueSetUrl, bundle) 
  */
 ParseConformance.prototype.populateValueSet = function(element, property) {
     var self = this;
-    if (element.binding && element.binding.valueSet) {
-        property._valueSet = element.binding.valueSet;
+    if (element.binding) {
+        var binding = element.binding;
 
-        if (element.binding.strength) {
-            property._valueSetStrength = element.binding.strength;
+        if (binding.strength) {
+            property._valueSetStrength = binding.strength;
         }
 
-        self.ensureValueSetLoaded(element.binding.valueSet);
+        if (this.version === ParseConformance.VERSIONS.R4 && binding.valueSet) {
+            property._valueSet = binding.valueSet;
+            self.ensureValueSetLoaded(binding.valueSet);
+        } else if (this.version === ParseConformance.VERSIONS.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
+            property._valueSet = binding.valueSetReference.reference;
+            self.ensureValueSetLoaded(binding.valueSetReference.reference);
+        }
     }
 }
 
