@@ -9,6 +9,8 @@ var Fhir = function (parser) {
     this.parser = parser || new ParseConformance(true);
 };
 
+Fhir.ParseConformance = require('./parseConformance.js');
+
 /**
  * Serializes a JSON resource object to XML
  * @param {string} json

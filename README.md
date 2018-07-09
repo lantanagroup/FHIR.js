@@ -61,7 +61,7 @@ If your implementation needs to support a more recent FHIR version, you may down
 var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());
 var newTypes = JSON.parse(fs.readFileSync('..path..to..profiles-types.json').toString());
 var newResources = JSON.parse(fs.readFileSync('..path..to..profiles-resources.json').toString());
-var parser = new ParseConformance(false);           // don't load pre-parsed data
+var parser = new Fhir.ParseConformance(false);           // don't load pre-parsed data
 parser.parseBundle(newValueSets);
 parser.parseBundle(newTypes);
 parser.parseResources(newResources);
