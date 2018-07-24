@@ -389,7 +389,7 @@ ParseConformance.prototype.populateBackboneElement = function(resourceType, pare
 
                 self.populateValueSet(backboneElement, newProperty);
 
-                if (backboneElement.type[0].code == 'BackboneElement' || backboneElement.type[0].code == 'Element') {
+                if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
                     self.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                 }
             } else if (backboneElement.id.endsWith('[x]')) {

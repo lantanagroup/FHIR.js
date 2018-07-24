@@ -4,6 +4,8 @@ var _ = require('underscore');
 var assert = require('assert');
 
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
+var stu3StructureDefinitionJson = fs.readFileSync('./test/data/stu3/structureDefinition.json').toString('utf8');
+var r4StructureDefinitionJson = fs.readFileSync('./test/data/r4/structureDefinition.json').toString('utf8');
 var badDocumentBundleXml = fs.readFileSync('./test/data/r4/bad-document-example-dischargesummary.xml').toString();
 var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
@@ -15,6 +17,24 @@ var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.
 describe('Validation', function () {
     describe('JS', function () {
         var fhir = new Fhir();
+        var stu3Parser = new Fhir.ParseConformance(false, Fhir.ParseConformance.VERSIONS.STU3);
+        var stu3Fhir = new Fhir(stu3Parser);
+
+        it('should validate STU3 structure definition', function() {
+            var composition = JSON.parse(stu3StructureDefinitionJson);
+            var results = stu3Fhir.validate(composition);
+            assert(results.valid === true);
+            assert(results.messages);
+            assert(results.messages.length === 0);
+        });
+
+        it('should valid R4 structure definition', function() {
+            var composition = JSON.parse(r4StructureDefinitionJson);
+            var results = fhir.validate(composition);
+            assert(results.valid === true);
+            assert(results.messages);
+            assert(results.messages.length === 0);
+        });
 
         it('should fail on an empty array', function () {
             var capabilityStatement = JSON.parse(capabilityStatementJson);

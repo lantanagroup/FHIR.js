@@ -43,13 +43,40 @@ describe('Parse', function () {
         assert(noCodeValueSets.length === 0);   // All value sets have at least one code
     });
 
+    it('should parse profile-StructureDefinition for STU3', function() {
+        var sdProfile = require('./data/stu3/schema/profile-StructureDefinition.json');
+        var parser = new ParseConformance(false, ParseConformance.VERSIONS.STU3);
+        parser.parseStructureDefinition(sdProfile);
+
+        var parsedStructureDefinition = parser.parsedStructureDefinitions['StructureDefinition'];
+        assert(parsedStructureDefinition);
+        assert(parsedStructureDefinition._properties);
+        assert(parsedStructureDefinition._properties.length === 36);
+
+        var parsedDifferential = parsedStructureDefinition._properties[35];
+        assert(parsedDifferential._name === 'differential');
+        assert(parsedDifferential._properties);
+        assert(parsedDifferential._properties.length === 4);
+
+        var parsedDifferentialElement = parsedDifferential._properties[3];
+        assert(parsedDifferentialElement);
+        assert(parsedDifferentialElement._properties);
+        assert(parsedDifferentialElement._properties.length === 0);
+        assert(parsedDifferentialElement._type === 'ElementDefinition');
+    });
+
     it('should parse bundles for STU3', function() {
         var types = require('./data/stu3/schema/profiles-types.json');
+        var resources = require('./data/stu3/schema/profiles-resources.json');
 
         var parser = new ParseConformance(false, ParseConformance.VERSIONS.STU3);
         parser.parseBundle(types);
+        parser.parseBundle(resources);
 
         assert(parser.parsedStructureDefinitions);
+
+        var sdKeys = Object.keys(parser.parsedStructureDefinitions);
+        assert(sdKeys.length === 173);
 
         var parsedAddress = parser.parsedStructureDefinitions['Address'];
         assert(parsedAddress);

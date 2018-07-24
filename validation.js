@@ -261,6 +261,14 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
         var nextValidationResponse = nextValidationInstance.getResponse();
         this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
         this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+    } else if (property._type === 'ElementDefinition') {
+        var typeDefinition = typeDefinitions[property._type];
+        var nextValidationInstance = new FhirInstanceValidation(this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
+        nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
+
+        var nextValidationResponse = nextValidationInstance.getResponse();
+        this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
+        this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
     } else if (DATA_TYPES.indexOf(property._type) >= 0) {
         var typeDefinition = typeDefinitions[property._type];
         var nextValidationInstance = new FhirInstanceValidation(this.options, this.resourceId, this.isXml);
