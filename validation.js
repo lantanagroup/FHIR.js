@@ -264,7 +264,7 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
     } else if (property._type === 'ElementDefinition') {
         var typeDefinition = typeDefinitions[property._type];
         var nextValidationInstance = new FhirInstanceValidation(this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
-        nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
+        nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
 
         var nextValidationResponse = nextValidationInstance.getResponse();
         this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;

@@ -21,19 +21,49 @@ describe('Validation', function () {
         var stu3Fhir = new Fhir(stu3Parser);
 
         it('should validate STU3 structure definition', function() {
-            var composition = JSON.parse(stu3StructureDefinitionJson);
-            var results = stu3Fhir.validate(composition);
+            var structureDefinition = JSON.parse(stu3StructureDefinitionJson);
+            var results = stu3Fhir.validate(structureDefinition);
             assert(results.valid === true);
             assert(results.messages);
             assert(results.messages.length === 0);
         });
 
-        it('should valid R4 structure definition', function() {
-            var composition = JSON.parse(r4StructureDefinitionJson);
-            var results = fhir.validate(composition);
+        it('should validate R4 structure definition', function() {
+            var structureDefinition = JSON.parse(r4StructureDefinitionJson);
+            var results = fhir.validate(structureDefinition);
             assert(results.valid === true);
             assert(results.messages);
             assert(results.messages.length === 0);
+        });
+
+        it('should validate STU3 structure definition, erroring on representation', function() {
+            var structureDefinition = {
+                resourceType: 'StructureDefinition',
+                url: 'http://test.com/sd',
+                id: 'test',
+                name: 'Test',
+                status: 'draft',
+                abstract: false,
+                type: 'Composition',
+                kind: 'resource',
+                differential: {
+                    element: [{
+                        id: 'Composition.meta',
+                        path: 'Composition.meta',
+                        representation: 'typeAttr'
+                    }]
+                }
+            };
+            var results = fhir.validate(structureDefinition);
+
+            assert(results);
+            assert(results.valid === false);
+            assert(results.messages);
+            assert(results.messages.length === 1);
+            assert(results.messages[0].location === 'StructureDefinition.differential.element[0].representation');
+            assert(results.messages[0].message === 'Property is not an array');
+            assert(results.messages[0].resourceId === 'Composition.meta');
+            assert(results.messages[0].severity === 'error');
         });
 
         it('should fail on an empty array', function () {
