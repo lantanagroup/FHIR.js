@@ -2144,7 +2144,7 @@ ParseConformance.prototype.populateBackboneElement = function(resourceType, pare
 
                 self.populateValueSet(backboneElement, newProperty);
 
-                if (backboneElement.type[0].code == 'BackboneElement' || backboneElement.type[0].code == 'Element') {
+                if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
                     self.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                 }
             } else if (backboneElement.id.endsWith('[x]')) {
@@ -11245,6 +11245,14 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
         } else {
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
         }
+
+        var nextValidationResponse = nextValidationInstance.getResponse();
+        this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
+        this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+    } else if (property._type === 'ElementDefinition') {
+        var typeDefinition = typeDefinitions[property._type];
+        var nextValidationInstance = new FhirInstanceValidation(this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
+        nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
 
         var nextValidationResponse = nextValidationInstance.getResponse();
         this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
