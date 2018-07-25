@@ -18,6 +18,8 @@ describe('Validation', function () {
     describe('JS', function () {
         var fhir = new Fhir();
         var stu3Parser = new Fhir.ParseConformance(false, Fhir.ParseConformance.VERSIONS.STU3);
+        stu3Parser.parseBundle(require('./data/stu3/schema/profiles-resources.json'));
+        stu3Parser.parseBundle(require('./data/stu3/schema/profiles-types.json'));
         var stu3Fhir = new Fhir(stu3Parser);
 
         it('should validate STU3 structure definition', function() {
@@ -25,7 +27,7 @@ describe('Validation', function () {
             var results = stu3Fhir.validate(structureDefinition);
             assert(results.valid === true);
             assert(results.messages);
-            assert(results.messages.length === 0);
+            assert(results.messages.length === 9);
         });
 
         it('should validate R4 structure definition', function() {
@@ -147,7 +149,7 @@ describe('Validation', function () {
             var warnings = _.filter(results.messages, function(message) {
                 return message.severity === 'warning';
             });
-            assert(warnings.length === 3);
+            assert(warnings.length === 1);
         });
 
         it('should fail JS bundle with incorrect type', function () {
@@ -260,7 +262,7 @@ describe('Validation', function () {
             assert.equal(result.valid, true);
 
             assert(result.messages);
-            assert.equal(result.messages.length, 5);
+            assert.equal(result.messages.length, 2);
         });
     });
 });

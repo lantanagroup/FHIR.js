@@ -1,5 +1,3 @@
-var typeDefinitions = require('./profiles/types.json');
-var valueSets = require('./profiles/valuesets.json');
 var _ = require('underscore');
 
 /**
@@ -21,7 +19,7 @@ var _ = require('underscore');
  * @property {boolean} errorOnUnexpected Indicates if an error should be returned when an unexpected property is encountered
  */
 
-module.exports = function(objOrXml, options) {
+module.exports = function(objOrXml, parser, options) {
     var obj = objOrXml;
     var isXml = false;
 
@@ -32,7 +30,7 @@ module.exports = function(objOrXml, options) {
         isXml = true;
     }
 
-    var validation = new FhirValidation(options);
+    var validation = new FhirValidation(parser, options);
     return validation.validate(obj, isXml);
 }
 
@@ -116,7 +114,8 @@ function checkCode(valueSet, code, system) {
     }
 }
 
-var FhirInstanceValidation = function(options, resourceId, isXml) {
+var FhirInstanceValidation = function(parser, options, resourceId, isXml) {
+    this.parser = parser;
     this.options = options;
     this.response = {
         valid: true,
@@ -173,7 +172,7 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
     var treeDisplay = getTreeDisplay(tree, this.isXml);
 
     if (property._valueSet) {
-        var foundValueSet = _.find(valueSets, function(valueSet, valueSetKey) {
+        var foundValueSet = _.find(this.parser.parsedValueSets, function(valueSet, valueSetKey) {
             return valueSetKey === property._valueSet;
         });
 
@@ -249,8 +248,8 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
             this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
         }
     } else if (property._type === 'Resource') {
-        var typeDefinition = typeDefinitions[obj.resourceType];
-        var nextValidationInstance = new FhirInstanceValidation(this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
+        var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
+        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
 
         if (!obj.resourceType || !typeDefinition) {
             nextValidationInstance.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');
@@ -262,16 +261,16 @@ FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
         this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
         this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
     } else if (property._type === 'ElementDefinition') {
-        var typeDefinition = typeDefinitions[property._type];
-        var nextValidationInstance = new FhirInstanceValidation(this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
+        var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
         nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
 
         var nextValidationResponse = nextValidationInstance.getResponse();
         this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
         this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
     } else if (DATA_TYPES.indexOf(property._type) >= 0) {
-        var typeDefinition = typeDefinitions[property._type];
-        var nextValidationInstance = new FhirInstanceValidation(this.options, this.resourceId, this.isXml);
+        var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, this.resourceId, this.isXml);
         nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
 
         var nextValidationResponse = nextValidationInstance.getResponse();
@@ -358,13 +357,14 @@ FhirInstanceValidation.prototype.validateProperties = function(obj, properties, 
     };
 };
 
-var FhirValidation = function(options) {
+var FhirValidation = function(parser, options) {
+    this.parser = parser;
     this.options = options || {};
 };
 
 FhirValidation.prototype.validate = function(obj, isXml) {
-    var typeDefinition = typeDefinitions[obj.resourceType];
-    var instanceValidation = new FhirInstanceValidation(this.options, obj.id || '#initial', isXml);
+    var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
+    var instanceValidation = new FhirInstanceValidation(this.parser, this.options, obj.id || '#initial', isXml);
 
     if (!obj || !typeDefinition) {
         instanceValidation.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');

@@ -65,7 +65,7 @@ Fhir.prototype.xmlToJson = function(xml) {
  */
 Fhir.prototype.validate = function(objOrXml, options) {
     var validate = require('./validation');
-    return validate(objOrXml, options);
+    return validate(objOrXml, this.parser, options);
 };
 
 /**
