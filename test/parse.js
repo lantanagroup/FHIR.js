@@ -26,7 +26,7 @@ describe('Parse', function () {
         assert(structureDefinitionsCount === 204);
         assert(parser.parsedValueSets);
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
-        assert(valueSetsCount === 555);
+        assert(valueSetsCount === 522);
 
         var noCodeValueSets = _.filter(parser.parsedValueSets, function(valueSet) {
             var systemHasCodes = false;
@@ -41,6 +41,19 @@ describe('Parse', function () {
         });
 
         assert(noCodeValueSets.length === 0);   // All value sets have at least one code
+    });
+
+    it('should parse value sets with extra code systems', function() {
+        var valueSets = require('../profiles/r4/valuesets.json');
+        var iso3166CodeSystem = require('./data/r4/codesystem-iso3166.json');
+        var parser = new ParseConformance(false);
+        parser.loadCodeSystem(iso3166CodeSystem);
+        parser.parseBundle(valueSets);
+        var valueSetsCount = Object.keys(parser.parsedValueSets).length;
+        assert(valueSetsCount === 524);
+
+        var foundJurisdiction = parser.parsedValueSets['http://hl7.org/fhir/ValueSet/jurisdiction'];
+        assert(!!foundJurisdiction);
     });
 
     it('should parse profile-StructureDefinition for STU3', function() {
@@ -65,7 +78,7 @@ describe('Parse', function () {
         assert(parsedDifferentialElement._type === 'ElementDefinition');
     });
 
-    it('should parse bundles for STU3', function() {
+    it('should parse SD bundles for STU3', function() {
         var types = require('./data/stu3/schema/profiles-types.json');
         var resources = require('./data/stu3/schema/profiles-resources.json');
 

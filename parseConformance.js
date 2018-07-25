@@ -32,6 +32,45 @@
 var _ = require('underscore');
 
 /**
+ * Sorts an array of value sets based on each value set's dependencies.
+ * If a value set depends on another value set, the dependent value set
+ * is returned in the array before the depending value set, so that when all
+ * value sets are parsed in a bundle, it parses the dependent value sets first.
+ * @param valueSets {ValueSet[]}
+ * @return {ValueSet[]}
+ */
+function sortValueSetDependencies(valueSets) {
+    var ret = [];
+
+    function addValueSet(valueSetUrl) {
+        var foundValueSet = _.find(valueSets, function(nextValueSet) {
+            return nextValueSet.url === valueSetUrl;
+        });
+
+        if (!foundValueSet) {
+            return;
+        }
+
+        if (foundValueSet.compose) {
+            // Add the include value sets before this value set
+            _.each(foundValueSet.compose.include, function(include) {
+                addValueSet(include.valueSet);
+            });
+        }
+
+        if (ret.indexOf(foundValueSet) < 0) {
+            ret.push(foundValueSet);
+        }
+    }
+
+    _.each(valueSets, function(valueSet) {
+        addValueSet(valueSet.url);
+    });
+
+    return ret;
+}
+
+/**
  * Class responsible for parsing StructureDefinition and ValueSet resources into bare-minimum information
  * needed for serialization and validation.
  * @param {boolean} loadCached
@@ -50,6 +89,8 @@ function ParseConformance(loadCached, version) {
     this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
 
     this.version = version || ParseConformance.VERSIONS.R4;
+
+    this._codeSystems = [];
 }
 
 /**
@@ -59,6 +100,20 @@ function ParseConformance(loadCached, version) {
 ParseConformance.VERSIONS = {
     STU3: 'STU3',
     R4: 'R4'
+};
+
+ParseConformance.prototype.loadCodeSystem = function(codeSystem) {
+    if (!codeSystem) {
+        return;
+    }
+
+    var foundCodeSystem = _.find(this._codeSystems, function(nextCodeSystem) {
+        return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
+    });
+
+    if (!foundCodeSystem) {
+        this._codeSystems.push(codeSystem);
+    }
 };
 
 /**
@@ -71,24 +126,49 @@ ParseConformance.prototype.parseBundle = function(bundle) {
         return;
     }
 
-    for (var i = 0; i < bundle.entry.length; i++) {
-        var entry = bundle.entry[i];
-        var resource = entry.resource;
+    var self = this;
 
-        switch (resource.resourceType) {
-            case 'StructureDefinition':
-                // Only parse a few kinds of StructureDefinition resources
-                if (resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type') {
-                    break;
-                }
+    // load code systems
+    _.chain(bundle.entry)
+        .filter(function(entry) {
+            return entry.resource.resourceType === 'CodeSystem';
+        })
+        .each(function(entry) {
+            self.loadCodeSystem(entry.resource);
+        });
 
-                this.parseStructureDefinition(resource);
-                break;
-            case 'ValueSet':
-                this.parseValueSet(resource, bundle);
-                break;
-        }
-    }
+    // parse each value set
+    var valueSets = _.chain(bundle.entry)
+        .filter(function(entry) {
+            return entry.resource.resourceType === 'ValueSet';
+        })
+        .map(function(entry) {
+            return entry.resource;
+        })
+        .value();
+    valueSets = sortValueSetDependencies(valueSets);
+    _.each(valueSets, function(valueSet) {
+        self.parseValueSet(valueSet);
+    });
+
+    // parse structure definitions
+    _.chain(bundle.entry)
+        .filter(function(entry) {
+            if (entry.resource.resourceType !== 'StructureDefinition') {
+                return false;
+            }
+
+            var resource = entry.resource;
+
+            if (resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type') {
+                return false;
+            }
+
+            return true;
+        })
+        .each(function(entry) {
+            self.parseStructureDefinition(entry.resource);
+        });
 }
 
 /**
@@ -186,7 +266,7 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
  * @param {Bundle} bundle A bundle of resources that contains any ValueSet or CodeSystem resources that ValueSet being parsed references
  * @returns {ParseValueSetResponse}
  */
-ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
+ParseConformance.prototype.parseValueSet = function(valueSet) {
     var self = this;
 
     var newValueSet = {
@@ -201,7 +281,7 @@ ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
                 continue;
             }
 
-            var foundSystem = _.find(newValueSet.systmes, function(system) {
+            var foundSystem = _.find(newValueSet.systems, function(system) {
                 return system.uri === contains.system;
             });
 
@@ -221,93 +301,93 @@ ParseConformance.prototype.parseValueSet = function(valueSet, bundle) {
     } else if (valueSet.compose) {
         for (var i = 0; i < valueSet.compose.include.length; i++) {
             var include = valueSet.compose.include[i];
-            var foundSystem = _.find(newValueSet.systems, function (system) {
-                return system.uri === include.system;
-            });
 
-            if (!foundSystem) {
-                foundSystem = {
-                    uri: include.system,
-                    codes: []
-                };
-                newValueSet.systems.push(foundSystem);
-            }
+            if (include.system) {
+                var foundSystem = _.find(newValueSet.systems, function (system) {
+                    return system.uri === include.system;
+                });
 
-            var nextCodes = null;
-
-            if (!include.concept) {
-                if (!bundle) {
-                    return;
+                if (!foundSystem) {
+                    foundSystem = {
+                        uri: include.system,
+                        codes: []
+                    };
+                    newValueSet.systems.push(foundSystem);
                 }
 
                 // Add all codes from the code system
-                var foundCodeSystem = _.find(bundle.entry, function(entry) {
-                    return entry.resource.url === include.system
+                var foundCodeSystem = _.find(this._codeSystems, function(codeSystem) {
+                    return codeSystem.url === include.system;
                 });
 
-                // Couldn't find the code system, won't include it in validation
-                if (!foundCodeSystem) {
-                    return;
+                if (foundCodeSystem) {
+                    var codes = _.map(foundCodeSystem.concept, function (concept) {
+                        return {
+                            code: concept.code,
+                            display: concept.display
+                        };
+                    });
+
+                    foundSystem.codes = foundSystem.codes.concat(codes);
                 }
-
-                foundCodeSystem = foundCodeSystem.resource;
-
-                nextCodes = _.map(foundCodeSystem.concept, function(concept) {
-                    return {
-                        code: concept.code,
-                        display: concept.display
-                    };
-                });
-            } else {
-                nextCodes = _.map(include.concept, function(concept) {
-                    return {
-                        code: concept.code,
-                        display: concept.display
-                    };
-                });
             }
 
-            foundSystem.codes = foundSystem.codes.concat(nextCodes);
+            if (include.valueSet) {
+                var includeValueSet = this.parsedValueSets[include.valueSet];
+
+                if (includeValueSet) {
+                    _.each(includeValueSet.systems, function(includeSystem) {
+                        var foundSystem = _.find(newValueSet.systems, function(nextSystem) {
+                            return nextSystem.uri === includeSystem.uri;
+                        });
+
+                        if (!foundSystem) {
+                            newValueSet.systems.push({
+                                uri: includeSystem.uri,
+                                codes: [].concat(includeSystem.codes)
+                            });
+                        } else {
+                            foundSystem.codes = foundSystem.codes.concat(includeSystem.codes);
+                        }
+                    });
+                }
+            }
+
+            if (include.concept) {
+                var systemUri = include.system || '';
+
+                var foundSystem = _.find(newValueSet.systems, function(nextSystem) {
+                    return nextSystem.uri === systemUri;
+                });
+
+                if (!foundSystem) {
+                    foundSystem = {
+                        uri: systemUri,
+                        codes: []
+                    };
+                    newValueSet.systems.push(foundSystem);
+                }
+
+                var codes = _.map(include.concept, function(concept) {
+                    return {
+                        code: concept.code,
+                        display: concept.display
+                    };
+                });
+
+                foundSystem.codes = foundSystem.codes.concat(codes);
+            }
         }
     }
 
-    self.parsedValueSets[valueSet.url] = newValueSet;
-    return newValueSet;
-}
-
-/**
- * This method is called to ensure that a value set (by its url) is loaded from the core spec
- * @param {string} valueSetUrl The url of the value set
- * @param {Bundle} bundle A bundle that ValueSet is stored in, if the value set is not already loaded into the parser
- * @returns {boolean} Returns true if the value set was found/loaded, otherwise false
- * @private
- */
-ParseConformance.prototype.ensureValueSetLoaded = function(valueSetUrl, bundle) {
-    var self = this;
-
-    if (this.parsedValueSets[valueSetUrl]) {
-        return true;
-    }
-
-    if (!bundle) {
-        return false;
-    }
-
-    var foundValueSetEntry = _.find(bundle.entry, function(entry) {
-        return entry.fullUrl === valueSetUrl;
+    var systemsWithCodes = _.filter(newValueSet.systems, function(system) {
+        return system.codes && system.codes.length > 0;
     });
 
-    if (!foundValueSetEntry) {
-        return false;
+    if (systemsWithCodes.length > 0) {
+        self.parsedValueSets[valueSet.url] = newValueSet;
+        return newValueSet;
     }
-
-    var foundValueSet = foundValueSetEntry.resource;
-
-    if (this.parseValueSet(foundValueSet)) {
-        return true;
-    }
-
-    return false;
 }
 
 /**
@@ -326,10 +406,8 @@ ParseConformance.prototype.populateValueSet = function(element, property) {
 
         if (this.version === ParseConformance.VERSIONS.R4 && binding.valueSet) {
             property._valueSet = binding.valueSet;
-            self.ensureValueSetLoaded(binding.valueSet);
         } else if (this.version === ParseConformance.VERSIONS.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
             property._valueSet = binding.valueSetReference.reference;
-            self.ensureValueSetLoaded(binding.valueSetReference.reference);
         }
     }
 }
