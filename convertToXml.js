@@ -3,6 +3,17 @@ var _ = require('underscore');
 var ParseConformance = require('./parseConformance.js');
 
 /**
+ * A list of properties that should be treated as attributes when serializing to XML.
+ * Key = parent type
+ * Value = property name
+ * @type {obj}
+ */
+var attributeProperties = {
+    'ElementDefinition': 'id',
+    'Extension': 'url'
+};
+
+/**
  * @constructor
  * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
  */
@@ -71,8 +82,9 @@ ConvertToXML.prototype.resourceToXML = function(obj, xmlObj) {
  * @param propertyName
  * @private
  */
-ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName) {
+ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
     var self = this;
+    var isAttribute = attributeProperties[parentPropertyType] === propertyName;
 
     if (!obj || obj[propertyName] === undefined || obj[propertyName] === null) return;
 
@@ -107,8 +119,16 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'dateTime':
             case 'time':
             case 'instant':
+                var actual = !value || !(typeof value === 'string') ?
+                    value :
+                    value
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/\r/g, '&#xD;')
+                        .replace(/\n/g, '&#xA;');
+
                 nextXmlObj.attributes = {
-                    value: value
+                    value: actual
                 };
                 break;
             case 'xhtml':
@@ -131,7 +151,7 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'BackboneElement':
                 for (var x in propertyType._properties) {
                     var nextProperty = propertyType._properties[x];
-                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name);
+                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
                 }
                 break;
             default:
@@ -158,12 +178,19 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
                     console.log('Could not find type ' + propertyType._type);
                 } else {
                     _.each(nextType._properties, function(nextProperty) {
-                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name);
+                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                     });
                 }
         }
 
-        parentXmlObj.elements.push(nextXmlObj);
+        if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
+            if (!parentXmlObj.attributes) {
+                parentXmlObj.attributes = [];
+            }
+            parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
+        } else {
+            parentXmlObj.elements.push(nextXmlObj);
+        }
     }
 
     if (obj[propertyName] && propertyType._multiple) {

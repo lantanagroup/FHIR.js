@@ -19,6 +19,7 @@ var dstu2ConformanceXml = fs.readFileSync('./test/data/dstu2/conformance.xml').t
 var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json').toString();
 var patient1Xml = fs.readFileSync('./test/data/stu3/patient-crucible-1.xml').toString();
 var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toString();
+var bmiProfileXml = fs.readFileSync('./test/data/r4/bmi.profile.xml').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -76,6 +77,10 @@ function assertArray(obj, expectedLength) {
 
 describe('Serialization', function () {
     describe('XML bi-directional', function () {
+        it('should serialize structure definition xml', function() {
+            biDirectionalTest(bmiProfileXml);
+        });
+
         it('should serialize bundle xml', function () {
             biDirectionalTest(bundleTransactionXml);
         });

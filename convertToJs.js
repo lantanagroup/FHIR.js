@@ -158,16 +158,30 @@ ConvertToJS.prototype.findReferenceType = function(relativeType) {
  */
 ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDecimalsWith) {
     var self = this;
-    var xmlProperty = _.filter(xmlObj.elements, function(element) {
+    var xmlElements = _.filter(xmlObj.elements, function(element) {
         return element.name === property._name;
     });
+    var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
+        .filter(function(key) {
+            return key === property._name;
+        })
+        .map(function(key) {
+            return {
+                name: key,
+                type: 'attribute',
+                attributes: { value: xmlObj.attributes[key] }
+            };
+        })
+        .value() : [];
+
+    var xmlProperty = xmlElements.concat(xmlAttributes);
 
     if (!xmlProperty || xmlProperty.length === 0) {
         return;
     }
 
     // If this is a reference type then f
-    if (property._type.startsWith('#')) {
+    if (property._type && property._type.indexOf('#') === 0) {
         var relativeType = this.findReferenceType(property._type);
 
         if (!relativeType) {

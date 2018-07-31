@@ -53,10 +53,7 @@
         <use value="in"/>
         <min value="1"/>
         <max value="1"/>
-        <documentation value="The resource that is to be the *QuestionnaireResponse.subject*. The [[[QuestionnaireResponse]]]
-          instance will reference the provided subject.  In addition, if the *local* parameter
-     is      set to true, server information about the specified subject will be used to populate
-     the      instance."/>
+        <documentation value="The resource that is to be the *QuestionnaireResponse.subject*. The [[[QuestionnaireResponse]]]&#xD;&#xA; instance will reference the provided subject.  In addition, if the *local* parameter&#xD;&#xA;&#xD;&#xA; is      set to true, server information about the specified subject will be used to populate&#xD;&#xA; the      instance."/>
         <type value="Reference"/>
     </parameter>
     <parameter>
@@ -64,8 +61,7 @@
         <use value="in"/>
         <min value="0"/>
         <max value="1"/>
-        <documentation value="If the *local* parameter is set to true, server information about the specified subject
-     will be used to populate the instance."/>
+        <documentation value="If the *local* parameter is set to true, server information about the specified subject&#xD;&#xA; will be used to populate the instance."/>
         <type value="Reference"/>
     </parameter>
     <parameter>

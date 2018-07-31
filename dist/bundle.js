@@ -6024,16 +6024,30 @@ ConvertToJS.prototype.findReferenceType = function(relativeType) {
  */
 ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDecimalsWith) {
     var self = this;
-    var xmlProperty = _.filter(xmlObj.elements, function(element) {
+    var xmlElements = _.filter(xmlObj.elements, function(element) {
         return element.name === property._name;
     });
+    var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
+        .filter(function(key) {
+            return key === property._name;
+        })
+        .map(function(key) {
+            return {
+                name: key,
+                type: 'attribute',
+                attributes: { value: xmlObj.attributes[key] }
+            };
+        })
+        .value() : [];
+
+    var xmlProperty = xmlElements.concat(xmlAttributes);
 
     if (!xmlProperty || xmlProperty.length === 0) {
         return;
     }
 
     // If this is a reference type then f
-    if (property._type.startsWith('#')) {
+    if (property._type && property._type.indexOf('#') === 0) {
         var relativeType = this.findReferenceType(property._type);
 
         if (!relativeType) {
@@ -8395,6 +8409,17 @@ var _ = __webpack_require__(1);
 var ParseConformance = __webpack_require__(2);
 
 /**
+ * A list of properties that should be treated as attributes when serializing to XML.
+ * Key = parent type
+ * Value = property name
+ * @type {obj}
+ */
+var attributeProperties = {
+    'ElementDefinition': 'id',
+    'Extension': 'url'
+};
+
+/**
  * @constructor
  * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
  */
@@ -8463,8 +8488,9 @@ ConvertToXML.prototype.resourceToXML = function(obj, xmlObj) {
  * @param propertyName
  * @private
  */
-ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName) {
+ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
     var self = this;
+    var isAttribute = attributeProperties[parentPropertyType] === propertyName;
 
     if (!obj || obj[propertyName] === undefined || obj[propertyName] === null) return;
 
@@ -8499,8 +8525,16 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'dateTime':
             case 'time':
             case 'instant':
+                var actual = !value || !(typeof value === 'string') ?
+                    value :
+                    value
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/\r/g, '&#xD;')
+                        .replace(/\n/g, '&#xA;');
+
                 nextXmlObj.attributes = {
-                    value: value
+                    value: actual
                 };
                 break;
             case 'xhtml':
@@ -8523,7 +8557,7 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'BackboneElement':
                 for (var x in propertyType._properties) {
                     var nextProperty = propertyType._properties[x];
-                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name);
+                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
                 }
                 break;
             default:
@@ -8550,12 +8584,19 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
                     console.log('Could not find type ' + propertyType._type);
                 } else {
                     _.each(nextType._properties, function(nextProperty) {
-                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name);
+                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                     });
                 }
         }
 
-        parentXmlObj.elements.push(nextXmlObj);
+        if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
+            if (!parentXmlObj.attributes) {
+                parentXmlObj.attributes = [];
+            }
+            parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
+        } else {
+            parentXmlObj.elements.push(nextXmlObj);
+        }
     }
 
     if (obj[propertyName] && propertyType._multiple) {
