@@ -20,6 +20,7 @@ var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json')
 var patient1Xml = fs.readFileSync('./test/data/stu3/patient-crucible-1.xml').toString();
 var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toString();
 var bmiProfileXml = fs.readFileSync('./test/data/r4/bmi.profile.xml').toString();
+var vsSmokeStatus = fs.readFileSync('./test/data/r4/ValueSet-us-core-observation-ccdasmokingstatus.xml').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -51,9 +52,9 @@ function biDirectionalTest(xml) {
     var lastObj = fhir.xmlToObj(nextXml);
     var lastXml = fhir.objToXml(lastObj);
 
-    var cleanInXml = cleanXml(xml);
-    var cleanOutXml = cleanXml(lastXml);
-    assert(cleanInXml === cleanOutXml);
+    var cleanXml1 = cleanXml(xml);          // in
+    var cleanXml2 = cleanXml(lastXml);      // out
+    assert.equal(cleanXml2, cleanXml1);
 }
 
 function checkJsonHasNumber(json, expectedNumber) {
@@ -76,7 +77,64 @@ function assertArray(obj, expectedLength) {
 }
 
 describe('Serialization', function () {
+    var fhir = new Fhir();
+
+    describe('escaping', function() {
+        it('should escape invalid xml characters when serializing to XML', function() {
+            var valueSet = {
+                resourceType: 'ValueSet',
+                text: {
+                    div: '<div>This is & a test</div>'
+                },
+                identifier: [{
+                    value: 'value & value < value > value'
+                }]
+            };
+
+            try {
+                fhir.objToXml(valueSet);
+                assert.fail('Expected objToXml to throw an error about incorrectly formatted xhtml');
+            } catch (ex) {
+                if (!ex.message.startsWith('The embedded xhtml')) {
+                    assert.fail('Expected objToXml to throw a different error');
+                }
+            }
+
+            valueSet.text.div = '<div>This is &amp; a test</div>';
+            var xml = fhir.objToXml(valueSet);
+            assert(xml.indexOf('value &amp; value &lt; value &gt; value') > 0);
+            assert(xml.indexOf('<text><div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div></text>') > 0);
+        });
+
+        it('should un-escape invalid xml characters when serializing to an object', function() {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?><ValueSet xmlns="http://hl7.org/fhir"><text><div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div></text><identifier><value value="value &amp; value &lt; value &gt; value"/></identifier></ValueSet>';
+            var obj = fhir.xmlToObj(xml);
+            assert.equal(obj.identifier[0].value, 'value & value < value > value');
+            assert.equal(obj.text.div, '<div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div>');
+        });
+
+        it('should escape invalid xml characters in the xhtml', function() {
+            var obj = fhir.xmlToObj(vsSmokeStatus);
+            var expectedXhtml = '<div xmlns="http://www.w3.org/1999/xhtml"><h2>Smoking Status</h2><div><p>This value set\n' +
+                '          indicates the current smoking status of a patient.</p></div><p><b>Copyright Statement:</b> This value set includes content from SNOMED CT, which is\n' +
+                '        copyright 2002+ International Health Terminology Standards Development Organisation\n' +
+                '        (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT\n' +
+                '        is not covered by this agreement</p><p>This value set includes codes from the following code\n' +
+                '        systems:</p><ul><li>Include these codes as defined in <a href="http://www.snomed.org/"><code>http://snomed.info/sct</code></a><table class="none"><tr><td style="white-space:nowrap"><b>Code</b></td><td><b>Display</b></td></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=449868002">449868002</a></td><td>Current every day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428041000124106">428041000124106</a></td><td>Current some day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=8517006">8517006</a></td><td>Former smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266919005">266919005</a></td><td>Never smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=77176002">77176002</a></td><td>Smoker, current status unknown</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266927001">266927001</a></td><td>Unknown if ever smoked</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428071000124103">428071000124103</a></td><td>Current Heavy tobacco smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428061000124105">428061000124105</a></td><td>Current Light tobacco smoker</td><td/></tr></table></li></ul></div>';
+            assert.equal(obj.text.div, expectedXhtml);
+        });
+
+        it('should handle already-escaped values in an object', function() {
+            var obj = {"resourceType":"Observation","id":"f002","text":{"status":"generated","div":"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b> Generated Narrative with Details</b></p><p><b> id</b> : f002</p><p><b> identifier</b> : 6324 (OFFICIAL)</p><p><b> status</b> : final</p><p><b> code</b> : Base excess in Blood by calculation <span> (Details : {LOINC code '11555-0' = 'Base excess in Blood by calculation', given as 'Base\r\n           excess in Blood by calculation'})</span></p><p><b> subject</b> : <a> P. van de Heuvel</a></p><p><b> effective</b> : 02/04/2013 10:30:10 AM --&gt; 05/04/2013 10:30:10 AM</p><p><b> issued</b> : 03/04/2013 3:30:10 PM</p><p><b> performer</b> : <a> A. Langeveld</a></p><p><b> value</b> : 12.6 mmol/l<span>  (Details: UCUM code mmol/L = 'mmol/L')</span></p><p><b> interpretation</b> : High <span> (Details : {http://hl7.org/fhir/v2/0078 code 'H' = 'High', given as 'High'})</span></p><h3> ReferenceRanges</h3><table><tr><td> -</td><td><b> Low</b></td><td><b> High</b></td></tr><tr><td> *</td><td> 7.1 mmol/l<span>  (Details: UCUM code mmol/L = 'mmol/L')</span></td><td> 11.2 mmol/l<span>  (Details: UCUM code mmol/L = 'mmol/L')</span></td></tr></table></div>"},"identifier":[{"use":"official","system":"http://www.bmc.nl/zorgportal/identifiers/observations","value":"6324"}],"status":"final","code":{"coding":[{"system":"http://loinc.org","code":"11555-0","display":"Base excess in Blood by calculation"}]},"subject":{"reference":"Patient/f001","display":"P. van de Heuvel"},"effectivePeriod":{"start":"2013-04-02T10:30:10+01:00","end":"2013-04-05T10:30:10+01:00"},"issued":"2013-04-03T15:30:10+01:00","performer":[{"reference":"Practitioner/f005","display":"A. Langeveld"}],"valueQuantity":{"value":"-1.00","unit":"mmol/l","system":"http://unitsofmeasure.org","code":"mmol/L"},"interpretation":{"coding":[{"system":"http://hl7.org/fhir/v2/0078","code":"H","display":"High"}]},"referenceRange":[{"low":{"value":"7.1","unit":"mmol/l","system":"http://unitsofmeasure.org","code":"mmol/L"},"high":{"value":"11.2","unit":"mmol/l","system":"http://unitsofmeasure.org","code":"mmol/L"}}]};
+            var xml = fhir.objToXml(obj);
+        });
+    });
+
     describe('XML bi-directional', function () {
+        it('should serialize value set xml', function() {
+            biDirectionalTest(vsSmokeStatus);
+        });
+
         it('should serialize structure definition xml', function() {
             biDirectionalTest(bmiProfileXml);
         });
@@ -97,9 +155,15 @@ describe('Serialization', function () {
             biDirectionalTest(medicationStatementXml);
         });
 
-        it('should serialize observation xml', function () {
+        it('should serialize observation 1 xml', function () {
             biDirectionalTest(observationSlightlyDehydratedXml);
+        });
+
+        it('should serialize observation 2 xml', function () {
             biDirectionalTest(observationF002excessNegativeXml);
+        });
+
+        it('should serialize observation 3 xml', function () {
             biDirectionalTest(observationF002excessXml);
         });
 

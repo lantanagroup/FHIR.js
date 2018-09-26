@@ -1,6 +1,7 @@
 var convert = require('xml-js');
 var _ = require('underscore');
 var ParseConformance = require('./parseConformance.js');
+var XmlHelper = require('./xmlHelper');
 
 /**
  * @constructor
@@ -246,7 +247,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
                 break;
             case 'xhtml':
                 if (value.elements && value.elements.length > 0) {
-                    var div = convert.js2xml({elements: [value]});
+                    var div = convert.js2xml({elements: [XmlHelper.escapeInvalidCharacters(value)]});
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(div);
                     } else {
@@ -325,7 +326,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
         if (surroundDecimalsWith) {
             return {
                 value: value,
-                toJSON() {
+                toJSON: function() {
                     // surrounding str used as a marker to remove quotes to turn this
                     // into a JSON number as per FHIR spec..
                     return surroundDecimalsWith.str + value + surroundDecimalsWith.str;

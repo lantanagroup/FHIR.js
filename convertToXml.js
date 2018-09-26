@@ -1,6 +1,7 @@
 var convert = require('xml-js');
 var _ = require('underscore');
 var ParseConformance = require('./parseConformance.js');
+var XmlHelper = require('./xmlHelper');
 
 /**
  * A list of properties that should be treated as attributes when serializing to XML.
@@ -92,6 +93,15 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
         return property._name == propertyName;
     });
 
+    function xmlEscapeString(value) {
+        return value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\r/g, '&#xD;')
+            .replace(/\n/g, '&#xA;');
+    }
+
     function pushProperty(value) {
         if (value === undefined || value === null) return;
 
@@ -119,13 +129,7 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'dateTime':
             case 'time':
             case 'instant':
-                var actual = !value || !(typeof value === 'string') ?
-                    value :
-                    value
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;')
-                        .replace(/\r/g, '&#xD;')
-                        .replace(/\n/g, '&#xA;');
+                var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
 
                 nextXmlObj.attributes = {
                     value: actual
@@ -133,7 +137,15 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
                 break;
             case 'xhtml':
                 if (propertyName === 'div') {
-                    var divXmlObj = convert.xml2js(value);
+                    var divXmlObj;
+
+                    try {
+                        divXmlObj = convert.xml2js(value);
+                        divXmlObj = XmlHelper.escapeInvalidCharacters(divXmlObj);
+                    } catch (ex) {
+                        throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
+                    }
+
                     nextXmlObj.attributes = {
                         'xmlns': 'http://www.w3.org/1999/xhtml'
                     };
