@@ -20,7 +20,8 @@ var dstu2ConformanceJson = fs.readFileSync('./test/data/dstu2/conformance.json')
 var patient1Xml = fs.readFileSync('./test/data/stu3/patient-crucible-1.xml').toString();
 var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toString();
 var bmiProfileXml = fs.readFileSync('./test/data/r4/bmi.profile.xml').toString();
-var vsSmokeStatus = fs.readFileSync('./test/data/r4/ValueSet-us-core-observation-ccdasmokingstatus.xml').toString();
+var vsSmokeStatusXml = fs.readFileSync('./test/data/r4/ValueSet-us-core-observation-ccdasmokingstatus.xml').toString();
+var communicationJson = fs.readFileSync('./test/data/stu3/communication.json').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -114,7 +115,7 @@ describe('Serialization', function () {
         });
 
         it('should escape invalid xml characters in the xhtml', function() {
-            var obj = fhir.xmlToObj(vsSmokeStatus);
+            var obj = fhir.xmlToObj(vsSmokeStatusXml);
             var expectedXhtml = '<div xmlns="http://www.w3.org/1999/xhtml"><h2>Smoking Status</h2><div><p>This value set\n' +
                 '          indicates the current smoking status of a patient.</p></div><p><b>Copyright Statement:</b> This value set includes content from SNOMED CT, which is\n' +
                 '        copyright 2002+ International Health Terminology Standards Development Organisation\n' +
@@ -132,7 +133,7 @@ describe('Serialization', function () {
 
     describe('XML bi-directional', function () {
         it('should serialize value set xml', function() {
-            biDirectionalTest(vsSmokeStatus);
+            biDirectionalTest(vsSmokeStatusXml);
         });
 
         it('should serialize structure definition xml', function() {
@@ -302,6 +303,48 @@ describe('Serialization', function () {
     });
 
     describe('JS one-way', function () {
+        it('should convert .id to @id', function() {
+            var stu3Parser = new Fhir.ParseConformance(false, Fhir.ParseConformance.VERSIONS.STU3);
+            stu3Parser.parseBundle(require('./data/stu3/schema/profiles-resources.json'));
+            stu3Parser.parseBundle(require('./data/stu3/schema/profiles-types.json'));
+            var stu3Fhir = new Fhir(stu3Parser);
+            var xmlDoc = stu3Fhir.jsonToXml(communicationJson);
+            var xml = xml2js(xmlDoc);
+
+            assert(xml);
+            assert(xml.elements);
+            assert.equal(xml.elements.length, 1);
+
+            const resourceEle = xml.elements[0];
+            assert(resourceEle.elements);
+
+            const idEle = resourceEle.elements[0];
+            assert(idEle.attributes);
+            assert.equal('id', idEle.name);                                                 // Communication.id
+            assert.equal('rr-communication-single-single', idEle.attributes.value);
+
+            const payload1Ele = resourceEle.elements[11];
+            assert(payload1Ele.elements);
+            assert(payload1Ele.attributes);
+            assert.equal('reportability-response-summary', payload1Ele.attributes.id);      // payload[1]/@id
+
+            const payload2Ele = resourceEle.elements[12];
+            assert(payload2Ele.elements);
+            assert(payload2Ele.attributes);
+            assert.equal('relevant-reportable-condition', payload2Ele.attributes.id);       // payload[2]/@id
+
+            const payload3Ele = resourceEle.elements[13];
+            assert(payload3Ele.elements);
+            assert(payload3Ele.attributes);
+            assert.equal('eicr-information', payload3Ele.attributes.id);
+            assert(payload3Ele.elements);
+            assert.equal(3, payload3Ele.elements.length);
+
+            const extension1Ele = payload3Ele.elements[0];
+            assert(extension1Ele.attributes);
+            assert.equal('eicr-processing-status', extension1Ele.attributes.id);
+        });
+
         it('should create XML Bundle from bundle-transaction.json', function () {
             var bundleTransaction = JSON.parse(bundleTransactionJson);
             var fhir = new Fhir();

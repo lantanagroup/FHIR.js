@@ -10,7 +10,6 @@ var XmlHelper = require('./xmlHelper');
  * @type {obj}
  */
 var attributeProperties = {
-    'ElementDefinition': 'id',
     'Extension': 'url'
 };
 
@@ -85,7 +84,9 @@ ConvertToXML.prototype.resourceToXML = function(obj, xmlObj) {
  */
 ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
     var self = this;
-    var isAttribute = attributeProperties[parentPropertyType] === propertyName;
+
+    // id without a parentPropertyType means it is an id of a resource, which would produce an <id> element
+    var isAttribute = (propertyName === 'id' && !!parentPropertyType) || attributeProperties[parentPropertyType] === propertyName;
 
     if (!obj || obj[propertyName] === undefined || obj[propertyName] === null) return;
 

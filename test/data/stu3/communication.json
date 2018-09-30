@@ -1,0 +1,103 @@
+{
+  "resourceType": "Communication",
+  "id": "rr-communication-single-single",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2018-09-29T16:45:08.719-04:00",
+    "profile": [
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication"
+    ]
+  },
+  "text": {
+    "status": "additional",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><br/><br/><p><b>Subject:</b></p><p>Public Health Reporting Communication: one or more conditions are reportable, or may\n      be reportable, to public health.\n    </p><p><b>Summary:</b></p><p>Your organization electronically submitted an initial case report to determine if\n      reporting to public health is needed for a patient. \"Zika virus disease (disorder)\"\n      is reportable to \"State Department of Health\". An initial case report was sent to\n      \"State Department of Health\". Additional information may be required for this report.<br/></p><ul><li><p>Local mosquito-borne Zika virus transmission was reported in your area. Increased watchfulness for symptoms of Zika virus in your patients is warranted. (Immediate action requested)</p></li><li><p>Additional information for the required reporting of Zika must be submitted to State Department of Health immediately. This additional information can be submitted here. (\n            <a href=\"http://statedepartmentofhealth.gov/epi/disease/zika/Supplemental_data_form.pdf\">Link</a>- Immediate action required)</p></li><li><p>Zika has particular risks for pregnant women. Follow-up guidance for pregnant women and couples who are planning pregnancy. (\n            <a href=\"http://statedepartmentofhealth.gov/epi/diseases/zika/Zika_Virus_Testing_Guidance.pdf\">Link</a>- Immediate action requested)</p></li></ul></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://acme.org/identifiers",
+      "value": "RR12346"
+    }
+  ],
+  "status": "completed",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "88085-6",
+          "display": "Reportability Response Report Public Health"
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "reference": "Patient/ecr-patient-eve-everywoman",
+    "display": "Eve Everywoman"
+  },
+  "recipient": [
+    {
+      "reference": "Practitioner/ecr-practitioner-henry-seven.xml",
+      "display": "Henry Seven, MD"
+    }
+  ],
+  "topic": [
+    {
+      "display": "Public Health Reporting Communication: one or more conditions are reportable, or may be reportable, to public health."
+    }
+  ],
+  "sent": "2018-07-19T04:09:06Z",
+  "sender": {
+    "reference": "Organization/ecr-organization-health-authority-west",
+    "display": "Health Authority West, 7777 Health Authority Drive, Ann Arbor MI, 99999"
+  },
+  "payload": [
+    {
+      "id": "reportability-response-summary",
+      "contentString": "Your organization electronically submitted an initial case report to determine if reporting to public health is needed for a patient. 'Zika virus disease (disorder)' is reportable to 'State Department of Health'. An initial case report was sent to 'State Department of Health'. Additional information may be required for this report."
+    },
+    {
+      "id": "relevant-reportable-condition",
+      "contentReference": {
+        "reference": "PlanDefinition/rr-plan-zika-state-department-of-health"
+      }
+    },
+    {
+      "id": "eicr-information",
+      "extension": [
+        {
+          "id": "eicr-processing-status",
+          "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/extension-rr-eicr-processing-status",
+          "extension": [
+            {
+              "url": "eICRProcessingStatus",
+              "valueReference": {
+                "reference": "Observation/rr-eicr-processing-status",
+                "display": "eICR was processed - with a warning"
+              }
+            },
+            {
+              "url": "eicrValidationOutput",
+              "valueAttachment": {
+                "contentType": "text/html",
+                "data": "PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiPg0KICAgICAgICAgIDxoZWFkPg0KICAgICAgICAgICAgPHRpdGxlPiBSZXN1bHRzIDwvdGl0bGU+DQogICAgICAgICAgICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPiA8L3N0eWxlPg0KICAgICAgICAgIDwvaGVhZD4NCiAgICAgICAgICA8Ym9keT4NCiAgICAgICAgICAgIDx0YWJsZT4NCiAgICAgICAgICAgICAgPHRoZWFkPg0KICAgICAgICAgICAgICAgIDx0cj4NCiAgICAgICAgICAgICAgICAgIDx0aD5TZXZlcml0eTwvdGg+DQogICAgICAgICAgICAgICAgICA8dGg+RGVzY3JpcHRpb248L3RoPg0KICAgICAgICAgICAgICAgICAgPHRoPkZpbGU8L3RoPg0KICAgICAgICAgICAgICAgICAgPHRoPkxvY2F0aW9uPC90aD4NCiAgICAgICAgICAgICAgICA8L3RyPg0KICAgICAgICAgICAgICA8L3RoZWFkPg0KICAgICAgICAgICAgICA8dGJvZHk+DQogICAgICAgICAgICAgICAgPHRyPg0KICAgICAgICAgICAgICAgICAgPHRkPmVycm9yPC90ZD4NCiAgICAgICAgICAgICAgICAgIDx0ZD5TSE9VTEQgY29udGFpbiB6ZXJvIG9yIG9uZSBbMC4uMV0gc2V0SWQgKENPTkY6MTA5OC0zMjc1MikuPC90ZD4NCiAgICAgICAgICAgICAgICAgIDx0ZD5DREFSMl9JR19QSENSX1IyX1JSX0QxXzIwMTdPQ1RfU0FNUExFLnhtbDwvdGQ+DQogICAgICAgICAgICAgICAgICA8dGQ+DQogICAgICAgICAgICAgICAgICAgIDxwPlN0YXJ0IGxpbmUgNDE1OjcwPC9wPg0KICAgICAgICAgICAgICAgICAgPC90ZD4NCiAgICAgICAgICAgICAgICA8L3RyPg0KICAgICAgICAgICAgICAgIDx0cj4NCiAgICAgICAgICAgICAgICAgIDx0ZD5lcnJvcjwvdGQ+DQogICAgICAgICAgICAgICAgICA8dGQ+U0hPVUxEIGNvbnRhaW4gemVybyBvciBvbmUgWzAuLjFdIHZlcnNpb25OdW1iZXIgKENPTkY6MTA5OC0zMjc1MykuPC90ZD4NCiAgICAgICAgICAgICAgICAgIDx0ZD5DREFSMl9JR19QSENSX1IyX1JSX0QxXzIwMTdPQ1RfU0FNUExFLnhtbDwvdGQ+DQogICAgICAgICAgICAgICAgICA8dGQ+DQogICAgICAgICAgICAgICAgICAgIDxwPlN0YXJ0IGxpbmUgNDE1OjcwPC9wPg0KICAgICAgICAgICAgICAgICAgPC90ZD4NCiAgICAgICAgICAgICAgICA8L3RyPg0KICAgICAgICAgICAgICA8L3Rib2R5Pg0KICAgICAgICAgICAgPC90YWJsZT4NCiAgICAgICAgICA8L2JvZHk+DQogICAgICAgIDwvaHRtbD4="
+              }
+            }
+          ]
+        },
+        {
+          "id": "manually-initiated-eicr",
+          "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/extension-rr-manually-initiated-eicr",
+          "valueBoolean": false
+        }
+      ],
+      "contentReference": {
+        "reference": "Composition/eicr-composition-zika",
+        "identifier": {
+          "system": "http://acme.org/EICR-identifier",
+          "value": "EICR123456"
+        },
+        "display": "eICR_Filename.xml"
+      }
+    }
+  ]
+}
