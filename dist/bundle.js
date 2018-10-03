@@ -5910,9 +5910,10 @@ function ConvertToJS(parser) {
 ConvertToJS.prototype.convert = function(xml) {
     var self = this;
     var xmlObj = convert.xml2js(xml);
+    const firstElement = _.find(xmlObj.elements, (element) => element.type === 'element');
 
-    if (xmlObj.elements.length === 1) {
-        return self.resourceToJS(xmlObj.elements[0], null);
+    if (firstElement) {
+        return self.resourceToJS(firstElement, null);
     }
 };
 
