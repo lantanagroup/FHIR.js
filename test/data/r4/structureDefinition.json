@@ -27,7 +27,7 @@
     }]
   }],
   "description" : "FHIR Body Mass Index (BMI) Profile",
-  "fhirVersion" : "3.4.0",
+  "fhirVersion" : "3.5.0",
   "mapping" : [{
     "identity" : "workflow",
     "uri" : "http://hl7.org/fhir/workflow",

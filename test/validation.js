@@ -33,9 +33,9 @@ describe('Validation', function () {
         it('should validate R4 structure definition', function() {
             var structureDefinition = JSON.parse(r4StructureDefinitionJson);
             var results = fhir.validate(structureDefinition);
-            assert(results.valid === true);
+            assert.equal(results.valid, true);
             assert(results.messages);
-            assert(results.messages.length === 0);
+            assert.equal(results.messages.length, 0);
         });
 
         it('should validate STU3 structure definition, erroring on representation', function() {
@@ -134,22 +134,22 @@ describe('Validation', function () {
                 return message.severity === 'error';
             });
 
-            assert(errors.length === 1);
-            assert(errors[0].location === 'Bundle/type');
-            assert(errors[0].message === 'Missing property');
-            assert(errors[0].resourceId === 'father');
-            assert(errors[0].severity === 'error');
+            assert.equal(errors.length, 1);
+            assert.equal(errors[0].location, 'Bundle/type');
+            assert.equal(errors[0].message, 'Missing property');
+            assert.equal(errors[0].resourceId, 'father');
+            assert.equal(errors[0].severity, 'error');
         });
 
         it('should pass medication statement XML', function () {
             var results = fhir.validate(medicationStatementXml);
             assert(results);
-            assert(results.valid === true);
+            assert.equal(results.valid, true);
 
             var warnings = _.filter(results.messages, function(message) {
                 return message.severity === 'warning';
             });
-            assert(warnings.length === 1);
+            assert.equal(warnings.length, 1);
         });
 
         it('should fail JS bundle with incorrect type', function () {
@@ -159,21 +159,21 @@ describe('Validation', function () {
             };
             var results = fhir.validate(bundle);
             assert(results);
-            assert(results.valid === false);
-            assert(results.messages.length === 1);
-            assert(results.messages[0].location === 'Bundle.type');
-            assert(results.messages[0].message === 'Code "test" not found in value set');
-            assert(results.messages[0].resourceId === '#initial');
-            assert(results.messages[0].severity === 'error');
+            assert.equal(results.valid, false);
+            assert.equal(results.messages.length, 1);
+            assert.equal(results.messages[0].location, 'Bundle.type');
+            assert.equal(results.messages[0].message, 'Code "test" not found in value set');
+            assert.equal(results.messages[0].resourceId, '#initial');
+            assert.equal(results.messages[0].severity, 'error');
         });
 
         it('should pass condition JS', function () {
             var condition2 = JSON.parse(condition2Json);
             var results = fhir.validate(condition2);
             assert(results);
-            assert(results.valid === true);
+            assert.equal(results.valid, true);
             assert(results.messages);
-            assert(results.messages.length === 0);
+            assert.equal(results.messages.length, 0);
         });
 
         it('should fail with unexpected properties', function () {
@@ -262,7 +262,7 @@ describe('Validation', function () {
             assert.equal(result.valid, true);
 
             assert(result.messages);
-            assert.equal(result.messages.length, 2);
+            assert.equal(result.messages.length, 1);
         });
     });
 });

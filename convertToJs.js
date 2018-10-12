@@ -149,7 +149,7 @@ ConvertToJS.prototype.findReferenceType = function(relativeType) {
         }
     }
 
-    return current;
+    return JSON.parse(JSON.stringify(current));
 }
 
 /**
@@ -190,6 +190,9 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
             throw new Error('Could not find reference to element definition ' + relativeType);
         }
 
+        relativeType._multiple = property._multiple;
+        relativeType._required = property._required;
+
         property = relativeType;
     }
 
@@ -203,6 +206,7 @@ ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDec
             case 'id':
             case 'markdown':
             case 'uri':
+            case 'url':
             case 'canonical':
             case 'oid':
             case 'date':

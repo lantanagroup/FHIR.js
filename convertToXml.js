@@ -119,6 +119,7 @@ ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, p
             case 'id':
             case 'markdown':
             case 'uri':
+            case 'url':
             case 'canonical':
             case 'oid':
             case 'boolean':

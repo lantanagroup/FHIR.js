@@ -9,7 +9,7 @@ var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.
 var documentBundleXml = fs.readFileSync('./test/data/r4/document-example-dischargesummary.xml').toString();
 var questionnaireResponseJson = fs.readFileSync('./test/data/r4/QuestionnaireResponse_01.json').toString();
 var questionnaireResponseXml = fs.readFileSync('./test/data/r4/QuestionnaireResponse_01.xml').toString();
-var condition2Xml = fs.readFileSync('./test/data/stu3/condition-example2.xml').toString();
+var condition2Xml = fs.readFileSync('./test/data/r4/condition-example2.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/r4/medicationStatement.xml').toString();
 var observationF002excessXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess.xml').toString();
 var observationF002excessNegativeXml = fs.readFileSync('./test/data/stu3/observation-example-f002-excess-negative.xml').toString();
@@ -22,6 +22,7 @@ var patient2Xml = fs.readFileSync('./test/data/stu3/patient-crucible-2.xml').toS
 var bmiProfileXml = fs.readFileSync('./test/data/r4/bmi.profile.xml').toString();
 var vsSmokeStatusXml = fs.readFileSync('./test/data/r4/ValueSet-us-core-observation-ccdasmokingstatus.xml').toString();
 var communicationJson = fs.readFileSync('./test/data/stu3/communication.json').toString();
+var implementationGuideXml = fs.readFileSync('./test/data/r4/implementationGuide.xml').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -142,6 +143,10 @@ describe('Serialization', function () {
 
         it('should serialize bundle xml', function () {
             biDirectionalTest(bundleTransactionXml);
+        });
+
+        it('should serialize implementation guide xml', function() {
+            biDirectionalTest(implementationGuideXml);
         });
 
         it('should serialize document xml', function () {

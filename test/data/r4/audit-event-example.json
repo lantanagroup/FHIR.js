@@ -25,7 +25,7 @@
       "type": {
         "coding": [
           {
-            "system": "http://hl7.org/fhir/extra-security-role-type",
+            "system": "http://terminology.hl7.org/CodeSystem/extra-security-role-type",
             "code": "humanuser",
             "display": "human user"
           }
@@ -36,8 +36,10 @@
           "text": "Service User (Logon)"
         }
       ],
-      "userId": {
-        "value": "Grahame"
+      "who": {
+        "identifier": {
+          "value": "Grahame"
+        }
       },
       "requestor": false,
       "network": {
@@ -55,8 +57,11 @@
           }
         ]
       },
-      "userId": {
-        "value": "2.16.840.1.113883.4.2|2.16.840.1.113883.4.2"
+      "who": {
+        "identifier": {
+          "system": "urn:oid:2.16.840.1.113883.4.2",
+          "value": "2.16.840.1.113883.4.2"
+        }
       },
       "altId": "6580",
       "requestor": false,
@@ -68,8 +73,8 @@
   ],
   "source": {
     "site": "Development",
-    "identifier": {
-      "value": "Grahame's Laptop"
+    "observer": {
+      "display": "Grahame's Laptop"
     },
     "type": [
       {
@@ -81,30 +86,32 @@
   },
   "entity": [
     {
-      "identifier": {
-        "type": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/identifier-type",
-              "code": "SNO"
-            }
-          ],
-          "text": "Dell Serial Number"
-        },
-        "value": "ABCDEF"
+      "what": {
+        "identifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "SNO"
+              }
+            ],
+            "text": "Dell Serial Number"
+          },
+          "value": "ABCDEF"
+        }
       },
       "type": {
-        "system": "http://hl7.org/fhir/object-type",
+        "system": "http://terminology.hl7.org/CodeSystem/audit-entity-type",
         "code": "4",
         "display": "Other"
       },
       "role": {
-        "system": "http://hl7.org/fhir/object-role",
+        "system": "http://terminology.hl7.org/CodeSystem/object-role",
         "code": "4",
         "display": "Domain Resource"
       },
       "lifecycle": {
-        "system": "http://hl7.org/fhir/dicom-audit-lifecycle",
+        "system": "http://terminology.hl7.org/CodeSystem/dicom-audit-lifecycle",
         "code": "6",
         "display": "Access / Use"
       },

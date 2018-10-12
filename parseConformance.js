@@ -204,7 +204,7 @@ ParseConformance.prototype.parseStructureDefinition = function(structureDefiniti
             if (element.type.length === 1) {
                 var newProperty = {
                     _name: elementId,
-                    _type: element.type[0].code,
+                    _type: element.type[0].code || 'string',
                     _multiple: element.max !== '1',
                     _required: element.min === 1
                 };

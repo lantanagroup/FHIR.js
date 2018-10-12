@@ -133,10 +133,14 @@
         <system value="http://www.bmc.nl/portal/medstatements"/>
         <value value="12345689"/>
     </identifier>
-    <status value="active"/>
+    <status>
+        <coding>
+            <code value="active"/>
+        </coding>
+    </status>
     <category>
         <coding>
-            <system value="http://hl7.org/fhir/medication-statement-category"/>
+            <system value="http://terminology.hl7.org/CodeSystem/medication-statement-category"/>
             <code value="inpatient"/>
             <display value="Inpatient"/>
         </coding>
