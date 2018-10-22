@@ -6,15 +6,16 @@ var _ = require('underscore');
 var assert = require('assert');
 
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
-var stu3StructureDefinitionJson = fs.readFileSync('./test/data/stu3/structureDefinition.json').toString('utf8');
-var r4StructureDefinitionJson = fs.readFileSync('./test/data/r4/structureDefinition.json').toString('utf8');
+var stu3StructureDefinitionJson = fs.readFileSync('./test/data/stu3/structureDefinition.json').toString();
+var r4StructureDefinitionJson = fs.readFileSync('./test/data/r4/structureDefinition.json').toString();
 var badDocumentBundleXml = fs.readFileSync('./test/data/r4/bad-document-example-dischargesummary.xml').toString();
 var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/r4/medicationStatement.xml').toString();
 var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json').toString();
-var immunizationExampleJson = fs.readFileSync('./test/data/r4/immunization-example.json').toString('utf8');
-var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.json').toString('utf8');
+var immunizationExampleJson = fs.readFileSync('./test/data/r4/immunization-example.json').toString();
+var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.json').toString();
+var implementationGuideJson = fs.readFileSync('./test/data/r4/implementationGuide.json').toString();
 
 describe('Validation', function () {
     describe('JS', function () {
@@ -43,9 +44,9 @@ describe('Validation', function () {
             });
             assert(results.valid === true);
             assert(results.messages);
-            assert.equal(results.messages.length, 9);
+            assert.equal(results.messages.length, 10);
             assert.equal(validateResourceCount, 1);
-            assert.equal(validatePropertyCount, 597);
+            assert.equal(validatePropertyCount, 606);
         });
 
         it('should validate R4 structure definition', function() {
@@ -69,7 +70,7 @@ describe('Validation', function () {
             assert(results.messages);
             assert.equal(results.messages.length, 0);
             assert.equal(validateResourceCount, 1);
-            assert.equal(validatePropertyCount, 1014);
+            assert.equal(validatePropertyCount, 1033);
         });
 
         it('should validate STU3 structure definition, erroring on representation', function() {
@@ -171,8 +172,8 @@ describe('Validation', function () {
             assert.equal(results.valid, true);
             assert(results.messages);
             assert.equal(results.messages.length, 0);
-            assert.equal(7, validateResourceCount);
-            assert.equal(107, validatePropertyCount);
+            assert.equal(validateResourceCount, 7);
+            assert.equal(validatePropertyCount, 108);
         });
 
         it('should fail document bundle XML', function () {
@@ -314,6 +315,13 @@ describe('Validation', function () {
 
             assert(result.messages);
             assert.equal(result.messages.length, 1);
+        });
+
+        it('should validate implementation guide', function() {
+            var implementationGuide = JSON.parse(implementationGuideJson);
+            var result = fhir.validate(implementationGuide);
+
+            assert(result);
         });
     });
 });

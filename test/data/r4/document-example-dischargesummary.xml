@@ -346,16 +346,8 @@
 
                     </div>
                 </text>
-                <status>
-                    <coding>
-                        <code value="unknown"/>
-                    </coding>
-                </status>
-                <intent>
-                    <coding>
-                        <code value="order"/>
-                    </coding>
-                </intent>
+                <status value="unknown"/>
+                <intent value="order"/>
                 <medicationCodeableConcept>
                     <coding>
                         <system value="http://snomed.info/sct"/>
@@ -424,11 +416,7 @@
 
                     </div>
                 </text>
-                <status>
-                    <coding>
-                        <code value="completed"/>
-                    </coding>
-                </status>
+                <status value="completed"/>
                 <statusReason>
                     <text value="Management of Asthma"/>
                 </statusReason>

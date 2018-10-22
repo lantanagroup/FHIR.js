@@ -69,6 +69,10 @@
     ],
     "resource": [
       {
+        "extension": [{
+          "url": "http://test.com/url/some-extension",
+          "valueBoolean": true
+        }],
         "reference": {
           "reference": "Patient/test"
         },

@@ -12,7 +12,7 @@ var Severities;
 var Constants = (function () {
     function Constants() {
     }
-    Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'Element'];
+    Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'url', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'canonical', 'Element'];
     Constants.DataTypes = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
     Constants.PrimitiveNumberTypes = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
     Constants.PrimitiveDateRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
@@ -165,10 +165,9 @@ var Validator = (function () {
     Validator.prototype.validateNext = function (obj, property, tree) {
         var _this = this;
         var treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
+        var propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
         if (property._valueSet) {
-            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) {
-                return valueSetKey === property._valueSet;
-            });
+            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) { return valueSetKey === property._valueSet; });
             if (!foundValueSet_1) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
             }
@@ -288,6 +287,9 @@ var Validator = (function () {
             var nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+        }
+        else if (property._type !== 'xhtml' && property._type !== 'BackboneElement' && propertyTypeStructure && propertyTypeStructure._properties) {
+            this.validateProperties(obj, propertyTypeStructure._properties, tree);
         }
         else if (property._properties) {
             this.validateProperties(obj, property._properties, tree);
