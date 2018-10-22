@@ -1,5 +1,5 @@
-var Fhir = require('../fhir');
-var FhirPath = require('../fhirPath');
+var Fhir = require('../fhir').Fhir;
+var FhirPath = require('../fhirPath').FhirPath;
 var fs = require('fs');
 var assert = require('assert');
 var _ = require('underscore');
@@ -14,7 +14,7 @@ describe('FhirPath', function() {
         var fhirPath = new FhirPath(resource);
 
         it('should parse a simple path', function() {
-            var parsed = fhirPath._parse('Bundle.entry.fullUrl');
+            var parsed = fhirPath.parse('Bundle.entry.fullUrl');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].path);
@@ -24,7 +24,7 @@ describe('FhirPath', function() {
         });
 
         it('should parse simple functions', function() {
-            var parsed = fhirPath._parse('Bundle.entry.first().fullUrl');
+            var parsed = fhirPath.parse('Bundle.entry.first().fullUrl');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].path);
@@ -36,7 +36,7 @@ describe('FhirPath', function() {
         });
 
         it('should parse a single value', function() {
-            var parsed = fhirPath._parse('\'test\'');
+            var parsed = fhirPath.parse('\'test\'');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].value === 'test');
@@ -44,7 +44,7 @@ describe('FhirPath', function() {
         });
 
         it('should parse equality', function() {
-            var parsed = fhirPath._parse('id = \'test\'');
+            var parsed = fhirPath.parse('id = \'test\'');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].op === '=');
@@ -59,7 +59,7 @@ describe('FhirPath', function() {
         });
 
         it('should parse ! operator correctly', function() {
-            var parsed = fhirPath._parse('id != \'father2\'');
+            var parsed = fhirPath.parse('id != \'father2\'');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].op === '!=');
@@ -73,7 +73,7 @@ describe('FhirPath', function() {
         });
 
         it('should parse a function parameter as a value', function() {
-            var parsed = fhirPath._parse('reference.startsWith(\'#\')');
+            var parsed = fhirPath.parse('reference.startsWith(\'#\')');
             assert(parsed);
             assert(parsed.length === 1);
             assert(parsed[0].path);

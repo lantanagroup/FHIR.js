@@ -25,7 +25,7 @@ bower install fhir-js
 
 To use in a node.js application, require the "fhir" module.
 ```js
-var Fhir = require('fhir');
+var Fhir = require('fhir').Fhir;
 ```
 
 To use in a browser application, reference dist/bundle.js.
@@ -58,10 +58,16 @@ FHIR.js currently supports FHIR version **3.4.0**.
 If your implementation needs to support a more recent FHIR version, you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
 
 ```
+var ParseConformance = require('fhir').ParseConformance;
+var FhirVersions = require('fhir').Versions;
+
+// Get the data
 var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());
 var newTypes = JSON.parse(fs.readFileSync('..path..to..profiles-types.json').toString());
 var newResources = JSON.parse(fs.readFileSync('..path..to..profiles-resources.json').toString());
-var parser = new Fhir.ParseConformance(false);           // don't load pre-parsed data
+
+// Create a parser and parse it using the parser
+var parser = new ParseConformance(false, FhirVersions.STU3);           // don't load pre-parsed data
 parser.parseBundle(newValueSets);
 parser.parseBundle(newTypes);
 parser.parseResources(newResources);

@@ -1,4 +1,6 @@
-var Fhir = require('../fhir');
+var Fhir = require('../fhir').Fhir;
+var Versions = require('../fhir').Versions;
+var ParseConformance = require('../parseConformance').ParseConformance;
 var fs = require('fs');
 var assert = require('assert');
 var _ = require('underscore');
@@ -262,8 +264,8 @@ describe('Serialization', function () {
         });
 
         it('maxLengthOfDs should work correctly', function () {
-            var ConvertToJS = require('../convertToJs');
-            var j = new ConvertToJS();
+            var ConvertToJs = require('../convertToJs').ConvertToJs;
+            var j = new ConvertToJs();
             var tenDs = "DDDDDDDDDD";
             assert.equal(j.maxLengthOfDs({}), 0);
             assert.equal(j.maxLengthOfDs(tenDs), 10);
@@ -309,7 +311,7 @@ describe('Serialization', function () {
 
     describe('JS one-way', function () {
         it('should convert .id to @id', function() {
-            var stu3Parser = new Fhir.ParseConformance(false, Fhir.ParseConformance.VERSIONS.STU3);
+            var stu3Parser = new ParseConformance(false, Versions.STU3);
             stu3Parser.parseBundle(require('./data/stu3/schema/profiles-resources.json'));
             stu3Parser.parseBundle(require('./data/stu3/schema/profiles-types.json'));
             var stu3Fhir = new Fhir(stu3Parser);

@@ -61,11 +61,141 @@ var Fhir =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// a duplex stream is just a stream that is both readable and writable.
+// Since JS doesn't have multiple prototypal inheritance, this class
+// prototypally inherits from Readable, and then parasitically from
+// Writable.
+
+
+
+/*<replacement>*/
+
+var processNextTick = __webpack_require__(8);
+/*</replacement>*/
+
+/*<replacement>*/
+var objectKeys = Object.keys || function (obj) {
+  var keys = [];
+  for (var key in obj) {
+    keys.push(key);
+  }return keys;
+};
+/*</replacement>*/
+
+module.exports = Duplex;
+
+/*<replacement>*/
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
+/*</replacement>*/
+
+var Readable = __webpack_require__(21);
+var Writable = __webpack_require__(12);
+
+util.inherits(Duplex, Readable);
+
+var keys = objectKeys(Writable.prototype);
+for (var v = 0; v < keys.length; v++) {
+  var method = keys[v];
+  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
+}
+
+function Duplex(options) {
+  if (!(this instanceof Duplex)) return new Duplex(options);
+
+  Readable.call(this, options);
+  Writable.call(this, options);
+
+  if (options && options.readable === false) this.readable = false;
+
+  if (options && options.writable === false) this.writable = false;
+
+  this.allowHalfOpen = true;
+  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
+
+  this.once('end', onend);
+}
+
+// the no-half-open enforcer
+function onend() {
+  // if we allow half-open state, or if the writable side ended,
+  // then we're ok.
+  if (this.allowHalfOpen || this._writableState.ended) return;
+
+  // no more data can be written.
+  // But allow more writes to happen in this tick.
+  processNextTick(onEndNT, this);
+}
+
+function onEndNT(self) {
+  self.end();
+}
+
+Object.defineProperty(Duplex.prototype, 'destroyed', {
+  get: function () {
+    if (this._readableState === undefined || this._writableState === undefined) {
+      return false;
+    }
+    return this._readableState.destroyed && this._writableState.destroyed;
+  },
+  set: function (value) {
+    // we ignore the value if the stream
+    // has not been initialized yet
+    if (this._readableState === undefined || this._writableState === undefined) {
+      return;
+    }
+
+    // backward compatibility, the user is explicitly
+    // managing destroyed
+    this._readableState.destroyed = value;
+    this._writableState.destroyed = value;
+  }
+});
+
+Duplex.prototype._destroy = function (err, cb) {
+  this.push(null);
+  this.end();
+
+  processNextTick(cb, err);
+};
+
+function forEach(xs, f) {
+  for (var i = 0, l = xs.length; i < l; i++) {
+    f(xs[i], i);
+  }
+}
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1620,661 +1750,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// a duplex stream is just a stream that is both readable and writable.
-// Since JS doesn't have multiple prototypal inheritance, this class
-// prototypally inherits from Readable, and then parasitically from
-// Writable.
-
-
-
-/*<replacement>*/
-
-var processNextTick = __webpack_require__(8);
-/*</replacement>*/
-
-/*<replacement>*/
-var objectKeys = Object.keys || function (obj) {
-  var keys = [];
-  for (var key in obj) {
-    keys.push(key);
-  }return keys;
-};
-/*</replacement>*/
-
-module.exports = Duplex;
-
-/*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
-/*</replacement>*/
-
-var Readable = __webpack_require__(20);
-var Writable = __webpack_require__(12);
-
-util.inherits(Duplex, Readable);
-
-var keys = objectKeys(Writable.prototype);
-for (var v = 0; v < keys.length; v++) {
-  var method = keys[v];
-  if (!Duplex.prototype[method]) Duplex.prototype[method] = Writable.prototype[method];
-}
-
-function Duplex(options) {
-  if (!(this instanceof Duplex)) return new Duplex(options);
-
-  Readable.call(this, options);
-  Writable.call(this, options);
-
-  if (options && options.readable === false) this.readable = false;
-
-  if (options && options.writable === false) this.writable = false;
-
-  this.allowHalfOpen = true;
-  if (options && options.allowHalfOpen === false) this.allowHalfOpen = false;
-
-  this.once('end', onend);
-}
-
-// the no-half-open enforcer
-function onend() {
-  // if we allow half-open state, or if the writable side ended,
-  // then we're ok.
-  if (this.allowHalfOpen || this._writableState.ended) return;
-
-  // no more data can be written.
-  // But allow more writes to happen in this tick.
-  processNextTick(onEndNT, this);
-}
-
-function onEndNT(self) {
-  self.end();
-}
-
-Object.defineProperty(Duplex.prototype, 'destroyed', {
-  get: function () {
-    if (this._readableState === undefined || this._writableState === undefined) {
-      return false;
-    }
-    return this._readableState.destroyed && this._writableState.destroyed;
-  },
-  set: function (value) {
-    // we ignore the value if the stream
-    // has not been initialized yet
-    if (this._readableState === undefined || this._writableState === undefined) {
-      return;
-    }
-
-    // backward compatibility, the user is explicitly
-    // managing destroyed
-    this._readableState.destroyed = value;
-    this._writableState.destroyed = value;
-  }
-});
-
-Duplex.prototype._destroy = function (err, cb) {
-  this.push(null);
-  this.end();
-
-  processNextTick(cb, err);
-};
-
-function forEach(xs, f) {
-  for (var i = 0, l = xs.length; i < l; i++) {
-    f(xs[i], i);
-  }
-}
-
-/***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @typedef ParseStructureDefinitionResponse
- * @property {string} _type
- * @property {ParseStructureDefinitionResponseProperty[]} _properties
- */
-
-/**
- * @typedef ParseStructureDefinitionResponseProperty
- * @property {string} _name
- * @property {string} [_valueSet]
- * @property {string} [_valueSetStrength]
- * @property {ParseStructureDefinitionResponseProperty[]} _properties
- */
-
-/**
- * @typedef ParseValueSetResponse
- * @property {ParseValueSetResponseSystem[]} systems
- */
-
-/**
- * @typedef ParseValueSetResponseSystem
- * @property {ParseValueSetRepsonseSystemCode[]} codes
- * @property {string} uri
- */
-
-/**
- * @typedef ParseValueSetResponseSystemCode
- * @property {string} code
- * @property {string} display
- */
-
-var _ = __webpack_require__(0);
-
-/**
- * Sorts an array of value sets based on each value set's dependencies.
- * If a value set depends on another value set, the dependent value set
- * is returned in the array before the depending value set, so that when all
- * value sets are parsed in a bundle, it parses the dependent value sets first.
- * @param valueSets {ValueSet[]}
- * @return {ValueSet[]}
- */
-function sortValueSetDependencies(valueSets) {
-    var ret = [];
-
-    function addValueSet(valueSetUrl) {
-        var foundValueSet = _.find(valueSets, function(nextValueSet) {
-            return nextValueSet.url === valueSetUrl;
-        });
-
-        if (!foundValueSet) {
-            return;
-        }
-
-        if (foundValueSet.compose) {
-            // Add the include value sets before this value set
-            _.each(foundValueSet.compose.include, function(include) {
-                addValueSet(include.valueSet);
-            });
-        }
-
-        if (ret.indexOf(foundValueSet) < 0) {
-            ret.push(foundValueSet);
-        }
-    }
-
-    _.each(valueSets, function(valueSet) {
-        addValueSet(valueSet.url);
-    });
-
-    return ret;
-}
-
-/**
- * Class responsible for parsing StructureDefinition and ValueSet resources into bare-minimum information
- * needed for serialization and validation.
- * @param {boolean} loadCached
- * @param {string} [version=R4] The version of FHIR to use with this parser
- * @constructor
- */
-function ParseConformance(loadCached, version) {
-    /**
-     * @type {ParseStructureDefinitionResponse[]}
-     */
-    this.parsedStructureDefinitions = loadCached ? __webpack_require__(27) : {};
-
-    /**
-     * @type {ParseValueSetResponse[]}
-     */
-    this.parsedValueSets = loadCached ? __webpack_require__(28) : {};
-
-    this.version = version || ParseConformance.VERSIONS.R4;
-
-    this._codeSystems = [];
-}
-
-/**
- * Enumeration of FHIR versions supported by FHIR.js
- * @type {{STU3: string, R4: string}}
- */
-ParseConformance.VERSIONS = {
-    STU3: 'STU3',
-    R4: 'R4'
-};
-
-ParseConformance.prototype.loadCodeSystem = function(codeSystem) {
-    if (!codeSystem) {
-        return;
-    }
-
-    var foundCodeSystem = _.find(this._codeSystems, function(nextCodeSystem) {
-        return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
-    });
-
-    if (!foundCodeSystem) {
-        this._codeSystems.push(codeSystem);
-    }
-};
-
-/**
- * Parses any ValueSet and StructureDefinition resources in the bundle and stores
- * them in the parser for use by serialization and validation logic.
- * @param {Bundle} bundle The bundle to parse
- */
-ParseConformance.prototype.parseBundle = function(bundle) {
-    if (!bundle || !bundle.entry) {
-        return;
-    }
-
-    var self = this;
-
-    // load code systems
-    _.chain(bundle.entry)
-        .filter(function(entry) {
-            return entry.resource.resourceType === 'CodeSystem';
-        })
-        .each(function(entry) {
-            self.loadCodeSystem(entry.resource);
-        });
-
-    // parse each value set
-    var valueSets = _.chain(bundle.entry)
-        .filter(function(entry) {
-            return entry.resource.resourceType === 'ValueSet';
-        })
-        .map(function(entry) {
-            return entry.resource;
-        })
-        .value();
-    valueSets = sortValueSetDependencies(valueSets);
-    _.each(valueSets, function(valueSet) {
-        self.parseValueSet(valueSet);
-    });
-
-    // parse structure definitions
-    _.chain(bundle.entry)
-        .filter(function(entry) {
-            if (entry.resource.resourceType !== 'StructureDefinition') {
-                return false;
-            }
-
-            var resource = entry.resource;
-
-            if (resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type') {
-                return false;
-            }
-
-            return true;
-        })
-        .each(function(entry) {
-            self.parseStructureDefinition(entry.resource);
-        });
-}
-
-/**
- * Parses a StructureDefinition resource, reading only properties necessary for the FHIR.js module to perform its functions.
- * structureDefinition must have a unique id, or it will overwrite other parsed structure definitions stored in memory
- * @param {StructureDefinition} structureDefinition The StructureDefinition to parse and load into memory
- * @returns {ParseStructureDefinitionResponseProperty}
- */
-ParseConformance.prototype.parseStructureDefinition = function(structureDefinition) {
-    var self = this;
-
-    var parsedStructureDefinition = {
-        _type: 'Resource',
-        _kind: structureDefinition.kind,
-        _properties: []
-    };
-    this.parsedStructureDefinitions[structureDefinition.id] = parsedStructureDefinition;         // TODO: Not sure this works for profiles
-
-    if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
-        for (var x in structureDefinition.snapshot.element) {
-            var element = structureDefinition.snapshot.element[x];
-            var elementId = structureDefinition.snapshot.element[x].id;
-            elementId = elementId.substring(structureDefinition.id.length + 1);
-
-            if (!element.max) {
-                throw 'Expected all base resource elements to have a max value';
-            }
-
-            if (!elementId || elementId.indexOf('.') > 0 || !element.type) {
-                continue;
-            }
-
-            if (element.type.length === 1) {
-                var newProperty = {
-                    _name: elementId,
-                    _type: element.type[0].code || 'string',
-                    _multiple: element.max !== '1',
-                    _required: element.min === 1
-                };
-                parsedStructureDefinition._properties.push(newProperty);
-
-                self.populateValueSet(element, newProperty);
-
-                if (element.type[0].code == 'BackboneElement' || element.type[0].code == 'Element') {
-                    newProperty._properties = [];
-                    self.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[x].id, structureDefinition);
-                }
-            } else if (elementId.endsWith('[x]')) {
-                elementId = elementId.substring(0, elementId.length - 3);
-                for (var y in element.type) {
-                    var choiceType = element.type[y].code;
-                    choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                    var choiceElementId = elementId + choiceType;
-                    var newProperty = {
-                        _name: choiceElementId,
-                        _choice: elementId,
-                        _type: element.type[y].code,
-                        _multiple: element.max !== '1',
-                        _required: element.min === 1
-                    };
-
-                    self.populateValueSet(element, newProperty);
-
-                    parsedStructureDefinition._properties.push(newProperty);
-                }
-            } else {
-                var isReference = true;
-                for (var y in element.type) {
-                    if (element.type[y].code !== 'Reference') {
-                        isReference = false;
-                        break;
-                    }
-                }
-
-                if (isReference) {
-                    parsedStructureDefinition._properties.push({
-                        _name: elementId,
-                        _type: 'Reference',
-                        _multiple: element.max !== '1'
-                    });
-                } else {
-                    console.log(elementId);
-                }
-            }
-        }
-    }
-
-    return parsedStructureDefinition;
-}
-
-/**
- * Parses the ValueSet resource. Parses only bare-minimum information needed for validation against value sets.
- * Currently only supports parsing 'compose'
- * @param {ValueSet} valueSet The ValueSet resource to parse and load into memory
- * @param {Bundle} bundle A bundle of resources that contains any ValueSet or CodeSystem resources that ValueSet being parsed references
- * @returns {ParseValueSetResponse}
- */
-ParseConformance.prototype.parseValueSet = function(valueSet) {
-    var self = this;
-
-    var newValueSet = {
-        systems: []
-    };
-
-    if (valueSet.expansion && valueSet.expansion.contains) {
-        for (var i = 0; i < valueSet.expansion.contains.length; i++) {
-            var contains = valueSet.expansion.contains[i];
-
-            if (contains.inactive || contains.abstract) {
-                continue;
-            }
-
-            var foundSystem = _.find(newValueSet.systems, function(system) {
-                return system.uri === contains.system;
-            });
-
-            if (!foundSystem) {
-                foundSystem = {
-                    uri: contains.system,
-                    codes: []
-                };
-                newValueSet.systems.push(foundSystem);
-            }
-
-            foundSystem.codes.push({
-                code: contains.code,
-                display: contains.display
-            });
-        }
-    } else if (valueSet.compose) {
-        for (var i = 0; i < valueSet.compose.include.length; i++) {
-            var include = valueSet.compose.include[i];
-
-            if (include.system) {
-                var foundSystem = _.find(newValueSet.systems, function (system) {
-                    return system.uri === include.system;
-                });
-
-                if (!foundSystem) {
-                    foundSystem = {
-                        uri: include.system,
-                        codes: []
-                    };
-                    newValueSet.systems.push(foundSystem);
-                }
-
-                // Add all codes from the code system
-                var foundCodeSystem = _.find(this._codeSystems, function(codeSystem) {
-                    return codeSystem.url === include.system;
-                });
-
-                if (foundCodeSystem) {
-                    var codes = _.map(foundCodeSystem.concept, function (concept) {
-                        return {
-                            code: concept.code,
-                            display: concept.display
-                        };
-                    });
-
-                    foundSystem.codes = foundSystem.codes.concat(codes);
-                }
-            }
-
-            if (include.valueSet) {
-                var includeValueSet = this.parsedValueSets[include.valueSet];
-
-                if (includeValueSet) {
-                    _.each(includeValueSet.systems, function(includeSystem) {
-                        var foundSystem = _.find(newValueSet.systems, function(nextSystem) {
-                            return nextSystem.uri === includeSystem.uri;
-                        });
-
-                        if (!foundSystem) {
-                            newValueSet.systems.push({
-                                uri: includeSystem.uri,
-                                codes: [].concat(includeSystem.codes)
-                            });
-                        } else {
-                            foundSystem.codes = foundSystem.codes.concat(includeSystem.codes);
-                        }
-                    });
-                }
-            }
-
-            if (include.concept) {
-                var systemUri = include.system || '';
-
-                var foundSystem = _.find(newValueSet.systems, function(nextSystem) {
-                    return nextSystem.uri === systemUri;
-                });
-
-                if (!foundSystem) {
-                    foundSystem = {
-                        uri: systemUri,
-                        codes: []
-                    };
-                    newValueSet.systems.push(foundSystem);
-                }
-
-                var codes = _.map(include.concept, function(concept) {
-                    return {
-                        code: concept.code,
-                        display: concept.display
-                    };
-                });
-
-                foundSystem.codes = foundSystem.codes.concat(codes);
-            }
-        }
-    }
-
-    var systemsWithCodes = _.filter(newValueSet.systems, function(system) {
-        return system.codes && system.codes.length > 0;
-    });
-
-    if (systemsWithCodes.length > 0) {
-        self.parsedValueSets[valueSet.url] = newValueSet;
-        return newValueSet;
-    }
-}
-
-/**
- * @param {ElementDefinition} element
- * @param {ParseStructureDefinitionResponseProperty} property
- * @private
- */
-ParseConformance.prototype.populateValueSet = function(element, property) {
-    var self = this;
-    if (element.binding) {
-        var binding = element.binding;
-
-        if (binding.strength) {
-            property._valueSetStrength = binding.strength;
-        }
-
-        if (this.version === ParseConformance.VERSIONS.R4 && binding.valueSet) {
-            property._valueSet = binding.valueSet;
-        } else if (this.version === ParseConformance.VERSIONS.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
-            property._valueSet = binding.valueSetReference.reference;
-        }
-    }
-}
-
-/**
- * @param {string} resourceType
- * @param {string} parentElementId
- * @param {StructureDefinition} profile
- * @private
- */
-ParseConformance.prototype.populateBackboneElement = function(resourceType, parentElementId, profile) {
-    var self = this;
-    for (var y in profile.snapshot.element) {
-        var backboneElement = profile.snapshot.element[y];
-        var backboneElementId = backboneElement.id;
-        if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
-            continue;
-        }
-
-        backboneElementId = backboneElementId.substring(profile.id.length + 1);
-        var parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
-        var parentBackboneElement = null;
-
-        for (var j = 0; j < parentElementIdSplit.length; j++) {
-            parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, function(property) {
-                return property._name == parentElementIdSplit[j];
-            });
-
-            if (!parentBackboneElement) {
-                throw 'Parent backbone element not found';
-            }
-        }
-
-        if (parentBackboneElement) {
-            if (!backboneElement.type) {
-                var type = 'string';
-
-                if (backboneElement.contentReference) {
-                    type = backboneElement.contentReference;
-                }
-
-                parentBackboneElement._properties.push({
-                    _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                    _type: type,
-                    _multiple: backboneElement.max !== '1',
-                    _required: backboneElement.min === 1
-                });
-            } else if (backboneElement.type.length == 1) {
-                var newProperty = {
-                    _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                    _type: backboneElement.type[0].code,
-                    _multiple: backboneElement.max !== '1',
-                    _required: backboneElement.min === 1,
-                    _properties: []
-                };
-                parentBackboneElement._properties.push(newProperty);
-
-                self.populateValueSet(backboneElement, newProperty);
-
-                if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
-                    self.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
-                }
-            } else if (backboneElement.id.endsWith('[x]')) {
-                var nextElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3);
-                for (var y in backboneElement.type) {
-                    var choiceType = backboneElement.type[y].code;
-                    choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                    var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
-                    var newProperty = {
-                        _name: choiceElementId,
-                        _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
-                        _type: backboneElement.type[y].code,
-                        _multiple: backboneElement.max !== '1',
-                        _required: backboneElement.min === 1
-                    };
-                    parentBackboneElement._properties.push(newProperty);
-
-                    self.populateValueSet(backboneElement, newProperty);
-                }
-            } else {
-                var isReference = true;
-                for (var z in backboneElement.type) {
-                    if (backboneElement.type[z].code !== 'Reference') {
-                        isReference = false;
-                        break;
-                    }
-                }
-
-                if (!isReference) {
-                    throw 'Did not find a reference... not sure what to do';
-                }
-
-                var newProperty = {
-                    _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                    _type: 'Reference',
-                    _multiple: backboneElement.max !== '1',
-                    _required: backboneElement.min === 1
-                };
-                parentBackboneElement._properties.push(newProperty);
-
-                self.populateValueSet(backboneElement, newProperty);
-            }
-        } else {
-            throw 'Unexpected backbone parent element id';
-        }
-    }
-}
-
-module.exports = ParseConformance;
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2301,7 +1777,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
@@ -2415,7 +1891,7 @@ function objectToString(o) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6).Buffer))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -2444,6 +1920,387 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var _ = __webpack_require__(1);
+var fhir_1 = __webpack_require__(16);
+var ParseConformance = (function () {
+    function ParseConformance(loadCached, version) {
+        this.parsedStructureDefinitions = loadCached ? __webpack_require__(27) : {};
+        this.parsedValueSets = loadCached ? __webpack_require__(28) : {};
+        this.version = version || fhir_1.Versions.R4;
+        this.codeSystems = [];
+    }
+    ParseConformance.prototype.sortValueSetDependencies = function (valueSets) {
+        var ret = [];
+        function addValueSet(valueSetUrl) {
+            var foundValueSet = _.find(valueSets, function (nextValueSet) {
+                return nextValueSet.url === valueSetUrl;
+            });
+            if (!foundValueSet) {
+                return;
+            }
+            if (foundValueSet.compose) {
+                _.each(foundValueSet.compose.include, function (include) {
+                    addValueSet(include.valueSet);
+                });
+            }
+            if (ret.indexOf(foundValueSet) < 0) {
+                ret.push(foundValueSet);
+            }
+        }
+        _.each(valueSets, function (valueSet) {
+            addValueSet(valueSet.url);
+        });
+        return ret;
+    };
+    ParseConformance.prototype.loadCodeSystem = function (codeSystem) {
+        if (!codeSystem) {
+            return;
+        }
+        var foundCodeSystem = _.find(this.codeSystems, function (nextCodeSystem) {
+            return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
+        });
+        if (!foundCodeSystem) {
+            this.codeSystems.push(codeSystem);
+        }
+    };
+    ;
+    ParseConformance.prototype.parseBundle = function (bundle) {
+        var _this = this;
+        if (!bundle || !bundle.entry) {
+            return;
+        }
+        _.chain(bundle.entry)
+            .filter(function (entry) {
+            return entry.resource.resourceType === 'CodeSystem';
+        })
+            .each(function (entry) {
+            _this.loadCodeSystem(entry.resource);
+        });
+        var valueSets = _.chain(bundle.entry)
+            .filter(function (entry) {
+            return entry.resource.resourceType === 'ValueSet';
+        })
+            .map(function (entry) {
+            return entry.resource;
+        })
+            .value();
+        valueSets = this.sortValueSetDependencies(valueSets);
+        _.each(valueSets, function (valueSet) {
+            _this.parseValueSet(valueSet);
+        });
+        _.chain(bundle.entry)
+            .filter(function (entry) {
+            if (entry.resource.resourceType !== 'StructureDefinition') {
+                return false;
+            }
+            var resource = entry.resource;
+            return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
+        })
+            .each(function (entry) {
+            _this.parseStructureDefinition(entry.resource);
+        });
+    };
+    ParseConformance.prototype.parseStructureDefinition = function (structureDefinition) {
+        var parsedStructureDefinition = {
+            _type: 'Resource',
+            _kind: structureDefinition.kind,
+            _properties: []
+        };
+        this.parsedStructureDefinitions[structureDefinition.id] = parsedStructureDefinition;
+        if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
+            for (var x in structureDefinition.snapshot.element) {
+                var element = structureDefinition.snapshot.element[x];
+                var elementId = structureDefinition.snapshot.element[x].id;
+                elementId = elementId.substring(structureDefinition.id.length + 1);
+                if (!element.max) {
+                    throw 'Expected all base resource elements to have a max value';
+                }
+                if (!elementId || elementId.indexOf('.') > 0 || !element.type) {
+                    continue;
+                }
+                if (element.type.length === 1) {
+                    var newProperty = {
+                        _name: elementId,
+                        _type: element.type[0].code || 'string',
+                        _multiple: element.max !== '1',
+                        _required: element.min === 1
+                    };
+                    parsedStructureDefinition._properties.push(newProperty);
+                    this.populateValueSet(element, newProperty);
+                    if (element.type[0].code == 'BackboneElement' || element.type[0].code == 'Element') {
+                        newProperty._properties = [];
+                        this.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[x].id, structureDefinition);
+                    }
+                }
+                else if (elementId.endsWith('[x]')) {
+                    elementId = elementId.substring(0, elementId.length - 3);
+                    for (var y in element.type) {
+                        var choiceType = element.type[y].code;
+                        choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
+                        var choiceElementId = elementId + choiceType;
+                        var newProperty = {
+                            _name: choiceElementId,
+                            _choice: elementId,
+                            _type: element.type[y].code,
+                            _multiple: element.max !== '1',
+                            _required: element.min === 1
+                        };
+                        this.populateValueSet(element, newProperty);
+                        parsedStructureDefinition._properties.push(newProperty);
+                    }
+                }
+                else {
+                    var isReference = true;
+                    for (var y in element.type) {
+                        if (element.type[y].code !== 'Reference') {
+                            isReference = false;
+                            break;
+                        }
+                    }
+                    if (isReference) {
+                        parsedStructureDefinition._properties.push({
+                            _name: elementId,
+                            _type: 'Reference',
+                            _multiple: element.max !== '1'
+                        });
+                    }
+                    else {
+                        console.log(elementId);
+                    }
+                }
+            }
+        }
+        return parsedStructureDefinition;
+    };
+    ParseConformance.prototype.parseValueSet = function (valueSet) {
+        var newValueSet = {
+            systems: []
+        };
+        if (valueSet.expansion && valueSet.expansion.contains) {
+            var _loop_1 = function (i) {
+                var contains = valueSet.expansion.contains[i];
+                if (contains.inactive || contains.abstract) {
+                    return "continue";
+                }
+                var foundSystem = _.find(newValueSet.systems, function (system) {
+                    return system.uri === contains.system;
+                });
+                if (!foundSystem) {
+                    foundSystem = {
+                        uri: contains.system,
+                        codes: []
+                    };
+                    newValueSet.systems.push(foundSystem);
+                }
+                foundSystem.codes.push({
+                    code: contains.code,
+                    display: contains.display
+                });
+            };
+            for (var i = 0; i < valueSet.expansion.contains.length; i++) {
+                _loop_1(i);
+            }
+        }
+        else if (valueSet.compose) {
+            var _loop_2 = function (i) {
+                var include = valueSet.compose.include[i];
+                if (include.system) {
+                    var foundSystem = _.find(newValueSet.systems, function (system) {
+                        return system.uri === include.system;
+                    });
+                    if (!foundSystem) {
+                        foundSystem = {
+                            uri: include.system,
+                            codes: []
+                        };
+                        newValueSet.systems.push(foundSystem);
+                    }
+                    var foundCodeSystem = _.find(this_1.codeSystems, function (codeSystem) {
+                        return codeSystem.url === include.system;
+                    });
+                    if (foundCodeSystem) {
+                        var codes = _.map(foundCodeSystem.concept, function (concept) {
+                            return {
+                                code: concept.code,
+                                display: concept.display
+                            };
+                        });
+                        foundSystem.codes = foundSystem.codes.concat(codes);
+                    }
+                }
+                if (include.valueSet) {
+                    var includeValueSet = this_1.parsedValueSets[include.valueSet];
+                    if (includeValueSet) {
+                        _.each(includeValueSet.systems, function (includeSystem) {
+                            var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
+                                return nextSystem.uri === includeSystem.uri;
+                            });
+                            if (!foundSystem) {
+                                newValueSet.systems.push({
+                                    uri: includeSystem.uri,
+                                    codes: [].concat(includeSystem.codes)
+                                });
+                            }
+                            else {
+                                foundSystem.codes = foundSystem.codes.concat(includeSystem.codes);
+                            }
+                        });
+                    }
+                }
+                if (include.concept) {
+                    var systemUri_1 = include.system || '';
+                    var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
+                        return nextSystem.uri === systemUri_1;
+                    });
+                    if (!foundSystem) {
+                        foundSystem = {
+                            uri: systemUri_1,
+                            codes: []
+                        };
+                        newValueSet.systems.push(foundSystem);
+                    }
+                    var codes = _.map(include.concept, function (concept) {
+                        return {
+                            code: concept.code,
+                            display: concept.display
+                        };
+                    });
+                    foundSystem.codes = foundSystem.codes.concat(codes);
+                }
+            };
+            var this_1 = this;
+            for (var i = 0; i < valueSet.compose.include.length; i++) {
+                _loop_2(i);
+            }
+        }
+        var systemsWithCodes = _.filter(newValueSet.systems, function (system) {
+            return system.codes && system.codes.length > 0;
+        });
+        if (systemsWithCodes.length > 0) {
+            this.parsedValueSets[valueSet.url] = newValueSet;
+            return newValueSet;
+        }
+    };
+    ParseConformance.prototype.populateValueSet = function (element, property) {
+        if (element.binding) {
+            var binding = element.binding;
+            if (binding.strength) {
+                property._valueSetStrength = binding.strength;
+            }
+            if (this.version === fhir_1.Versions.R4 && binding.valueSet) {
+                property._valueSet = binding.valueSet;
+            }
+            else if (this.version === fhir_1.Versions.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
+                property._valueSet = binding.valueSetReference.reference;
+            }
+        }
+    };
+    ParseConformance.prototype.populateBackboneElement = function (resourceType, parentElementId, profile) {
+        var _loop_3 = function (y) {
+            var backboneElement = profile.snapshot.element[y];
+            var backboneElementId = backboneElement.id;
+            if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
+                return "continue";
+            }
+            backboneElementId = backboneElementId.substring(profile.id.length + 1);
+            var parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
+            var parentBackboneElement = null;
+            var _loop_4 = function (j) {
+                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, function (property) {
+                    return property._name == parentElementIdSplit[j];
+                });
+                if (!parentBackboneElement) {
+                    throw 'Parent backbone element not found';
+                }
+            };
+            for (var j = 0; j < parentElementIdSplit.length; j++) {
+                _loop_4(j);
+            }
+            if (parentBackboneElement) {
+                if (!backboneElement.type) {
+                    var type = 'string';
+                    if (backboneElement.contentReference) {
+                        type = backboneElement.contentReference;
+                    }
+                    parentBackboneElement._properties.push({
+                        _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
+                        _type: type,
+                        _multiple: backboneElement.max !== '1',
+                        _required: backboneElement.min === 1
+                    });
+                }
+                else if (backboneElement.type.length == 1) {
+                    var newProperty = {
+                        _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
+                        _type: backboneElement.type[0].code,
+                        _multiple: backboneElement.max !== '1',
+                        _required: backboneElement.min === 1,
+                        _properties: []
+                    };
+                    parentBackboneElement._properties.push(newProperty);
+                    this_2.populateValueSet(backboneElement, newProperty);
+                    if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
+                        this_2.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
+                    }
+                }
+                else if (backboneElement.id.endsWith('[x]')) {
+                    for (var y_1 in backboneElement.type) {
+                        var choiceType = backboneElement.type[y_1].code;
+                        choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
+                        var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
+                        var newProperty = {
+                            _name: choiceElementId,
+                            _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
+                            _type: backboneElement.type[y_1].code,
+                            _multiple: backboneElement.max !== '1',
+                            _required: backboneElement.min === 1
+                        };
+                        parentBackboneElement._properties.push(newProperty);
+                        this_2.populateValueSet(backboneElement, newProperty);
+                    }
+                }
+                else {
+                    var isReference = true;
+                    for (var z in backboneElement.type) {
+                        if (backboneElement.type[z].code !== 'Reference') {
+                            isReference = false;
+                            break;
+                        }
+                    }
+                    if (!isReference) {
+                        throw 'Did not find a reference... not sure what to do';
+                    }
+                    var newProperty = {
+                        _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
+                        _type: 'Reference',
+                        _multiple: backboneElement.max !== '1',
+                        _required: backboneElement.min === 1
+                    };
+                    parentBackboneElement._properties.push(newProperty);
+                    this_2.populateValueSet(backboneElement, newProperty);
+                }
+            }
+            else {
+                throw 'Unexpected backbone parent element id';
+            }
+        };
+        var this_2 = this;
+        for (var y in profile.snapshot.element) {
+            _loop_3(y);
+        }
+    };
+    return ParseConformance;
+}());
+exports.ParseConformance = ParseConformance;
+//# sourceMappingURL=parseConformance.js.map
+
+/***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2460,7 +2317,7 @@ if (typeof Object.create === 'function') {
 
 var base64 = __webpack_require__(31)
 var ieee754 = __webpack_require__(32)
-var isArray = __webpack_require__(19)
+var isArray = __webpack_require__(20)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -4238,7 +4095,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 7 */
@@ -4861,12 +4718,12 @@ function isUndefined(arg) {
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(20);
+exports = module.exports = __webpack_require__(21);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(12);
-exports.Duplex = __webpack_require__(1);
-exports.Transform = __webpack_require__(23);
+exports.Duplex = __webpack_require__(0);
+exports.Transform = __webpack_require__(24);
 exports.PassThrough = __webpack_require__(40);
 
 
@@ -4941,8 +4798,8 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -4952,7 +4809,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(21);
+var Stream = __webpack_require__(22);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -4966,14 +4823,14 @@ function _isUint8Array(obj) {
 }
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(22);
+var destroyImpl = __webpack_require__(23);
 
 util.inherits(Writable, Stream);
 
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   options = options || {};
 
@@ -5113,7 +4970,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -5539,7 +5396,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(37).setImmediate, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(37).setImmediate, __webpack_require__(2)))
 
 /***/ }),
 /* 13 */
@@ -5889,381 +5746,373 @@ module.exports = {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var convert = __webpack_require__(17);
-var _ = __webpack_require__(0);
-var ParseConformance = __webpack_require__(2);
-var XmlHelper = __webpack_require__(25);
+"use strict";
 
-/**
- * @constructor
- * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
- */
-function ConvertToJS(parser) {
-    this.parser = parser || new ParseConformance(true);
-}
-
-/**
- * Converts the specified XML resource to a JS object, storing arbitrary-length decimals as strings since FHIR spec requires arbitrary precision.
- * @param {string} xml Resource XML string
- * @returns {FHIR.Resource} A Resource object converted from the XML Resource. Decimals stored as strings.
- */
-ConvertToJS.prototype.convert = function(xml) {
-    var self = this;
-    var xmlObj = convert.xml2js(xml);
-    const firstElement = _.find(xmlObj.elements, (element) => element.type === 'element');
-
-    if (firstElement) {
-        return self.resourceToJS(firstElement, null);
+exports.__esModule = true;
+var parseConformance_1 = __webpack_require__(5);
+var validator_1 = __webpack_require__(29);
+var convertToJs_1 = __webpack_require__(17);
+var convertToXml_1 = __webpack_require__(47);
+var fhirPath_1 = __webpack_require__(48);
+var Versions;
+(function (Versions) {
+    Versions["STU3"] = "STU3";
+    Versions["R4"] = "R4";
+})(Versions = exports.Versions || (exports.Versions = {}));
+var Fhir = (function () {
+    function Fhir(parser) {
+        this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-};
-
-/**
- * Converts the specified XML resource to JSON,
- * turning arbitrary-length decimals into JSON numbers as per the FHIR spec.
- * @param {string} xml Resource XML string
- * @returns {string} JSON with Numbers potentially too large for normal JavaScript & JSON.parse
- */
-ConvertToJS.prototype.convertToJSON = function(xml) {
-    var self = this;
-    var xmlObj = convert.xml2js(xml);
-    if (xmlObj.elements.length !== 1) {
-        return
-    }
-
-    /* Decimals are converted into an object with a custom
-    toJSON function that wraps them with 'DDDD's of a length
-    greater than any length of Ds in the JSON */
-    var surroundDecimalsWith = {};
-    var jsObj = self.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
-    var maxDLength = self.maxLengthOfDs(jsObj);
-    var rpt = '';
-    for (var i = 0; i < maxDLength + 5; i++) {
-      rpt += 'D';
-    }
-    surroundDecimalsWith.str = rpt;
-    var json = JSON.stringify(jsObj, null, '\t');
-
-    var replaceRegex = new RegExp('"?' + surroundDecimalsWith.str + '"?', 'g');
-    // console.log("replaceRegex", replaceRegex)
-    var json2 = json.replace(replaceRegex, '');
-    return json2
-};
-
-ConvertToJS.prototype.maxLengthOfDs = function(obj) {
-    /**
-     * get length of longest sequence of 'D' characters in a string
-     * @param {string} str
-    */
-    function maxSubstringLengthStr(str) {
-        var matches = str.match(/DDDD+/g);
-        if (!matches) {
-            return 0;
-        }
-        var ret = matches
-                .map(function(substr) { return substr.length })
-                .reduce(function(p,c) { return Math.max(p,c)}, 0);
-        return ret;
-    }
-    /**
-     * look through object to find longest sequence of 'D' characters
-     * so we can safely wrap decimals
-    */
-    function maxSubstringLength(currentMax, obj) {
-        var ret;
-        if (typeof(obj) === 'string') {
-            ret =  Math.max(currentMax, maxSubstringLengthStr(obj));
-        } else if (typeof(obj) === 'object') {
-            ret =  Object.keys(obj)
-                    .map(function(k) {
-                        return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]))
-                    })
-                    .reduce(function(p,c) { return Math.max(p,c) }, currentMax);
-        } else {
-            ret =  currentMax;
-        }
-        return ret;
-    }
-    return maxSubstringLength(0, obj);
-}
-
-/**
- * @param xmlObj
- * @returns {*}
- * @private
- */
-ConvertToJS.prototype.resourceToJS = function(xmlObj, surroundDecimalsWith) {
-    var self = this;
-    var typeDefinition = self.parser.parsedStructureDefinitions[xmlObj.name];
-    var self = this;
-    var resource = {
-        resourceType: xmlObj.name
+    Fhir.prototype.jsonToXml = function (json) {
+        var obj = JSON.parse(json);
+        return this.objToXml(obj);
     };
-
-    if (!typeDefinition) {
-        throw new Error('Unknown resource type: ' + xmlObj.name);
-    }
-
-    _.each(typeDefinition._properties, function(property) {
-        self.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
-    });
-
-    return resource;
-}
-
-/**
- * Finds a property definition based on a reference to another type. Should be a BackboneElement or Element
- * @param relativeType {string} Example: "#QuestionnaireResponse.item"
- */
-ConvertToJS.prototype.findReferenceType = function(relativeType) {
-    if (!relativeType || !relativeType.startsWith('#')) {
+    Fhir.prototype.objToXml = function (obj) {
+        var convertToXML = new convertToXml_1.ConvertToXml(this.parser);
+        var xml = convertToXML.convert(obj);
+        return xml;
+    };
+    ;
+    Fhir.prototype.xmlToObj = function (xml) {
+        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        var obj = convertToJs.convert(xml);
+        return obj;
+    };
+    ;
+    Fhir.prototype.xmlToJson = function (xml) {
+        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        var json = convertToJs.convertToJSON(xml);
+        return json;
+    };
+    ;
+    Fhir.prototype.validate = function (objOrXml, options) {
+        var validator = new validator_1.Validator(this.parser, options);
+        return validator.validate(objOrXml);
+    };
+    ;
+    Fhir.prototype.evaluate = function (resource, fhirPathString) {
+        var fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
+        fhirPath.resolve = this.resolve;
+        return fhirPath.evaluate(fhirPathString);
+    };
+    ;
+    Fhir.prototype.resolve = function (reference) {
         return;
+    };
+    return Fhir;
+}());
+exports.Fhir = Fhir;
+//# sourceMappingURL=fhir.js.map
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var convert = __webpack_require__(18);
+var _ = __webpack_require__(1);
+var parseConformance_1 = __webpack_require__(5);
+var xmlHelper_1 = __webpack_require__(26);
+var ConvertToJs = (function () {
+    function ConvertToJs(parser) {
+        this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-
-    var resourceType = relativeType.substring(1, relativeType.indexOf('.'));        // Assume starts with #
-    var path = relativeType.substring(resourceType.length + 2);
-    var resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
-    var pathSplit = path.split('.');
-
-    if (!resourceDefinition) {
-        throw new Error('Could not find resource definition for ' + resourceType);
-    }
-
-    var current = resourceDefinition;
-    for (var i = 0; i < pathSplit.length; i++) {
-        var nextPath = pathSplit[i];
-        current = _.find(current._properties, function(property) {
-            return property._name === nextPath;
-        });
-
-        if (!current) {
+    ConvertToJs.prototype.convert = function (xml) {
+        var xmlObj = convert.xml2js(xml);
+        var firstElement = _.find(xmlObj.elements, function (element) { return element.type === 'element'; });
+        if (firstElement) {
+            return this.resourceToJS(firstElement, null);
+        }
+    };
+    ConvertToJs.prototype.convertToJSON = function (xml) {
+        var xmlObj = convert.xml2js(xml);
+        if (xmlObj.elements.length !== 1) {
             return;
         }
-    }
-
-    return JSON.parse(JSON.stringify(current));
-}
-
-/**
- * @param xmlObj
- * @param obj
- * @param property
- * @private
- */
-ConvertToJS.prototype.propertyToJS = function(xmlObj, obj, property, surroundDecimalsWith) {
-    var self = this;
-    var xmlElements = _.filter(xmlObj.elements, function(element) {
-        return element.name === property._name;
-    });
-    var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
-        .filter(function(key) {
+        var surroundDecimalsWith = {};
+        var jsObj = this.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
+        var maxDLength = this.maxLengthOfDs(jsObj);
+        var rpt = '';
+        for (var i = 0; i < maxDLength + 5; i++) {
+            rpt += 'D';
+        }
+        surroundDecimalsWith['str'] = rpt;
+        var json = JSON.stringify(jsObj, null, '\t');
+        var replaceRegex = new RegExp('"?' + surroundDecimalsWith['str'] + '"?', 'g');
+        var json2 = json.replace(replaceRegex, '');
+        return json2;
+    };
+    ConvertToJs.prototype.maxLengthOfDs = function (obj) {
+        function maxSubstringLengthStr(str) {
+            var matches = str.match(/DDDD+/g);
+            if (!matches) {
+                return 0;
+            }
+            var ret = matches
+                .map(function (substr) { return substr.length; })
+                .reduce(function (p, c) { return Math.max(p, c); }, 0);
+            return ret;
+        }
+        function maxSubstringLength(currentMax, obj) {
+            var ret;
+            if (typeof (obj) === 'string') {
+                ret = Math.max(currentMax, maxSubstringLengthStr(obj));
+            }
+            else if (typeof (obj) === 'object') {
+                ret = Object.keys(obj)
+                    .map(function (k) {
+                    return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]));
+                })
+                    .reduce(function (p, c) { return Math.max(p, c); }, currentMax);
+            }
+            else {
+                ret = currentMax;
+            }
+            return ret;
+        }
+        return maxSubstringLength(0, obj);
+    };
+    ConvertToJs.prototype.resourceToJS = function (xmlObj, surroundDecimalsWith) {
+        var _this = this;
+        var typeDefinition = this.parser.parsedStructureDefinitions[xmlObj.name];
+        var resource = {
+            resourceType: xmlObj.name
+        };
+        if (!typeDefinition) {
+            throw new Error('Unknown resource type: ' + xmlObj.name);
+        }
+        _.each(typeDefinition._properties, function (property) {
+            _this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
+        });
+        return resource;
+    };
+    ConvertToJs.prototype.findReferenceType = function (relativeType) {
+        if (!relativeType || !relativeType.startsWith('#')) {
+            return;
+        }
+        var resourceType = relativeType.substring(1, relativeType.indexOf('.'));
+        var path = relativeType.substring(resourceType.length + 2);
+        var resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
+        var pathSplit = path.split('.');
+        if (!resourceDefinition) {
+            throw new Error('Could not find resource definition for ' + resourceType);
+        }
+        var current = resourceDefinition;
+        var _loop_1 = function (i) {
+            var nextPath = pathSplit[i];
+            current = _.find(current._properties, function (property) {
+                return property._name === nextPath;
+            });
+            if (!current) {
+                return { value: void 0 };
+            }
+        };
+        for (var i = 0; i < pathSplit.length; i++) {
+            var state_1 = _loop_1(i);
+            if (typeof state_1 === "object")
+                return state_1.value;
+        }
+        return JSON.parse(JSON.stringify(current));
+    };
+    ConvertToJs.prototype.propertyToJS = function (xmlObj, obj, property, surroundDecimalsWith) {
+        var _this = this;
+        var xmlElements = _.filter(xmlObj.elements, function (element) {
+            return element.name === property._name;
+        });
+        var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
+            .filter(function (key) {
             return key === property._name;
         })
-        .map(function(key) {
+            .map(function (key) {
             return {
                 name: key,
                 type: 'attribute',
                 attributes: { value: xmlObj.attributes[key] }
             };
         })
-        .value() : [];
-
-    var xmlProperty = xmlElements.concat(xmlAttributes);
-
-    if (!xmlProperty || xmlProperty.length === 0) {
-        return;
-    }
-
-    // If this is a reference type then f
-    if (property._type && property._type.indexOf('#') === 0) {
-        var relativeType = this.findReferenceType(property._type);
-
-        if (!relativeType) {
-            throw new Error('Could not find reference to element definition ' + relativeType);
+            .value() : [];
+        var xmlProperty = xmlElements.concat(xmlAttributes);
+        if (!xmlProperty || xmlProperty.length === 0) {
+            return;
         }
-
-        relativeType._multiple = property._multiple;
-        relativeType._required = property._required;
-
-        property = relativeType;
-    }
-
-    function pushValue(value) {
-        if (!value) return;
-
-        switch (property._type) {
-            case 'string':
-            case 'base64Binary':
-            case 'code':
-            case 'id':
-            case 'markdown':
-            case 'uri':
-            case 'url':
-            case 'canonical':
-            case 'oid':
-            case 'date':
-            case 'dateTime':
-            case 'time':
-            case 'instant':
-                if (value.attributes && value.attributes['value']) {
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(value.attributes['value'])
-                    } else {
-                        obj[property._name] = value.attributes['value'];
+        if (property._type && property._type.indexOf('#') === 0) {
+            var relativeType = this.findReferenceType(property._type);
+            if (!relativeType) {
+                throw new Error('Could not find reference to element definition ' + relativeType);
+            }
+            relativeType._multiple = property._multiple;
+            relativeType._required = property._required;
+            property = relativeType;
+        }
+        var pushValue = function (value) {
+            if (!value)
+                return;
+            switch (property._type) {
+                case 'string':
+                case 'base64Binary':
+                case 'code':
+                case 'id':
+                case 'markdown':
+                case 'uri':
+                case 'url':
+                case 'canonical':
+                case 'oid':
+                case 'date':
+                case 'dateTime':
+                case 'time':
+                case 'instant':
+                    if (value.attributes && value.attributes['value']) {
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(value.attributes['value']);
+                        }
+                        else {
+                            obj[property._name] = value.attributes['value'];
+                        }
                     }
-                }
-                break;
-            case 'decimal':
-                if (value.attributes['value']) {
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(convertDecimal(value.attributes['value'], surroundDecimalsWith))
-                    } else {
-                        obj[property._name] = convertDecimal(value.attributes['value'], surroundDecimalsWith)
+                    break;
+                case 'decimal':
+                    if (value.attributes['value']) {
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(convertDecimal(value.attributes['value'], surroundDecimalsWith));
+                        }
+                        else {
+                            obj[property._name] = convertDecimal(value.attributes['value'], surroundDecimalsWith);
+                        }
                     }
-                }
-                break;
-            case 'boolean':
-                if (value.attributes['value']) {
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(toBoolean(value.attributes['value']))
-                    } else {
-                        obj[property._name] = toBoolean(value.attributes['value'])
+                    break;
+                case 'boolean':
+                    if (value.attributes['value']) {
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(toBoolean(value.attributes['value']));
+                        }
+                        else {
+                            obj[property._name] = toBoolean(value.attributes['value']);
+                        }
                     }
-                }
-                break;
-            case 'integer':
-            case 'unsignedInt':
-            case 'positiveInt':
-                if (value.attributes['value']) {
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(toNumber(value.attributes['value']))
-                    } else {
-                        obj[property._name] = toNumber(value.attributes['value'])
+                    break;
+                case 'integer':
+                case 'unsignedInt':
+                case 'positiveInt':
+                    if (value.attributes['value']) {
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(toNumber(value.attributes['value']));
+                        }
+                        else {
+                            obj[property._name] = toNumber(value.attributes['value']);
+                        }
                     }
-                }
-                break;
-            case 'xhtml':
-                if (value.elements && value.elements.length > 0) {
-                    var div = convert.js2xml({elements: [XmlHelper.escapeInvalidCharacters(value)]});
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(div);
-                    } else {
-                        obj[property._name] = div;
+                    break;
+                case 'xhtml':
+                    if (value.elements && value.elements.length > 0) {
+                        var div = convert.js2xml({ elements: [xmlHelper_1.XmlHelper.escapeInvalidCharacters(value)] });
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(div);
+                        }
+                        else {
+                            obj[property._name] = div;
+                        }
                     }
-                }
-                break;
-            case 'Element':
-            case 'BackboneElement':
-                var newValue = {};
-
-                for (var x in property._properties) {
-                    var nextProperty = property._properties[x];
-                    self.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
-                }
-
-                if (obj[property._name] instanceof Array) {
-                    obj[property._name].push(newValue);
-                } else {
-                    obj[property._name] = newValue;
-                }
-                break;
-            case 'Resource':
-                if (value.elements.length === 1) {
-                    if (obj[property._name] instanceof Array) {
-                        obj[property._name].push(self.resourceToJS(value.elements[0], surroundDecimalsWith))
-                    } else {
-                        obj[property._name] = self.resourceToJS(value.elements[0], surroundDecimalsWith);
-                    }
-                }
-                break;
-            default:
-                var nextType = self.parser.parsedStructureDefinitions[property._type];
-
-                if (!nextType) {
-                    console.log('do something');
-                } else {
+                    break;
+                case 'Element':
+                case 'BackboneElement':
                     var newValue = {};
-
-                    _.each(nextType._properties, function(nextProperty) {
-                        self.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
-                    });
-
+                    for (var x in property._properties) {
+                        var nextProperty = property._properties[x];
+                        _this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
+                    }
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(newValue);
-                    } else {
+                    }
+                    else {
                         obj[property._name] = newValue;
                     }
-                }
-                break;
-        }
-    }
-
-    function toBoolean(value) {
-        if (value === "true") {
-            return true;
-        } else if (value === "false") {
-            return false;
-        } else {
-            throw new Error("value supposed to be a boolean but got: " + value)
-        }
-    }
-
-    function toNumber(value) {
-        if (/^-?\d+$/.test(value) == false) {
-            throw new Error("value supposed to be a number but got: " + value)
-        }
-        return parseInt(value, 10)
-    }
-
-    function convertDecimal(value, surroundDecimalsWith) {
-        // validation regex from http://hl7.org/fhir/xml.html
-        if (/^-?([0]|([1-9][0-9]*))(\.[0-9]+)?$/.test(value) == false) {
-            throw new Error("value supposed to be a decimal number but got: " + value)
-        }
-        if (surroundDecimalsWith) {
-            return {
-                value: value,
-                toJSON: function() {
-                    // surrounding str used as a marker to remove quotes to turn this
-                    // into a JSON number as per FHIR spec..
-                    return surroundDecimalsWith.str + value + surroundDecimalsWith.str;
-                }
+                    break;
+                case 'Resource':
+                    if (value.elements.length === 1) {
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(_this.resourceToJS(value.elements[0], surroundDecimalsWith));
+                        }
+                        else {
+                            obj[property._name] = _this.resourceToJS(value.elements[0], surroundDecimalsWith);
+                        }
+                    }
+                    break;
+                default:
+                    var nextType = _this.parser.parsedStructureDefinitions[property._type];
+                    if (!nextType) {
+                        console.log('do something');
+                    }
+                    else {
+                        var newValue_1 = {};
+                        _.each(nextType._properties, function (nextProperty) {
+                            _this.propertyToJS(value, newValue_1, nextProperty, surroundDecimalsWith);
+                        });
+                        if (obj[property._name] instanceof Array) {
+                            obj[property._name].push(newValue_1);
+                        }
+                        else {
+                            obj[property._name] = newValue_1;
+                        }
+                    }
+                    break;
             }
-        } else {
-            return value;
+        };
+        function toBoolean(value) {
+            if (value === "true") {
+                return true;
+            }
+            else if (value === "false") {
+                return false;
+            }
+            else {
+                throw new Error("value supposed to be a boolean but got: " + value);
+            }
         }
-    }
-
-    if (property._multiple) {
-        obj[property._name] = [];
-    }
-
-    for (var i in xmlProperty) {
-        /*
-        TODO: Maybe consider preserving the comments in JSON format.
-        However, according to a FHIR Chat conversation, fhir_comments won't be supported in JSON going forward
-        https://chat.fhir.org/#narrow/stream/4-implementers/subject/fhir_comments
-
-        var xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
-        var xmlComment = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex-1].type === 'comment' ?
-            xmlObj.elements[xmlPropertyIndex-1] :
-            null;
-        */
-
-        pushValue(xmlProperty[i]);
-    }
-}
-
-module.exports = ConvertToJS;
+        function toNumber(value) {
+            if (/^-?\d+$/.test(value) == false) {
+                throw new Error("value supposed to be a number but got: " + value);
+            }
+            return parseInt(value, 10);
+        }
+        function convertDecimal(value, surroundDecimalsWith) {
+            if (/^-?([0]|([1-9][0-9]*))(\.[0-9]+)?$/.test(value) == false) {
+                throw new Error("value supposed to be a decimal number but got: " + value);
+            }
+            if (surroundDecimalsWith) {
+                return {
+                    value: value,
+                    toJSON: function () {
+                        return surroundDecimalsWith.str + value + surroundDecimalsWith.str;
+                    }
+                };
+            }
+            else {
+                return value;
+            }
+        }
+        if (property._multiple) {
+            obj[property._name] = [];
+        }
+        for (var i in xmlProperty) {
+            pushValue(xmlProperty[i]);
+        }
+    };
+    return ConvertToJs;
+}());
+exports.ConvertToJs = ConvertToJs;
+//# sourceMappingURL=convertToJs.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*jslint node:true */
 
-var xml2js = __webpack_require__(18);
+var xml2js = __webpack_require__(19);
 var xml2json = __webpack_require__(45);
-var js2xml = __webpack_require__(24);
+var js2xml = __webpack_require__(25);
 var json2xml = __webpack_require__(46);
 
 module.exports = {
@@ -6275,7 +6124,7 @@ module.exports = {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var sax = __webpack_require__(30);
@@ -6643,7 +6492,7 @@ module.exports = function (xml, userOptions) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -6654,7 +6503,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6689,7 +6538,7 @@ var processNextTick = __webpack_require__(8);
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(19);
+var isArray = __webpack_require__(20);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -6707,7 +6556,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(21);
+var Stream = __webpack_require__(22);
 /*</replacement>*/
 
 // TODO(bmeurer): Change this back to const once hole checks are
@@ -6724,8 +6573,8 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -6739,7 +6588,7 @@ if (debugUtil && debugUtil.debuglog) {
 /*</replacement>*/
 
 var BufferList = __webpack_require__(36);
-var destroyImpl = __webpack_require__(22);
+var destroyImpl = __webpack_require__(23);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -6761,7 +6610,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   options = options || {};
 
@@ -6829,7 +6678,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -7665,17 +7514,17 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(10).EventEmitter;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7753,7 +7602,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7824,11 +7673,11 @@ module.exports = {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(1);
+var Duplex = __webpack_require__(0);
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 util.inherits(Transform, Duplex);
@@ -7973,7 +7822,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var helper = __webpack_require__(14);
@@ -8299,160 +8148,44 @@ module.exports = function (js, options) {
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _ = __webpack_require__(0);
-
-function escapeInvalidCharacters(element) {
-    _.each(element.attributes, function(attribute, index) {
-        element.attributes[index] = element.attributes[index]
-            .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
-    });
-
-    if (element.type === 'text' && element.text) {
-        element.text = element.text
-            .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
-    }
-
-    _.each(element.elements, escapeInvalidCharacters);
-
-    return element;
-}
-
-function unescapeInvalidCharacters(element) {
-    _.each(element.attributes, function(attribute, index) {
-        element.attributes[index] = element.attributes[index]
-            .replace(/&amp;/g, '&');
-    });
-
-    if (element.type === 'text' && element.text) {
-        element.text = element.text
-            .replace(/&amp;/g, '&');
-    }
-
-    _.each(element.elements, unescapeInvalidCharacters);
-
-    return element;
-}
-
-module.exports = {
-    escapeInvalidCharacters: escapeInvalidCharacters,
-    unescapeInvalidCharacters: unescapeInvalidCharacters
-};
-
-/***/ }),
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * @constructor
- * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
- */
-var Fhir = function (parser) {
-    var ParseConformance = __webpack_require__(2);
+"use strict";
 
-    // If no custom parser is specified, create a new one, loading cached data
-    this.parser = parser || new ParseConformance(true);
-};
-
-Fhir.ParseConformance = __webpack_require__(2);
-
-/**
- * Serializes a JSON resource object to XML
- * @param {string} json
- * @returns {string} XML
- */
-Fhir.prototype.jsonToXml = function(json) {
-    var obj = JSON.parse(json);
-    return this.objToXml(obj);
-}
-
-/**
- * Serializes a JS resource object to XML
- * @param {*} obj
- * @returns {string}
- */
-Fhir.prototype.objToXml = function(obj) {
-    var ConvertToXML = __webpack_require__(29);
-    var convertToXML = new ConvertToXML(this.parser);
-    var xml = convertToXML.convert(obj);
-    return xml;
-};
-
-/**
- * Serializes an XML resource to a JS object
- * @param {string} xml
- * @returns {*}
- */
-Fhir.prototype.xmlToObj = function(xml) {
-    var ConvertToJS = __webpack_require__(16);
-    var convertToJs = new ConvertToJS(this.parser);
-    var obj = convertToJs.convert(xml);
-    return obj;
-};
-
-/**
- * Serializes an XML resource to JSON
- * @param {string} xml
- * @returns {string} JSON
- */
-Fhir.prototype.xmlToJson = function(xml) {
-    var ConvertToJS = __webpack_require__(16);
-    var convertToJs = new ConvertToJS(this.parser);
-    var json = convertToJs.convertToJSON(xml);
-    return json;
-};
-
-/**
- * Validates the specified resource (either a JS object or XML string)
- * @param {string|*} objOrXml
- * @param {ValidationOptions} options
- * @returns {ValidationResponse}
- */
-Fhir.prototype.validate = function(objOrXml, options) {
-    var validate = __webpack_require__(47);
-    return validate(objOrXml, this.parser, options);
-};
-
-/**
- * Evaluates a FhirPath against the specified resource(s)
- * @param {Resource|Array<Resource>} resource
- * @param {string} fhirPathString
- * @returns {obj|Array} The result of the FhirPath evaluation. Can be a single value or multiple values. When FhirPath represents a operator comparison, returns a single boolean value.
- * @see {@link FhirPath}
- * @example
- * var results = fhir.evaluate(resources, "Bundle.entry.where(fullUrl = 'http://xxx')")
- * // Only one of the 8 resources in the bundle have an entry with that URL
- * assert(results.fullUrl === 'http://xxx')
- * @example
- * var results = fhir.evaluate([ resource1, resource2 ], "Bundle.entry.resource.where(resourceType = 'StructureDefinition')")
- * // Only one of the resources was a StructureDefinition, so the one StructureDefinition is returned
- * assert(results.resourceType === 'StructureDefinition')
- * @example
- * var results = fhir.evaluate([ resource1, resource2 ], "StructureDefinition.snapshot.element")
- * // results in a combination of all elements in both StructureDefinition resources
- * assert(results.length == 84)
- */
-Fhir.prototype.evaluate = function(resource, fhirPathString) {
-    var FhirPath = __webpack_require__(48);
-    var fhirPath = new FhirPath(resource, this.parser);
-    fhirPath.resolve = this.resolve;
-    return fhirPath.evaluate(fhirPathString);
-};
-
-/**
- * A callback which is executed when a reference needs to be resolved to a resource during evaluation of FhirPath.
- * This should be overridden by the caller of the class.
- * @param {string} reference The reference that needs to be resolved
- * @returns Should return a Resource instance
- * @event
- */
-Fhir.prototype.resolve = function(reference) {
-    return;
-}
-
-module.exports = Fhir;
+exports.__esModule = true;
+var _ = __webpack_require__(1);
+var XmlHelper = (function () {
+    function XmlHelper() {
+    }
+    XmlHelper.escapeInvalidCharacters = function (element) {
+        _.each(element.attributes, function (attribute, index) {
+            element.attributes[index] = element.attributes[index]
+                .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
+        });
+        if (element.type === 'text' && element.text) {
+            element.text = element.text
+                .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
+        }
+        _.each(element.elements, XmlHelper.escapeInvalidCharacters);
+        return element;
+    };
+    XmlHelper.unescapeInvalidCharacters = function (element) {
+        _.each(element.attributes, function (attribute, index) {
+            element.attributes[index] = element.attributes[index]
+                .replace(/&amp;/g, '&');
+        });
+        if (element.type === 'text' && element.text) {
+            element.text = element.text
+                .replace(/&amp;/g, '&');
+        }
+        _.each(element.elements, XmlHelper.unescapeInvalidCharacters);
+        return element;
+    };
+    return XmlHelper;
+}());
+exports.XmlHelper = XmlHelper;
+//# sourceMappingURL=xmlHelper.js.map
 
 /***/ }),
 /* 27 */
@@ -8470,225 +8203,375 @@ module.exports = {"http://hl7.org/fhir/ValueSet/example-extensional":{"systems":
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var convert = __webpack_require__(17);
-var _ = __webpack_require__(0);
-var ParseConformance = __webpack_require__(2);
-var XmlHelper = __webpack_require__(25);
+"use strict";
 
-/**
- * A list of properties that should be treated as attributes when serializing to XML.
- * Key = parent type
- * Value = property name
- * @type {obj}
- */
-var attributeProperties = {
-    'Extension': 'url'
-};
-
-/**
- * @constructor
- * @param {ParseConformance} [parser] A parser, which may include specialized StructureDefintion and ValueSet resources
- */
-function ConvertToXML(parser) {
-    this.parser = parser || new ParseConformance(true);
-}
-
-/**
- * Converts the specified object to XML
- * @param {FHIR.Resource} obj
- * @returns {string}
- */
-ConvertToXML.prototype.convert = function(obj) {
-    var self = this;
-
-    if (obj.hasOwnProperty('resourceType')) {
-        var xmlObj = self.resourceToXML(obj);
-        return convert.js2xml(xmlObj);
-    }
-}
-
-/**
- * @param obj
- * @param xmlObj
- * @returns {*}
- * @private
- */
-ConvertToXML.prototype.resourceToXML = function(obj, xmlObj) {
-    var self = this;
-    var resourceElement = {
-        type: 'element',
-        name: obj.resourceType,
-        attributes: {
-            xmlns: 'http://hl7.org/fhir'
-        },
-        elements: []
-    };
-
-    if (!xmlObj) {
-        xmlObj = {
-            declaration: {
-                attributes: {
-                    version: '1.0',
-                    encoding: 'UTF-8'
-                }
-            },
-            elements: [resourceElement]
+exports.__esModule = true;
+var _ = __webpack_require__(1);
+var convertToJs_1 = __webpack_require__(17);
+var Validator = (function () {
+    function Validator(parser, options, resourceId, isXml) {
+        this.isXml = false;
+        this.response = {
+            valid: true,
+            messages: []
         };
+        this.SEVERITY_FATAL = 'fatal';
+        this.SEVERITY_ERROR = 'error';
+        this.SEVERITY_WARN = 'warning';
+        this.SEVERITY_INFO = 'info';
+        this.PRIMITIVE_TYPES = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'Element'];
+        this.DATA_TYPES = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
+        this.PRIMITIVE_NUMBER_TYPES = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
+        this.PRIMITIVE_DATE_REGEX = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
+        this.PRIMITIVE_DATETIME_REGEX = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/i;
+        this.PRIMITIVE_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/i;
+        this.PRIMITIVE_CODE_REGEX = /[^\s]+(\s[^\s]+)*/i;
+        this.PRIMITIVE_OID_REGEX = /urn:oid:[0-2](\.[1-9]\d*)+/i;
+        this.PRIMITIVE_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/i;
+        this.PRIMITIVE_POSITIVE_INT_REGEX = /^(?!0+$)\d+$/i;
+        this.PRIMITIVE_UNSIGNED_INT_REGEX = /[0]|([1-9][0-9]*)/i;
+        this.PRIMITIVE_INTEGER_REGEX = /[0]|[-+]?[1-9][0-9]*/i;
+        this.PRIMITIVE_DECIMAL_REGEX = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
+        this.parser = parser;
+        this.options = options || {};
+        this.resourceId = resourceId;
+        this.isXml = isXml;
     }
-
-    if (!self.parser.parsedStructureDefinitions[obj.resourceType]) {
-        throw new Error('Unknown resource type: ' + obj.resourceType);
-    }
-
-    _.each(self.parser.parsedStructureDefinitions[obj.resourceType]._properties, function(property) {
-        self.propertyToXML(resourceElement, self.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
-    });
-
-    return xmlObj;
-}
-
-/**
- * @param parentXmlObj
- * @param parentType
- * @param obj
- * @param propertyName
- * @private
- */
-ConvertToXML.prototype.propertyToXML = function(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
-    var self = this;
-
-    // id without a parentPropertyType means it is an id of a resource, which would produce an <id> element
-    var isAttribute = (propertyName === 'id' && !!parentPropertyType) || attributeProperties[parentPropertyType] === propertyName;
-
-    if (!obj || obj[propertyName] === undefined || obj[propertyName] === null) return;
-
-    var propertyType = _.find(parentType._properties, function(property) {
-        return property._name == propertyName;
-    });
-
-    function xmlEscapeString(value) {
-        return value
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\r/g, '&#xD;')
-            .replace(/\n/g, '&#xA;');
-    }
-
-    function pushProperty(value) {
-        if (value === undefined || value === null) return;
-
-        var nextXmlObj = {
-            type: 'element',
-            name: propertyName,
-            elements: []
-        };
-
-        switch (propertyType._type) {
-            case 'string':
-            case 'base64Binary':
-            case 'code':
-            case 'id':
-            case 'markdown':
-            case 'uri':
-            case 'url':
-            case 'canonical':
-            case 'oid':
-            case 'boolean':
-            case 'integer':
-            case 'decimal':
-            case 'unsignedInt':
-            case 'positiveInt':
-            case 'date':
-            case 'dateTime':
-            case 'time':
-            case 'instant':
-                var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
-
-                nextXmlObj.attributes = {
-                    value: actual
-                };
-                break;
-            case 'xhtml':
-                if (propertyName === 'div') {
-                    var divXmlObj;
-
-                    try {
-                        divXmlObj = convert.xml2js(value);
-                        divXmlObj = XmlHelper.escapeInvalidCharacters(divXmlObj);
-                    } catch (ex) {
-                        throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
-                    }
-
-                    nextXmlObj.attributes = {
-                        'xmlns': 'http://www.w3.org/1999/xhtml'
-                    };
-                    if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
-                        nextXmlObj.elements = divXmlObj.elements[0].elements;
-                    }
-                }
-                break;
-            case 'Resource':
-                var resourceXmlObj = self.resourceToXML(value).elements[0];
-                delete resourceXmlObj.attributes.xmlns;
-                nextXmlObj.elements.push(resourceXmlObj);
-                break;
-            case 'Element':
-            case 'BackboneElement':
-                for (var x in propertyType._properties) {
-                    var nextProperty = propertyType._properties[x];
-                    self.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
-                }
-                break;
-            default:
-                var nextType = self.parser.parsedStructureDefinitions[propertyType._type];
-
-                if (propertyType._type.startsWith('#')) {
-                    var typeSplit = propertyType._type.substring(1).split('.');
-                    for (var i = 0; i < typeSplit.length; i++) {
-                        if (i == 0) {
-                            nextType = self.parser.parsedStructureDefinitions[typeSplit[i]];
-                        } else {
-                            nextType = _.find(nextType._properties, function(nextTypeProperty) {
-                                return nextTypeProperty._name === typeSplit[i];
-                            });
-                        }
-
-                        if (!nextType) {
-                            break;
-                        }
-                    }
-                }
-
-                if (!nextType) {
-                    console.log('Could not find type ' + propertyType._type);
-                } else {
-                    _.each(nextType._properties, function(nextProperty) {
-                        self.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
-                    });
-                }
+    Validator.prototype.validate = function (input) {
+        if (typeof (input) === 'string' && input.indexOf('{') === 0) {
+            this.obj = JSON.parse(input);
         }
-
-        if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
-            if (!parentXmlObj.attributes) {
-                parentXmlObj.attributes = [];
+        else if (typeof (input) === 'string') {
+            this.obj = new convertToJs_1.ConvertToJs().convert(input);
+            this.isXml = true;
+        }
+        else {
+            this.obj = input;
+        }
+        var typeDefinition = this.parser.parsedStructureDefinitions[this.obj.resourceType];
+        this.resourceId = this.obj.id || '#initial';
+        if (this.options && this.options.onBeforeValidateResource) {
+            var eventMessages = this.options.onBeforeValidateResource(this.obj);
+            if (eventMessages) {
+                this.response.messages = this.response.messages.concat(eventMessages);
             }
-            parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
-        } else {
-            parentXmlObj.elements.push(nextXmlObj);
         }
-    }
-
-    if (obj[propertyName] && propertyType._multiple) {
-        for (var i = 0; i < obj[propertyName].length; i++) {
-            pushProperty(obj[propertyName][i]);
+        if (!this.obj || !typeDefinition) {
+            this.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');
         }
-    } else {
-        pushProperty(obj[propertyName]);
-    }
-}
-
-module.exports = ConvertToXML;
+        else {
+            this.validateProperties(this.obj, typeDefinition._properties, [this.obj.resourceType]);
+        }
+        return this.response;
+    };
+    Validator.getTreeDisplay = function (tree, isXml, leaf) {
+        var display = '';
+        for (var i = 0; i < tree.length; i++) {
+            if (display) {
+                if (isXml) {
+                    display += '/';
+                }
+                else {
+                    display += '.';
+                }
+            }
+            display += tree[i];
+        }
+        if (leaf) {
+            if (display) {
+                if (isXml) {
+                    display += '/';
+                }
+                else {
+                    display += '.';
+                }
+            }
+            display += leaf;
+        }
+        return display;
+    };
+    Validator.prototype.checkCode = function (valueSet, code, system) {
+        if (system) {
+            var foundSystem = _.find(valueSet.systems, function (nextSystem) {
+                return nextSystem.uri === system;
+            });
+            if (foundSystem) {
+                var foundCode = _.find(foundSystem.codes, function (nextCode) {
+                    return nextCode.code === code;
+                });
+                return !!foundCode;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            var valid_1 = false;
+            _.each(valueSet.systems, function (nextSystem) {
+                var foundCode = _.find(nextSystem.codes, function (nextCode) {
+                    return nextCode.code === code;
+                });
+                if (foundCode) {
+                    valid_1 = true;
+                }
+            });
+            return valid_1;
+        }
+    };
+    Validator.prototype.addError = function (location, message) {
+        var theMessage = {
+            location: location,
+            resourceId: this.resourceId,
+            severity: this.SEVERITY_ERROR,
+            message: message
+        };
+        this.response.valid = false;
+        this.response.messages.push(theMessage);
+        if (this.options.onError) {
+            this.options.onError(theMessage);
+        }
+    };
+    ;
+    Validator.prototype.addFatal = function (location, message) {
+        this.response.valid = false;
+        this.response.messages.push({
+            location: location,
+            resourceId: this.resourceId,
+            severity: this.SEVERITY_FATAL,
+            message: message
+        });
+    };
+    ;
+    Validator.prototype.addWarn = function (location, message) {
+        this.response.messages.push({
+            location: location,
+            resourceId: this.resourceId,
+            severity: this.SEVERITY_WARN,
+            message: message
+        });
+    };
+    ;
+    Validator.prototype.addInfo = function (location, message) {
+        this.response.messages.push({
+            location: location,
+            resourceId: this.resourceId,
+            severity: this.SEVERITY_INFO,
+            message: message
+        });
+    };
+    ;
+    Validator.prototype.validateNext = function (obj, property, tree) {
+        var _this = this;
+        var treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
+        if (property._valueSet) {
+            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) {
+                return valueSetKey === property._valueSet;
+            });
+            if (!foundValueSet_1) {
+                this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
+            }
+            else {
+                if (property._type === 'CodeableConcept') {
+                    var found_1 = false;
+                    _.each(obj.coding, function (coding) {
+                        if (_this.checkCode(foundValueSet_1, coding.code, coding.system)) {
+                            found_1 = true;
+                        }
+                        else {
+                            var msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
+                            if (property._valueSetStrength === 'required') {
+                                _this.addError(treeDisplay, msg);
+                            }
+                            else {
+                                _this.addWarn(treeDisplay, msg);
+                            }
+                        }
+                    });
+                    if (!found_1) {
+                    }
+                }
+                else if (property._type === 'Coding') {
+                    if (!this.checkCode(foundValueSet_1, obj.code, obj.system)) {
+                        var msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                        if (property._valueSetStrength === 'required') {
+                            this.addError(treeDisplay, msg);
+                        }
+                        else {
+                            this.addWarn(treeDisplay, msg);
+                        }
+                    }
+                }
+                else if (property._type === 'code') {
+                    if (!this.checkCode(foundValueSet_1, obj)) {
+                        if (property._valueSetStrength === 'required') {
+                            this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
+                        }
+                        else {
+                            this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
+                        }
+                    }
+                }
+            }
+        }
+        if (this.PRIMITIVE_TYPES.indexOf(property._type) >= 0) {
+            if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
+                this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
+            }
+            else if (this.PRIMITIVE_NUMBER_TYPES.indexOf(property._type) >= 0) {
+                if (typeof (obj) === 'string') {
+                    if (property._type === 'integer' && !this.PRIMITIVE_INTEGER_REGEX.test(obj)) {
+                        this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
+                    }
+                    else if (property._type === 'decimal' && !this.PRIMITIVE_DECIMAL_REGEX.test(obj)) {
+                        this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
+                    }
+                    else if (property._type === 'unsignedInt' && !this.PRIMITIVE_UNSIGNED_INT_REGEX.test(obj)) {
+                        this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
+                    }
+                    else if (property._type === 'positiveInt' && !this.PRIMITIVE_POSITIVE_INT_REGEX.test(obj)) {
+                        this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
+                    }
+                }
+            }
+            else if (property._type === 'date' && !this.PRIMITIVE_DATE_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid date format for value "' + obj + '"');
+            }
+            else if (property._type === 'dateTime' && !this.PRIMITIVE_DATETIME_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid dateTime format for value "' + obj + '"');
+            }
+            else if (property._type === 'time' && !this.PRIMITIVE_TIME_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid time format for value "' + obj + '"');
+            }
+            else if (property._type === 'code' && !this.PRIMITIVE_CODE_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid code format for value "' + obj + '"');
+            }
+            else if (property._type === 'oid' && !this.PRIMITIVE_OID_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid oid format for value "' + obj + '"');
+            }
+            else if (property._type === 'id' && !this.PRIMITIVE_ID_REGEX.test(obj)) {
+                this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
+            }
+        }
+        else if (property._type === 'Resource') {
+            var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
+            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            if (this.options && this.options.onBeforeValidateResource) {
+                var eventMessages = this.options.onBeforeValidateResource(obj);
+                if (eventMessages) {
+                    this.response.messages = this.response.messages.concat(eventMessages);
+                }
+            }
+            if (!obj.resourceType || !typeDefinition) {
+                nextValidationInstance.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');
+            }
+            else {
+                nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
+            }
+            var nextValidationResponse = nextValidationInstance.response;
+            this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
+            this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+        }
+        else if (property._type === 'ElementDefinition') {
+            var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
+            var nextValidationResponse = nextValidationInstance.response;
+            this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
+            this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+        }
+        else if (this.DATA_TYPES.indexOf(property._type) >= 0) {
+            var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+            var nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml);
+            nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
+            var nextValidationResponse = nextValidationInstance.response;
+            this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
+            this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+        }
+        else if (property._properties) {
+            this.validateProperties(obj, property._properties, tree);
+        }
+    };
+    Validator.prototype.validateProperties = function (obj, properties, tree) {
+        var _loop_1 = function (i) {
+            var property = properties[i];
+            var foundProperty = obj.hasOwnProperty(property._name);
+            var propertyValue = obj[property._name];
+            var treeDisplay = Validator.getTreeDisplay(tree.concat([property._name]));
+            if (propertyValue && this_1.options.onBeforeValidateProperty) {
+                var eventMessages = this_1.options.onBeforeValidateProperty(property, treeDisplay, propertyValue);
+                if (eventMessages) {
+                    this_1.response.messages = this_1.response.messages.concat(eventMessages);
+                }
+            }
+            if (property._required && !foundProperty) {
+                var satisfied = false;
+                if (property._choice) {
+                    satisfied = _.filter(properties, function (nextProperty) {
+                        return nextProperty._choice === property._choice && !!obj[nextProperty._name];
+                    }).length > 0;
+                }
+                if (!satisfied) {
+                    this_1.addError(Validator.getTreeDisplay(tree, this_1.isXml, property._choice ? property._choice : property._name), 'Missing property');
+                }
+            }
+            if (foundProperty) {
+                if (property._multiple) {
+                    if (propertyValue instanceof Array) {
+                        if (property._required && propertyValue.length === 0) {
+                            this_1.addError(treeDisplay, 'A ' + property._name + ' entry is required');
+                        }
+                        for (var x = 0; x < propertyValue.length; x++) {
+                            var foundPropertyElement = propertyValue[x];
+                            var treeItem = property._name;
+                            if (this_1.isXml) {
+                                treeItem += '[' + (x + 1) + ']';
+                            }
+                            else {
+                                treeItem += '[' + x + ']';
+                            }
+                            this_1.validateNext(foundPropertyElement, property, tree.concat([treeItem]));
+                        }
+                    }
+                    else {
+                        this_1.addError(treeDisplay, 'Property is not an array');
+                    }
+                }
+                else {
+                    this_1.validateNext(propertyValue, property, tree.concat([property._name]));
+                }
+            }
+        };
+        var this_1 = this;
+        for (var i = 0; i < properties.length; i++) {
+            _loop_1(i);
+        }
+        var objKeys = Object.keys(obj);
+        var _loop_2 = function (i) {
+            var objKey = objKeys[i];
+            if (objKey === 'resourceType') {
+                return "continue";
+            }
+            var foundProperty = _.find(properties, function (property) {
+                return property._name === objKey;
+            });
+            if (!foundProperty) {
+                if (this_2.options.errorOnUnexpected) {
+                    this_2.addError(Validator.getTreeDisplay(tree, this_2.isXml, objKey), 'Unexpected property');
+                }
+                else {
+                    this_2.addWarn(Validator.getTreeDisplay(tree, this_2.isXml, objKey), 'Unexpected property');
+                }
+            }
+        };
+        var this_2 = this;
+        for (var i = 0; i < objKeys.length; i++) {
+            _loop_2(i);
+        }
+    };
+    return Validator;
+}());
+exports.Validator = Validator;
+//# sourceMappingURL=validator.js.map
 
 /***/ }),
 /* 30 */
@@ -10971,7 +10854,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)))
 
 /***/ }),
 /* 39 */
@@ -11045,7 +10928,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
 /* 40 */
@@ -11081,11 +10964,11 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(23);
+var Transform = __webpack_require__(24);
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 util.inherits(PassThrough, Transform);
@@ -11111,7 +10994,7 @@ module.exports = __webpack_require__(12);
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
+module.exports = __webpack_require__(0);
 
 
 /***/ }),
@@ -11133,7 +11016,7 @@ module.exports = __webpack_require__(11).PassThrough
 /***/ (function(module, exports, __webpack_require__) {
 
 var helper = __webpack_require__(14);
-var xml2js = __webpack_require__(18);
+var xml2js = __webpack_require__(19);
 
 function validateOptions (userOptions) {
   var options = helper.copyOptions(userOptions);
@@ -11160,7 +11043,7 @@ module.exports = function(xml, userOptions) {
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var js2xml = __webpack_require__(24);
+/* WEBPACK VAR INJECTION */(function(Buffer) {var js2xml = __webpack_require__(25);
 
 module.exports = function (json, options) {
   if (json instanceof Buffer) {
@@ -11185,777 +11068,485 @@ module.exports = function (json, options) {
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _ = __webpack_require__(0);
+"use strict";
 
-/**
- * @typedef {Object} ValidationResponse
- * @property {boolean} valid Indicates if errors were encountered during validation
- * @property {ValidationMessage[]} messages Warning and error messages from validation
- */
-
-/**
- * @typedef {Object} ValidationMessage
- * @property {string} location The location of where the error occurred
- * @property {string} severity The severity of the message (fatal | error | warning)
- * @property {string} message The message
- * @property {string} resourceId The id of the resource the message relates to
- */
-
-/**
- * @typedef {Object} ValidationOptions
- * @property {boolean} errorOnUnexpected Indicates if an error should be returned when an unexpected property is encountered
- */
-
-module.exports = function(objOrXml, parser, options) {
-    var obj = objOrXml;
-    var isXml = false;
-
-    if (typeof(objOrXml) === 'string') {
-        var ConvertToJS = __webpack_require__(16);
-        var convertToJS = new ConvertToJS();
-        obj = convertToJS.convert(objOrXml);
-        isXml = true;
+exports.__esModule = true;
+var convert = __webpack_require__(18);
+var _ = __webpack_require__(1);
+var parseConformance_1 = __webpack_require__(5);
+var xmlHelper_1 = __webpack_require__(26);
+var ConvertToXml = (function () {
+    function ConvertToXml(parser) {
+        this.attributeProperties = {
+            'Extension': 'url'
+        };
+        this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-
-    var validation = new FhirValidation(parser, options);
-    return validation.validate(obj, isXml);
-}
-
-var SEVERITY_FATAL = 'fatal';
-var SEVERITY_ERROR = 'error';
-var SEVERITY_WARN = 'warning';
-var SEVERITY_INFO = 'info';
-var PRIMITIVE_TYPES = ['instant','time','date','dateTime','decimal','boolean','integer','base64Binary','string','uri','unsignedInt','positiveInt','code','id','oid','markdown','Element'];
-var DATA_TYPES = ['Reference','Narrative', 'Ratio','Period','Range','Attachment','Identifier','HumanName','Annotation','Address','ContactPoint','SampledData','Quantity','CodeableConcept','Signature','Coding','Timing','Age','Distance','SimpleQuantity','Duration','Count','Money'];
-var PRIMITIVE_NUMBER_TYPES = ['unsignedInt','positiveInt','decimal','integer'];
-var PRIMITIVE_DATE_REGEX = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
-var PRIMITIVE_DATETIME_REGEX = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/i;
-var PRIMITIVE_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/i;
-var PRIMITIVE_CODE_REGEX = /[^\s]+(\s[^\s]+)*/i;
-var PRIMITIVE_OID_REGEX = /urn:oid:[0-2](\.[1-9]\d*)+/i;
-var PRIMITIVE_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/i;
-var PRIMITIVE_POSITIVE_INT_REGEX = /^(?!0+$)\d+$/i;
-var PRIMITIVE_UNSIGNED_INT_REGEX = /[0]|([1-9][0-9]*)/i;
-var PRIMITIVE_INTEGER_REGEX = /[0]|[-+]?[1-9][0-9]*/i;
-var PRIMITIVE_DECIMAL_REGEX = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
-
-function getTreeDisplay(tree, isXml, leaf) {
-    var display = '';
-
-    for (var i = 0; i < tree.length; i++) {
-        if (display) {
-            if (isXml) {
-                display += '/';
-            } else {
-                display += '.';
-            }
+    ConvertToXml.prototype.convert = function (obj) {
+        if (obj.hasOwnProperty('resourceType')) {
+            var xmlObj = this.resourceToXML(obj);
+            return convert.js2xml(xmlObj);
         }
-
-        display += tree[i];
-    }
-
-    if (leaf) {
-        if (display) {
-            if (isXml) {
-                display += '/';
-            } else {
-                display += '.';
-            }
-        }
-
-        display += leaf;
-    }
-
-    return display;
-}
-
-function checkCode(valueSet, code, system) {
-    if (system) {
-        var foundSystem = _.find(valueSet.systems, function(nextSystem) {
-            return nextSystem.uri === system;
-        });
-
-        if (foundSystem) {
-            var foundCode = _.find(foundSystem.codes, function(nextCode) {
-                return nextCode.code === code;
-            });
-
-            return !!foundCode;
-        } else {
-            return false;
-        }
-    } else {
-        var valid = false;
-
-        _.each(valueSet.systems, function(nextSystem) {
-            var foundCode = _.find(nextSystem.codes, function(nextCode) {
-                return nextCode.code === code;
-            });
-
-            if (foundCode) {
-                valid = true;
-            }
-        })
-
-        return valid;
-    }
-}
-
-var FhirInstanceValidation = function(parser, options, resourceId, isXml) {
-    this.parser = parser;
-    this.options = options;
-    this.response = {
-        valid: true,
-        messages: []
     };
-    this.isXml = isXml;
-    this.resourceId = resourceId;
-};
-
-FhirInstanceValidation.prototype.getResponse = function() {
-    return this.response;
-};
-
-FhirInstanceValidation.prototype.addError = function(location, message) {
-    this.response.valid = false;
-    this.response.messages.push({
-        location: location,
-        resourceId: this.resourceId,
-        severity: SEVERITY_ERROR,
-        message: message
-    });
-};
-
-FhirInstanceValidation.prototype.addFatal = function(location, message) {
-    this.response.valid = false;
-    this.response.messages.push({
-        location: location,
-        resourceId: this.resourceId,
-        severity: SEVERITY_FATAL,
-        message: message
-    });
-};
-
-FhirInstanceValidation.prototype.addWarn = function(location, message) {
-    this.response.messages.push({
-        location: location,
-        resourceId: this.resourceId,
-        severity: SEVERITY_WARN,
-        message: message
-    });
-};
-
-FhirInstanceValidation.prototype.addInfo = function(location, message) {
-    this.response.messages.push({
-        location: location,
-        resourceId: this.resourceId,
-        severity: SEVERITY_INFO,
-        message: message
-    });
-};
-
-FhirInstanceValidation.prototype.validateNext = function(obj, property, tree) {
-    var self = this;
-    var treeDisplay = getTreeDisplay(tree, this.isXml);
-
-    if (property._valueSet) {
-        var foundValueSet = _.find(this.parser.parsedValueSets, function(valueSet, valueSetKey) {
-            return valueSetKey === property._valueSet;
+    ConvertToXml.prototype.resourceToXML = function (obj, xmlObj) {
+        var _this = this;
+        var resourceElement = {
+            type: 'element',
+            name: obj.resourceType,
+            attributes: {
+                xmlns: 'http://hl7.org/fhir'
+            },
+            elements: []
+        };
+        if (!xmlObj) {
+            xmlObj = {
+                declaration: {
+                    attributes: {
+                        version: '1.0',
+                        encoding: 'UTF-8'
+                    }
+                },
+                elements: [resourceElement]
+            };
+        }
+        if (!this.parser.parsedStructureDefinitions[obj.resourceType]) {
+            throw new Error('Unknown resource type: ' + obj.resourceType);
+        }
+        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, function (property) {
+            _this.propertyToXML(resourceElement, _this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
         });
-
-        if (!foundValueSet) {
-            self.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
-        } else {
-            if (property._type === 'CodeableConcept') {
-                var found = false;
-
-                _.each(obj.coding, function (coding) {
-                    if (checkCode(foundValueSet, coding.code, coding.system)) {
-                        found = true;
-                    } else {
-                        var msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
-                        if (property._valueSetStrength === 'required') {
-                            self.addError(treeDisplay, msg);
-                        } else {
-                            self.addWarn(treeDisplay, msg);
+        return xmlObj;
+    };
+    ConvertToXml.prototype.propertyToXML = function (parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
+        var _this = this;
+        var isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
+        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null)
+            return;
+        var propertyType = _.find(parentType._properties, function (property) { return property._name == propertyName; });
+        function xmlEscapeString(value) {
+            return value
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\r/g, '&#xD;')
+                .replace(/\n/g, '&#xA;');
+        }
+        var pushProperty = function (value) {
+            if (value === undefined || value === null)
+                return;
+            var nextXmlObj = {
+                type: 'element',
+                name: propertyName,
+                elements: [],
+                attributes: null
+            };
+            switch (propertyType._type) {
+                case 'string':
+                case 'base64Binary':
+                case 'code':
+                case 'id':
+                case 'markdown':
+                case 'uri':
+                case 'url':
+                case 'canonical':
+                case 'oid':
+                case 'boolean':
+                case 'integer':
+                case 'decimal':
+                case 'unsignedInt':
+                case 'positiveInt':
+                case 'date':
+                case 'dateTime':
+                case 'time':
+                case 'instant':
+                    var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
+                    nextXmlObj.attributes = {
+                        value: actual
+                    };
+                    break;
+                case 'xhtml':
+                    if (propertyName === 'div') {
+                        var divXmlObj = void 0;
+                        try {
+                            divXmlObj = convert.xml2js(value);
+                            divXmlObj = xmlHelper_1.XmlHelper.escapeInvalidCharacters(divXmlObj);
+                        }
+                        catch (ex) {
+                            throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
+                        }
+                        nextXmlObj.attributes = {
+                            'xmlns': 'http://www.w3.org/1999/xhtml'
+                        };
+                        if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
+                            nextXmlObj.elements = divXmlObj.elements[0].elements;
                         }
                     }
-                });
-
-                if (!found) {
-                    // TODO: If the CodeableConcept is required, does that mean a coding is required? Don't think so...
-                }
-            } else if (property._type === 'Coding') {
-                if (!checkCode(foundValueSet, obj.code, obj.system)) {
-                    var msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
-                    if (property._valueSetStrength === 'required') {
-                        this.addError(treeDisplay, msg);
-                    } else {
-                        this.addWarn(treeDisplay, msg);
+                    break;
+                case 'Resource':
+                    var resourceXmlObj = _this.resourceToXML(value).elements[0];
+                    delete resourceXmlObj.attributes.xmlns;
+                    nextXmlObj.elements.push(resourceXmlObj);
+                    break;
+                case 'Element':
+                case 'BackboneElement':
+                    for (var x in propertyType._properties) {
+                        var nextProperty = propertyType._properties[x];
+                        _this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
                     }
-                }
-            } else if (property._type === 'code') {
-                if (!checkCode(foundValueSet, obj)) {
-                    if (property._valueSetStrength === 'required') {
-                        this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
-                    } else {
-                        this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
-                    }
-                }
-            }
-        }
-    }
-
-    if (PRIMITIVE_TYPES.indexOf(property._type) >= 0) {
-        if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
-            this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
-        } else if (PRIMITIVE_NUMBER_TYPES.indexOf(property._type) >= 0) {
-            if (typeof(obj) === 'string') {
-                if (property._type === 'integer' && !PRIMITIVE_INTEGER_REGEX.test(obj)) {
-                    this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
-                } else if (property._type === 'decimal' && !PRIMITIVE_DECIMAL_REGEX.test(obj)) {
-                    this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
-                } else if (property._type === 'unsignedInt' && !PRIMITIVE_UNSIGNED_INT_REGEX.test(obj)) {
-                    this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
-                } else if (property._type === 'positiveInt' && !PRIMITIVE_POSITIVE_INT_REGEX.test(obj)) {
-                    this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
-                }
-            }
-        } else if (property._type === 'date' && !PRIMITIVE_DATE_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid date format for value "' + obj + '"');
-        } else if (property._type === 'dateTime' && !PRIMITIVE_DATETIME_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid dateTime format for value "' + obj + '"');
-        } else if (property._type === 'time' && !PRIMITIVE_TIME_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid time format for value "' + obj + '"');
-        } else if (property._type === 'code' && !PRIMITIVE_CODE_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid code format for value "' + obj + '"');
-        } else if (property._type === 'oid' && !PRIMITIVE_OID_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid oid format for value "' + obj + '"');
-        } else if (property._type === 'id' && !PRIMITIVE_ID_REGEX.test(obj)) {
-            this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
-        }
-    } else if (property._type === 'Resource') {
-        var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
-        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
-
-        if (!obj.resourceType || !typeDefinition) {
-            nextValidationInstance.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');
-        } else {
-            nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
-        }
-
-        var nextValidationResponse = nextValidationInstance.getResponse();
-        this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
-        this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
-    } else if (property._type === 'ElementDefinition') {
-        var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, obj.id || getTreeDisplay(tree, this.isXml), this.isXml);
-        nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
-
-        var nextValidationResponse = nextValidationInstance.getResponse();
-        this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
-        this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
-    } else if (DATA_TYPES.indexOf(property._type) >= 0) {
-        var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-        var nextValidationInstance = new FhirInstanceValidation(this.parser, this.options, this.resourceId, this.isXml);
-        nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
-
-        var nextValidationResponse = nextValidationInstance.getResponse();
-        this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
-        this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
-    } else if (property._properties) {
-        this.validateProperties(obj, property._properties, tree);
-    }
-};
-
-FhirInstanceValidation.prototype.validateProperties = function(obj, properties, tree) {
-    var _ = __webpack_require__(0);
-    var self = this;
-
-    for (var i = 0; i < properties.length; i++) {
-        var property = properties[i];
-        var foundProperty = obj.hasOwnProperty(property._name);
-        var propertyValue = obj[property._name];
-
-        // Look for missing properties
-        if (property._required && !foundProperty) {
-            var satisfied = false;
-
-            if (property._choice) {
-                satisfied = _.filter(properties, function(nextProperty) {
-                        return nextProperty._choice === property._choice && !!obj[nextProperty._name];
-                    }).length > 0;
-            }
-
-            if (!satisfied) {
-                self.addError(getTreeDisplay(tree, self.isXml, property._choice ? property._choice : property._name), 'Missing property');
-            }
-        }
-
-        // Only continue validating if we have a value for the property
-        if (foundProperty) {
-            // If this is an array/multiple, loop through each item in the array and validate it, instead of the array as a whole
-            if (property._multiple) {
-                if (propertyValue instanceof Array) {
-                    if (property._required && propertyValue.length === 0) {
-                        self.addError(getTreeDisplay(tree.concat([property._name])), 'A ' + property._name + ' entry is required');
-                    }
-
-                    for (var x = 0; x < propertyValue.length; x++) {
-                        var foundPropertyElement = propertyValue[x];
-                        var treeItem = property._name;
-
-                        if (self.isXml) {
-                            treeItem += '[' + (x + 1) + ']';
-                        } else {
-                            treeItem += '[' + x + ']';
+                    break;
+                default:
+                    var nextType_1 = _this.parser.parsedStructureDefinitions[propertyType._type];
+                    if (propertyType._type.startsWith('#')) {
+                        var typeSplit_1 = propertyType._type.substring(1).split('.');
+                        var _loop_1 = function (i) {
+                            if (i == 0) {
+                                nextType_1 = _this.parser.parsedStructureDefinitions[typeSplit_1[i]];
+                            }
+                            else {
+                                nextType_1 = _.find(nextType_1._properties, function (nextTypeProperty) {
+                                    return nextTypeProperty._name === typeSplit_1[i];
+                                });
+                            }
+                            if (!nextType_1) {
+                                return "break";
+                            }
+                        };
+                        for (var i = 0; i < typeSplit_1.length; i++) {
+                            var state_1 = _loop_1(i);
+                            if (state_1 === "break")
+                                break;
                         }
-
-                        self.validateNext(foundPropertyElement, property, tree.concat([treeItem]));
                     }
-                } else {
-                    self.addError(getTreeDisplay(tree.concat([property._name])), 'Property is not an array');
+                    if (!nextType_1) {
+                        console.log('Could not find type ' + propertyType._type);
+                    }
+                    else {
+                        _.each(nextType_1._properties, function (nextProperty) {
+                            _this.propertyToXML(nextXmlObj, nextType_1, value, nextProperty._name, propertyType._type);
+                        });
+                    }
+            }
+            if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
+                if (!parentXmlObj.attributes) {
+                    parentXmlObj.attributes = [];
                 }
-            } else {
-                self.validateNext(propertyValue, property, tree.concat([property._name]));
+                parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
+            }
+            else {
+                parentXmlObj.elements.push(nextXmlObj);
+            }
+        };
+        if (obj[propertyName] && propertyType._multiple) {
+            for (var i = 0; i < obj[propertyName].length; i++) {
+                pushProperty(obj[propertyName][i]);
             }
         }
-    };
-
-    var objKeys = Object.keys(obj);
-    for (var i = 0; i < objKeys.length; i++) {
-        var objKey = objKeys[i];
-
-        if (objKey === 'resourceType') {
-            continue;
-        }
-
-        var foundProperty = _.find(properties, function(property) {
-            return property._name === objKey;
-        });
-
-        if (!foundProperty) {
-            if (self.options.errorOnUnexpected) {
-                self.addError(getTreeDisplay(tree, self.isXml, objKey), 'Unexpected property');
-            } else {
-                self.addWarn(getTreeDisplay(tree, self.isXml, objKey), 'Unexpected property');
-            }
+        else {
+            pushProperty(obj[propertyName]);
         }
     };
-};
-
-var FhirValidation = function(parser, options) {
-    this.parser = parser;
-    this.options = options || {};
-};
-
-FhirValidation.prototype.validate = function(obj, isXml) {
-    var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
-    var instanceValidation = new FhirInstanceValidation(this.parser, this.options, obj.id || '#initial', isXml);
-
-    if (!obj || !typeDefinition) {
-        instanceValidation.addFatal('', 'Resource does not have resourceType property, or value is not a valid resource type.');
-    } else {
-        instanceValidation.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
-    }
-
-    return instanceValidation.getResponse();
-};
+    return ConvertToXml;
+}());
+exports.ConvertToXml = ConvertToXml;
+//# sourceMappingURL=convertToXml.js.map
 
 /***/ }),
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ParseConformance = __webpack_require__(2);
-var _ = __webpack_require__(0);
-var operators = ['=', '!', '&', '<', '>', '~'];
+"use strict";
 
-function findClosingParenIndex(string, startIndex) {
-    var parenLevel = 0;
-
-    for (var i = startIndex; i < string.length; i++) {
-        if (string[i] === '(') {
-            parenLevel++;
-        } else if (string[i] === ')') {
-            if (parenLevel > 0) {
-                parenLevel--;
-            } else {
+exports.__esModule = true;
+var parseConformance_1 = __webpack_require__(5);
+var _ = __webpack_require__(1);
+var FhirPath = (function () {
+    function FhirPath(resources, parser) {
+        this.operators = ['=', '!', '&', '<', '>', '~'];
+        this.resources = resources instanceof Array ? resources : [resources];
+        this.parser = parser ? parser : new parseConformance_1.ParseConformance(true);
+    }
+    FhirPath.prototype.findClosingParenIndex = function (string, startIndex) {
+        var parenLevel = 0;
+        for (var i = startIndex; i < string.length; i++) {
+            if (string[i] === '(') {
+                parenLevel++;
+            }
+            else if (string[i] === ')') {
+                if (parenLevel > 0) {
+                    parenLevel--;
+                }
+                else {
+                    return i;
+                }
+            }
+        }
+    };
+    FhirPath.prototype.findClosingQuoteIndex = function (string, startIndex) {
+        for (var i = startIndex; i < string.length; i++) {
+            if (string[i] === '\'') {
+                if (string[i - 1] === '\\') {
+                    continue;
+                }
                 return i;
             }
         }
-    }
-}
-
-function findClosingQuoteIndex(string, startIndex) {
-    for (var i = startIndex; i < string.length; i++) {
-        if (string[i] === '\'') {
-            if (string[i-1] === '\\') {
-                continue;
-            }
-            return i;
-        }
-    }
-}
-
-/**
- * Constructs a new instance of the FhirPath class with one or mores resources
- * @classdesc Handles evaluation of FhirPath against one or more resources. See {@link http://build.fhir.org/fhirpath.html} for more information.
- * @param {Resource|Array<Resource>} resources One or more resources that the class should evaluate FhirPath against
- * @param {ParseConformance} parser The conformance parser to use when needing to reference definitions of resources
- * @class
- */
-function FhirPath(resources, parser) {
-    this.resources = resources instanceof Array ? resources : [resources];
-    this.parser = parser ? parser : new ParseConformance(true);
-}
-
-/**
- * Attempts to resolve the resource reference using this resources.
- * If no resource is found in the resources provided to the FhirPath class, calls the resolve event.
- * @param {string} reference The resource reference string to resolve
- * @return {Resource}
- * @fires FhirPath#resolve
- * @private
- */
-FhirPath.prototype._resolve = function(reference) {
-    var regex = /^([A-z]+)\/(.+?)$/;
-    var match = reference.trim().match(regex);
-
-    function find(resources, resourceType, id) {
-        for (var i = 0; i < resources.length; i++) {
-            var resource = resources[i];
-
-            if (resource.resourceType === 'Bundle') {
-                // recursively search through resources in the bundle
-                var childResources = _.map(resource.entry, function(entry) {
-                    return entry.resource;
-                });
-
-                var found = find(childResources, resourceType, id);
-
-                if (found) {
-                    return found;
+    };
+    FhirPath.prototype.internalResolve = function (reference) {
+        var regex = /^([A-z]+)\/(.+?)$/;
+        var match = reference.trim().match(regex);
+        function find(resources, resourceType, id) {
+            for (var i = 0; i < resources.length; i++) {
+                var resource = resources[i];
+                if (resource.resourceType === 'Bundle') {
+                    var childResources = _.map(resource.entry, function (entry) {
+                        return entry.resource;
+                    });
+                    var found = find(childResources, resourceType, id);
+                    if (found) {
+                        return found;
+                    }
                 }
+                if (resource.resourceType.toLowerCase() !== resourceType.toLowerCase()) {
+                    continue;
+                }
+                if (resource.id.toLowerCase() !== id.toLowerCase()) {
+                    continue;
+                }
+                return resource;
             }
-
-            if (resource.resourceType.toLowerCase() !== resourceType.toLowerCase()) {
-                continue;
-            }
-
-            if (resource.id.toLowerCase() !== id.toLowerCase()) {
-                continue;
-            }
-
-            return resource;
         }
-    }
-
-    if (match) {
-        var found = find(this.resources, match[1], match[2]);
-
-        if (found) {
-            return found;
+        if (match) {
+            var found = find(this.resources, match[1], match[2]);
+            if (found) {
+                return found;
+            }
         }
-    }
-
-    return this.resolve(reference);
-}
-
-/**
- * A callback which is executed when a reference needs to be resolved to a resource.
- * This should be overridden by the caller of the FhirPath class.
- * @param {string} reference The reference that needs to be resolved
- * @returns Should return a Resource instance
- * @event
- */
-FhirPath.prototype.resolve = function(reference) {
-    return;
-}
-
-/**
- * Gets a list of all resource type names from the ParseConformance class loaded with the FhirPath class.
- * @returns {string[]}
- * @private
- */
-FhirPath.prototype._getResourceTypes = function() {
-    var self = this;
-    var keys = Object.keys(this.parser.parsedStructureDefinitions);
-    return _.chain(keys)
-        .filter(function(key) {
+        return this.resolve(reference);
+    };
+    FhirPath.prototype.resolve = function (reference) {
+        return;
+    };
+    FhirPath.prototype.getResourceTypes = function () {
+        var self = this;
+        var keys = Object.keys(this.parser.parsedStructureDefinitions);
+        return _.chain(keys)
+            .filter(function (key) {
             return self.parser.parsedStructureDefinitions[key]._kind === 'resource';
         })
-        .value();
-}
-
-/**
- * Parses the specified path into a structure
- * @param {string} fhirPath
- * @returns {Array}
- * @private
- */
-FhirPath.prototype._parse = function(fhirPath) {
-    var statements = [];
-    var ns = {};          // newStatement
-
-    var fhirPathSplit = fhirPath.split('.');
-    var resourceTypes = this._getResourceTypes();
-
-    if (fhirPathSplit.length > 0 && resourceTypes.indexOf(fhirPathSplit[0]) >= 0) {
-        ns.resourceType = fhirPathSplit[0];
-        fhirPath = fhirPath.substring(fhirPathSplit[0].length+1);
-    }
-
-    for (var i = 0; i < fhirPath.length; i++) {
-        var char = fhirPath[i];
-
-        if (char === '\'') {
-            if (i === 0) {
-                var closingQuoteIndex = findClosingQuoteIndex(fhirPath, i+1);
-                ns.value = fhirPath.substring(i+1, closingQuoteIndex);
-                i = closingQuoteIndex;
+            .value();
+    };
+    FhirPath.prototype.parse = function (fhirPath) {
+        var statements = [];
+        var ns = {};
+        var fhirPathSplit = fhirPath.split('.');
+        var resourceTypes = this.getResourceTypes();
+        if (fhirPathSplit.length > 0 && resourceTypes.indexOf(fhirPathSplit[0]) >= 0) {
+            ns.resourceType = fhirPathSplit[0];
+            fhirPath = fhirPath.substring(fhirPathSplit[0].length + 1);
+        }
+        for (var i = 0; i < fhirPath.length; i++) {
+            var char = fhirPath[i];
+            if (char === '\'') {
+                if (i === 0) {
+                    var closingQuoteIndex = this.findClosingQuoteIndex(fhirPath, i + 1);
+                    ns.value = fhirPath.substring(i + 1, closingQuoteIndex);
+                    i = closingQuoteIndex;
+                }
             }
-        } else if (char === '(') {
-            if (ns.path && ns.path.length > 0) {     // Paren is used for function
-                var fn = {
-                    name: ns.path.pop().toLowerCase()
+            else if (char === '(') {
+                if (ns.path && ns.path.length > 0) {
+                    var fn = {
+                        name: ns.path.pop().toLowerCase()
+                    };
+                    ns.path.push(fn);
+                    var closingParenIndex = this.findClosingParenIndex(fhirPath, i + 1);
+                    var fnParams = fhirPath.substring(i + 1, closingParenIndex);
+                    fn.params = this.parse(fnParams);
+                    i = closingParenIndex;
+                }
+            }
+            else if (char === '\'') {
+            }
+            else if (char === ' ') {
+            }
+            else if (this.operators.indexOf(char) >= 0) {
+                var left = ns;
+                var rightPath = fhirPath.substring(i + 1);
+                var operator = char;
+                if (this.operators.indexOf(rightPath[0]) >= 0) {
+                    operator += rightPath[0];
+                    rightPath = rightPath.substring(1);
+                }
+                ns = {
+                    left: left,
+                    right: this.parse(rightPath.trim())[0],
+                    op: operator
                 };
-                ns.path.push(fn);
-
-                // set the params for the function
-                var closingParenIndex = findClosingParenIndex(fhirPath, i+1);
-                var fnParams = fhirPath.substring(i+1, closingParenIndex);
-                fn.params = this._parse(fnParams);
-                i = closingParenIndex;
+                if (ns.left.path && ns.left.path.length > 0) {
+                    ns.left.path[ns.left.path.length - 1] = ns.left.path[ns.left.path.length - 1].trim();
+                }
+                if (ns.right.path && ns.right.path.length > 0) {
+                    ns.right.path[ns.right.path.length - 1] = ns.right.path[ns.right.path.length - 1].trim();
+                }
+                break;
             }
-            // TODO
-        } else if (char === '\'') {
-            // TODO?
-        } else if (char === ' ') {
-            // TODO?
-        } else if (operators.indexOf(char) >= 0) {
-            var left = ns;
-            var rightPath = fhirPath.substring(i+1);
-            var operator = char;
-
-            // Double-operator
-            if (operators.indexOf(rightPath[0]) >= 0) {
-                operator += rightPath[0];
-                rightPath = rightPath.substring(1);
+            else if (char === '.') {
+                ns.path.push('');
             }
-
-            ns = {
-                left: left,
-                right: this._parse(rightPath.trim())[0],           // TODO: Should right ever be an array? Don't think so
-                op: operator
+            else {
+                if (!ns.hasOwnProperty('path')) {
+                    ns.path = [''];
+                }
+                ns.path[ns.path.length - 1] += char;
             }
-
-            if (ns.left.path && ns.left.path.length > 0) {
-                ns.left.path[ns.left.path.length-1] = ns.left.path[ns.left.path.length-1].trim();
-            }
-            if (ns.right.path && ns.right.path.length > 0) {
-                ns.right.path[ns.right.path.length-1] = ns.right.path[ns.right.path.length-1].trim();
-            }
-            break;
-        } else if (char === '.') {
-            ns.path.push('');
-        } else {
-            if (!ns.hasOwnProperty('path')) {
-                ns.path = [''];
-            }
-
-            ns.path[ns.path.length-1] += char;
         }
-    }
-
-    statements.push(ns);
-
-    return statements;
-}
-
-
-FhirPath.prototype._getValue = function(current, paths) {
-    if (current === undefined || current == null) {
-        return current;
-    }
-
-    if (!paths || paths.length === 0) {
-        return current;
-    }
-
-    var nextPath = paths[0];
-    var nextPaths = paths.slice(1);
-
-    if (current instanceof Array) {
-        if (typeof nextPath === 'string') {
-            var ret = [];
-
-            nextPaths.unshift(nextPath);
-
-            for (var i = 0; i < current.length; i++) {
-                var currentRet = this._getValue(current[i], nextPaths);
-
-                if (currentRet instanceof Array) {
-                    ret = ret.join(currentRet);
-                } else if (currentRet !== undefined && currentRet !== null) {
-                    ret.push(currentRet);
+        statements.push(ns);
+        return statements;
+    };
+    FhirPath.prototype.getValue = function (current, paths) {
+        if (current === undefined || current == null) {
+            return current;
+        }
+        if (!paths || paths.length === 0) {
+            return current;
+        }
+        var nextPath = paths[0];
+        var nextPaths = paths.slice(1);
+        if (current instanceof Array) {
+            if (typeof nextPath === 'string') {
+                var ret = [];
+                nextPaths.unshift(nextPath);
+                for (var i = 0; i < current.length; i++) {
+                    var currentRet = this.getValue(current[i], nextPaths);
+                    if (currentRet instanceof Array) {
+                        ret = ret.concat(currentRet);
+                    }
+                    else if (currentRet !== undefined && currentRet !== null) {
+                        ret.push(currentRet);
+                    }
+                }
+                return ret;
+            }
+            else if (nextPath.name === 'first') {
+                return this.getValue(current[0], nextPaths);
+            }
+            else if (nextPath.name === 'last') {
+                return this.getValue(current[current.length - 1], nextPaths);
+            }
+            else if (nextPath.name === 'where') {
+                if (!nextPath.params || nextPath.params.length === 0) {
+                    throw new Error('Expected .where() to have a parameter');
+                }
+                var filtered = [];
+                for (var i = 0; i < current.length; i++) {
+                    var paramsClone = JSON.parse(JSON.stringify(nextPath.params));
+                    var results = this.internalEvaluate(current[i], paramsClone);
+                    if (typeof results === 'boolean' && results === true) {
+                        filtered.push(current[i]);
+                    }
+                    else if (results instanceof Array && results.length === 1 && results[0]) {
+                        filtered.push(current[i]);
+                    }
+                }
+                return this.getValue(filtered, nextPaths);
+            }
+            else {
+                throw new Error('Unsupported function for arrays ' + nextPath.name);
+            }
+        }
+        else {
+            if (typeof nextPath === 'string') {
+                return this.getValue(current[nextPath], nextPaths);
+            }
+            else if (nextPath.name === 'resolve') {
+                var reference = typeof current === 'string' ? current : current.reference;
+                var resource = this.internalResolve(reference);
+                return this.getValue(resource, nextPaths);
+            }
+            else if (nextPath.name === 'startswith') {
+                if (!nextPath.params || nextPath.params.length !== 1) {
+                    throw new Error('Expected a single parameter to startsWith()');
+                }
+                if (typeof current !== 'string') {
+                    throw new Error('startsWith() must be used on string types');
+                }
+                var paramValue = nextPath.params[0].value || this.getValue(current, nextPath.params[0].path);
+                if (!paramValue || current.indexOf(paramValue) !== 0) {
+                    return false;
+                }
+                return true;
+            }
+            else {
+                throw new Error('Unsupported function for objects ' + nextPath.name);
+            }
+        }
+    };
+    FhirPath.prototype.internalEvaluate = function (resource, statements) {
+        var ret = [];
+        for (var i = 0; i < statements.length; i++) {
+            var statement = statements[i];
+            if (statement.path) {
+                statement.value = this.getValue(resource, statement.path);
+            }
+            if (statement.left && statement.left.path) {
+                statement.left.value = this.getValue(resource, statement.left.path);
+            }
+            if (statement.right && statement.right.path) {
+                statement.right.value = this.getValue(resource, statement.right.path);
+            }
+            if (statement.op) {
+                if (!statement.left || !statement.right) {
+                    return false;
+                }
+                switch (statement.op) {
+                    case '=':
+                    case '==':
+                        return statement.left.value === statement.right.value;
+                    case '!=':
+                        return statement.left.value !== statement.right.value;
                 }
             }
-
-            return ret;
-        } else if (nextPath.name === 'first') {
-            return this._getValue(current[0], nextPaths);
-        } else if (nextPath.name === 'last') {
-            return this._getValue(current[current.length - 1], nextPaths);
-        } else if (nextPath.name === 'where') {
-            if (!nextPath.params || !nextPath.params.length === 0) {
-                throw new Error('Expected .where() to have a parameter');
-            }
-
-            var filtered = [];
-
-            for (var i = 0; i < current.length; i++) {
-                var paramsClone = JSON.parse(JSON.stringify(nextPath.params));
-                var results = this._evaluate(current[i], paramsClone);
-
-                if (typeof results === 'boolean' && results === true) {
-                    filtered.push(current[i]);
-                } else if (results instanceof Array && results.length === 1 && results[0]) {
-                    filtered.push(current[i]);
+            else {
+                if (statement.value instanceof Array) {
+                    ret = ret.concat(statement.value);
+                }
+                else {
+                    ret.push(statement.value);
                 }
             }
-
-            return this._getValue(filtered, nextPaths);
-        } else {
-            throw new Error('Unsupported function for arrays ' + nextPath.name);
         }
-    } else {
-        if (typeof nextPath === 'string') {
-            return this._getValue(current[nextPath], nextPaths);
-        } else if (nextPath.name === 'resolve') {
-            var reference = typeof current === 'string' ? current : current.reference;
-            var resource = this._resolve(reference);
-            return this._getValue(resource, nextPaths);
-        } else if (nextPath.name === 'startswith') {
-            if (!nextPath.params || nextPath.params.length !== 1) {
-                throw new Error('Expected a single parameter to startsWith()');
-            }
-
-            if (typeof current !== 'string') {
-                throw new Error('startsWith() must be used on string types');
-            }
-
-            var paramValue = nextPath.params[0].value || this._getValue(current, nextPath.params[0].path);
-
-            if (!paramValue || current.indexOf(paramValue) !== 0) {
-                return false;
-            }
-
-            return true;
-        } else {
-            throw new Error('Unsupported function for objects ' + nextPath.name);
-        }
-    }
-}
-
-/**
- * Evaluates the given statements against the specified single resource.
- * @param {Resource} resource
- * @param statements
- * @returns {*}
- * @private
- */
-FhirPath.prototype._evaluate = function(resource, statements) {
-    var ret = [];
-
-    for (var i = 0; i < statements.length; i++) {
-        var statement = statements[i];
-
-        if (statement.path) {
-            statement.value = this._getValue(resource, statement.path);
-        }
-
-        if (statement.left && statement.left.path) {
-            statement.left.value = this._getValue(resource, statement.left.path);
-        }
-
-        if (statement.right && statement.right.path) {
-            statement.right.value = this._getValue(resource, statement.right.path);
-        }
-
-        if (statement.op) {
-            if (!statement.left || !statement.right) {
-                return false;
-            }
-
-            switch (statement.op) {
-                case '=':
-                case '==':
-                    return statement.left.value === statement.right.value;
-                case '!=':
-                    return statement.left.value !== statement.right.value;
-            }
-        } else {
-            if (statement.value instanceof Array) {
-                ret = ret.concat(statement.value);
-            } else {
-                ret.push(statement.value);
+        return ret;
+    };
+    FhirPath.prototype.shouldReturnArray = function (statements) {
+        if (statements.length === 1) {
+            var statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
+                return nextPath.name === 'where';
+            });
+            if (statementHasWhereFn.length > 0) {
+                return true;
             }
         }
-    }
-
-    return ret;
-}
-
-/**
- * Determines if the statements specified should result in an array being returned
- * @param statements
- * @returns {boolean}
- * @private
- */
-FhirPath.prototype._shouldReturnArray = function(statements) {
-    // TODO: Make this more intelligent.
-    // It could instead determine if the last actual path represents
-    // an array, based on the definitions stored in ParseConformance class.
-    if (statements.length === 1) {
-        var statementHasWhereFn = _.filter(statements[0].path, function(nextPath) {
-            return nextPath.name === 'where';
-        });
-        if (statementHasWhereFn.length > 0) {
-            return true;
+        return false;
+    };
+    FhirPath.prototype.evaluate = function (fhirPath) {
+        if (!fhirPath) {
+            return;
         }
-    }
-
-    return false;
-}
-
-/**
- * Evaluates the given fhirPath string against the resources passed in the constructor of the class
- * In the event of an operator comparison, returns a boolean
- * In the event of a path evaluation, returns the value of the given path (for each of the resources)
- * @param {string} fhirPath The FhirPath string to evaluate against the resources provided to the FhirPath class
- * @returns {obj|Array} The result of the evaluation. Can be either an object, boolean or array of results
- */
-FhirPath.prototype.evaluate = function(fhirPath) {
-    if (!fhirPath) {
-        return;
-    }
-
-    var statements = this._parse(fhirPath);
-    var ret = [];
-
-    for (var r = 0; r < this.resources.length; r++) {
-        var resource = this.resources[r];
-        ret = ret.concat(this._evaluate(resource, statements));
-    }
-
-    if (this.resources.length === 1 && ret.length === 1 && !this._shouldReturnArray(statements)) {
-        return ret[0];
-    }
-
-    return ret;
-}
-
-module.exports = FhirPath;
+        var statements = this.parse(fhirPath);
+        var ret = [];
+        for (var r = 0; r < this.resources.length; r++) {
+            var resource = this.resources[r];
+            ret = ret.concat(this.internalEvaluate(resource, statements));
+        }
+        if (this.resources.length === 1 && ret.length === 1 && !this.shouldReturnArray(statements)) {
+            return ret[0];
+        }
+        return ret;
+    };
+    return FhirPath;
+}());
+exports.FhirPath = FhirPath;
+//# sourceMappingURL=fhirPath.js.map
 
 /***/ })
 /******/ ]);

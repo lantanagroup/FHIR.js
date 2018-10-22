@@ -1,4 +1,5 @@
-var ParseConformance = require('../parseConformance');
+var ParseConformance = require('../parseConformance').ParseConformance;
+var Versions = require('../fhir').Versions;
 var assert = require('assert');
 var _ = require('underscore');
 
@@ -58,7 +59,7 @@ describe('Parse', function () {
 
     it('should parse profile-StructureDefinition for STU3', function() {
         var sdProfile = require('./data/stu3/schema/profile-StructureDefinition.json');
-        var parser = new ParseConformance(false, ParseConformance.VERSIONS.STU3);
+        var parser = new ParseConformance(false, Versions.STU3);
         parser.parseStructureDefinition(sdProfile);
 
         var parsedStructureDefinition = parser.parsedStructureDefinitions['StructureDefinition'];
@@ -82,7 +83,7 @@ describe('Parse', function () {
         var types = require('./data/stu3/schema/profiles-types.json');
         var resources = require('./data/stu3/schema/profiles-resources.json');
 
-        var parser = new ParseConformance(false, ParseConformance.VERSIONS.STU3);
+        var parser = new ParseConformance(false, Versions.STU3);
         parser.parseBundle(types);
         parser.parseBundle(resources);
 

@@ -1,170 +1,271 @@
-"use strict";
-exports.__esModule = true;
-var _ = require("underscore");
-var fhir_1 = require("./fhir");
-var ParseConformance = (function () {
-    function ParseConformance(loadCached, version) {
+import * as _ from 'underscore';
+import {Versions} from './fhir';
+
+export interface ParsedConcept {
+    code: string;
+    display: string;
+}
+
+export interface ParsedSystem {
+    uri: string;
+    codes: ParsedConcept[];
+}
+
+export interface ParsedValueSet {
+    systems: ParsedSystem[];
+}
+
+export interface ParsedProperty {
+    _name: string;
+    _type: string;
+    _multiple?: boolean
+    _required?: boolean;
+    _choice?: string;
+    _properties?: ParsedProperty[];
+    _valueSetStrength?: string;
+    _valueSet?: string;
+}
+
+export interface ParsedStructure {
+    _type: string;
+    _kind: string;
+    _properties?: ParsedProperty[];
+}
+
+export class ParseConformance {
+    public parsedStructureDefinitions: ParsedStructure[];
+    public parsedValueSets: ParsedValueSet[];
+    private version: string;
+    private codeSystems: any[];
+    
+    /**
+     * Class responsible for parsing StructureDefinition and ValueSet resources into bare-minimum information
+     * needed for serialization and validation.
+     * @param {boolean} loadCached
+     * @param {string} [version=R4] The version of FHIR to use with this parser
+     * @constructor
+     */
+    constructor(loadCached?: boolean, version?: string) {
         this.parsedStructureDefinitions = loadCached ? require('./profiles/types.json') : {};
         this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
-        this.version = version || fhir_1.Versions.R4;
+        this.version = version || Versions.R4;
         this.codeSystems = [];
     }
-    ParseConformance.prototype.sortValueSetDependencies = function (valueSets) {
-        var ret = [];
+    
+    /**
+     * Sorts an array of value sets based on each value set's dependencies.
+     * If a value set depends on another value set, the dependent value set
+     * is returned in the array before the depending value set, so that when all
+     * value sets are parsed in a bundle, it parses the dependent value sets first.
+     * @param valueSets {ParsedValueSet[]}
+     * @return {ParsedValueSet[]}
+     */
+    private sortValueSetDependencies(valueSets) {
+        const ret = [];
+
         function addValueSet(valueSetUrl) {
-            var foundValueSet = _.find(valueSets, function (nextValueSet) {
+            const foundValueSet = _.find(valueSets, (nextValueSet) => {
                 return nextValueSet.url === valueSetUrl;
             });
+
             if (!foundValueSet) {
                 return;
             }
+
             if (foundValueSet.compose) {
-                _.each(foundValueSet.compose.include, function (include) {
+                // Add the include value sets before this value set
+                _.each(foundValueSet.compose.include, (include) => {
                     addValueSet(include.valueSet);
                 });
             }
+
             if (ret.indexOf(foundValueSet) < 0) {
                 ret.push(foundValueSet);
             }
         }
-        _.each(valueSets, function (valueSet) {
+
+        _.each(valueSets, (valueSet) => {
             addValueSet(valueSet.url);
         });
+
         return ret;
-    };
-    ParseConformance.prototype.loadCodeSystem = function (codeSystem) {
+    }
+
+    public loadCodeSystem(codeSystem) {
         if (!codeSystem) {
             return;
         }
-        var foundCodeSystem = _.find(this.codeSystems, function (nextCodeSystem) {
+
+        const foundCodeSystem = _.find(this.codeSystems, (nextCodeSystem) => {
             return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
         });
+
         if (!foundCodeSystem) {
             this.codeSystems.push(codeSystem);
         }
     };
-    ;
-    ParseConformance.prototype.parseBundle = function (bundle) {
-        var _this = this;
+
+    /**
+     * Parses any ValueSet and StructureDefinition resources in the bundle and stores
+     * them in the parser for use by serialization and validation logic.
+     * @param {Bundle} bundle The bundle to parse
+     */
+    public parseBundle(bundle) {
         if (!bundle || !bundle.entry) {
             return;
         }
+
+        // load code systems
         _.chain(bundle.entry)
-            .filter(function (entry) {
-            return entry.resource.resourceType === 'CodeSystem';
-        })
-            .each(function (entry) {
-            _this.loadCodeSystem(entry.resource);
-        });
-        var valueSets = _.chain(bundle.entry)
-            .filter(function (entry) {
-            return entry.resource.resourceType === 'ValueSet';
-        })
-            .map(function (entry) {
-            return entry.resource;
-        })
+            .filter((entry) => {
+                return entry.resource.resourceType === 'CodeSystem';
+            })
+            .each((entry) => {
+                this.loadCodeSystem(entry.resource);
+            });
+
+        // parse each value set
+        let valueSets = _.chain(bundle.entry)
+            .filter((entry) => {
+                return entry.resource.resourceType === 'ValueSet';
+            })
+            .map((entry) => {
+                return entry.resource;
+            })
             .value();
+
         valueSets = this.sortValueSetDependencies(valueSets);
-        _.each(valueSets, function (valueSet) {
-            _this.parseValueSet(valueSet);
+
+        _.each(valueSets, (valueSet) => {
+            this.parseValueSet(valueSet);
         });
+
+        // parse structure definitions
         _.chain(bundle.entry)
-            .filter(function (entry) {
-            if (entry.resource.resourceType !== 'StructureDefinition') {
-                return false;
-            }
-            var resource = entry.resource;
-            return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
-        })
-            .each(function (entry) {
-            _this.parseStructureDefinition(entry.resource);
-        });
-    };
-    ParseConformance.prototype.parseStructureDefinition = function (structureDefinition) {
-        var parsedStructureDefinition = {
+            .filter((entry) => {
+                if (entry.resource.resourceType !== 'StructureDefinition') {
+                    return false;
+                }
+
+                const resource = entry.resource;
+
+                return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
+            })
+            .each((entry) => {
+                this.parseStructureDefinition(entry.resource);
+            });
+    }
+
+    /**
+     * Parses a StructureDefinition resource, reading only properties necessary for the FHIR.js module to perform its functions.
+     * structureDefinition must have a unique id, or it will overwrite other parsed structure definitions stored in memory
+     * @param {StructureDefinition} structureDefinition The StructureDefinition to parse and load into memory
+     * @returns {ParsedStructure}
+     */
+    public parseStructureDefinition(structureDefinition) {
+        const parsedStructureDefinition: ParsedStructure = {
             _type: 'Resource',
             _kind: structureDefinition.kind,
             _properties: []
         };
-        this.parsedStructureDefinitions[structureDefinition.id] = parsedStructureDefinition;
+        this.parsedStructureDefinitions[structureDefinition.id] = parsedStructureDefinition;         // TODO: Not sure this works for profiles
+
         if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
-            for (var x in structureDefinition.snapshot.element) {
-                var element = structureDefinition.snapshot.element[x];
-                var elementId = structureDefinition.snapshot.element[x].id;
+            for (let x in structureDefinition.snapshot.element) {
+                const element = structureDefinition.snapshot.element[x];
+                let elementId = structureDefinition.snapshot.element[x].id;
                 elementId = elementId.substring(structureDefinition.id.length + 1);
+
                 if (!element.max) {
                     throw 'Expected all base resource elements to have a max value';
                 }
+
                 if (!elementId || elementId.indexOf('.') > 0 || !element.type) {
                     continue;
                 }
+
                 if (element.type.length === 1) {
-                    var newProperty = {
+                    const newProperty: ParsedProperty = {
                         _name: elementId,
                         _type: element.type[0].code || 'string',
                         _multiple: element.max !== '1',
                         _required: element.min === 1
                     };
                     parsedStructureDefinition._properties.push(newProperty);
+
                     this.populateValueSet(element, newProperty);
+
                     if (element.type[0].code == 'BackboneElement' || element.type[0].code == 'Element') {
                         newProperty._properties = [];
                         this.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[x].id, structureDefinition);
                     }
-                }
-                else if (elementId.endsWith('[x]')) {
+                } else if (elementId.endsWith('[x]')) {
                     elementId = elementId.substring(0, elementId.length - 3);
-                    for (var y in element.type) {
-                        var choiceType = element.type[y].code;
+                    for (let y in element.type) {
+                        let choiceType = element.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = elementId + choiceType;
-                        var newProperty = {
+                        const choiceElementId = elementId + choiceType;
+                        const newProperty: ParsedProperty = {
                             _name: choiceElementId,
                             _choice: elementId,
                             _type: element.type[y].code,
                             _multiple: element.max !== '1',
                             _required: element.min === 1
                         };
+
                         this.populateValueSet(element, newProperty);
+
                         parsedStructureDefinition._properties.push(newProperty);
                     }
-                }
-                else {
-                    var isReference = true;
-                    for (var y in element.type) {
+                } else {
+                    let isReference = true;
+
+                    for (let y in element.type) {
                         if (element.type[y].code !== 'Reference') {
                             isReference = false;
                             break;
                         }
                     }
+
                     if (isReference) {
                         parsedStructureDefinition._properties.push({
                             _name: elementId,
                             _type: 'Reference',
                             _multiple: element.max !== '1'
                         });
-                    }
-                    else {
+                    } else {
                         console.log(elementId);
                     }
                 }
             }
         }
+
         return parsedStructureDefinition;
-    };
-    ParseConformance.prototype.parseValueSet = function (valueSet) {
-        var newValueSet = {
+    }
+
+    /**
+     * Parses the ValueSet resource. Parses only bare-minimum information needed for validation against value sets.
+     * Currently only supports parsing 'compose'
+     * @param {ValueSet} valueSet The ValueSet resource to parse and load into memory
+     * @returns {ParsedValueSet}
+     */
+    public parseValueSet(valueSet) {
+        const newValueSet: ParsedValueSet = {
             systems: []
         };
+
         if (valueSet.expansion && valueSet.expansion.contains) {
-            var _loop_1 = function (i) {
-                var contains = valueSet.expansion.contains[i];
+            for (let i = 0; i < valueSet.expansion.contains.length; i++) {
+                const contains = valueSet.expansion.contains[i];
+
                 if (contains.inactive || contains.abstract) {
-                    return "continue";
+                    continue;
                 }
-                var foundSystem = _.find(newValueSet.systems, function (system) {
+
+                let foundSystem: ParsedSystem = _.find(newValueSet.systems, (system) => {
                     return system.uri === contains.system;
                 });
+
                 if (!foundSystem) {
                     foundSystem = {
                         uri: contains.system,
@@ -172,22 +273,21 @@ var ParseConformance = (function () {
                     };
                     newValueSet.systems.push(foundSystem);
                 }
+
                 foundSystem.codes.push({
                     code: contains.code,
                     display: contains.display
                 });
-            };
-            for (var i = 0; i < valueSet.expansion.contains.length; i++) {
-                _loop_1(i);
             }
-        }
-        else if (valueSet.compose) {
-            var _loop_2 = function (i) {
-                var include = valueSet.compose.include[i];
+        } else if (valueSet.compose) {
+            for (let i = 0; i < valueSet.compose.include.length; i++) {
+                const include = valueSet.compose.include[i];
+
                 if (include.system) {
-                    var foundSystem = _.find(newValueSet.systems, function (system) {
+                    let foundSystem = _.find(newValueSet.systems, (system) => {
                         return system.uri === include.system;
                     });
+
                     if (!foundSystem) {
                         foundSystem = {
                             uri: include.system,
@@ -195,122 +295,147 @@ var ParseConformance = (function () {
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var foundCodeSystem = _.find(this_1.codeSystems, function (codeSystem) {
+
+                    // Add all codes from the code system
+                    const foundCodeSystem = _.find(this.codeSystems, (codeSystem) => {
                         return codeSystem.url === include.system;
                     });
+
                     if (foundCodeSystem) {
-                        var codes = _.map(foundCodeSystem.concept, function (concept) {
+                        const codes = _.map(foundCodeSystem.concept, (concept) => {
                             return {
                                 code: concept.code,
                                 display: concept.display
                             };
                         });
+
                         foundSystem.codes = foundSystem.codes.concat(codes);
                     }
                 }
+
                 if (include.valueSet) {
-                    var includeValueSet = this_1.parsedValueSets[include.valueSet];
+                    const includeValueSet = this.parsedValueSets[include.valueSet];
+
                     if (includeValueSet) {
-                        _.each(includeValueSet.systems, function (includeSystem) {
-                            var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
+                        _.each(includeValueSet.systems, (includeSystem) => {
+                            const foundSystem = _.find(newValueSet.systems, (nextSystem) => {
                                 return nextSystem.uri === includeSystem.uri;
                             });
+
                             if (!foundSystem) {
                                 newValueSet.systems.push({
                                     uri: includeSystem.uri,
-                                    codes: [].concat(includeSystem.codes)
+                                    codes: [].concat(<ParsedConcept[]> includeSystem.codes)
                                 });
-                            }
-                            else {
+                            } else {
                                 foundSystem.codes = foundSystem.codes.concat(includeSystem.codes);
                             }
                         });
                     }
                 }
+
                 if (include.concept) {
-                    var systemUri_1 = include.system || '';
-                    var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
-                        return nextSystem.uri === systemUri_1;
+                    const systemUri = include.system || '';
+
+                    let foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                        return nextSystem.uri === systemUri;
                     });
+
                     if (!foundSystem) {
                         foundSystem = {
-                            uri: systemUri_1,
+                            uri: systemUri,
                             codes: []
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var codes = _.map(include.concept, function (concept) {
+
+                    const codes = _.map(include.concept, (concept) => {
                         return {
                             code: concept.code,
                             display: concept.display
                         };
                     });
+
                     foundSystem.codes = foundSystem.codes.concat(codes);
                 }
-            };
-            var this_1 = this;
-            for (var i = 0; i < valueSet.compose.include.length; i++) {
-                _loop_2(i);
             }
         }
-        var systemsWithCodes = _.filter(newValueSet.systems, function (system) {
+
+        const systemsWithCodes = _.filter(newValueSet.systems, (system) => {
             return system.codes && system.codes.length > 0;
         });
+
         if (systemsWithCodes.length > 0) {
             this.parsedValueSets[valueSet.url] = newValueSet;
             return newValueSet;
         }
-    };
-    ParseConformance.prototype.populateValueSet = function (element, property) {
+    }
+
+    /**
+     * @param {ElementDefinition} element
+     * @param {ParsedProperty} property
+     * @private
+     */
+    public populateValueSet(element, property: ParsedProperty) {
         if (element.binding) {
-            var binding = element.binding;
+            const binding = element.binding;
+
             if (binding.strength) {
                 property._valueSetStrength = binding.strength;
             }
-            if (this.version === fhir_1.Versions.R4 && binding.valueSet) {
+
+            if (this.version === Versions.R4 && binding.valueSet) {
                 property._valueSet = binding.valueSet;
-            }
-            else if (this.version === fhir_1.Versions.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
+            } else if (this.version === Versions.STU3 && binding.valueSetReference && binding.valueSetReference.reference) {
                 property._valueSet = binding.valueSetReference.reference;
             }
         }
-    };
-    ParseConformance.prototype.populateBackboneElement = function (resourceType, parentElementId, profile) {
-        var _loop_3 = function (y) {
-            var backboneElement = profile.snapshot.element[y];
-            var backboneElementId = backboneElement.id;
+    }
+
+    /**
+     * @param {string} resourceType
+     * @param {string} parentElementId
+     * @param {StructureDefinition} profile
+     * @private
+     */
+    public populateBackboneElement(resourceType, parentElementId, profile) {
+        for (let y in profile.snapshot.element) {
+            const backboneElement = profile.snapshot.element[y];
+            let backboneElementId = backboneElement.id;
             if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
-                return "continue";
+                continue;
             }
+
             backboneElementId = backboneElementId.substring(profile.id.length + 1);
-            var parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
-            var parentBackboneElement = null;
-            var _loop_4 = function (j) {
-                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, function (property) {
+            const parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
+            let parentBackboneElement = null;
+
+            for (let j = 0; j < parentElementIdSplit.length; j++) {
+                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, (property) => {
                     return property._name == parentElementIdSplit[j];
                 });
+
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';
                 }
-            };
-            for (var j = 0; j < parentElementIdSplit.length; j++) {
-                _loop_4(j);
             }
+
             if (parentBackboneElement) {
                 if (!backboneElement.type) {
-                    var type = 'string';
+                    let type = 'string';
+
                     if (backboneElement.contentReference) {
                         type = backboneElement.contentReference;
                     }
+
                     parentBackboneElement._properties.push({
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1
                     });
-                }
-                else if (backboneElement.type.length == 1) {
-                    var newProperty = {
+                } else if (backboneElement.type.length == 1) {
+                    const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: backboneElement.type[0].code,
                         _multiple: backboneElement.max !== '1',
@@ -318,58 +443,55 @@ var ParseConformance = (function () {
                         _properties: []
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+
+                    this.populateValueSet(backboneElement, newProperty);
+
                     if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
-                        this_2.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
+                        this.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                     }
-                }
-                else if (backboneElement.id.endsWith('[x]')) {
-                    for (var y_1 in backboneElement.type) {
-                        var choiceType = backboneElement.type[y_1].code;
+                } else if (backboneElement.id.endsWith('[x]')) {
+                    for (let y in backboneElement.type) {
+                        let choiceType = backboneElement.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
-                        var newProperty = {
+                        const choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
+                        const newProperty = {
                             _name: choiceElementId,
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
-                            _type: backboneElement.type[y_1].code,
+                            _type: backboneElement.type[y].code,
                             _multiple: backboneElement.max !== '1',
                             _required: backboneElement.min === 1
                         };
                         parentBackboneElement._properties.push(newProperty);
-                        this_2.populateValueSet(backboneElement, newProperty);
+
+                        this.populateValueSet(backboneElement, newProperty);
                     }
-                }
-                else {
-                    var isReference = true;
-                    for (var z in backboneElement.type) {
+                } else {
+                    let isReference = true;
+
+                    for (let z in backboneElement.type) {
                         if (backboneElement.type[z].code !== 'Reference') {
                             isReference = false;
                             break;
                         }
                     }
+
                     if (!isReference) {
                         throw 'Did not find a reference... not sure what to do';
                     }
-                    var newProperty = {
+
+                    let newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: 'Reference',
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+
+                    this.populateValueSet(backboneElement, newProperty);
                 }
-            }
-            else {
+            } else {
                 throw 'Unexpected backbone parent element id';
             }
-        };
-        var this_2 = this;
-        for (var y in profile.snapshot.element) {
-            _loop_3(y);
         }
-    };
-    return ParseConformance;
-}());
-exports.ParseConformance = ParseConformance;
-//# sourceMappingURL=parseConformance.js.map
+    }
+}

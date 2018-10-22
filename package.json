@@ -45,13 +45,14 @@
   "devDependencies": {
     "jsdoc": "^3.4.3",
     "mocha": "^2.3.2",
+    "typedoc": "^0.13.0",
     "webpack": "^3.10.0",
     "yargs": "^3.25.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*.js",
     "prepublish": "node profiles/packageProfiles.js & webpack --config webpack.config.js",
-    "docs": "./node_modules/.bin/jsdoc ./ -c ./jsdoc-config.json --verbose"
+    "docs": "./node_modules/.bin/typedoc -out ./docs -exclude node_modules -ignoreCompilerErrors"
   },
   "bundleDependencies": [
     "lodash",
