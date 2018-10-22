@@ -1,124 +1,251 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="default no-js">
 <head>
-    <meta charset="utf-8">
-    <title>JSDoc: Home</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>fhir</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-
 <body>
-
-<div id="main">
-
-    <h1 class="page-title">Home</h1>
-
-    
-
-
-
-    
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    <section>
-        <article><h1>FHIR.js</h1><p>Node.JS library for serializing/deserializing FHIR resources between JS and XML, and validating FHIR resources.
-The library uses technologies that are safe for use in browser-only applications (node.js is not required). </p>
-<p><a href="https://ci.appveyor.com/project/seanmcilvenna/fhir-js"><img src="https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true" alt="Build Status"></a>
-<a href="https://travis-ci.org/lantanagroup/FHIR.js"><img src="https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master" alt="Build Status"></a></p>
-<h1>Dependencies</h1><ul>
-<li>q 1.4.1</li>
-<li>underscore 1.8.3</li>
-<li>path 0.12.7</li>
-<li>xml-js 1.6.2</li>
-</ul>
-<h1>Installation</h1><pre class="prettyprint source"><code>npm install fhir
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">fhir</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> fhir</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="fhir-js">FHIR.js</h1>
+				<p>Node.JS library for serializing/deserializing FHIR resources between JS and XML, and validating FHIR resources.
+				The library uses technologies that are safe for use in browser-only applications (node.js is not required). </p>
+				<p><a href="https://ci.appveyor.com/project/seanmcilvenna/fhir-js"><img src="https://ci.appveyor.com/api/projects/status/nt0h6ufvhdvk7obc/branch/master?svg=true" alt="Build Status"></a>
+				<a href="https://travis-ci.org/lantanagroup/FHIR.js"><img src="https://travis-ci.org/lantanagroup/FHIR.js.svg?branch=master" alt="Build Status"></a></p>
+				<h1 id="key-features">Key features</h1>
+				<ul>
+					<li>Serialization between XML and JSON</li>
+					<li>Validation against core spec <em>and</em> custom profiles</li>
+					<li>Evaluation of <a href="http://build.fhir.org/fhirpath.html">FhirPath</a></li>
+				</ul>
+				<h1 id="dependencies">Dependencies</h1>
+				<ul>
+					<li>q 1.4.1</li>
+					<li>underscore 1.8.3</li>
+					<li>path 0.12.7</li>
+					<li>xml-js 1.6.2</li>
+				</ul>
+				<h1 id="installation">Installation</h1>
+				<pre><code>npm <span class="hljs-keyword">install </span>fhir
+<span class="hljs-keyword">or
+</span><span class="hljs-keyword">bower </span><span class="hljs-keyword">install </span>fhir-<span class="hljs-keyword">js</span></code></pre><p>To use in a node.js application, require the &quot;fhir&quot; module.</p>
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> Fhir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fhir'</span>).Fhir;</code></pre>
+				<p>To use in a browser application, reference dist/bundle.js.</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node_modules/fhir/dist/bundle.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 or
-bower install fhir-js</code></pre><p>To use in a node.js application, require the &quot;fhir&quot; module.</p>
-<pre class="prettyprint source lang-js"><code>var Fhir = require('fhir');</code></pre><p>To use in a browser application, reference dist/bundle.js.</p>
-<pre class="prettyprint source lang-html"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/fhir/dist/bundle.js&quot;>&lt;/script>
-or
-&lt;script type=&quot;text/javascript&quot; src=&quot;bower_components/fhir-js/dist/bundle.js&quot;>&lt;/script></code></pre><h1>Basic Usage</h1><pre class="prettyprint source lang-js"><code>var resource = {
-  resourceType: 'Patient',
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"bower_components/fhir-js/dist/bundle.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<h1 id="basic-usage">Basic Usage</h1>
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> resource = {
+  <span class="hljs-attr">resourceType</span>: <span class="hljs-string">'Patient'</span>,
   ...
 };
-var fhir = new Fhir();
-var xml = fhir.objToXml(resource);
-var json = fhir.xmlToJson(xml);
-var obj = fhir.xmlToObj(xml);
-var results = fhir.validate(xml, { errorOnUnexpected: true });
-results = fhir.validate(obj, {});</code></pre><h1>FHIR Version</h1><p><strong>3.4.0-13866</strong></p>
-<p>FHIR.js currently supports FHIR version <strong>3.4.0</strong>.</p>
-<p>If your implementation needs to support a more recent FHIR version, you may download the &quot;FHIR Definitions&quot; from the <a href="http://build.fhir.org/downloads.html">FHIR Downloads</a> page in <em>JSON</em> format and load them into the FHIR.js module.</p>
-<pre class="prettyprint source"><code>var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());
-var newTypes = JSON.parse(fs.readFileSync('..path..to..profiles-types.json').toString());
-var newResources = JSON.parse(fs.readFileSync('..path..to..profiles-resources.json').toString());
-var parser = new ParseConformance(false);           // don't load pre-parsed data
-parser.parseBundle(newValueSets);
-parser.parseBundle(newTypes);
-parser.parseResources(newResources);
+<span class="hljs-keyword">var</span> fhir = <span class="hljs-keyword">new</span> Fhir();
+<span class="hljs-keyword">var</span> xml = fhir.objToXml(resource);
+<span class="hljs-keyword">var</span> json = fhir.xmlToJson(xml);
+<span class="hljs-keyword">var</span> obj = fhir.xmlToObj(xml);
+<span class="hljs-keyword">var</span> results = fhir.validate(xml, { <span class="hljs-attr">errorOnUnexpected</span>: <span class="hljs-literal">true</span> });
+results = fhir.validate(obj, {});</code></pre>
+				<h1 id="fhir-version">FHIR Version</h1>
+				<p><strong>3.4.0-13866</strong></p>
+				<p>FHIR.js currently supports FHIR version <strong>3.4.0</strong>.</p>
+				<p>If your implementation needs to support a more recent FHIR version, you may download the &quot;FHIR Definitions&quot; from the <a href="http://build.fhir.org/downloads.html">FHIR Downloads</a> page in <em>JSON</em> format and load them into the FHIR.js module.</p>
+				<pre><code>var ParseConformance = require('fhir').ParseConformance;
+var FhirVersions = require('fhir').Versions;
 
-var fhir = new Fhir(parser);
-fhir.xmlToJson(...);
-fhir.objToXml(...);
+<span class="hljs-comment">// Get the data</span>
+var newValueSets = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(fs.read<span class="hljs-constructor">FileSync('..<span class="hljs-params">path</span>..<span class="hljs-params">to</span>..<span class="hljs-params">valuesets</span>.<span class="hljs-params">json</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
+var newTypes = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(fs.read<span class="hljs-constructor">FileSync('..<span class="hljs-params">path</span>..<span class="hljs-params">to</span>..<span class="hljs-params">profiles</span>-<span class="hljs-params">types</span>.<span class="hljs-params">json</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
+var newResources = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(fs.read<span class="hljs-constructor">FileSync('..<span class="hljs-params">path</span>..<span class="hljs-params">to</span>..<span class="hljs-params">profiles</span>-<span class="hljs-params">resources</span>.<span class="hljs-params">json</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
+
+<span class="hljs-comment">// Create a parser and parse it using the parser</span>
+var parser = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ParseConformance(<span class="hljs-params">false</span>, FhirVersions.STU3)</span>;           <span class="hljs-comment">// don't load pre-parsed data</span>
+parser.parse<span class="hljs-constructor">Bundle(<span class="hljs-params">newValueSets</span>)</span>;
+parser.parse<span class="hljs-constructor">Bundle(<span class="hljs-params">newTypes</span>)</span>;
+parser.parse<span class="hljs-constructor">Resources(<span class="hljs-params">newResources</span>)</span>;
+
+var fhir = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Fhir(<span class="hljs-params">parser</span>)</span>;
+fhir.xml<span class="hljs-constructor">ToJson(<span class="hljs-operator">...</span>)</span>;
+fhir.obj<span class="hljs-constructor">ToXml(<span class="hljs-operator">...</span>)</span>;
 fhir.validate(...);
-// etc.</code></pre><p>Custom-loading a version like this may not work if the FHIR spec includes changes to the StructureDefinition resource that are not accounted for in this version of the FHIR.js module. For example, recently StructureDefinition.element.binding.valueSetReference#Reference was changed to StructureDefinition.element.binding.valueSet#canonical. The FHIR.js module had to be updated to respect this change before it could properly validate value sets referenced by the StructureDefinition. </p>
-<p><em>Note: For validation to validate a value set referenced by a StructureDefinition, the ValueSet resource must be loaded into the parser before the StructureDefinition is loaded.</em></p>
-<h1>Decimal types</h1><p>The FHIR specification requires that decimal values have arbitrary precision
-and be encoded in JSON as numbers. This is problematic since JavaScript numbers
-are 64-bit floating-point numbers that do lose precision. As a workaround:</p>
-<ul>
-<li><code>xmlToObj</code> keeps decimals as JavaScript strings so as to not lose precision</li>
-<li><code>xmlToJson</code> converts decimals to JSON numbers, obeying the specification. Consider using it instead of <code>JSON.stringify(fhir.xmlToObj(xml))</code>.</li>
-<li>When parsing FHIR JSON strings, such as those produced by <code>xmlToJson</code> or other FHIR libraries, consider using an alternative to <code>JSON.parse</code> such as https://github.com/josdejong/lossless-json. This issue is mentioned in the FHIR specification: https://www.hl7.org/fhir/json.html#decimal</li>
-</ul>
-<h1>Documentation</h1><p>API documentation can be found at http://lantanagroup.github.io/FHIR.js/</p>
-<h1>Implementation Notes</h1><ul>
-<li>Compatible with FHIR Release 4 Candidate v3.2.0</li>
-<li>FHIR profiles (within the &quot;profiles&quot; directory) are used to determine whether properties should be arrays, the data type and cardinality of each property, etc.. The profiles are first combined using packageProfiles.js into a single bundle of all profiles. A second pass over the profiles is performed to create a hierarchy (rather than a flat list) of the properties, and only includes information that validation is concerned about. The result of the second pass is stored in profiles/types.json and profiles/valueSets.json.</li>
-</ul>
-<h1>Test</h1><pre class="prettyprint source"><code>npm test</code></pre></article>
-    </section>
-
-
-
-
-
-
+<span class="hljs-comment">// etc.</span></code></pre><p>Custom-loading a version like this may not work if the FHIR spec includes changes to the StructureDefinition resource that are not accounted for in this version of the FHIR.js module. For example, recently StructureDefinition.element.binding.valueSetReference#Reference was changed to StructureDefinition.element.binding.valueSet#canonical. The FHIR.js module had to be updated to respect this change before it could properly validate value sets referenced by the StructureDefinition. </p>
+				<p><em>Note: For validation to validate a value set referenced by a StructureDefinition, the ValueSet resource must be loaded into the parser before the StructureDefinition is loaded.</em></p>
+				<h1 id="documentation">Documentation</h1>
+				<p>API documentation can be found at <a href="http://lantanagroup.github.io/FHIR.js/">http://lantanagroup.github.io/FHIR.js/</a></p>
+				<h1 id="decimal-types">Decimal types</h1>
+				<p>The FHIR specification requires that decimal values have arbitrary precision
+					and be encoded in JSON as numbers. This is problematic since JavaScript numbers
+				are 64-bit floating-point numbers that do lose precision. As a workaround:</p>
+				<ul>
+					<li><code>xmlToObj</code> keeps decimals as JavaScript strings so as to not lose precision</li>
+					<li><code>xmlToJson</code> converts decimals to JSON numbers, obeying the specification. Consider using it instead of <code>JSON.stringify(fhir.xmlToObj(xml))</code>.</li>
+					<li>When parsing FHIR JSON strings, such as those produced by <code>xmlToJson</code> or other FHIR libraries, consider using an alternative to <code>JSON.parse</code> such as <a href="https://github.com/josdejong/lossless-json">https://github.com/josdejong/lossless-json</a>. This issue is mentioned in the FHIR specification: <a href="https://www.hl7.org/fhir/json.html#decimal">https://www.hl7.org/fhir/json.html#decimal</a></li>
+				</ul>
+				<h1 id="implementation-notes">Implementation Notes</h1>
+				<ul>
+					<li>Compatible with FHIR Release 4 Candidate v3.2.0</li>
+					<li>FHIR profiles (within the &quot;profiles&quot; directory) are used to determine whether properties should be arrays, the data type and cardinality of each property, etc.. The profiles are first combined using packageProfiles.js into a single bundle of all profiles. A second pass over the profiles is performed to create a hierarchy (rather than a flat list) of the properties, and only includes information that validation is concerned about. The result of the second pass is stored in profiles/types.json and profiles/valueSets.json.</li>
+				</ul>
+				<h1 id="test">Test</h1>
+				<pre><code>npm <span class="hljs-built_in">test</span></code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_converttojs_.html">"convert<wbr>ToJs"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_converttoxml_.html">"convert<wbr>ToXml"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_fhir_.html">"fhir"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_fhirpath_.html">"fhir<wbr>Path"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_parseconformance_.html">"parse<wbr>Conformance"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_validator_.html">"validator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_xmlhelper_.html">"xml<wbr>Helper"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ConvertToJS.html">ConvertToJS</a></li><li><a href="ConvertToXML.html">ConvertToXML</a></li><li><a href="Fhir.html">Fhir</a></li><li><a href="FhirPath.html">FhirPath</a></li><li><a href="ParseConformance.html">ParseConformance</a></li></ul><h3>Events</h3><ul><li><a href="Fhir.html#event:resolve">resolve</a></li><li><a href="FhirPath.html#event:resolve">resolve</a></li></ul><h3><a href="global.html">Global</a></h3>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 26 2018 12:02:37 GMT-0700 (Pacific Daylight Time)
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
 </footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
