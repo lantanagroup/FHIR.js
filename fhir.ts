@@ -1,5 +1,5 @@
 import {ParseConformance} from './parseConformance';
-import {Validator} from './validator';
+import {Validator, ValidatorOptions} from './validator';
 import {ConvertToJs} from './convertToJs';
 import {ConvertToXml} from './convertToXml';
 import {FhirPath} from './fhirPath';
@@ -64,7 +64,7 @@ export class Fhir {
      * @param {ValidatorOptions?} options The options to use while validating
      * @returns {ValidatorResponse} The results of the validation
      */
-    public validate(input: string | Object, options) {
+    public validate(input: string | Object, options?: ValidatorOptions) {
         const validator = new Validator(this.parser, options);
         return validator.validate(input);
     };
