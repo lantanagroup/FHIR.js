@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "4.4.3",
+  "version": "4.4.5",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "bugs": {
@@ -61,5 +61,16 @@
     "path",
     "q",
     "xml-js"
+  ],
+  "files": [
+    "index.js",
+    "fhir.js",
+    "convertToJs.js",
+    "convertToXml.js",
+    "validator.js",
+    "parseConformance.js",
+    "profiles/types.json",
+    "profiles/valuesets.json",
+    "dist/bundle.js"
   ]
 }
