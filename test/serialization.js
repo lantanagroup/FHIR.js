@@ -40,6 +40,7 @@ function cleanXml(xml) {
     next = next.replace(/\r/g, '');
     next = next.replace(/\s{2,20}/g, ' ');
     next = next.replace(/\>\s+\</g, '><');
+    next = next.replace(/\s\/>/g, '/>');
     return next.trim();
 }
 
