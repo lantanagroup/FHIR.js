@@ -60,6 +60,7 @@ If your implementation needs to support a more recent FHIR version, you may down
 ```
 var ParseConformance = require('fhir').ParseConformance;
 var FhirVersions = require('fhir').Versions;
+var Fhir = require('fhir').Fhir;
 
 // Get the data
 var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());
