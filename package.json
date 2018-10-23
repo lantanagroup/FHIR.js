@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "4.4.1",
+  "version": "4.4.2",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "bugs": {
@@ -26,7 +26,7 @@
     "standards",
     "clinical"
   ],
-  "main": "fhir.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lantanagroup/FHIR.js/"
