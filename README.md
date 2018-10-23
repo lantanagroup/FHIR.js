@@ -9,6 +9,8 @@ The library uses technologies that are safe for use in browser-only applications
 * Serialization between XML and JSON
 * Validation against core spec *and* custom profiles
 * Evaluation of [FhirPath](http://build.fhir.org/fhirpath.html)
+* Support for multiple FHIR versions (>= STU3)
+    * Loading from specific downloadable definitions
 
 # Dependencies
 * q 1.4.1
