@@ -8234,7 +8234,7 @@ var Constants = (function () {
     return Constants;
 }());
 var Validator = (function () {
-    function Validator(parser, options, resourceId, isXml) {
+    function Validator(parser, options, resourceId, isXml, obj) {
         this.isXml = false;
         this.response = {
             valid: true,
@@ -8244,6 +8244,7 @@ var Validator = (function () {
         this.options = options || {};
         this.resourceId = resourceId;
         this.isXml = isXml;
+        this.obj = obj;
     }
     Validator.prototype.validate = function (input) {
         if (typeof (input) === 'string' && input.indexOf('{') === 0) {
@@ -8461,7 +8462,7 @@ var Validator = (function () {
         }
         else if (property._type === 'Resource') {
             var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
-            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
             if (this.options && this.options.onBeforeValidateResource) {
                 var eventMessages = this.options.onBeforeValidateResource(obj);
                 if (eventMessages) {
@@ -8480,7 +8481,7 @@ var Validator = (function () {
         }
         else if (property._type === 'ElementDefinition') {
             var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
             var nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
@@ -8488,7 +8489,7 @@ var Validator = (function () {
         }
         else if (Constants.DataTypes.indexOf(property._type) >= 0) {
             var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            var nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml);
+            var nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml, obj);
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
             var nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
@@ -8508,7 +8509,7 @@ var Validator = (function () {
             var propertyValue = obj[property._name];
             var treeDisplay = Validator.getTreeDisplay(tree.concat([property._name]));
             if (propertyValue && this_1.options.onBeforeValidateProperty) {
-                var eventMessages = this_1.options.onBeforeValidateProperty(property, treeDisplay, propertyValue);
+                var eventMessages = this_1.options.onBeforeValidateProperty(this_1.obj, property, treeDisplay, propertyValue);
                 if (eventMessages) {
                     this_1.response.messages = this_1.response.messages.concat(eventMessages);
                 }

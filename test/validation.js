@@ -49,7 +49,7 @@ describe('Validation', function () {
             assert.equal(validatePropertyCount, 606);
         });
 
-        it('should validate R4 structure definition', function() {
+        it('should validate R4 structure definition, add extra messages from events', function() {
             var validateResourceCount = 0;
             var validatePropertyCount = 0;
 
@@ -58,17 +58,34 @@ describe('Validation', function () {
                 onBeforeValidateResource: function(resource) {
                     assert(resource);
                     validateResourceCount++;
+
+                    return [{
+                        location: 'test',
+                        resourceId: resource.id,
+                        severity: 'warning',
+                        message: 'This is a test'
+                    }];
                 },
-                onBeforeValidateProperty: function(property, treeDisplay, value) {
+                onBeforeValidateProperty: function(resource, property, treeDisplay, value) {
+                    assert(resource);
                     assert(property);
                     assert(treeDisplay);
                     assert(value);
                     validatePropertyCount++;
+
+                    if (treeDisplay === 'StructureDefinition.id') {
+                        return [{
+                            location: treeDisplay,
+                            resourceId: resource.id,
+                            severity: 'warning',
+                            message: 'This is another test'
+                        }];
+                    }
                 }
             });
             assert.equal(results.valid, true);
             assert(results.messages);
-            assert.equal(results.messages.length, 0);
+            assert.equal(results.messages.length, 2);
             assert.equal(validateResourceCount, 1);
             assert.equal(validatePropertyCount, 1033);
         });

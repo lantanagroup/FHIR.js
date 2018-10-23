@@ -21,7 +21,7 @@ export interface ValidatorOptions {
      * An event that is triggered whenever a property is validated. This is a common event that can occurs 100's of times
      * in a bundle.
      */
-    onBeforeValidateProperty?: (property: ParsedProperty, treeDisplay: string, value: any) => ValidatorMessage[];
+    onBeforeValidateProperty?: (resource: any, property: ParsedProperty, treeDisplay: string, value: any) => ValidatorMessage[];
 
     /**
      * @event
@@ -104,16 +104,18 @@ export class Validator {
 
     /**
      *
-     * @param parser {ParseConformance}
-     * @param resourceId {string?}
-     * @param isXml {boolean?}
-     * @param options
+     * @param parser {ParseConformance} Parser the validator should use
+     * @param options {ValidatorOptions} Options the validator should use
+     * @param resourceId {string?} The id of the obj/resource being validated
+     * @param isXml {boolean?} Indicates if the object was originally sent in XML format. Influences how the "location" field is displayed.
+     * @param obj {*} The object/resource that will be validated. This is only intended for use internally. It allows the contained resources to be passed along in the onBefore events
      */
-    constructor(parser: ParseConformance, options: ValidatorOptions, resourceId?: string, isXml?: boolean) {
+    constructor(parser: ParseConformance, options: ValidatorOptions, resourceId?: string, isXml?: boolean, obj?: any) {
         this.parser = parser;
         this.options = options || {};
         this.resourceId = resourceId;
         this.isXml = isXml;
+        this.obj = obj;
     }
 
     /**
@@ -336,7 +338,7 @@ export class Validator {
             }
         } else if (property._type === 'Resource') {
             const typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
-            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
 
             if (this.options && this.options.onBeforeValidateResource) {
                 const eventMessages = this.options.onBeforeValidateResource(obj);
@@ -356,7 +358,7 @@ export class Validator {
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         } else if (property._type === 'ElementDefinition') {
             const typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml);
+            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
 
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
 
@@ -365,7 +367,7 @@ export class Validator {
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         } else if (Constants.DataTypes.indexOf(property._type) >= 0) {
             const typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            const nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml);
+            const nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml, obj);
 
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
 
@@ -387,7 +389,7 @@ export class Validator {
             const treeDisplay = Validator.getTreeDisplay(tree.concat([property._name]));
 
             if (propertyValue && this.options.onBeforeValidateProperty) {
-                const eventMessages = this.options.onBeforeValidateProperty(property, treeDisplay, propertyValue);
+                const eventMessages = this.options.onBeforeValidateProperty(this.obj, property, treeDisplay, propertyValue);
                 if (eventMessages) {
                     this.response.messages = this.response.messages.concat(eventMessages);
                 }
