@@ -263,7 +263,13 @@ export class Validator {
         const propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
 
         if (property._valueSet) {
-            const foundValueSet = _.find(this.parser.parsedValueSets, (valueSet, valueSetKey) => valueSetKey === property._valueSet);
+            let valueSetUrl = property._valueSet;
+
+            if (valueSetUrl && valueSetUrl.indexOf('|') > 0) {
+                valueSetUrl = valueSetUrl.substring(0, valueSetUrl.indexOf('|'));
+            }
+
+            const foundValueSet = _.find(this.parser.parsedValueSets, (valueSet, valueSetKey) => valueSetKey === valueSetUrl);
 
             if (!foundValueSet) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');

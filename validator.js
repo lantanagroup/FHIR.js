@@ -168,7 +168,11 @@ var Validator = (function () {
         var treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
         var propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
         if (property._valueSet) {
-            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) { return valueSetKey === property._valueSet; });
+            var valueSetUrl_1 = property._valueSet;
+            if (valueSetUrl_1 && valueSetUrl_1.indexOf('|') > 0) {
+                valueSetUrl_1 = valueSetUrl_1.substring(0, valueSetUrl_1.indexOf('|'));
+            }
+            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) { return valueSetKey === valueSetUrl_1; });
             if (!foundValueSet_1) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
             }

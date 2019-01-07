@@ -8,8 +8,8 @@ describe('Parse', function () {
         var parser = new ParseConformance(true);
 
         assert(parser.parsedStructureDefinitions);
-        assert.equal(Object.keys(parser.parsedStructureDefinitions).length, 215);
-        assert.equal(Object.keys(parser.parsedValueSets).length, 570);
+        assert.equal(Object.keys(parser.parsedStructureDefinitions).length, 211);
+        assert.equal(Object.keys(parser.parsedValueSets).length, 579);
     });
 
     it('should parse bundles', function () {
@@ -24,10 +24,10 @@ describe('Parse', function () {
 
         assert(parser.parsedStructureDefinitions);
         var structureDefinitionsCount = Object.keys(parser.parsedStructureDefinitions).length;
-        assert.equal(structureDefinitionsCount, 215);
+        assert.equal(structureDefinitionsCount, 211);
         assert(parser.parsedValueSets);
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
-        assert.equal(valueSetsCount, 570);
+        assert.equal(valueSetsCount, 579);
 
         var noCodeValueSets = _.filter(parser.parsedValueSets, function(valueSet) {
             var systemHasCodes = false;
@@ -51,7 +51,7 @@ describe('Parse', function () {
         parser.loadCodeSystem(iso3166CodeSystem);
         parser.parseBundle(valueSets);
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
-        assert.equal(valueSetsCount, 573);
+        assert.equal(valueSetsCount, 582);
 
         var foundJurisdiction = parser.parsedValueSets['http://hl7.org/fhir/ValueSet/jurisdiction'];
         assert(!!foundJurisdiction);
