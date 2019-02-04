@@ -53,9 +53,9 @@ results = fhir.validate(obj, {});
 ```
 
 # FHIR Version
-**3.4.0-13866**
+**4.0.0**
 
-FHIR.js currently supports FHIR version **3.4.0**.
+FHIR.js currently supports FHIR version **4.0.0**.
 
 If your implementation needs to support a more recent FHIR version, you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
 
