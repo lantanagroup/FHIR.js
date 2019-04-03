@@ -57,7 +57,7 @@ results = fhir.validate(obj, {});
 
 FHIR.js supports FHIR version **4.0.0** by default.
 
-If your implementation needs to support a specific FHIR version (as long as it is 3.6.0 or newer), you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
+If your implementation needs to support a specific FHIR version (as long as it is 3.0.1 or newer), you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
 
 ```
 var ParseConformance = require('fhir').ParseConformance;
