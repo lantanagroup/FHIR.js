@@ -5946,7 +5946,46 @@ var ConvertToJs = (function () {
             relativeType._required = property._required;
             property = relativeType;
         }
-        var pushValue = function (value) {
+        var addExtra = function (element, index) {
+            var hasId = element.attributes && element.attributes.id;
+            var hasExtensions = !!_.find(element.elements, function (next) { return next.name === 'extension'; });
+            if (hasId || hasExtensions) {
+                if (!obj['_' + property._name]) {
+                    obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
+                }
+            }
+            var dest = obj['_' + property._name];
+            if (hasId || hasExtensions) {
+                if (dest instanceof Array) {
+                    if (dest.length < index + 1) {
+                        for (var i = 0; i < index; i++) {
+                            if (!dest[i]) {
+                                dest[i] = null;
+                            }
+                        }
+                    }
+                    dest[index] = {};
+                }
+            }
+            if (hasId) {
+                if (dest instanceof Array) {
+                    dest[index].id = element.attributes.id;
+                }
+                else {
+                    dest.id = element.attributes.id;
+                }
+            }
+            if (hasExtensions) {
+                var extensionProperty = {
+                    _name: 'extension',
+                    _type: 'Extension',
+                    _multiple: true,
+                    _required: false
+                };
+                _this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
+            }
+        };
+        var pushValue = function (value, index) {
             if (!value)
                 return;
             switch (property._type) {
@@ -5963,6 +6002,7 @@ var ConvertToJs = (function () {
                 case 'dateTime':
                 case 'time':
                 case 'instant':
+                    addExtra(value, index);
                     if (value.attributes && value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(value.attributes['value']);
@@ -5973,6 +6013,7 @@ var ConvertToJs = (function () {
                     }
                     break;
                 case 'decimal':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(convertDecimal(value.attributes['value'], surroundDecimalsWith));
@@ -5983,6 +6024,7 @@ var ConvertToJs = (function () {
                     }
                     break;
                 case 'boolean':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toBoolean(value.attributes['value']));
@@ -5995,6 +6037,7 @@ var ConvertToJs = (function () {
                 case 'integer':
                 case 'unsignedInt':
                 case 'positiveInt':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toNumber(value.attributes['value']));
@@ -6096,7 +6139,7 @@ var ConvertToJs = (function () {
             obj[property._name] = [];
         }
         for (var i in xmlProperty) {
-            pushValue(xmlProperty[i]);
+            pushValue(xmlProperty[i], i);
         }
     };
     return ConvertToJs;
@@ -11146,15 +11189,24 @@ var ConvertToXml = (function () {
                 .replace(/\r/g, '&#xD;')
                 .replace(/\n/g, '&#xA;');
         }
-        var pushProperty = function (value) {
+        var pushProperty = function (value, extra) {
             if (value === undefined || value === null)
                 return;
             var nextXmlObj = {
                 type: 'element',
                 name: propertyName,
                 elements: [],
-                attributes: null
+                attributes: {}
             };
+            if (extra) {
+                if (extra.id) {
+                    nextXmlObj.attributes.id = extra.id;
+                }
+                if (extra.extension) {
+                    var extensionStructure = _this.parser.parsedStructureDefinitions['Extension'];
+                    _this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
+                }
+            }
             switch (propertyType._type) {
                 case 'string':
                 case 'base64Binary':
@@ -11175,9 +11227,7 @@ var ConvertToXml = (function () {
                 case 'time':
                 case 'instant':
                     var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
-                    nextXmlObj.attributes = {
-                        value: actual
-                    };
+                    nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
                     if (propertyName === 'div') {
@@ -11189,9 +11239,7 @@ var ConvertToXml = (function () {
                         catch (ex) {
                             throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
                         }
-                        nextXmlObj.attributes = {
-                            'xmlns': 'http://www.w3.org/1999/xhtml'
-                        };
+                        nextXmlObj.attributes.xmlns = 'http://www.w3.org/1999/xhtml';
                         if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
                             nextXmlObj.elements = divXmlObj.elements[0].elements;
                         }
@@ -11243,7 +11291,7 @@ var ConvertToXml = (function () {
             }
             if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
                 if (!parentXmlObj.attributes) {
-                    parentXmlObj.attributes = [];
+                    parentXmlObj.attributes = {};
                 }
                 parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
             }
@@ -11253,11 +11301,12 @@ var ConvertToXml = (function () {
         };
         if (obj[propertyName] && propertyType._multiple) {
             for (var i = 0; i < obj[propertyName].length; i++) {
-                pushProperty(obj[propertyName][i]);
+                var extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+                pushProperty(obj[propertyName][i], extra);
             }
         }
         else {
-            pushProperty(obj[propertyName]);
+            pushProperty(obj[propertyName], obj['_' + propertyName]);
         }
     };
     return ConvertToXml;

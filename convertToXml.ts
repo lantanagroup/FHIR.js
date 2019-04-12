@@ -107,15 +107,26 @@ export class ConvertToXml {
                 .replace(/\n/g, '&#xA;');
         }
 
-        const pushProperty = (value) => {
+        const pushProperty = (value, extra?) => {
             if (value === undefined || value === null) return;
 
             const nextXmlObj: XmlElement = {
                 type: 'element',
                 name: propertyName,
                 elements: [],
-                attributes: null
+                attributes: {}
             };
+
+            if (extra) {
+                if (extra.id) {
+                    nextXmlObj.attributes.id = extra.id;
+                }
+
+                if (extra.extension) {
+                    const extensionStructure = this.parser.parsedStructureDefinitions['Extension'];
+                    this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
+                }
+            }
 
             switch (propertyType._type) {
                 case 'string':
@@ -138,9 +149,7 @@ export class ConvertToXml {
                 case 'instant':
                     const actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
 
-                    nextXmlObj.attributes = {
-                        value: actual
-                    };
+                    nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
                     if (propertyName === 'div') {
@@ -153,9 +162,8 @@ export class ConvertToXml {
                             throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
                         }
 
-                        nextXmlObj.attributes = {
-                            'xmlns': 'http://www.w3.org/1999/xhtml'
-                        };
+                        nextXmlObj.attributes.xmlns = 'http://www.w3.org/1999/xhtml';
+
                         if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
                             nextXmlObj.elements = divXmlObj.elements[0].elements;
                         }
@@ -204,7 +212,7 @@ export class ConvertToXml {
 
             if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
                 if (!parentXmlObj.attributes) {
-                    parentXmlObj.attributes = [];
+                    parentXmlObj.attributes = {};
                 }
                 parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
             } else {
@@ -214,10 +222,11 @@ export class ConvertToXml {
 
         if (obj[propertyName] && propertyType._multiple) {
             for (let i = 0; i < obj[propertyName].length; i++) {
-                pushProperty(obj[propertyName][i]);
+                const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+                pushProperty(obj[propertyName][i], extra);
             }
         } else {
-            pushProperty(obj[propertyName]);
+            pushProperty(obj[propertyName], obj['_' + propertyName]);
         }
     }
 }

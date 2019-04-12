@@ -135,7 +135,46 @@ var ConvertToJs = (function () {
             relativeType._required = property._required;
             property = relativeType;
         }
-        var pushValue = function (value) {
+        var addExtra = function (element, index) {
+            var hasId = element.attributes && element.attributes.id;
+            var hasExtensions = !!_.find(element.elements, function (next) { return next.name === 'extension'; });
+            if (hasId || hasExtensions) {
+                if (!obj['_' + property._name]) {
+                    obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
+                }
+            }
+            var dest = obj['_' + property._name];
+            if (hasId || hasExtensions) {
+                if (dest instanceof Array) {
+                    if (dest.length < index + 1) {
+                        for (var i = 0; i < index; i++) {
+                            if (!dest[i]) {
+                                dest[i] = null;
+                            }
+                        }
+                    }
+                    dest[index] = {};
+                }
+            }
+            if (hasId) {
+                if (dest instanceof Array) {
+                    dest[index].id = element.attributes.id;
+                }
+                else {
+                    dest.id = element.attributes.id;
+                }
+            }
+            if (hasExtensions) {
+                var extensionProperty = {
+                    _name: 'extension',
+                    _type: 'Extension',
+                    _multiple: true,
+                    _required: false
+                };
+                _this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
+            }
+        };
+        var pushValue = function (value, index) {
             if (!value)
                 return;
             switch (property._type) {
@@ -152,6 +191,7 @@ var ConvertToJs = (function () {
                 case 'dateTime':
                 case 'time':
                 case 'instant':
+                    addExtra(value, index);
                     if (value.attributes && value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(value.attributes['value']);
@@ -162,6 +202,7 @@ var ConvertToJs = (function () {
                     }
                     break;
                 case 'decimal':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(convertDecimal(value.attributes['value'], surroundDecimalsWith));
@@ -172,6 +213,7 @@ var ConvertToJs = (function () {
                     }
                     break;
                 case 'boolean':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toBoolean(value.attributes['value']));
@@ -184,6 +226,7 @@ var ConvertToJs = (function () {
                 case 'integer':
                 case 'unsignedInt':
                 case 'positiveInt':
+                    addExtra(value, index);
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toNumber(value.attributes['value']));
@@ -285,7 +328,7 @@ var ConvertToJs = (function () {
             obj[property._name] = [];
         }
         for (var i in xmlProperty) {
-            pushValue(xmlProperty[i]);
+            pushValue(xmlProperty[i], i);
         }
     };
     return ConvertToJs;

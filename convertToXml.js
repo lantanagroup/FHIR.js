@@ -60,15 +60,24 @@ var ConvertToXml = (function () {
                 .replace(/\r/g, '&#xD;')
                 .replace(/\n/g, '&#xA;');
         }
-        var pushProperty = function (value) {
+        var pushProperty = function (value, extra) {
             if (value === undefined || value === null)
                 return;
             var nextXmlObj = {
                 type: 'element',
                 name: propertyName,
                 elements: [],
-                attributes: null
+                attributes: {}
             };
+            if (extra) {
+                if (extra.id) {
+                    nextXmlObj.attributes.id = extra.id;
+                }
+                if (extra.extension) {
+                    var extensionStructure = _this.parser.parsedStructureDefinitions['Extension'];
+                    _this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
+                }
+            }
             switch (propertyType._type) {
                 case 'string':
                 case 'base64Binary':
@@ -89,9 +98,7 @@ var ConvertToXml = (function () {
                 case 'time':
                 case 'instant':
                     var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
-                    nextXmlObj.attributes = {
-                        value: actual
-                    };
+                    nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
                     if (propertyName === 'div') {
@@ -103,9 +110,7 @@ var ConvertToXml = (function () {
                         catch (ex) {
                             throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
                         }
-                        nextXmlObj.attributes = {
-                            'xmlns': 'http://www.w3.org/1999/xhtml'
-                        };
+                        nextXmlObj.attributes.xmlns = 'http://www.w3.org/1999/xhtml';
                         if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
                             nextXmlObj.elements = divXmlObj.elements[0].elements;
                         }
@@ -157,7 +162,7 @@ var ConvertToXml = (function () {
             }
             if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
                 if (!parentXmlObj.attributes) {
-                    parentXmlObj.attributes = [];
+                    parentXmlObj.attributes = {};
                 }
                 parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
             }
@@ -167,11 +172,12 @@ var ConvertToXml = (function () {
         };
         if (obj[propertyName] && propertyType._multiple) {
             for (var i = 0; i < obj[propertyName].length; i++) {
-                pushProperty(obj[propertyName][i]);
+                var extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+                pushProperty(obj[propertyName][i], extra);
             }
         }
         else {
-            pushProperty(obj[propertyName]);
+            pushProperty(obj[propertyName], obj['_' + propertyName]);
         }
     };
     return ConvertToXml;

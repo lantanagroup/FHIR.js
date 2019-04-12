@@ -19,7 +19,7 @@ var implementationGuideJson = fs.readFileSync('./test/data/r4/implementationGuid
 
 describe('Validation', function () {
     describe('JS', function () {
-        var fhir = new Fhir();
+        var fhirR4 = new Fhir();
         var stu3Parser = new ParseConformance(false, Versions.STU3);
         stu3Parser.parseBundle(require('./data/stu3/schema/profiles-resources.json'));
         stu3Parser.parseBundle(require('./data/stu3/schema/profiles-types.json'));
@@ -54,7 +54,7 @@ describe('Validation', function () {
             var validatePropertyCount = 0;
 
             var structureDefinition = JSON.parse(r4StructureDefinitionJson);
-            var results = fhir.validate(structureDefinition, {
+            var results = fhirR4.validate(structureDefinition, {
                 onBeforeValidateResource: function(resource) {
                     assert(resource);
                     validateResourceCount++;
@@ -108,7 +108,7 @@ describe('Validation', function () {
                     }]
                 }
             };
-            var results = fhir.validate(structureDefinition);
+            var results = fhirR4.validate(structureDefinition);
 
             assert(results);
             assert(results.valid === false);
@@ -124,14 +124,14 @@ describe('Validation', function () {
             var capabilityStatement = JSON.parse(capabilityStatementJson);
             capabilityStatement.format = [];
 
-            var results = fhir.validate(capabilityStatement);
+            var results = fhirR4.validate(capabilityStatement);
 
             assert(results.valid === false);
         });
 
         it('should result in success for OperationDefinition JS', function () {
             var operationDefinition = JSON.parse(operationDefinitionJson);
-            var results = fhir.validate(operationDefinition);
+            var results = fhirR4.validate(operationDefinition);
 
             assert(results.valid === true);
         });
@@ -145,7 +145,7 @@ describe('Validation', function () {
                 }
             };
 
-            var results = fhir.validate(resource);
+            var results = fhirR4.validate(resource);
             assert(results);
             assert.equal(results.valid, false);
             assert(results.messages);
@@ -172,7 +172,7 @@ describe('Validation', function () {
             var validateResourceCount = 0;
             var validatePropertyCount = 0;
 
-            var results = fhir.validate(bundleTransactionXml, {
+            var results = fhirR4.validate(bundleTransactionXml, {
                 onBeforeValidateResource: function(resource) {
                     assert(resource);
                     validateResourceCount++;
@@ -194,7 +194,7 @@ describe('Validation', function () {
         });
 
         it('should fail document bundle XML', function () {
-            var results = fhir.validate(badDocumentBundleXml);
+            var results = fhirR4.validate(badDocumentBundleXml);
             assert(results);
             assert.equal(results.valid, false);
             assert(results.messages);
@@ -211,7 +211,7 @@ describe('Validation', function () {
         });
 
         it('should pass medication statement XML', function () {
-            var results = fhir.validate(medicationStatementXml);
+            var results = fhirR4.validate(medicationStatementXml);
             assert(results);
             assert.equal(results.valid, true);
 
@@ -226,7 +226,7 @@ describe('Validation', function () {
                 resourceType: 'Bundle',
                 type: 'test'
             };
-            var results = fhir.validate(bundle);
+            var results = fhirR4.validate(bundle);
             assert(results);
             assert.equal(results.valid, false);
             assert.equal(results.messages.length, 1);
@@ -238,7 +238,7 @@ describe('Validation', function () {
 
         it('should pass condition JS', function () {
             var condition2 = JSON.parse(condition2Json);
-            var results = fhir.validate(condition2);
+            var results = fhirR4.validate(condition2);
             assert(results);
             assert.equal(results.valid, true);
             assert(results.messages);
@@ -252,7 +252,7 @@ describe('Validation', function () {
                 type: 'transaction',
                 test: true
             };
-            var results = fhir.validate(bundle, {
+            var results = fhirR4.validate(bundle, {
                 errorOnUnexpected: true
             });
 
@@ -273,7 +273,7 @@ describe('Validation', function () {
                 type: 'transaction',
                 test: true
             };
-            var results = fhir.validate(bundle, {
+            var results = fhirR4.validate(bundle, {
                 errorOnUnexpected: false
             });
 
@@ -297,7 +297,7 @@ describe('Validation', function () {
                     given: 'samwise'
                 }]
             };
-            var results = fhir.validate(patient);
+            var results = fhirR4.validate(patient);
             assert(results);
             assert.equal(results.valid, false);
             assert(results.messages);
@@ -314,7 +314,7 @@ describe('Validation', function () {
 
         it('should validate immunization-example.json successfully', function () {
             var immunization = JSON.parse(immunizationExampleJson);
-            var result = fhir.validate(immunization);
+            var result = fhirR4.validate(immunization);
 
             assert(result);
             assert.equal(result.valid, true);
@@ -325,7 +325,7 @@ describe('Validation', function () {
 
         it('should validate audit-event-example.json successfully, with required boolean', function () {
             var auditEvent = JSON.parse(auditEventExampleJson);
-            var result = fhir.validate(auditEvent);
+            var result = fhirR4.validate(auditEvent);
 
             assert(result);
             assert.equal(result.valid, true);
@@ -336,9 +336,92 @@ describe('Validation', function () {
 
         it('should validate implementation guide', function() {
             var implementationGuide = JSON.parse(implementationGuideJson);
-            var result = fhir.validate(implementationGuide);
+            var result = fhirR4.validate(implementationGuide);
 
             assert(result);
+        });
+
+        it('should validate implementation', function() {
+            var ig = {
+                "resourceType": "ImplementationGuide",
+                "id": "ig",
+                "meta": {
+                    "versionId": "4",
+                    "lastUpdated": "2019-02-13T14:17:23.000-05:00"
+                },
+                "contained": [
+                    {
+                        "resourceType": "Binary",
+                        "id": "6763",
+                        "contentType": "text/markdown"
+                    },
+                    {
+                        "resourceType": "Binary",
+                        "id": "7032",
+                        "contentType": "text/markdown"
+                    }
+                ],
+                "url": "http://hl7.org/fhir/us/nhsn-ltc/ImplementationGuide/ig",
+                "version": "0.0.1",
+                "name": "Connectathon 20 Test r4 test - NHSN-LTC",
+                "status": "draft",
+                "experimental": true,
+                "publisher": "HL7 FHIR Connectathon",
+                "description": "This is the IG description for the NHSN LTC HAI IG",
+                "packageId": "test",
+                "fhirVersion": [
+                    "4.0.0"
+                ],
+                "global": [
+                    {
+                        "type": "Encounter",
+                        "profile": "http://hl7.org/fhir/us/hai/StructureDefinition/hai-encounter"
+                    },
+                    {
+                        "type": "Questionnaire",
+                        "profile": "http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaire"
+                    },
+                    {
+                        "type": "QuestionnaireResponse",
+                        "profile": "http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaire-response"
+                    }
+                ],
+                "definition": {
+                    "page": {
+                        "extension": [
+                            {
+                                "url": "https://trifolia-on-fhir.lantanagroup.com/StructureDefinition/extension-ig-page-auto-generate-toc",
+                                "valueBoolean": true
+                            }
+                        ],
+                        "nameUrl": "toc.md",
+                        "title": "Table of Contents",
+                        "generation": "generated",
+                        "page": [
+                            {
+                                "nameReference": {
+                                    "reference": "#6763",
+                                    "display": "Page content 6763"
+                                },
+                                "title": "ToC page 1",
+                                "generation": "markdown",
+                                "page": [
+                                    {
+                                        "nameReference": {
+                                            "reference": "#7032",
+                                            "display": "Page content 7032"
+                                        },
+                                        "title": "Toc page 2",
+                                        "generation": "markdown"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            };
+
+            var results = fhirR4.validate(ig);
         });
     });
 });

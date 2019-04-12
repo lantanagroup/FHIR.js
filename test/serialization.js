@@ -135,6 +135,73 @@ describe('Serialization', function () {
         });
     });
 
+    describe('Extensions', function () {
+        it('should serialize extensions for primitive data types in JSON', function () {
+            var resource = {
+                resourceType: 'Observation',
+                status: 'test',
+                _status: {
+                    id: 'super-id',
+                    extension: [{
+                        url: 'http://test.com',
+                        valueString: 'blah'
+                    }]
+                }
+            };
+
+            var xml = fhir.objToXml(resource);
+            var expected = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id" value="test"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
+            assert.equal(xml, expected);
+        });
+
+        it('should serialize extensions for an array of primitive data types in JSON', function () {
+            var resource = {
+                resourceType: 'ImplementationGuide',
+                fhirVersion: ['1.0', '1.1'],
+                _fhirVersion: [
+                    null,
+                    {
+                        id: 'super-id',
+                        extension: [{
+                            url: 'http://test.com',
+                            valueString: 'blah'
+                        }]
+                    }
+                ]
+            };
+
+            var xml = fhir.objToXml(resource);
+            var expected = '<?xml version="1.0" encoding="UTF-8"?><ImplementationGuide xmlns="http://hl7.org/fhir"><fhirVersion value="1.0"/><fhirVersion id="super-id" value="1.1"><extension url="http://test.com"><valueString value="blah"/></extension></fhirVersion></ImplementationGuide>';
+            assert.equal(xml, expected);
+        });
+
+        it('should serialize extensions for an array of primitive data types in XML', function () {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?><ImplementationGuide xmlns="http://hl7.org/fhir"><fhirVersion value="1.0"/><fhirVersion id="super-id" value="1.1"><extension url="http://test.com"><valueString value="blah"/></extension></fhirVersion></ImplementationGuide>';
+            var obj = fhir.xmlToObj(xml);
+            assert(obj._fhirVersion);
+            assert(obj._fhirVersion instanceof Array);
+            assert.equal(obj._fhirVersion.length, 2);
+            assert.equal(obj._fhirVersion[0], null);
+            assert(obj._fhirVersion[1]);
+            assert.equal(obj._fhirVersion[1].id, 'super-id');
+            assert(obj._fhirVersion[1].extension);
+            assert(obj._fhirVersion[1].extension instanceof Array);
+            assert.equal(obj._fhirVersion[1].extension.length, 1);
+            assert.equal(obj._fhirVersion[1].extension[0].url, 'http://test.com');
+            assert.equal(obj._fhirVersion[1].extension[0].valueString, 'blah');
+        });
+
+        it('should serialize extensions for a single primitive data type in XML', function () {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id" value="test"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
+            var obj = fhir.xmlToObj(xml);
+            assert(obj._status);
+            assert.equal(obj._status.id, 'super-id');
+            assert.equal(obj._status.extension.length, 1);
+            assert.equal(obj._status.extension[0].url, 'http://test.com');
+            assert.equal(obj._status.extension[0].valueString, 'blah');
+        });
+    });
+
     describe('XML bi-directional', function () {
         it('should serialize value set xml', function() {
             biDirectionalTest(vsSmokeStatusXml);

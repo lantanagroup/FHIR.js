@@ -190,7 +190,52 @@ export class ConvertToJs {
             property = relativeType;
         }
 
-        const pushValue = (value) => {
+        const addExtra = (element, index) => {
+            const hasId = element.attributes && element.attributes.id;
+            const hasExtensions = !!_.find(element.elements, (next) => next.name === 'extension');
+
+            if (hasId || hasExtensions) {
+                if (!obj['_' + property._name]) {
+                    obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
+                }
+            }
+
+            const dest = obj['_' + property._name];
+
+            if (hasId || hasExtensions) {
+                if (dest instanceof Array) {
+                    // Fill in previous element indexes with null
+                    if (dest.length < index+1) {
+                        for (let i = 0; i < index; i++) {
+                            if (!dest[i]) {
+                                dest[i] = null;
+                            }
+                        }
+                    }
+                    dest[index] = {};
+                }
+            }
+
+            if (hasId) {
+                if (dest instanceof Array) {
+                    dest[index].id = element.attributes.id;
+                } else {
+                    dest.id = element.attributes.id;
+                }
+            }
+
+            if (hasExtensions) {
+                const extensionProperty = {
+                    _name: 'extension',
+                    _type: 'Extension',
+                    _multiple: true,
+                    _required: false
+                };
+                this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
+            }
+        };
+
+        const pushValue = (value, index) => {
             if (!value) return;
 
             switch (property._type) {
@@ -207,6 +252,8 @@ export class ConvertToJs {
                 case 'dateTime':
                 case 'time':
                 case 'instant':
+                    addExtra(value, index);
+
                     if (value.attributes && value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(value.attributes['value'])
@@ -216,6 +263,8 @@ export class ConvertToJs {
                     }
                     break;
                 case 'decimal':
+                    addExtra(value, index);
+
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(convertDecimal(value.attributes['value'], surroundDecimalsWith))
@@ -225,6 +274,8 @@ export class ConvertToJs {
                     }
                     break;
                 case 'boolean':
+                    addExtra(value, index);
+
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toBoolean(value.attributes['value']))
@@ -236,6 +287,8 @@ export class ConvertToJs {
                 case 'integer':
                 case 'unsignedInt':
                 case 'positiveInt':
+                    addExtra(value, index);
+
                     if (value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toNumber(value.attributes['value']))
@@ -352,7 +405,7 @@ export class ConvertToJs {
                 null;
             */
 
-            pushValue(xmlProperty[i]);
+            pushValue(xmlProperty[i], i);
         }
     }
 }
