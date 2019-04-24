@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ValidatorOptions | fhir</title>
+	<title>StructureDefinition | fhir</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_validator_.html">&quot;validator&quot;</a>
+					<a href="../modules/_parseconformance_.html">&quot;parseConformance&quot;</a>
 				</li>
 				<li>
-					<a href="_validator_.validatoroptions.html">ValidatorOptions</a>
+					<a href="_parseconformance_.structuredefinition.html">StructureDefinition</a>
 				</li>
 			</ul>
-			<h1>Interface ValidatorOptions</h1>
+			<h1>Interface StructureDefinition</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ValidatorOptions</span>
+						<span class="target">StructureDefinition</span>
 					</li>
 				</ul>
 			</section>
@@ -82,149 +82,107 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Events</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="_validator_.validatoroptions.html#onbeforevalidateproperty" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Property</a></li>
-								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="_validator_.validatoroptions.html#onbeforevalidateresource" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Resource</a></li>
-								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="_validator_.validatoroptions.html#onerror" class="tsd-kind-icon">on<wbr>Error</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_validator_.validatoroptions.html#erroronunexpected" class="tsd-kind-icon">error<wbr>OnUnexpected</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#basedefinition" class="tsd-kind-icon">base<wbr>Definition</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#differential" class="tsd-kind-icon">differential</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#resourcetype" class="tsd-kind-icon">resource<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#snapshot" class="tsd-kind-icon">snapshot</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_parseconformance_.structuredefinition.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
 						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Events</h2>
-				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface">
-					<a name="onbeforevalidateproperty" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Before<wbr>Validate<wbr>Property</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Property<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in validator.ts:24</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-event tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, property<span class="tsd-signature-symbol">: </span><a href="_parseconformance_.parsedproperty.html" class="tsd-signature-type">ParsedProperty</a>, treeDisplay<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a><span class="tsd-signature-symbol">[]</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>resource: <span class="tsd-signature-type">any</span></h5>
-											</li>
-											<li>
-												<h5>property: <a href="_parseconformance_.parsedproperty.html" class="tsd-signature-type">ParsedProperty</a></h5>
-											</li>
-											<li>
-												<h5>treeDisplay: <span class="tsd-signature-type">string</span></h5>
-											</li>
-											<li>
-												<h5>value: <span class="tsd-signature-type">any</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a><span class="tsd-signature-symbol">[]</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface">
-					<a name="onbeforevalidateresource" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Before<wbr>Validate<wbr>Resource</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Resource<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in validator.ts:17</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-event tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a><span class="tsd-signature-symbol">[]</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>resource: <span class="tsd-signature-type">any</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a><span class="tsd-signature-symbol">[]</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface">
-					<a name="onerror" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Error</h3>
-					<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in validator.ts:30</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-event tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>message: <a href="_validator_.validatormessage.html" class="tsd-signature-type">ValidatorMessage</a></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="erroronunexpected" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> error<wbr>OnUnexpected</h3>
-					<div class="tsd-signature tsd-kind-icon">error<wbr>OnUnexpected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="basedefinition" class="tsd-anchor"></a>
+					<h3>base<wbr>Definition</h3>
+					<div class="tsd-signature tsd-kind-icon">base<wbr>Definition<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in validator.ts:10</li>
+							<li>Defined in parseConformance.ts:47</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Indicates an error should be thrown when an unexpected property is found</p>
-						</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="differential" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> differential</h3>
+					<div class="tsd-signature tsd-kind-icon">differential<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:51</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>element<span class="tsd-signature-symbol">: </span><a href="_parseconformance_.elementdefinition.html" class="tsd-signature-type">ElementDefinition</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:44</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="resourcetype" class="tsd-anchor"></a>
+					<h3>resource<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">resource<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:43</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="snapshot" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> snapshot</h3>
+					<div class="tsd-signature tsd-kind-icon">snapshot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:48</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>element<span class="tsd-signature-symbol">: </span><a href="_parseconformance_.elementdefinition.html" class="tsd-signature-type">ElementDefinition</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:46</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:45</li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -246,13 +204,13 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_fhirpath_.html">"fhir<wbr>Path"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_parseconformance_.html">"parse<wbr>Conformance"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_snapshotgenerator_.html">"snapshot<wbr>Generator"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_validator_.html">"validator"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -262,42 +220,60 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_validator_.severities.html" class="tsd-kind-icon">Severities</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../classes/_validator_.constants.html" class="tsd-kind-icon">Constants</a>
-					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_validator_.validator.html" class="tsd-kind-icon">Validator</a>
+						<a href="../classes/_parseconformance_.parseconformance.html" class="tsd-kind-icon">Parse<wbr>Conformance</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_validator_.validatormessage.html" class="tsd-kind-icon">Validator<wbr>Message</a>
+						<a href="_parseconformance_.bundle.html" class="tsd-kind-icon">Bundle</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.elementdefinition.html" class="tsd-kind-icon">Element<wbr>Definition</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.parsedconcept.html" class="tsd-kind-icon">Parsed<wbr>Concept</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.parsedproperty.html" class="tsd-kind-icon">Parsed<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.parsedstructure.html" class="tsd-kind-icon">Parsed<wbr>Structure</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.parsedsystem.html" class="tsd-kind-icon">Parsed<wbr>System</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_parseconformance_.parsedvalueset.html" class="tsd-kind-icon">Parsed<wbr>Value<wbr>Set</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_validator_.validatoroptions.html" class="tsd-kind-icon">Validator<wbr>Options</a>
+						<a href="_parseconformance_.structuredefinition.html" class="tsd-kind-icon">Structure<wbr>Definition</a>
 						<ul>
-							<li class=" tsd-kind-event tsd-parent-kind-interface">
-								<a href="_validator_.validatoroptions.html#onbeforevalidateproperty" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Property</a>
-							</li>
-							<li class=" tsd-kind-event tsd-parent-kind-interface">
-								<a href="_validator_.validatoroptions.html#onbeforevalidateresource" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Resource</a>
-							</li>
-							<li class=" tsd-kind-event tsd-parent-kind-interface">
-								<a href="_validator_.validatoroptions.html#onerror" class="tsd-kind-icon">on<wbr>Error</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#basedefinition" class="tsd-kind-icon">base<wbr>Definition</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_validator_.validatoroptions.html#erroronunexpected" class="tsd-kind-icon">error<wbr>OnUnexpected</a>
+								<a href="_parseconformance_.structuredefinition.html#differential" class="tsd-kind-icon">differential</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#resourcetype" class="tsd-kind-icon">resource<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#snapshot" class="tsd-kind-icon">snapshot</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_parseconformance_.structuredefinition.html#url" class="tsd-kind-icon">url</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_validator_.validatorresponse.html" class="tsd-kind-icon">Validator<wbr>Response</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

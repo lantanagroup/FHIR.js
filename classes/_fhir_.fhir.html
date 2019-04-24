@@ -103,6 +103,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_fhir_.fhir.html#evaluate" class="tsd-kind-icon">evaluate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_fhir_.fhir.html#generatesnapshot" class="tsd-kind-icon">generate<wbr>Snapshot</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_fhir_.fhir.html#jsontoxml" class="tsd-kind-icon">json<wbr>ToXml</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_fhir_.fhir.html#objtoxml" class="tsd-kind-icon">obj<wbr>ToXml</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_fhir_.fhir.html#validate" class="tsd-kind-icon">validate</a></li>
@@ -125,7 +126,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L13">fhir.ts:13</a></li>
+									<li>Defined in fhir.ts:14</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,7 +152,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L104">fhir.ts:104</a></li>
+									<li>Defined in fhir.ts:106</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -183,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">parser<span class="tsd-signature-symbol">:</span> <a href="_parseconformance_.parseconformance.html" class="tsd-signature-type">ParseConformance</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L13">fhir.ts:13</a></li>
+							<li>Defined in fhir.ts:14</li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +201,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L91">fhir.ts:91</a></li>
+									<li>Defined in fhir.ts:93</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -243,6 +244,41 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="generatesnapshot" class="tsd-anchor"></a>
+					<h3>generate<wbr>Snapshot</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">generate<wbr>Snapshot<span class="tsd-signature-symbol">(</span>bundle<span class="tsd-signature-symbol">: </span><a href="../interfaces/_parseconformance_.bundle.html" class="tsd-signature-type">Bundle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in fhir.ts:118</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generates a snapshot for each of the StructureDefinition resources in the Bundle.
+										To generate a snapshot, the parser used by the Fhir instance needs to have the structure definitions explicitly loaded during runtime. In other words,
+										you cannot generate snapshots using a cached ParseConformance instance.
+										You can use SnapshotGenerator.createBundle(sd1, sd2, sd3) to easily create a bundle based on an arbitrary number of StructureDefinitions. The returned
+									bundle can be passed to generateSnapshot().</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bundle: <a href="../interfaces/_parseconformance_.bundle.html" class="tsd-signature-type">Bundle</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A bundle containing StructureDefinition resources that need a snapshot generated for them</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="jsontoxml" class="tsd-anchor"></a>
 					<h3>json<wbr>ToXml</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -252,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L23">fhir.ts:23</a></li>
+									<li>Defined in fhir.ts:25</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -281,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L33">fhir.ts:33</a></li>
+									<li>Defined in fhir.ts:35</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,13 +339,13 @@
 					<a name="validate" class="tsd-anchor"></a>
 					<h3>validate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Object</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_validator_.validatorresponse.html" class="tsd-signature-type">ValidatorResponse</a></li>
+						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Object</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_validator_.validatoroptions.html" class="tsd-signature-type">ValidatorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_validator_.validatorresponse.html" class="tsd-signature-type">ValidatorResponse</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L67">fhir.ts:67</a></li>
+									<li>Defined in fhir.ts:69</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -326,7 +362,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_validator_.validatoroptions.html" class="tsd-signature-type">ValidatorOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The options to use while validating</p>
 									</div>
@@ -347,7 +383,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L55">fhir.ts:55</a></li>
+									<li>Defined in fhir.ts:57</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -376,7 +412,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/fhir.ts#L44">fhir.ts:44</a></li>
+									<li>Defined in fhir.ts:46</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,6 +459,9 @@
 						<a href="../modules/_parseconformance_.html">"parse<wbr>Conformance"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_snapshotgenerator_.html">"snapshot<wbr>Generator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_validator_.html">"validator"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -451,6 +490,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_fhir_.fhir.html#evaluate" class="tsd-kind-icon">evaluate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_fhir_.fhir.html#generatesnapshot" class="tsd-kind-icon">generate<wbr>Snapshot</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_fhir_.fhir.html#jsontoxml" class="tsd-kind-icon">json<wbr>ToXml</a>

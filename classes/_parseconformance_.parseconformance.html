@@ -93,12 +93,14 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_parseconformance_.parseconformance.html#codesystems" class="tsd-kind-icon">code<wbr>Systems</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#parsedstructuredefinitions" class="tsd-kind-icon">parsed<wbr>Structure<wbr>Definitions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#parsedvaluesets" class="tsd-kind-icon">parsed<wbr>Value<wbr>Sets</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#structuredefinitions" class="tsd-kind-icon">structure<wbr>Definitions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_parseconformance_.parseconformance.html#version" class="tsd-kind-icon">version</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#isbaseprofile" class="tsd-kind-icon">is<wbr>Base<wbr>Profile</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#loadcodesystem" class="tsd-kind-icon">load<wbr>Code<wbr>System</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#parsebundle" class="tsd-kind-icon">parse<wbr>Bundle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_parseconformance_.parseconformance.html#parsestructuredefinition" class="tsd-kind-icon">parse<wbr>Structure<wbr>Definition</a></li>
@@ -123,7 +125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L39">parseConformance.ts:39</a></li>
+									<li>Defined in parseConformance.ts:70</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -158,7 +160,7 @@
 					<div class="tsd-signature tsd-kind-icon">code<wbr>Systems<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L39">parseConformance.ts:39</a></li>
+							<li>Defined in parseConformance.ts:70</li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">parsed<wbr>Structure<wbr>Definitions<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_parseconformance_.parsedstructure.html" class="tsd-signature-type">ParsedStructure</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L36">parseConformance.ts:36</a></li>
+							<li>Defined in parseConformance.ts:66</li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +180,17 @@
 					<div class="tsd-signature tsd-kind-icon">parsed<wbr>Value<wbr>Sets<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_parseconformance_.parsedvalueset.html" class="tsd-signature-type">ParsedValueSet</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L37">parseConformance.ts:37</a></li>
+							<li>Defined in parseConformance.ts:67</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="structuredefinitions" class="tsd-anchor"></a>
+					<h3>structure<wbr>Definitions</h3>
+					<div class="tsd-signature tsd-kind-icon">structure<wbr>Definitions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parseConformance.ts:68</li>
 						</ul>
 					</aside>
 				</section>
@@ -188,13 +200,36 @@
 					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L38">parseConformance.ts:38</a></li>
+							<li>Defined in parseConformance.ts:69</li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="isbaseprofile" class="tsd-anchor"></a>
+					<h3>is<wbr>Base<wbr>Profile</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Base<wbr>Profile<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in parseConformance.ts:86</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="loadcodesystem" class="tsd-anchor"></a>
 					<h3>load<wbr>Code<wbr>System</h3>
@@ -205,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L94">parseConformance.ts:94</a></li>
+									<li>Defined in parseConformance.ts:140</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -228,7 +263,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L113">parseConformance.ts:113</a></li>
+									<li>Defined in parseConformance.ts:159</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,7 +295,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L165">parseConformance.ts:165</a></li>
+									<li>Defined in parseConformance.ts:211</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -292,7 +327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L252">parseConformance.ts:252</a></li>
+									<li>Defined in parseConformance.ts:306</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -324,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L401">parseConformance.ts:401</a></li>
+									<li>Defined in parseConformance.ts:455</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -355,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L379">parseConformance.ts:379</a></li>
+									<li>Defined in parseConformance.ts:433</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -383,7 +418,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/FHIR.js/blob/a5f0d42/parseConformance.ts#L63">parseConformance.ts:63</a></li>
+									<li>Defined in parseConformance.ts:109</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -428,6 +463,9 @@
 						<a href="../modules/_parseconformance_.html">"parse<wbr>Conformance"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_snapshotgenerator_.html">"snapshot<wbr>Generator"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_validator_.html">"validator"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -454,8 +492,14 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_parseconformance_.parseconformance.html#parsedvaluesets" class="tsd-kind-icon">parsed<wbr>Value<wbr>Sets</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_parseconformance_.parseconformance.html#structuredefinitions" class="tsd-kind-icon">structure<wbr>Definitions</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_parseconformance_.parseconformance.html#version" class="tsd-kind-icon">version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_parseconformance_.parseconformance.html#isbaseprofile" class="tsd-kind-icon">is<wbr>Base<wbr>Profile</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_parseconformance_.parseconformance.html#loadcodesystem" class="tsd-kind-icon">load<wbr>Code<wbr>System</a>
@@ -483,6 +527,12 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_parseconformance_.bundle.html" class="tsd-kind-icon">Bundle</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_parseconformance_.elementdefinition.html" class="tsd-kind-icon">Element<wbr>Definition</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_parseconformance_.parsedconcept.html" class="tsd-kind-icon">Parsed<wbr>Concept</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
@@ -496,6 +546,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_parseconformance_.parsedvalueset.html" class="tsd-kind-icon">Parsed<wbr>Value<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_parseconformance_.structuredefinition.html" class="tsd-kind-icon">Structure<wbr>Definition</a>
 					</li>
 				</ul>
 			</nav>

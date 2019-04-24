@@ -74,6 +74,10 @@
 					<li>Serialization between XML and JSON</li>
 					<li>Validation against core spec <em>and</em> custom profiles</li>
 					<li>Evaluation of <a href="http://build.fhir.org/fhirpath.html">FhirPath</a></li>
+					<li>Support for multiple FHIR versions (&gt;= STU3)<ul>
+							<li>Loading from specific downloadable definitions</li>
+						</ul>
+					</li>
 				</ul>
 				<h1 id="dependencies">Dependencies</h1>
 				<ul>
@@ -101,13 +105,15 @@ or
 <span class="hljs-keyword">var</span> json = fhir.xmlToJson(xml);
 <span class="hljs-keyword">var</span> obj = fhir.xmlToObj(xml);
 <span class="hljs-keyword">var</span> results = fhir.validate(xml, { <span class="hljs-attr">errorOnUnexpected</span>: <span class="hljs-literal">true</span> });
-results = fhir.validate(obj, {});</code></pre>
+results = fhir.validate(obj, {});
+fhir.generateSnapshot(SnapshotGenerator.createBundle(sd1, sd2, sd3));</code></pre>
 				<h1 id="fhir-version">FHIR Version</h1>
-				<p><strong>3.4.0-13866</strong></p>
-				<p>FHIR.js currently supports FHIR version <strong>3.4.0</strong>.</p>
-				<p>If your implementation needs to support a more recent FHIR version, you may download the &quot;FHIR Definitions&quot; from the <a href="http://build.fhir.org/downloads.html">FHIR Downloads</a> page in <em>JSON</em> format and load them into the FHIR.js module.</p>
+				<p><strong>4.0.0</strong></p>
+				<p>FHIR.js supports FHIR version <strong>4.0.0</strong> by default.</p>
+				<p>If your implementation needs to support a specific FHIR version (as long as it is 3.0.1 or newer), you may download the &quot;FHIR Definitions&quot; from the <a href="http://build.fhir.org/downloads.html">FHIR Downloads</a> page in <em>JSON</em> format and load them into the FHIR.js module.</p>
 				<pre><code>var ParseConformance = require('fhir').ParseConformance;
 var FhirVersions = require('fhir').Versions;
+var Fhir = require('fhir').Fhir;
 
 <span class="hljs-comment">// Get the data</span>
 var newValueSets = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(fs.read<span class="hljs-constructor">FileSync('..<span class="hljs-params">path</span>..<span class="hljs-params">to</span>..<span class="hljs-params">valuesets</span>.<span class="hljs-params">json</span>')</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);
@@ -166,6 +172,9 @@ fhir.validate(...);
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_parseconformance_.html">"parse<wbr>Conformance"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_snapshotgenerator_.html">"snapshot<wbr>Generator"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_validator_.html">"validator"</a>
