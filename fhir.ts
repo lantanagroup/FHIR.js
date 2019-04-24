@@ -1,8 +1,9 @@
-import {ParseConformance} from './parseConformance';
+import {Bundle, ParseConformance, StructureDefinition} from './parseConformance';
 import {Validator, ValidatorOptions} from './validator';
 import {ConvertToJs} from './convertToJs';
 import {ConvertToXml} from './convertToXml';
 import {FhirPath} from './fhirPath';
+import {SnapshotGenerator} from './snapshotGenerator';
 
 export enum Versions {
     STU3 = 'STU3',
@@ -15,6 +16,7 @@ export class Fhir {
     constructor(parser?: ParseConformance) {
         this.parser = parser || new ParseConformance(true);
     }
+
     /**
      * Serializes a JSON resource object to XML
      * @param {string} json
@@ -103,5 +105,18 @@ export class Fhir {
      */
     public resolve(reference: string) {
         return;
+    }
+
+    /**
+     * Generates a snapshot for each of the StructureDefinition resources in the Bundle.
+     * To generate a snapshot, the parser used by the Fhir instance needs to have the structure definitions explicitly loaded during runtime. In other words,
+     * you cannot generate snapshots using a cached ParseConformance instance.
+     * You can use SnapshotGenerator.createBundle(sd1, sd2, sd3) to easily create a bundle based on an arbitrary number of StructureDefinitions. The returned
+     * bundle can be passed to generateSnapshot().
+     * @param bundle A bundle containing StructureDefinition resources that need a snapshot generated for them
+     */
+    public generateSnapshot(bundle: Bundle) {
+        const snapshotGenerator = new SnapshotGenerator(this.parser, bundle);
+        snapshotGenerator.generate();
     }
 }

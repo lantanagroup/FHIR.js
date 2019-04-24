@@ -1,4 +1,4 @@
-import { ParseConformance } from './parseConformance';
+import { Bundle, ParseConformance } from './parseConformance';
 import { ValidatorOptions } from './validator';
 export declare enum Versions {
     STU3 = "STU3",
@@ -16,4 +16,5 @@ export declare class Fhir {
     validate(input: string | Object, options?: ValidatorOptions): import("./validator").ValidatorResponse;
     evaluate(resource: string | Object, fhirPathString: string): any;
     resolve(reference: string): void;
+    generateSnapshot(bundle: Bundle): void;
 }

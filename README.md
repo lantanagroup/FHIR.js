@@ -50,6 +50,7 @@ var json = fhir.xmlToJson(xml);
 var obj = fhir.xmlToObj(xml);
 var results = fhir.validate(xml, { errorOnUnexpected: true });
 results = fhir.validate(obj, {});
+fhir.generateSnapshot(SnapshotGenerator.createBundle(sd1, sd2, sd3));
 ```
 
 # FHIR Version

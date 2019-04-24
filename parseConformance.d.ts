@@ -20,16 +20,43 @@ export interface ParsedProperty {
     _valueSet?: string;
 }
 export interface ParsedStructure {
+    _url: string;
     _type: string;
     _kind: string;
     _properties?: ParsedProperty[];
 }
+export interface ElementDefinition {
+    id?: string;
+    path: string;
+}
+export interface StructureDefinition {
+    resourceType: string;
+    id?: string;
+    url: string;
+    type: string;
+    baseDefinition: string;
+    snapshot?: {
+        element: ElementDefinition[];
+    };
+    differential?: {
+        element: ElementDefinition[];
+    };
+}
+export interface Bundle {
+    resourceType: string;
+    total: number;
+    entry?: [{
+        resource: StructureDefinition;
+    }];
+}
 export declare class ParseConformance {
     parsedStructureDefinitions: ParsedStructure[];
     parsedValueSets: ParsedValueSet[];
+    structureDefinitions: any[];
     private version;
     private codeSystems;
     constructor(loadCached?: boolean, version?: string);
+    isBaseProfile(url: string): boolean;
     private sortValueSetDependencies;
     loadCodeSystem(codeSystem: any): void;
     parseBundle(bundle: any): void;

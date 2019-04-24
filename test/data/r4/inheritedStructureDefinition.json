@@ -1,0 +1,32 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "bmi",
+  "text": {
+    "status": "generated",
+    "div": "<div>!-- Snipped for Brevity --></div>"
+  },
+  "url": "http://hl7.org/fhir/StructureDefinition/inherited-bmi",
+  "name": "InerhitedVitalSignsProfile",
+  "title": "Inerhited VitalSigns",
+  "status": "draft",
+  "experimental": true,
+  "description": "FHIR Body Mass Index (BMI) Profile",
+  "fhirVersion": "3.5.0",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/bmi",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation",
+        "path": "Observation",
+        "short": "FHIR Body Mass Index (BMI) Profile",
+        "definition": "This profile defines  how to represent Body Mass Index (BMI) observations in FHIR using a standard LOINC code and UCUM units of measure.",
+        "min": 0,
+        "max": "*"
+      }
+    ]
+  }
+}

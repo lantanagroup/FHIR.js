@@ -5,6 +5,7 @@ var validator_1 = require("./validator");
 var convertToJs_1 = require("./convertToJs");
 var convertToXml_1 = require("./convertToXml");
 var fhirPath_1 = require("./fhirPath");
+var snapshotGenerator_1 = require("./snapshotGenerator");
 var Versions;
 (function (Versions) {
     Versions["STU3"] = "STU3";
@@ -49,6 +50,10 @@ var Fhir = (function () {
     ;
     Fhir.prototype.resolve = function (reference) {
         return;
+    };
+    Fhir.prototype.generateSnapshot = function (bundle) {
+        var snapshotGenerator = new snapshotGenerator_1.SnapshotGenerator(this.parser, bundle);
+        snapshotGenerator.generate();
     };
     return Fhir;
 }());
