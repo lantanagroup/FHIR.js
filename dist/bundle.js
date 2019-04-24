@@ -11646,7 +11646,6 @@ exports.__esModule = true;
 var _ = __webpack_require__(0);
 var SnapshotGenerator = (function () {
     function SnapshotGenerator(parser, bundle) {
-        this.baseUrl = 'http://hl7.org/fhir/StructureDefinition/';
         this.choiceRegexString = '(Instant|Time|Date|DateTime|Decimal|Boolean|Integer|String|Uri|Base64Binary|Code|Id|Oid|UnsignedInt|PositiveInt|Markdown|Url|Canonical|Uuid|Identifier|HumanName|Address|ContactPoint|Timing|Quantity|SimpleQuantity|Attachment|Range|Period|Ratio|CodeableConcept|Coding|SampledData|Age|Distance|Duration|Count|Money|MoneyQuantity|Annotation|Signature|ContactDetail|Contributor|DataRequirement|ParameterDefinition|RelatedArtifact|TriggerDefinition|UsageContext|Expression|Reference|Narrative|Extension|Meta|ElementDefinition|Dosage|Xhtml)';
         this.processedUrls = [];
         this.parser = parser;
@@ -11666,11 +11665,10 @@ var SnapshotGenerator = (function () {
         };
         return bundle;
     };
-    SnapshotGenerator.prototype.getBaseStructureDefinition = function (url, type) {
-        var _this = this;
+    SnapshotGenerator.prototype.getStructureDefinition = function (url, type) {
         var isBaseProfile = this.parser.isBaseProfile(url);
         var fhirBase = isBaseProfile ?
-            _.find(this.parser.structureDefinitions, function (sd) { return sd.url.toLowerCase() === (_this.baseUrl + type).toLowerCase(); }) :
+            _.find(this.parser.structureDefinitions, function (sd) { return sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase(); }) :
             null;
         if (isBaseProfile && !fhirBase) {
             throw new Error("Base profile for " + url + " not found. Perhaps the structures have not been loaded?");
@@ -11693,7 +11691,7 @@ var SnapshotGenerator = (function () {
         if (!structureDefinition.differential || !structureDefinition.differential.element || structureDefinition.differential.element.length === 0) {
             throw new Error("Structure " + structureDefinition.url + " does not have a differential.");
         }
-        var base = this.getBaseStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
+        var base = this.getStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
         var newElements = JSON.parse(JSON.stringify(base.snapshot.element));
         var matched = _.filter(newElements, function (newElement) {
             if (newElement.path === structureDefinition.type) {
