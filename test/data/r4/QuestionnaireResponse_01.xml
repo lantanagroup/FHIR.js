@@ -8,6 +8,11 @@
 	  <resource>
 		 <QuestionnaireResponse>
 			<id value="4855.WOHS.455775"/>
+			 <meta>
+				 <versionId value="3"/>
+				 <lastUpdated value="2019-12-10T21:56:18.000-05:00"/>
+				 <profile value="http://hl7.org/fhir/us/bser/StructureDefinition/BSeR-ArthritisFeedbackObservation"/>
+			 </meta>
 			<questionnaire value="Questionnaire/RAI-HC2011"/>
 			<status value="completed"/>
 			<subject>

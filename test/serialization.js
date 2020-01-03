@@ -63,14 +63,14 @@ function biDirectionalTest(xml) {
 }
 
 function checkJsonHasNumber(json, expectedNumber) {
-    var expectedNumberPos = json.indexOf(expectedNumber)
-    var firstDigit = expectedNumber[0]
-    var lastDigit = expectedNumber[expectedNumber.length - 1]
-    assert(expectedNumberPos > 0, "very large decimals kept as JSON numbers")
-    assert(json[expectedNumberPos] === firstDigit, "very large decimals kept as JSON numbers")
-    assert(json[expectedNumberPos - 1] !== '"', "very large decimals kept as JSON numbers")
-    assert.equal(json[expectedNumberPos + expectedNumber.length - 1], lastDigit, "very large decimals kept as JSON numbers")
-    assert.equal(json[expectedNumberPos + expectedNumber.length], ",", "very large decimals kept as JSON numbers")
+    var expectedNumberPos = json.indexOf(expectedNumber);
+    var firstDigit = expectedNumber[0];
+    var lastDigit = expectedNumber[expectedNumber.length - 1];
+    assert(expectedNumberPos > 0, "very large decimals kept as JSON numbers");
+    assert(json[expectedNumberPos] === firstDigit, "very large decimals kept as JSON numbers");
+    assert(json[expectedNumberPos - 1] !== '"', "very large decimals kept as JSON numbers");
+    assert.equal(json[expectedNumberPos + expectedNumber.length - 1], lastDigit, "very large decimals kept as JSON numbers");
+    assert.equal(json[expectedNumberPos + expectedNumber.length], ",", "very large decimals kept as JSON numbers");
 }
 
 function assertArray(obj, expectedLength) {
@@ -120,11 +120,11 @@ describe('Serialization', function () {
 
         it('should escape invalid xml characters in the xhtml', function() {
             var obj = fhir.xmlToObj(vsSmokeStatusXml);
-            var expectedXhtml = '<div xmlns="http://www.w3.org/1999/xhtml"><h2>Smoking Status</h2><div><p>This value set\n' +
-                '          indicates the current smoking status of a patient.</p></div><p><b>Copyright Statement:</b> This value set includes content from SNOMED CT, which is\n' +
-                '        copyright 2002+ International Health Terminology Standards Development Organisation\n' +
-                '        (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT\n' +
-                '        is not covered by this agreement</p><p>This value set includes codes from the following code\n' +
+            var expectedXhtml = '<div xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><h2>Smoking Status</h2><div><p>This value set\r\n' +
+                '          indicates the current smoking status of a patient.</p></div><p><b>Copyright Statement:</b> This value set includes content from SNOMED CT, which is\r\n' +
+                '        copyright 2002+ International Health Terminology Standards Development Organisation\r\n' +
+                '        (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT\r\n' +
+                '        is not covered by this agreement</p><p>This value set includes codes from the following code\r\n' +
                 '        systems:</p><ul><li>Include these codes as defined in <a href="http://www.snomed.org/"><code>http://snomed.info/sct</code></a><table class="none"><tr><td style="white-space:nowrap"><b>Code</b></td><td><b>Display</b></td></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=449868002">449868002</a></td><td>Current every day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428041000124106">428041000124106</a></td><td>Current some day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=8517006">8517006</a></td><td>Former smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266919005">266919005</a></td><td>Never smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=77176002">77176002</a></td><td>Smoker, current status unknown</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266927001">266927001</a></td><td>Unknown if ever smoked</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428071000124103">428071000124103</a></td><td>Current Heavy tobacco smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428061000124105">428061000124105</a></td><td>Current Light tobacco smoker</td><td/></tr></table></li></ul></div>';
             assert.equal(obj.text.div, expectedXhtml);
         });
@@ -443,13 +443,13 @@ describe('Serialization', function () {
             assertArray(obj.elements[0].elements[3].elements[1].elements, 1);
 
             var questionnaireResponseXmlObj = obj.elements[0].elements[3].elements[1].elements[0];
-            assertArray(questionnaireResponseXmlObj.elements, 6);
-            assert(questionnaireResponseXmlObj.elements[5].name === 'item');
-            assertArray(questionnaireResponseXmlObj.elements[5].elements, 12);
-            assert(questionnaireResponseXmlObj.elements[5].elements[1].name === 'item');
-            assertArray(questionnaireResponseXmlObj.elements[5].elements[1].elements, 2);
-            assert(questionnaireResponseXmlObj.elements[5].elements[1].elements[0].name === 'linkId');
-            assert(questionnaireResponseXmlObj.elements[5].elements[1].elements[1].name === 'answer');
+            assertArray(questionnaireResponseXmlObj.elements, 7);
+            assert(questionnaireResponseXmlObj.elements[6].name === 'item');
+            assertArray(questionnaireResponseXmlObj.elements[6].elements, 12);
+            assert(questionnaireResponseXmlObj.elements[6].elements[1].name === 'item');
+            assertArray(questionnaireResponseXmlObj.elements[6].elements[1].elements, 2);
+            assert(questionnaireResponseXmlObj.elements[6].elements[1].elements[0].name === 'linkId');
+            assert(questionnaireResponseXmlObj.elements[6].elements[1].elements[1].name === 'answer');
         });
     });
 });

@@ -162,10 +162,11 @@ export class ConvertToXml {
                             throw new Error('The embedded xhtml is not properly formatted/escaped: ' + ex.message);
                         }
 
-                        nextXmlObj.attributes.xmlns = 'http://www.w3.org/1999/xhtml';
-
                         if (divXmlObj.elements.length === 1 && divXmlObj.elements[0].name === 'div') {
+                            divXmlObj.elements[0].attributes = divXmlObj.elements[0].attributes || {};
+                            divXmlObj.elements[0].attributes.xmlns = 'http://www.w3.org/1999/xhtml';
                             nextXmlObj.elements = divXmlObj.elements[0].elements;
+                            nextXmlObj.attributes = divXmlObj.elements[0].attributes;
                         }
                     }
                     break;
