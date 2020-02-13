@@ -3390,9 +3390,9 @@
       {
         "id": "Observation.code",
         "path": "Observation.code",
-        "short": "Body Mass Index (BMI)",
-        "definition": "Body Mass Index (BMI).",
-        "comment": "additional codes that translate or map to this code are allowed.  For example a more granular LOINC code or code that is used locally in a system.",
+        "short": "Updated short description",
+        "definition": "Updated definition",
+        "comment": "Updated comment",
         "alias": [
           "Test",
           "Name"

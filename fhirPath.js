@@ -1,16 +1,16 @@
 "use strict";
-exports.__esModule = true;
-var parseConformance_1 = require("./parseConformance");
-var _ = require("underscore");
-var FhirPath = (function () {
-    function FhirPath(resources, parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const parseConformance_1 = require("./parseConformance");
+const _ = require("underscore");
+class FhirPath {
+    constructor(resources, parser) {
         this.operators = ['=', '!', '&', '<', '>', '~'];
         this.resources = resources instanceof Array ? resources : [resources];
         this.parser = parser ? parser : new parseConformance_1.ParseConformance(true);
     }
-    FhirPath.prototype.findClosingParenIndex = function (string, startIndex) {
-        var parenLevel = 0;
-        for (var i = startIndex; i < string.length; i++) {
+    findClosingParenIndex(string, startIndex) {
+        let parenLevel = 0;
+        for (let i = startIndex; i < string.length; i++) {
             if (string[i] === '(') {
                 parenLevel++;
             }
@@ -23,9 +23,9 @@ var FhirPath = (function () {
                 }
             }
         }
-    };
-    FhirPath.prototype.findClosingQuoteIndex = function (string, startIndex) {
-        for (var i = startIndex; i < string.length; i++) {
+    }
+    findClosingQuoteIndex(string, startIndex) {
+        for (let i = startIndex; i < string.length; i++) {
             if (string[i] === '\'') {
                 if (string[i - 1] === '\\') {
                     continue;
@@ -33,18 +33,18 @@ var FhirPath = (function () {
                 return i;
             }
         }
-    };
-    FhirPath.prototype.internalResolve = function (reference) {
-        var regex = /^([A-z]+)\/(.+?)$/;
-        var match = reference.trim().match(regex);
+    }
+    internalResolve(reference) {
+        const regex = /^([A-z]+)\/(.+?)$/;
+        const match = reference.trim().match(regex);
         function find(resources, resourceType, id) {
-            for (var i = 0; i < resources.length; i++) {
-                var resource = resources[i];
+            for (let i = 0; i < resources.length; i++) {
+                const resource = resources[i];
                 if (resource.resourceType === 'Bundle') {
-                    var childResources = _.map(resource.entry, function (entry) {
+                    const childResources = _.map(resource.entry, function (entry) {
                         return entry.resource;
                     });
-                    var found = find(childResources, resourceType, id);
+                    const found = find(childResources, resourceType, id);
                     if (found) {
                         return found;
                     }
@@ -59,51 +59,51 @@ var FhirPath = (function () {
             }
         }
         if (match) {
-            var found = find(this.resources, match[1], match[2]);
+            const found = find(this.resources, match[1], match[2]);
             if (found) {
                 return found;
             }
         }
         return this.resolve(reference);
-    };
-    FhirPath.prototype.resolve = function (reference) {
+    }
+    resolve(reference) {
         return;
-    };
-    FhirPath.prototype.getResourceTypes = function () {
-        var self = this;
-        var keys = Object.keys(this.parser.parsedStructureDefinitions);
+    }
+    getResourceTypes() {
+        const self = this;
+        const keys = Object.keys(this.parser.parsedStructureDefinitions);
         return _.chain(keys)
             .filter(function (key) {
             return self.parser.parsedStructureDefinitions[key]._kind === 'resource';
         })
             .value();
-    };
-    FhirPath.prototype.parse = function (fhirPath) {
-        var statements = [];
-        var ns = {};
-        var fhirPathSplit = fhirPath.split('.');
-        var resourceTypes = this.getResourceTypes();
+    }
+    parse(fhirPath) {
+        const statements = [];
+        let ns = {};
+        const fhirPathSplit = fhirPath.split('.');
+        const resourceTypes = this.getResourceTypes();
         if (fhirPathSplit.length > 0 && resourceTypes.indexOf(fhirPathSplit[0]) >= 0) {
             ns.resourceType = fhirPathSplit[0];
             fhirPath = fhirPath.substring(fhirPathSplit[0].length + 1);
         }
-        for (var i = 0; i < fhirPath.length; i++) {
-            var char = fhirPath[i];
+        for (let i = 0; i < fhirPath.length; i++) {
+            const char = fhirPath[i];
             if (char === '\'') {
                 if (i === 0) {
-                    var closingQuoteIndex = this.findClosingQuoteIndex(fhirPath, i + 1);
+                    const closingQuoteIndex = this.findClosingQuoteIndex(fhirPath, i + 1);
                     ns.value = fhirPath.substring(i + 1, closingQuoteIndex);
                     i = closingQuoteIndex;
                 }
             }
             else if (char === '(') {
                 if (ns.path && ns.path.length > 0) {
-                    var fn = {
+                    const fn = {
                         name: ns.path.pop().toLowerCase()
                     };
                     ns.path.push(fn);
-                    var closingParenIndex = this.findClosingParenIndex(fhirPath, i + 1);
-                    var fnParams = fhirPath.substring(i + 1, closingParenIndex);
+                    const closingParenIndex = this.findClosingParenIndex(fhirPath, i + 1);
+                    const fnParams = fhirPath.substring(i + 1, closingParenIndex);
                     fn.params = this.parse(fnParams);
                     i = closingParenIndex;
                 }
@@ -113,9 +113,9 @@ var FhirPath = (function () {
             else if (char === ' ') {
             }
             else if (this.operators.indexOf(char) >= 0) {
-                var left = ns;
-                var rightPath = fhirPath.substring(i + 1);
-                var operator = char;
+                const left = ns;
+                let rightPath = fhirPath.substring(i + 1);
+                let operator = char;
                 if (this.operators.indexOf(rightPath[0]) >= 0) {
                     operator += rightPath[0];
                     rightPath = rightPath.substring(1);
@@ -145,22 +145,22 @@ var FhirPath = (function () {
         }
         statements.push(ns);
         return statements;
-    };
-    FhirPath.prototype.getValue = function (current, paths) {
+    }
+    getValue(current, paths) {
         if (current === undefined || current == null) {
             return current;
         }
         if (!paths || paths.length === 0) {
             return current;
         }
-        var nextPath = paths[0];
-        var nextPaths = paths.slice(1);
+        const nextPath = paths[0];
+        const nextPaths = paths.slice(1);
         if (current instanceof Array) {
             if (typeof nextPath === 'string') {
-                var ret = [];
+                let ret = [];
                 nextPaths.unshift(nextPath);
-                for (var i = 0; i < current.length; i++) {
-                    var currentRet = this.getValue(current[i], nextPaths);
+                for (let i = 0; i < current.length; i++) {
+                    const currentRet = this.getValue(current[i], nextPaths);
                     if (currentRet instanceof Array) {
                         ret = ret.concat(currentRet);
                     }
@@ -180,10 +180,10 @@ var FhirPath = (function () {
                 if (!nextPath.params || nextPath.params.length === 0) {
                     throw new Error('Expected .where() to have a parameter');
                 }
-                var filtered = [];
-                for (var i = 0; i < current.length; i++) {
-                    var paramsClone = JSON.parse(JSON.stringify(nextPath.params));
-                    var results = this.internalEvaluate(current[i], paramsClone);
+                const filtered = [];
+                for (let i = 0; i < current.length; i++) {
+                    const paramsClone = JSON.parse(JSON.stringify(nextPath.params));
+                    const results = this.internalEvaluate(current[i], paramsClone);
                     if (typeof results === 'boolean' && results === true) {
                         filtered.push(current[i]);
                     }
@@ -202,8 +202,8 @@ var FhirPath = (function () {
                 return this.getValue(current[nextPath], nextPaths);
             }
             else if (nextPath.name === 'resolve') {
-                var reference = typeof current === 'string' ? current : current.reference;
-                var resource = this.internalResolve(reference);
+                const reference = typeof current === 'string' ? current : current.reference;
+                const resource = this.internalResolve(reference);
                 return this.getValue(resource, nextPaths);
             }
             else if (nextPath.name === 'startswith') {
@@ -213,7 +213,7 @@ var FhirPath = (function () {
                 if (typeof current !== 'string') {
                     throw new Error('startsWith() must be used on string types');
                 }
-                var paramValue = nextPath.params[0].value || this.getValue(current, nextPath.params[0].path);
+                const paramValue = nextPath.params[0].value || this.getValue(current, nextPath.params[0].path);
                 if (!paramValue || current.indexOf(paramValue) !== 0) {
                     return false;
                 }
@@ -223,11 +223,11 @@ var FhirPath = (function () {
                 throw new Error('Unsupported function for objects ' + nextPath.name);
             }
         }
-    };
-    FhirPath.prototype.internalEvaluate = function (resource, statements) {
-        var ret = [];
-        for (var i = 0; i < statements.length; i++) {
-            var statement = statements[i];
+    }
+    internalEvaluate(resource, statements) {
+        let ret = [];
+        for (let i = 0; i < statements.length; i++) {
+            const statement = statements[i];
             if (statement.path) {
                 statement.value = this.getValue(resource, statement.path);
             }
@@ -259,10 +259,10 @@ var FhirPath = (function () {
             }
         }
         return ret;
-    };
-    FhirPath.prototype.shouldReturnArray = function (statements) {
+    }
+    shouldReturnArray(statements) {
         if (statements.length === 1) {
-            var statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
+            const statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
                 return nextPath.name === 'where';
             });
             if (statementHasWhereFn.length > 0) {
@@ -270,23 +270,22 @@ var FhirPath = (function () {
             }
         }
         return false;
-    };
-    FhirPath.prototype.evaluate = function (fhirPath) {
+    }
+    evaluate(fhirPath) {
         if (!fhirPath) {
             return;
         }
-        var statements = this.parse(fhirPath);
-        var ret = [];
-        for (var r = 0; r < this.resources.length; r++) {
-            var resource = this.resources[r];
+        const statements = this.parse(fhirPath);
+        let ret = [];
+        for (let r = 0; r < this.resources.length; r++) {
+            const resource = this.resources[r];
             ret = ret.concat(this.internalEvaluate(resource, statements));
         }
         if (this.resources.length === 1 && ret.length === 1 && !this.shouldReturnArray(statements)) {
             return ret[0];
         }
         return ret;
-    };
-    return FhirPath;
-}());
+    }
+}
 exports.FhirPath = FhirPath;
 //# sourceMappingURL=fhirPath.js.map

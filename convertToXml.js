@@ -1,25 +1,24 @@
 "use strict";
-exports.__esModule = true;
-var convert = require("xml-js");
-var _ = require("underscore");
-var parseConformance_1 = require("./parseConformance");
-var xmlHelper_1 = require("./xmlHelper");
-var ConvertToXml = (function () {
-    function ConvertToXml(parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const convert = require("xml-js");
+const _ = require("underscore");
+const parseConformance_1 = require("./parseConformance");
+const xmlHelper_1 = require("./xmlHelper");
+class ConvertToXml {
+    constructor(parser) {
         this.attributeProperties = {
             'Extension': 'url'
         };
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    ConvertToXml.prototype.convert = function (obj) {
+    convert(obj) {
         if (obj.hasOwnProperty('resourceType')) {
-            var xmlObj = this.resourceToXML(obj);
+            const xmlObj = this.resourceToXML(obj);
             return convert.js2xml(xmlObj);
         }
-    };
-    ConvertToXml.prototype.resourceToXML = function (obj, xmlObj) {
-        var _this = this;
-        var resourceElement = {
+    }
+    resourceToXML(obj, xmlObj) {
+        const resourceElement = {
             type: 'element',
             name: obj.resourceType,
             attributes: {
@@ -41,17 +40,16 @@ var ConvertToXml = (function () {
         if (!this.parser.parsedStructureDefinitions[obj.resourceType]) {
             throw new Error('Unknown resource type: ' + obj.resourceType);
         }
-        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, function (property) {
-            _this.propertyToXML(resourceElement, _this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
+        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, (property) => {
+            this.propertyToXML(resourceElement, this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
         });
         return xmlObj;
-    };
-    ConvertToXml.prototype.propertyToXML = function (parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
-        var _this = this;
-        var isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
+    }
+    propertyToXML(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
+        const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
         if (!obj || obj[propertyName] === undefined || obj[propertyName] === null)
             return;
-        var propertyType = _.find(parentType._properties, function (property) { return property._name == propertyName; });
+        const propertyType = _.find(parentType._properties, (property) => property._name == propertyName);
         function xmlEscapeString(value) {
             return value
                 .replace(/&/g, '&amp;')
@@ -60,10 +58,10 @@ var ConvertToXml = (function () {
                 .replace(/\r/g, '&#xD;')
                 .replace(/\n/g, '&#xA;');
         }
-        var pushProperty = function (value, extra) {
+        const pushProperty = (value, extra) => {
             if (value === undefined || value === null)
                 return;
-            var nextXmlObj = {
+            const nextXmlObj = {
                 type: 'element',
                 name: propertyName,
                 elements: [],
@@ -74,8 +72,8 @@ var ConvertToXml = (function () {
                     nextXmlObj.attributes.id = extra.id;
                 }
                 if (extra.extension) {
-                    var extensionStructure = _this.parser.parsedStructureDefinitions['Extension'];
-                    _this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
+                    const extensionStructure = this.parser.parsedStructureDefinitions['Extension'];
+                    this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
                 }
             }
             switch (propertyType._type) {
@@ -97,12 +95,12 @@ var ConvertToXml = (function () {
                 case 'dateTime':
                 case 'time':
                 case 'instant':
-                    var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
+                    const actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
                     nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
                     if (propertyName === 'div') {
-                        var divXmlObj = void 0;
+                        let divXmlObj;
                         try {
                             divXmlObj = convert.xml2js(value);
                             divXmlObj = xmlHelper_1.XmlHelper.escapeInvalidCharacters(divXmlObj);
@@ -119,46 +117,41 @@ var ConvertToXml = (function () {
                     }
                     break;
                 case 'Resource':
-                    var resourceXmlObj = _this.resourceToXML(value).elements[0];
+                    const resourceXmlObj = this.resourceToXML(value).elements[0];
                     delete resourceXmlObj.attributes.xmlns;
                     nextXmlObj.elements.push(resourceXmlObj);
                     break;
                 case 'Element':
                 case 'BackboneElement':
-                    for (var x in propertyType._properties) {
-                        var nextProperty = propertyType._properties[x];
-                        _this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
+                    for (let x in propertyType._properties) {
+                        const nextProperty = propertyType._properties[x];
+                        this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
                     }
                     break;
                 default:
-                    var nextType_1 = _this.parser.parsedStructureDefinitions[propertyType._type];
+                    let nextType = this.parser.parsedStructureDefinitions[propertyType._type];
                     if (propertyType._type.startsWith('#')) {
-                        var typeSplit_1 = propertyType._type.substring(1).split('.');
-                        var _loop_1 = function (i) {
+                        const typeSplit = propertyType._type.substring(1).split('.');
+                        for (let i = 0; i < typeSplit.length; i++) {
                             if (i == 0) {
-                                nextType_1 = _this.parser.parsedStructureDefinitions[typeSplit_1[i]];
+                                nextType = this.parser.parsedStructureDefinitions[typeSplit[i]];
                             }
                             else {
-                                nextType_1 = _.find(nextType_1._properties, function (nextTypeProperty) {
-                                    return nextTypeProperty._name === typeSplit_1[i];
+                                nextType = _.find(nextType._properties, (nextTypeProperty) => {
+                                    return nextTypeProperty._name === typeSplit[i];
                                 });
                             }
-                            if (!nextType_1) {
-                                return "break";
-                            }
-                        };
-                        for (var i = 0; i < typeSplit_1.length; i++) {
-                            var state_1 = _loop_1(i);
-                            if (state_1 === "break")
+                            if (!nextType) {
                                 break;
+                            }
                         }
                     }
-                    if (!nextType_1) {
+                    if (!nextType) {
                         console.log('Could not find type ' + propertyType._type);
                     }
                     else {
-                        _.each(nextType_1._properties, function (nextProperty) {
-                            _this.propertyToXML(nextXmlObj, nextType_1, value, nextProperty._name, propertyType._type);
+                        _.each(nextType._properties, (nextProperty) => {
+                            this.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                         });
                     }
             }
@@ -173,16 +166,15 @@ var ConvertToXml = (function () {
             }
         };
         if (obj[propertyName] && propertyType._multiple) {
-            for (var i = 0; i < obj[propertyName].length; i++) {
-                var extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+            for (let i = 0; i < obj[propertyName].length; i++) {
+                const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
                 pushProperty(obj[propertyName][i], extra);
             }
         }
         else {
             pushProperty(obj[propertyName], obj['_' + propertyName]);
         }
-    };
-    return ConvertToXml;
-}());
+    }
+}
 exports.ConvertToXml = ConvertToXml;
 //# sourceMappingURL=convertToXml.js.map

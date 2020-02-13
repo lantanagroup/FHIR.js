@@ -1,61 +1,60 @@
 "use strict";
-exports.__esModule = true;
-var parseConformance_1 = require("./parseConformance");
-var validator_1 = require("./validator");
-var convertToJs_1 = require("./convertToJs");
-var convertToXml_1 = require("./convertToXml");
-var fhirPath_1 = require("./fhirPath");
-var snapshotGenerator_1 = require("./snapshotGenerator");
+Object.defineProperty(exports, "__esModule", { value: true });
+const parseConformance_1 = require("./parseConformance");
+const validator_1 = require("./validator");
+const convertToJs_1 = require("./convertToJs");
+const convertToXml_1 = require("./convertToXml");
+const fhirPath_1 = require("./fhirPath");
+const snapshotGenerator_1 = require("./snapshotGenerator");
 var Versions;
 (function (Versions) {
     Versions["STU3"] = "STU3";
     Versions["R4"] = "R4";
 })(Versions = exports.Versions || (exports.Versions = {}));
-var Fhir = (function () {
-    function Fhir(parser) {
+class Fhir {
+    constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    Fhir.prototype.jsonToXml = function (json) {
-        var obj = JSON.parse(json);
+    jsonToXml(json) {
+        const obj = JSON.parse(json);
         return this.objToXml(obj);
-    };
-    Fhir.prototype.objToXml = function (obj) {
-        var convertToXML = new convertToXml_1.ConvertToXml(this.parser);
-        var xml = convertToXML.convert(obj);
+    }
+    objToXml(obj) {
+        const convertToXML = new convertToXml_1.ConvertToXml(this.parser);
+        const xml = convertToXML.convert(obj);
         return xml;
-    };
+    }
     ;
-    Fhir.prototype.xmlToObj = function (xml) {
-        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
-        var obj = convertToJs.convert(xml);
+    xmlToObj(xml) {
+        const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        const obj = convertToJs.convert(xml);
         return obj;
-    };
+    }
     ;
-    Fhir.prototype.xmlToJson = function (xml) {
-        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
-        var json = convertToJs.convertToJSON(xml);
+    xmlToJson(xml) {
+        const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        const json = convertToJs.convertToJSON(xml);
         return json;
-    };
+    }
     ;
-    Fhir.prototype.validate = function (input, options) {
-        var validator = new validator_1.Validator(this.parser, options);
+    validate(input, options) {
+        const validator = new validator_1.Validator(this.parser, options);
         return validator.validate(input);
-    };
+    }
     ;
-    Fhir.prototype.evaluate = function (resource, fhirPathString) {
-        var fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
+    evaluate(resource, fhirPathString) {
+        const fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
         fhirPath.resolve = this.resolve;
         return fhirPath.evaluate(fhirPathString);
-    };
+    }
     ;
-    Fhir.prototype.resolve = function (reference) {
+    resolve(reference) {
         return;
-    };
-    Fhir.prototype.generateSnapshot = function (bundle) {
-        var snapshotGenerator = new snapshotGenerator_1.SnapshotGenerator(this.parser, bundle);
+    }
+    generateSnapshot(bundle) {
+        const snapshotGenerator = new snapshotGenerator_1.SnapshotGenerator(this.parser, bundle);
         snapshotGenerator.generate();
-    };
-    return Fhir;
-}());
+    }
+}
 exports.Fhir = Fhir;
 //# sourceMappingURL=fhir.js.map

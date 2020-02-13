@@ -26,7 +26,16 @@ describe('SnapshotGenerator', function() {
         assert.equal(sd1.snapshot.element.length, 58);
 
         // code (and children)
-        assert.equal(sd1.snapshot.element[14], sd1.differential.element[1]);
+        assert(sd1.snapshot.element[14].alias);
+        assert.equal(sd1.snapshot.element[14].id, 'Observation.code');
+        assert.equal(sd1.snapshot.element[14].path, 'Observation.code');
+        assert.equal(sd1.snapshot.element[14].alias.length, 2);
+        assert.equal(sd1.snapshot.element[14].alias[0], 'Test');
+        assert.equal(sd1.snapshot.element[14].alias[1], 'Name');
+        assert.equal(sd1.snapshot.element[14].short, 'Updated short description');
+        assert.equal(sd1.snapshot.element[14].definition, 'Updated definition');
+        assert.equal(sd1.snapshot.element[14].comment, 'Updated comment');
+
         assert.equal(sd1.snapshot.element[15], sd1.differential.element[2]);
         assert.equal(sd1.snapshot.element[16], sd1.differential.element[3]);
         assert.equal(sd1.snapshot.element[17], sd1.differential.element[4]);

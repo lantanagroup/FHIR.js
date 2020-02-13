@@ -7,6 +7,7 @@ export declare class SnapshotGenerator {
     constructor(parser: ParseConformance, bundle: Bundle);
     static createBundle(...structureDefinitions: StructureDefinition[]): Bundle;
     private getStructureDefinition;
+    private merge;
     private process;
     generate(): void;
 }

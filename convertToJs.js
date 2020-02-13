@@ -1,60 +1,60 @@
 "use strict";
-exports.__esModule = true;
-var convert = require("xml-js");
-var _ = require("underscore");
-var parseConformance_1 = require("./parseConformance");
-var xmlHelper_1 = require("./xmlHelper");
-var ConvertToJs = (function () {
-    function ConvertToJs(parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const convert = require("xml-js");
+const _ = require("underscore");
+const parseConformance_1 = require("./parseConformance");
+const xmlHelper_1 = require("./xmlHelper");
+class ConvertToJs {
+    constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    ConvertToJs.prototype.convert = function (xml) {
-        var xmlObj = convert.xml2js(xml);
-        var firstElement = _.find(xmlObj.elements, function (element) { return element.type === 'element'; });
+    convert(xml) {
+        const xmlObj = convert.xml2js(xml);
+        const firstElement = _.find(xmlObj.elements, (element) => element.type === 'element');
         if (firstElement) {
             return this.resourceToJS(firstElement, null);
         }
-    };
-    ConvertToJs.prototype.convertToJSON = function (xml) {
-        var xmlObj = convert.xml2js(xml);
+    }
+    convertToJSON(xml) {
+        const xmlObj = convert.xml2js(xml);
         if (xmlObj.elements.length !== 1) {
             return;
         }
-        var surroundDecimalsWith = {};
-        var jsObj = this.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
-        var maxDLength = this.maxLengthOfDs(jsObj);
-        var rpt = '';
-        for (var i = 0; i < maxDLength + 5; i++) {
+        const surroundDecimalsWith = {};
+        const jsObj = this.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
+        const maxDLength = this.maxLengthOfDs(jsObj);
+        let rpt = '';
+        for (let i = 0; i < maxDLength + 5; i++) {
             rpt += 'D';
         }
         surroundDecimalsWith['str'] = rpt;
-        var json = JSON.stringify(jsObj, null, '\t');
-        var replaceRegex = new RegExp('"?' + surroundDecimalsWith['str'] + '"?', 'g');
-        var json2 = json.replace(replaceRegex, '');
+        const json = JSON.stringify(jsObj, null, '\t');
+        const replaceRegex = new RegExp('"?' + surroundDecimalsWith['str'] + '"?', 'g');
+        const json2 = json.replace(replaceRegex, '');
         return json2;
-    };
-    ConvertToJs.prototype.maxLengthOfDs = function (obj) {
+    }
+    maxLengthOfDs(obj) {
         function maxSubstringLengthStr(str) {
-            var matches = str.match(/DDDD+/g);
+            const matches = str.match(/DDDD+/g);
             if (!matches) {
                 return 0;
             }
-            var ret = matches
-                .map(function (substr) { return substr.length; })
-                .reduce(function (p, c) { return Math.max(p, c); }, 0);
+            const ret = matches
+                .map((substr) => { return substr.length; })
+                .reduce((p, c) => { return Math.max(p, c); }, 0);
             return ret;
         }
         function maxSubstringLength(currentMax, obj) {
-            var ret;
+            let ret;
             if (typeof (obj) === 'string') {
                 ret = Math.max(currentMax, maxSubstringLengthStr(obj));
             }
             else if (typeof (obj) === 'object') {
                 ret = Object.keys(obj)
-                    .map(function (k) {
+                    .map((k) => {
                     return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]));
                 })
-                    .reduce(function (p, c) { return Math.max(p, c); }, currentMax);
+                    .reduce((p, c) => { return Math.max(p, c); }, currentMax);
             }
             else {
                 ret = currentMax;
@@ -62,59 +62,52 @@ var ConvertToJs = (function () {
             return ret;
         }
         return maxSubstringLength(0, obj);
-    };
-    ConvertToJs.prototype.resourceToJS = function (xmlObj, surroundDecimalsWith) {
-        var _this = this;
-        var typeDefinition = this.parser.parsedStructureDefinitions[xmlObj.name];
-        var resource = {
+    }
+    resourceToJS(xmlObj, surroundDecimalsWith) {
+        const typeDefinition = this.parser.parsedStructureDefinitions[xmlObj.name];
+        const resource = {
             resourceType: xmlObj.name
         };
         if (!typeDefinition) {
             throw new Error('Unknown resource type: ' + xmlObj.name);
         }
-        _.each(typeDefinition._properties, function (property) {
-            _this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
+        _.each(typeDefinition._properties, (property) => {
+            this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
         });
         return resource;
-    };
-    ConvertToJs.prototype.findReferenceType = function (relativeType) {
+    }
+    findReferenceType(relativeType) {
         if (!relativeType || !relativeType.startsWith('#')) {
             return;
         }
-        var resourceType = relativeType.substring(1, relativeType.indexOf('.'));
-        var path = relativeType.substring(resourceType.length + 2);
-        var resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
-        var pathSplit = path.split('.');
+        const resourceType = relativeType.substring(1, relativeType.indexOf('.'));
+        const path = relativeType.substring(resourceType.length + 2);
+        const resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
+        const pathSplit = path.split('.');
         if (!resourceDefinition) {
             throw new Error('Could not find resource definition for ' + resourceType);
         }
-        var current = resourceDefinition;
-        var _loop_1 = function (i) {
-            var nextPath = pathSplit[i];
-            current = _.find(current._properties, function (property) {
+        let current = resourceDefinition;
+        for (let i = 0; i < pathSplit.length; i++) {
+            const nextPath = pathSplit[i];
+            current = _.find(current._properties, (property) => {
                 return property._name === nextPath;
             });
             if (!current) {
-                return { value: void 0 };
+                return;
             }
-        };
-        for (var i = 0; i < pathSplit.length; i++) {
-            var state_1 = _loop_1(i);
-            if (typeof state_1 === "object")
-                return state_1.value;
         }
         return JSON.parse(JSON.stringify(current));
-    };
-    ConvertToJs.prototype.propertyToJS = function (xmlObj, obj, property, surroundDecimalsWith) {
-        var _this = this;
-        var xmlElements = _.filter(xmlObj.elements, function (element) {
+    }
+    propertyToJS(xmlObj, obj, property, surroundDecimalsWith) {
+        const xmlElements = _.filter(xmlObj.elements, (element) => {
             return element.name === property._name;
         });
-        var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
-            .filter(function (key) {
+        const xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
+            .filter((key) => {
             return key === property._name;
         })
-            .map(function (key) {
+            .map((key) => {
             return {
                 name: key,
                 type: 'attribute',
@@ -122,12 +115,12 @@ var ConvertToJs = (function () {
             };
         })
             .value() : [];
-        var xmlProperty = xmlElements.concat(xmlAttributes);
+        const xmlProperty = xmlElements.concat(xmlAttributes);
         if (!xmlProperty || xmlProperty.length === 0) {
             return;
         }
         if (property._type && property._type.indexOf('#') === 0) {
-            var relativeType = this.findReferenceType(property._type);
+            const relativeType = this.findReferenceType(property._type);
             if (!relativeType) {
                 throw new Error('Could not find reference to element definition ' + relativeType);
             }
@@ -135,19 +128,19 @@ var ConvertToJs = (function () {
             relativeType._required = property._required;
             property = relativeType;
         }
-        var addExtra = function (element, index) {
-            var hasId = element.attributes && element.attributes.id;
-            var hasExtensions = !!_.find(element.elements, function (next) { return next.name === 'extension'; });
+        const addExtra = (element, index) => {
+            const hasId = element.attributes && element.attributes.id;
+            const hasExtensions = !!_.find(element.elements, (next) => next.name === 'extension');
             if (hasId || hasExtensions) {
                 if (!obj['_' + property._name]) {
                     obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
                 }
             }
-            var dest = obj['_' + property._name];
+            const dest = obj['_' + property._name];
             if (hasId || hasExtensions) {
                 if (dest instanceof Array) {
                     if (dest.length < index + 1) {
-                        for (var i = 0; i < index; i++) {
+                        for (let i = 0; i < index; i++) {
                             if (!dest[i]) {
                                 dest[i] = null;
                             }
@@ -165,16 +158,16 @@ var ConvertToJs = (function () {
                 }
             }
             if (hasExtensions) {
-                var extensionProperty = {
+                const extensionProperty = {
                     _name: 'extension',
                     _type: 'Extension',
                     _multiple: true,
                     _required: false
                 };
-                _this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
+                this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
             }
         };
-        var pushValue = function (value, index) {
+        const pushValue = (value, index) => {
             if (!value)
                 return;
             switch (property._type) {
@@ -238,7 +231,7 @@ var ConvertToJs = (function () {
                     break;
                 case 'xhtml':
                     if (value.elements && value.elements.length > 0) {
-                        var div = convert.js2xml({ elements: [xmlHelper_1.XmlHelper.escapeInvalidCharacters(value)] });
+                        const div = convert.js2xml({ elements: [xmlHelper_1.XmlHelper.escapeInvalidCharacters(value)] });
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(div);
                         }
@@ -249,10 +242,10 @@ var ConvertToJs = (function () {
                     break;
                 case 'Element':
                 case 'BackboneElement':
-                    var newValue = {};
-                    for (var x in property._properties) {
-                        var nextProperty = property._properties[x];
-                        _this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
+                    const newValue = {};
+                    for (let x in property._properties) {
+                        const nextProperty = property._properties[x];
+                        this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                     }
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(newValue);
@@ -264,28 +257,28 @@ var ConvertToJs = (function () {
                 case 'Resource':
                     if (value.elements.length === 1) {
                         if (obj[property._name] instanceof Array) {
-                            obj[property._name].push(_this.resourceToJS(value.elements[0], surroundDecimalsWith));
+                            obj[property._name].push(this.resourceToJS(value.elements[0], surroundDecimalsWith));
                         }
                         else {
-                            obj[property._name] = _this.resourceToJS(value.elements[0], surroundDecimalsWith);
+                            obj[property._name] = this.resourceToJS(value.elements[0], surroundDecimalsWith);
                         }
                     }
                     break;
                 default:
-                    var nextType = _this.parser.parsedStructureDefinitions[property._type];
+                    const nextType = this.parser.parsedStructureDefinitions[property._type];
                     if (!nextType) {
                         console.log('do something');
                     }
                     else {
-                        var newValue_1 = {};
-                        _.each(nextType._properties, function (nextProperty) {
-                            _this.propertyToJS(value, newValue_1, nextProperty, surroundDecimalsWith);
+                        const newValue = {};
+                        _.each(nextType._properties, (nextProperty) => {
+                            this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                         });
                         if (obj[property._name] instanceof Array) {
-                            obj[property._name].push(newValue_1);
+                            obj[property._name].push(newValue);
                         }
                         else {
-                            obj[property._name] = newValue_1;
+                            obj[property._name] = newValue;
                         }
                     }
                     break;
@@ -327,11 +320,10 @@ var ConvertToJs = (function () {
         if (property._multiple) {
             obj[property._name] = [];
         }
-        for (var i in xmlProperty) {
+        for (let i in xmlProperty) {
             pushValue(xmlProperty[i], i);
         }
-    };
-    return ConvertToJs;
-}());
+    }
+}
 exports.ConvertToJs = ConvertToJs;
 //# sourceMappingURL=convertToJs.js.map

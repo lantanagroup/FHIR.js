@@ -1,17 +1,17 @@
 "use strict";
-exports.__esModule = true;
-var _ = require("underscore");
-var fhir_1 = require("./fhir");
-var ParseConformance = (function () {
-    function ParseConformance(loadCached, version) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = require("underscore");
+const fhir_1 = require("./fhir");
+class ParseConformance {
+    constructor(loadCached, version) {
         this.structureDefinitions = [];
         this.parsedStructureDefinitions = loadCached ? require('./profiles/types.json') : {};
         this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
         this.version = version || fhir_1.Versions.R4;
         this.codeSystems = [];
     }
-    ParseConformance.prototype.isBaseProfile = function (url) {
-        var urls;
+    isBaseProfile(url) {
+        let urls;
         switch (this.version) {
             case fhir_1.Versions.STU3:
                 urls = ['http://hl7.org/fhir/StructureDefinition/Account', 'http://hl7.org/fhir/StructureDefinition/ActivityDefinition', 'http://hl7.org/fhir/StructureDefinition/AllergyIntolerance', 'http://hl7.org/fhir/StructureDefinition/AdverseEvent', 'http://hl7.org/fhir/StructureDefinition/Appointment', 'http://hl7.org/fhir/StructureDefinition/AppointmentResponse', 'http://hl7.org/fhir/StructureDefinition/AuditEvent', 'http://hl7.org/fhir/StructureDefinition/Basic', 'http://hl7.org/fhir/StructureDefinition/Binary', 'http://hl7.org/fhir/StructureDefinition/BodySite', 'http://hl7.org/fhir/StructureDefinition/Bundle', 'http://hl7.org/fhir/StructureDefinition/CapabilityStatement', 'http://hl7.org/fhir/StructureDefinition/CarePlan', 'http://hl7.org/fhir/StructureDefinition/CareTeam', 'http://hl7.org/fhir/StructureDefinition/ChargeItem', 'http://hl7.org/fhir/StructureDefinition/Claim', 'http://hl7.org/fhir/StructureDefinition/ClaimResponse', 'http://hl7.org/fhir/StructureDefinition/ClinicalImpression', 'http://hl7.org/fhir/StructureDefinition/CodeSystem', 'http://hl7.org/fhir/StructureDefinition/Communication', 'http://hl7.org/fhir/StructureDefinition/CommunicationRequest', 'http://hl7.org/fhir/StructureDefinition/CompartmentDefinition', 'http://hl7.org/fhir/StructureDefinition/Composition', 'http://hl7.org/fhir/StructureDefinition/ConceptMap', 'http://hl7.org/fhir/StructureDefinition/Condition (aka Problem)', 'http://hl7.org/fhir/StructureDefinition/Consent', 'http://hl7.org/fhir/StructureDefinition/Contract', 'http://hl7.org/fhir/StructureDefinition/Coverage', 'http://hl7.org/fhir/StructureDefinition/DataElement', 'http://hl7.org/fhir/StructureDefinition/DetectedIssue', 'http://hl7.org/fhir/StructureDefinition/Device', 'http://hl7.org/fhir/StructureDefinition/DeviceComponent', 'http://hl7.org/fhir/StructureDefinition/DeviceMetric', 'http://hl7.org/fhir/StructureDefinition/DeviceRequest', 'http://hl7.org/fhir/StructureDefinition/DeviceUseStatement', 'http://hl7.org/fhir/StructureDefinition/DiagnosticReport', 'http://hl7.org/fhir/StructureDefinition/DocumentManifest', 'http://hl7.org/fhir/StructureDefinition/DocumentReference', 'http://hl7.org/fhir/StructureDefinition/EligibilityRequest', 'http://hl7.org/fhir/StructureDefinition/EligibilityResponse', 'http://hl7.org/fhir/StructureDefinition/Encounter', 'http://hl7.org/fhir/StructureDefinition/Endpoint', 'http://hl7.org/fhir/StructureDefinition/EnrollmentRequest', 'http://hl7.org/fhir/StructureDefinition/EnrollmentResponse', 'http://hl7.org/fhir/StructureDefinition/EpisodeOfCare', 'http://hl7.org/fhir/StructureDefinition/ExpansionProfile', 'http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit', 'http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory', 'http://hl7.org/fhir/StructureDefinition/Flag', 'http://hl7.org/fhir/StructureDefinition/Goal', 'http://hl7.org/fhir/StructureDefinition/GraphDefinition', 'http://hl7.org/fhir/StructureDefinition/Group', 'http://hl7.org/fhir/StructureDefinition/GuidanceResponse', 'http://hl7.org/fhir/StructureDefinition/HealthcareService', 'http://hl7.org/fhir/StructureDefinition/ImagingManifest', 'http://hl7.org/fhir/StructureDefinition/ImagingStudy', 'http://hl7.org/fhir/StructureDefinition/Immunization', 'http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation', 'http://hl7.org/fhir/StructureDefinition/ImplementationGuide', 'http://hl7.org/fhir/StructureDefinition/Library', 'http://hl7.org/fhir/StructureDefinition/Linkage', 'http://hl7.org/fhir/StructureDefinition/List', 'http://hl7.org/fhir/StructureDefinition/Location', 'http://hl7.org/fhir/StructureDefinition/Measure', 'http://hl7.org/fhir/StructureDefinition/MeasureReport', 'http://hl7.org/fhir/StructureDefinition/Media', 'http://hl7.org/fhir/StructureDefinition/Medication', 'http://hl7.org/fhir/StructureDefinition/MedicationAdministration', 'http://hl7.org/fhir/StructureDefinition/MedicationDispense', 'http://hl7.org/fhir/StructureDefinition/MedicationRequest', 'http://hl7.org/fhir/StructureDefinition/MedicationStatement', 'http://hl7.org/fhir/StructureDefinition/MessageDefinition', 'http://hl7.org/fhir/StructureDefinition/MessageHeader', 'http://hl7.org/fhir/StructureDefinition/NamingSystem', 'http://hl7.org/fhir/StructureDefinition/NutritionOrder', 'http://hl7.org/fhir/StructureDefinition/Observation', 'http://hl7.org/fhir/StructureDefinition/OperationDefinition', 'http://hl7.org/fhir/StructureDefinition/OperationOutcome', 'http://hl7.org/fhir/StructureDefinition/Organization', 'http://hl7.org/fhir/StructureDefinition/Parameters', 'http://hl7.org/fhir/StructureDefinition/Patient', 'http://hl7.org/fhir/StructureDefinition/PaymentNotice', 'http://hl7.org/fhir/StructureDefinition/PaymentReconciliation', 'http://hl7.org/fhir/StructureDefinition/Person', 'http://hl7.org/fhir/StructureDefinition/PlanDefinition', 'http://hl7.org/fhir/StructureDefinition/Practitioner', 'http://hl7.org/fhir/StructureDefinition/PractitionerRole', 'http://hl7.org/fhir/StructureDefinition/Procedure', 'http://hl7.org/fhir/StructureDefinition/ProcedureRequest', 'http://hl7.org/fhir/StructureDefinition/ProcessRequest', 'http://hl7.org/fhir/StructureDefinition/ProcessResponse', 'http://hl7.org/fhir/StructureDefinition/Provenance', 'http://hl7.org/fhir/StructureDefinition/Questionnaire', 'http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse', 'http://hl7.org/fhir/StructureDefinition/ReferralRequest', 'http://hl7.org/fhir/StructureDefinition/RelatedPerson', 'http://hl7.org/fhir/StructureDefinition/RequestGroup', 'http://hl7.org/fhir/StructureDefinition/ResearchStudy', 'http://hl7.org/fhir/StructureDefinition/ResearchSubject', 'http://hl7.org/fhir/StructureDefinition/RiskAssessment', 'http://hl7.org/fhir/StructureDefinition/Schedule', 'http://hl7.org/fhir/StructureDefinition/SearchParameter', 'http://hl7.org/fhir/StructureDefinition/Sequence', 'http://hl7.org/fhir/StructureDefinition/ServiceDefinition', 'http://hl7.org/fhir/StructureDefinition/Slot', 'http://hl7.org/fhir/StructureDefinition/Specimen', 'http://hl7.org/fhir/StructureDefinition/StructureDefinition', 'http://hl7.org/fhir/StructureDefinition/StructureMap', 'http://hl7.org/fhir/StructureDefinition/Subscription', 'http://hl7.org/fhir/StructureDefinition/Substance', 'http://hl7.org/fhir/StructureDefinition/SupplyDelivery', 'http://hl7.org/fhir/StructureDefinition/SupplyRequest', 'http://hl7.org/fhir/StructureDefinition/Task', 'http://hl7.org/fhir/StructureDefinition/TestScript', 'http://hl7.org/fhir/StructureDefinition/TestReport', 'http://hl7.org/fhir/StructureDefinition/ValueSet', 'http://hl7.org/fhir/StructureDefinition/VisionPrescription'];
@@ -21,18 +21,18 @@ var ParseConformance = (function () {
                 break;
         }
         return urls.indexOf(url) >= 0;
-    };
-    ParseConformance.prototype.sortValueSetDependencies = function (valueSets) {
-        var ret = [];
+    }
+    sortValueSetDependencies(valueSets) {
+        const ret = [];
         function addValueSet(valueSetUrl) {
-            var foundValueSet = _.find(valueSets, function (nextValueSet) {
+            const foundValueSet = _.find(valueSets, (nextValueSet) => {
                 return nextValueSet.url === valueSetUrl;
             });
             if (!foundValueSet) {
                 return;
             }
             if (foundValueSet.compose) {
-                _.each(foundValueSet.compose.include, function (include) {
+                _.each(foundValueSet.compose.include, (include) => {
                     addValueSet(include.valueSet);
                 });
             }
@@ -40,76 +40,75 @@ var ParseConformance = (function () {
                 ret.push(foundValueSet);
             }
         }
-        _.each(valueSets, function (valueSet) {
+        _.each(valueSets, (valueSet) => {
             addValueSet(valueSet.url);
         });
         return ret;
-    };
-    ParseConformance.prototype.loadCodeSystem = function (codeSystem) {
+    }
+    loadCodeSystem(codeSystem) {
         if (!codeSystem) {
             return;
         }
-        var foundCodeSystem = _.find(this.codeSystems, function (nextCodeSystem) {
+        const foundCodeSystem = _.find(this.codeSystems, (nextCodeSystem) => {
             return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
         });
         if (!foundCodeSystem) {
             this.codeSystems.push(codeSystem);
         }
-    };
+    }
     ;
-    ParseConformance.prototype.parseBundle = function (bundle) {
-        var _this = this;
+    parseBundle(bundle) {
         if (!bundle || !bundle.entry) {
             return;
         }
         _.chain(bundle.entry)
-            .filter(function (entry) {
+            .filter((entry) => {
             return entry.resource.resourceType === 'CodeSystem';
         })
-            .each(function (entry) {
-            _this.loadCodeSystem(entry.resource);
+            .each((entry) => {
+            this.loadCodeSystem(entry.resource);
         });
-        var valueSets = _.chain(bundle.entry)
-            .filter(function (entry) {
+        let valueSets = _.chain(bundle.entry)
+            .filter((entry) => {
             return entry.resource.resourceType === 'ValueSet';
         })
-            .map(function (entry) {
+            .map((entry) => {
             return entry.resource;
         })
             .value();
         valueSets = this.sortValueSetDependencies(valueSets);
-        _.each(valueSets, function (valueSet) {
-            _this.parseValueSet(valueSet);
+        _.each(valueSets, (valueSet) => {
+            this.parseValueSet(valueSet);
         });
         _.chain(bundle.entry)
-            .filter(function (entry) {
+            .filter((entry) => {
             if (entry.resource.resourceType !== 'StructureDefinition') {
                 return false;
             }
-            var resource = entry.resource;
+            const resource = entry.resource;
             return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
         })
-            .each(function (entry) {
-            _this.parseStructureDefinition(entry.resource);
+            .each((entry) => {
+            this.parseStructureDefinition(entry.resource);
         });
-    };
-    ParseConformance.prototype.parseStructureDefinition = function (structureDefinition) {
-        var uid = ("0000" + ((Math.random() * Math.pow(36, 4)) | 0).toString(36)).slice(-4);
-        var parsedStructureDefinition = {
+    }
+    parseStructureDefinition(structureDefinition) {
+        const uid = ("0000" + ((Math.random() * Math.pow(36, 4)) | 0).toString(36)).slice(-4);
+        const parsedStructureDefinition = {
             _url: structureDefinition.url,
             _type: 'Resource',
             _kind: structureDefinition.kind,
             _properties: []
         };
         this.parsedStructureDefinitions[structureDefinition.id || uid] = parsedStructureDefinition;
-        var loadedStructureDefinition = _.find(this.structureDefinitions, function (sd) { return sd.url === structureDefinition.url; });
+        const loadedStructureDefinition = _.find(this.structureDefinitions, (sd) => sd.url === structureDefinition.url);
         if (!loadedStructureDefinition) {
             this.structureDefinitions.push(structureDefinition);
         }
         if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
-            for (var x in structureDefinition.snapshot.element) {
-                var element = structureDefinition.snapshot.element[x];
-                var elementId = structureDefinition.snapshot.element[x].id;
+            for (let x in structureDefinition.snapshot.element) {
+                const element = structureDefinition.snapshot.element[x];
+                let elementId = structureDefinition.snapshot.element[x].id;
                 elementId = elementId.substring(structureDefinition.id.length + 1);
                 if (!element.max) {
                     throw 'Expected all base resource elements to have a max value';
@@ -118,7 +117,7 @@ var ParseConformance = (function () {
                     continue;
                 }
                 if (element.type.length === 1) {
-                    var newProperty = {
+                    const newProperty = {
                         _name: elementId,
                         _type: element.type[0].code || 'string',
                         _multiple: element.max !== '1',
@@ -133,11 +132,11 @@ var ParseConformance = (function () {
                 }
                 else if (elementId.endsWith('[x]')) {
                     elementId = elementId.substring(0, elementId.length - 3);
-                    for (var y in element.type) {
-                        var choiceType = element.type[y].code;
+                    for (let y in element.type) {
+                        let choiceType = element.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = elementId + choiceType;
-                        var newProperty = {
+                        const choiceElementId = elementId + choiceType;
+                        const newProperty = {
                             _name: choiceElementId,
                             _choice: elementId,
                             _type: element.type[y].code,
@@ -149,8 +148,8 @@ var ParseConformance = (function () {
                     }
                 }
                 else {
-                    var isReference = true;
-                    for (var y in element.type) {
+                    let isReference = true;
+                    for (let y in element.type) {
                         if (element.type[y].code !== 'Reference') {
                             isReference = false;
                             break;
@@ -170,18 +169,18 @@ var ParseConformance = (function () {
             }
         }
         return parsedStructureDefinition;
-    };
-    ParseConformance.prototype.parseValueSet = function (valueSet) {
-        var newValueSet = {
+    }
+    parseValueSet(valueSet) {
+        const newValueSet = {
             systems: []
         };
         if (valueSet.expansion && valueSet.expansion.contains) {
-            var _loop_1 = function (i) {
-                var contains = valueSet.expansion.contains[i];
+            for (let i = 0; i < valueSet.expansion.contains.length; i++) {
+                const contains = valueSet.expansion.contains[i];
                 if (contains.inactive || contains.abstract) {
-                    return "continue";
+                    continue;
                 }
-                var foundSystem = _.find(newValueSet.systems, function (system) {
+                let foundSystem = _.find(newValueSet.systems, (system) => {
                     return system.uri === contains.system;
                 });
                 if (!foundSystem) {
@@ -195,16 +194,13 @@ var ParseConformance = (function () {
                     code: contains.code,
                     display: contains.display
                 });
-            };
-            for (var i = 0; i < valueSet.expansion.contains.length; i++) {
-                _loop_1(i);
             }
         }
         else if (valueSet.compose) {
-            var _loop_2 = function (i) {
-                var include = valueSet.compose.include[i];
+            for (let i = 0; i < valueSet.compose.include.length; i++) {
+                const include = valueSet.compose.include[i];
                 if (include.system) {
-                    var foundSystem = _.find(newValueSet.systems, function (system) {
+                    let foundSystem = _.find(newValueSet.systems, (system) => {
                         return system.uri === include.system;
                     });
                     if (!foundSystem) {
@@ -214,11 +210,11 @@ var ParseConformance = (function () {
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var foundCodeSystem = _.find(this_1.codeSystems, function (codeSystem) {
+                    const foundCodeSystem = _.find(this.codeSystems, (codeSystem) => {
                         return codeSystem.url === include.system;
                     });
                     if (foundCodeSystem) {
-                        var codes = _.map(foundCodeSystem.concept, function (concept) {
+                        const codes = _.map(foundCodeSystem.concept, (concept) => {
                             return {
                                 code: concept.code,
                                 display: concept.display
@@ -228,10 +224,10 @@ var ParseConformance = (function () {
                     }
                 }
                 if (include.valueSet) {
-                    var includeValueSet = this_1.parsedValueSets[include.valueSet];
+                    const includeValueSet = this.parsedValueSets[include.valueSet];
                     if (includeValueSet) {
-                        _.each(includeValueSet.systems, function (includeSystem) {
-                            var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
+                        _.each(includeValueSet.systems, (includeSystem) => {
+                            const foundSystem = _.find(newValueSet.systems, (nextSystem) => {
                                 return nextSystem.uri === includeSystem.uri;
                             });
                             if (!foundSystem) {
@@ -247,18 +243,18 @@ var ParseConformance = (function () {
                     }
                 }
                 if (include.concept) {
-                    var systemUri_1 = include.system || '';
-                    var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
-                        return nextSystem.uri === systemUri_1;
+                    const systemUri = include.system || '';
+                    let foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                        return nextSystem.uri === systemUri;
                     });
                     if (!foundSystem) {
                         foundSystem = {
-                            uri: systemUri_1,
+                            uri: systemUri,
                             codes: []
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var codes = _.map(include.concept, function (concept) {
+                    const codes = _.map(include.concept, (concept) => {
                         return {
                             code: concept.code,
                             display: concept.display
@@ -266,23 +262,19 @@ var ParseConformance = (function () {
                     });
                     foundSystem.codes = foundSystem.codes.concat(codes);
                 }
-            };
-            var this_1 = this;
-            for (var i = 0; i < valueSet.compose.include.length; i++) {
-                _loop_2(i);
             }
         }
-        var systemsWithCodes = _.filter(newValueSet.systems, function (system) {
+        const systemsWithCodes = _.filter(newValueSet.systems, (system) => {
             return system.codes && system.codes.length > 0;
         });
         if (systemsWithCodes.length > 0) {
             this.parsedValueSets[valueSet.url] = newValueSet;
             return newValueSet;
         }
-    };
-    ParseConformance.prototype.populateValueSet = function (element, property) {
+    }
+    populateValueSet(element, property) {
         if (element.binding) {
-            var binding = element.binding;
+            const binding = element.binding;
             if (binding.strength) {
                 property._valueSetStrength = binding.strength;
             }
@@ -293,31 +285,28 @@ var ParseConformance = (function () {
                 property._valueSet = binding.valueSetReference.reference;
             }
         }
-    };
-    ParseConformance.prototype.populateBackboneElement = function (resourceType, parentElementId, profile) {
-        var _loop_3 = function (y) {
-            var backboneElement = profile.snapshot.element[y];
-            var backboneElementId = backboneElement.id;
+    }
+    populateBackboneElement(resourceType, parentElementId, profile) {
+        for (let y in profile.snapshot.element) {
+            const backboneElement = profile.snapshot.element[y];
+            let backboneElementId = backboneElement.id;
             if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
-                return "continue";
+                continue;
             }
             backboneElementId = backboneElementId.substring(profile.id.length + 1);
-            var parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
-            var parentBackboneElement = null;
-            var _loop_4 = function (j) {
-                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, function (property) {
+            const parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
+            let parentBackboneElement = null;
+            for (let j = 0; j < parentElementIdSplit.length; j++) {
+                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, (property) => {
                     return property._name == parentElementIdSplit[j];
                 });
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';
                 }
-            };
-            for (var j = 0; j < parentElementIdSplit.length; j++) {
-                _loop_4(j);
             }
             if (parentBackboneElement) {
                 if (!backboneElement.type) {
-                    var type = 'string';
+                    let type = 'string';
                     if (backboneElement.contentReference) {
                         type = backboneElement.contentReference;
                     }
@@ -329,7 +318,7 @@ var ParseConformance = (function () {
                     });
                 }
                 else if (backboneElement.type.length == 1) {
-                    var newProperty = {
+                    const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: backboneElement.type[0].code,
                         _multiple: backboneElement.max !== '1',
@@ -337,30 +326,30 @@ var ParseConformance = (function () {
                         _properties: []
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+                    this.populateValueSet(backboneElement, newProperty);
                     if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
-                        this_2.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
+                        this.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                     }
                 }
                 else if (backboneElement.id.endsWith('[x]')) {
-                    for (var y_1 in backboneElement.type) {
-                        var choiceType = backboneElement.type[y_1].code;
+                    for (let y in backboneElement.type) {
+                        let choiceType = backboneElement.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
-                        var newProperty = {
+                        const choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
+                        const newProperty = {
                             _name: choiceElementId,
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
-                            _type: backboneElement.type[y_1].code,
+                            _type: backboneElement.type[y].code,
                             _multiple: backboneElement.max !== '1',
                             _required: backboneElement.min === 1
                         };
                         parentBackboneElement._properties.push(newProperty);
-                        this_2.populateValueSet(backboneElement, newProperty);
+                        this.populateValueSet(backboneElement, newProperty);
                     }
                 }
                 else {
-                    var isReference = true;
-                    for (var z in backboneElement.type) {
+                    let isReference = true;
+                    for (let z in backboneElement.type) {
                         if (backboneElement.type[z].code !== 'Reference') {
                             isReference = false;
                             break;
@@ -369,26 +358,21 @@ var ParseConformance = (function () {
                     if (!isReference) {
                         throw 'Did not find a reference... not sure what to do';
                     }
-                    var newProperty = {
+                    let newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: 'Reference',
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+                    this.populateValueSet(backboneElement, newProperty);
                 }
             }
             else {
                 throw 'Unexpected backbone parent element id';
             }
-        };
-        var this_2 = this;
-        for (var y in profile.snapshot.element) {
-            _loop_3(y);
         }
-    };
-    return ParseConformance;
-}());
+    }
+}
 exports.ParseConformance = ParseConformance;
 //# sourceMappingURL=parseConformance.js.map

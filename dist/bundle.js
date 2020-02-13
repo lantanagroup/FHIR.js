@@ -1925,19 +1925,19 @@ if (typeof Object.create === 'function') {
 
 "use strict";
 
-exports.__esModule = true;
-var _ = __webpack_require__(0);
-var fhir_1 = __webpack_require__(16);
-var ParseConformance = (function () {
-    function ParseConformance(loadCached, version) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = __webpack_require__(0);
+const fhir_1 = __webpack_require__(16);
+class ParseConformance {
+    constructor(loadCached, version) {
         this.structureDefinitions = [];
         this.parsedStructureDefinitions = loadCached ? __webpack_require__(27) : {};
         this.parsedValueSets = loadCached ? __webpack_require__(28) : {};
         this.version = version || fhir_1.Versions.R4;
         this.codeSystems = [];
     }
-    ParseConformance.prototype.isBaseProfile = function (url) {
-        var urls;
+    isBaseProfile(url) {
+        let urls;
         switch (this.version) {
             case fhir_1.Versions.STU3:
                 urls = ['http://hl7.org/fhir/StructureDefinition/Account', 'http://hl7.org/fhir/StructureDefinition/ActivityDefinition', 'http://hl7.org/fhir/StructureDefinition/AllergyIntolerance', 'http://hl7.org/fhir/StructureDefinition/AdverseEvent', 'http://hl7.org/fhir/StructureDefinition/Appointment', 'http://hl7.org/fhir/StructureDefinition/AppointmentResponse', 'http://hl7.org/fhir/StructureDefinition/AuditEvent', 'http://hl7.org/fhir/StructureDefinition/Basic', 'http://hl7.org/fhir/StructureDefinition/Binary', 'http://hl7.org/fhir/StructureDefinition/BodySite', 'http://hl7.org/fhir/StructureDefinition/Bundle', 'http://hl7.org/fhir/StructureDefinition/CapabilityStatement', 'http://hl7.org/fhir/StructureDefinition/CarePlan', 'http://hl7.org/fhir/StructureDefinition/CareTeam', 'http://hl7.org/fhir/StructureDefinition/ChargeItem', 'http://hl7.org/fhir/StructureDefinition/Claim', 'http://hl7.org/fhir/StructureDefinition/ClaimResponse', 'http://hl7.org/fhir/StructureDefinition/ClinicalImpression', 'http://hl7.org/fhir/StructureDefinition/CodeSystem', 'http://hl7.org/fhir/StructureDefinition/Communication', 'http://hl7.org/fhir/StructureDefinition/CommunicationRequest', 'http://hl7.org/fhir/StructureDefinition/CompartmentDefinition', 'http://hl7.org/fhir/StructureDefinition/Composition', 'http://hl7.org/fhir/StructureDefinition/ConceptMap', 'http://hl7.org/fhir/StructureDefinition/Condition (aka Problem)', 'http://hl7.org/fhir/StructureDefinition/Consent', 'http://hl7.org/fhir/StructureDefinition/Contract', 'http://hl7.org/fhir/StructureDefinition/Coverage', 'http://hl7.org/fhir/StructureDefinition/DataElement', 'http://hl7.org/fhir/StructureDefinition/DetectedIssue', 'http://hl7.org/fhir/StructureDefinition/Device', 'http://hl7.org/fhir/StructureDefinition/DeviceComponent', 'http://hl7.org/fhir/StructureDefinition/DeviceMetric', 'http://hl7.org/fhir/StructureDefinition/DeviceRequest', 'http://hl7.org/fhir/StructureDefinition/DeviceUseStatement', 'http://hl7.org/fhir/StructureDefinition/DiagnosticReport', 'http://hl7.org/fhir/StructureDefinition/DocumentManifest', 'http://hl7.org/fhir/StructureDefinition/DocumentReference', 'http://hl7.org/fhir/StructureDefinition/EligibilityRequest', 'http://hl7.org/fhir/StructureDefinition/EligibilityResponse', 'http://hl7.org/fhir/StructureDefinition/Encounter', 'http://hl7.org/fhir/StructureDefinition/Endpoint', 'http://hl7.org/fhir/StructureDefinition/EnrollmentRequest', 'http://hl7.org/fhir/StructureDefinition/EnrollmentResponse', 'http://hl7.org/fhir/StructureDefinition/EpisodeOfCare', 'http://hl7.org/fhir/StructureDefinition/ExpansionProfile', 'http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit', 'http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory', 'http://hl7.org/fhir/StructureDefinition/Flag', 'http://hl7.org/fhir/StructureDefinition/Goal', 'http://hl7.org/fhir/StructureDefinition/GraphDefinition', 'http://hl7.org/fhir/StructureDefinition/Group', 'http://hl7.org/fhir/StructureDefinition/GuidanceResponse', 'http://hl7.org/fhir/StructureDefinition/HealthcareService', 'http://hl7.org/fhir/StructureDefinition/ImagingManifest', 'http://hl7.org/fhir/StructureDefinition/ImagingStudy', 'http://hl7.org/fhir/StructureDefinition/Immunization', 'http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation', 'http://hl7.org/fhir/StructureDefinition/ImplementationGuide', 'http://hl7.org/fhir/StructureDefinition/Library', 'http://hl7.org/fhir/StructureDefinition/Linkage', 'http://hl7.org/fhir/StructureDefinition/List', 'http://hl7.org/fhir/StructureDefinition/Location', 'http://hl7.org/fhir/StructureDefinition/Measure', 'http://hl7.org/fhir/StructureDefinition/MeasureReport', 'http://hl7.org/fhir/StructureDefinition/Media', 'http://hl7.org/fhir/StructureDefinition/Medication', 'http://hl7.org/fhir/StructureDefinition/MedicationAdministration', 'http://hl7.org/fhir/StructureDefinition/MedicationDispense', 'http://hl7.org/fhir/StructureDefinition/MedicationRequest', 'http://hl7.org/fhir/StructureDefinition/MedicationStatement', 'http://hl7.org/fhir/StructureDefinition/MessageDefinition', 'http://hl7.org/fhir/StructureDefinition/MessageHeader', 'http://hl7.org/fhir/StructureDefinition/NamingSystem', 'http://hl7.org/fhir/StructureDefinition/NutritionOrder', 'http://hl7.org/fhir/StructureDefinition/Observation', 'http://hl7.org/fhir/StructureDefinition/OperationDefinition', 'http://hl7.org/fhir/StructureDefinition/OperationOutcome', 'http://hl7.org/fhir/StructureDefinition/Organization', 'http://hl7.org/fhir/StructureDefinition/Parameters', 'http://hl7.org/fhir/StructureDefinition/Patient', 'http://hl7.org/fhir/StructureDefinition/PaymentNotice', 'http://hl7.org/fhir/StructureDefinition/PaymentReconciliation', 'http://hl7.org/fhir/StructureDefinition/Person', 'http://hl7.org/fhir/StructureDefinition/PlanDefinition', 'http://hl7.org/fhir/StructureDefinition/Practitioner', 'http://hl7.org/fhir/StructureDefinition/PractitionerRole', 'http://hl7.org/fhir/StructureDefinition/Procedure', 'http://hl7.org/fhir/StructureDefinition/ProcedureRequest', 'http://hl7.org/fhir/StructureDefinition/ProcessRequest', 'http://hl7.org/fhir/StructureDefinition/ProcessResponse', 'http://hl7.org/fhir/StructureDefinition/Provenance', 'http://hl7.org/fhir/StructureDefinition/Questionnaire', 'http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse', 'http://hl7.org/fhir/StructureDefinition/ReferralRequest', 'http://hl7.org/fhir/StructureDefinition/RelatedPerson', 'http://hl7.org/fhir/StructureDefinition/RequestGroup', 'http://hl7.org/fhir/StructureDefinition/ResearchStudy', 'http://hl7.org/fhir/StructureDefinition/ResearchSubject', 'http://hl7.org/fhir/StructureDefinition/RiskAssessment', 'http://hl7.org/fhir/StructureDefinition/Schedule', 'http://hl7.org/fhir/StructureDefinition/SearchParameter', 'http://hl7.org/fhir/StructureDefinition/Sequence', 'http://hl7.org/fhir/StructureDefinition/ServiceDefinition', 'http://hl7.org/fhir/StructureDefinition/Slot', 'http://hl7.org/fhir/StructureDefinition/Specimen', 'http://hl7.org/fhir/StructureDefinition/StructureDefinition', 'http://hl7.org/fhir/StructureDefinition/StructureMap', 'http://hl7.org/fhir/StructureDefinition/Subscription', 'http://hl7.org/fhir/StructureDefinition/Substance', 'http://hl7.org/fhir/StructureDefinition/SupplyDelivery', 'http://hl7.org/fhir/StructureDefinition/SupplyRequest', 'http://hl7.org/fhir/StructureDefinition/Task', 'http://hl7.org/fhir/StructureDefinition/TestScript', 'http://hl7.org/fhir/StructureDefinition/TestReport', 'http://hl7.org/fhir/StructureDefinition/ValueSet', 'http://hl7.org/fhir/StructureDefinition/VisionPrescription'];
@@ -1947,18 +1947,18 @@ var ParseConformance = (function () {
                 break;
         }
         return urls.indexOf(url) >= 0;
-    };
-    ParseConformance.prototype.sortValueSetDependencies = function (valueSets) {
-        var ret = [];
+    }
+    sortValueSetDependencies(valueSets) {
+        const ret = [];
         function addValueSet(valueSetUrl) {
-            var foundValueSet = _.find(valueSets, function (nextValueSet) {
+            const foundValueSet = _.find(valueSets, (nextValueSet) => {
                 return nextValueSet.url === valueSetUrl;
             });
             if (!foundValueSet) {
                 return;
             }
             if (foundValueSet.compose) {
-                _.each(foundValueSet.compose.include, function (include) {
+                _.each(foundValueSet.compose.include, (include) => {
                     addValueSet(include.valueSet);
                 });
             }
@@ -1966,76 +1966,75 @@ var ParseConformance = (function () {
                 ret.push(foundValueSet);
             }
         }
-        _.each(valueSets, function (valueSet) {
+        _.each(valueSets, (valueSet) => {
             addValueSet(valueSet.url);
         });
         return ret;
-    };
-    ParseConformance.prototype.loadCodeSystem = function (codeSystem) {
+    }
+    loadCodeSystem(codeSystem) {
         if (!codeSystem) {
             return;
         }
-        var foundCodeSystem = _.find(this.codeSystems, function (nextCodeSystem) {
+        const foundCodeSystem = _.find(this.codeSystems, (nextCodeSystem) => {
             return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
         });
         if (!foundCodeSystem) {
             this.codeSystems.push(codeSystem);
         }
-    };
+    }
     ;
-    ParseConformance.prototype.parseBundle = function (bundle) {
-        var _this = this;
+    parseBundle(bundle) {
         if (!bundle || !bundle.entry) {
             return;
         }
         _.chain(bundle.entry)
-            .filter(function (entry) {
+            .filter((entry) => {
             return entry.resource.resourceType === 'CodeSystem';
         })
-            .each(function (entry) {
-            _this.loadCodeSystem(entry.resource);
+            .each((entry) => {
+            this.loadCodeSystem(entry.resource);
         });
-        var valueSets = _.chain(bundle.entry)
-            .filter(function (entry) {
+        let valueSets = _.chain(bundle.entry)
+            .filter((entry) => {
             return entry.resource.resourceType === 'ValueSet';
         })
-            .map(function (entry) {
+            .map((entry) => {
             return entry.resource;
         })
             .value();
         valueSets = this.sortValueSetDependencies(valueSets);
-        _.each(valueSets, function (valueSet) {
-            _this.parseValueSet(valueSet);
+        _.each(valueSets, (valueSet) => {
+            this.parseValueSet(valueSet);
         });
         _.chain(bundle.entry)
-            .filter(function (entry) {
+            .filter((entry) => {
             if (entry.resource.resourceType !== 'StructureDefinition') {
                 return false;
             }
-            var resource = entry.resource;
+            const resource = entry.resource;
             return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
         })
-            .each(function (entry) {
-            _this.parseStructureDefinition(entry.resource);
+            .each((entry) => {
+            this.parseStructureDefinition(entry.resource);
         });
-    };
-    ParseConformance.prototype.parseStructureDefinition = function (structureDefinition) {
-        var uid = ("0000" + ((Math.random() * Math.pow(36, 4)) | 0).toString(36)).slice(-4);
-        var parsedStructureDefinition = {
+    }
+    parseStructureDefinition(structureDefinition) {
+        const uid = ("0000" + ((Math.random() * Math.pow(36, 4)) | 0).toString(36)).slice(-4);
+        const parsedStructureDefinition = {
             _url: structureDefinition.url,
             _type: 'Resource',
             _kind: structureDefinition.kind,
             _properties: []
         };
         this.parsedStructureDefinitions[structureDefinition.id || uid] = parsedStructureDefinition;
-        var loadedStructureDefinition = _.find(this.structureDefinitions, function (sd) { return sd.url === structureDefinition.url; });
+        const loadedStructureDefinition = _.find(this.structureDefinitions, (sd) => sd.url === structureDefinition.url);
         if (!loadedStructureDefinition) {
             this.structureDefinitions.push(structureDefinition);
         }
         if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
-            for (var x in structureDefinition.snapshot.element) {
-                var element = structureDefinition.snapshot.element[x];
-                var elementId = structureDefinition.snapshot.element[x].id;
+            for (let x in structureDefinition.snapshot.element) {
+                const element = structureDefinition.snapshot.element[x];
+                let elementId = structureDefinition.snapshot.element[x].id;
                 elementId = elementId.substring(structureDefinition.id.length + 1);
                 if (!element.max) {
                     throw 'Expected all base resource elements to have a max value';
@@ -2044,7 +2043,7 @@ var ParseConformance = (function () {
                     continue;
                 }
                 if (element.type.length === 1) {
-                    var newProperty = {
+                    const newProperty = {
                         _name: elementId,
                         _type: element.type[0].code || 'string',
                         _multiple: element.max !== '1',
@@ -2059,11 +2058,11 @@ var ParseConformance = (function () {
                 }
                 else if (elementId.endsWith('[x]')) {
                     elementId = elementId.substring(0, elementId.length - 3);
-                    for (var y in element.type) {
-                        var choiceType = element.type[y].code;
+                    for (let y in element.type) {
+                        let choiceType = element.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = elementId + choiceType;
-                        var newProperty = {
+                        const choiceElementId = elementId + choiceType;
+                        const newProperty = {
                             _name: choiceElementId,
                             _choice: elementId,
                             _type: element.type[y].code,
@@ -2075,8 +2074,8 @@ var ParseConformance = (function () {
                     }
                 }
                 else {
-                    var isReference = true;
-                    for (var y in element.type) {
+                    let isReference = true;
+                    for (let y in element.type) {
                         if (element.type[y].code !== 'Reference') {
                             isReference = false;
                             break;
@@ -2096,18 +2095,18 @@ var ParseConformance = (function () {
             }
         }
         return parsedStructureDefinition;
-    };
-    ParseConformance.prototype.parseValueSet = function (valueSet) {
-        var newValueSet = {
+    }
+    parseValueSet(valueSet) {
+        const newValueSet = {
             systems: []
         };
         if (valueSet.expansion && valueSet.expansion.contains) {
-            var _loop_1 = function (i) {
-                var contains = valueSet.expansion.contains[i];
+            for (let i = 0; i < valueSet.expansion.contains.length; i++) {
+                const contains = valueSet.expansion.contains[i];
                 if (contains.inactive || contains.abstract) {
-                    return "continue";
+                    continue;
                 }
-                var foundSystem = _.find(newValueSet.systems, function (system) {
+                let foundSystem = _.find(newValueSet.systems, (system) => {
                     return system.uri === contains.system;
                 });
                 if (!foundSystem) {
@@ -2121,16 +2120,13 @@ var ParseConformance = (function () {
                     code: contains.code,
                     display: contains.display
                 });
-            };
-            for (var i = 0; i < valueSet.expansion.contains.length; i++) {
-                _loop_1(i);
             }
         }
         else if (valueSet.compose) {
-            var _loop_2 = function (i) {
-                var include = valueSet.compose.include[i];
+            for (let i = 0; i < valueSet.compose.include.length; i++) {
+                const include = valueSet.compose.include[i];
                 if (include.system) {
-                    var foundSystem = _.find(newValueSet.systems, function (system) {
+                    let foundSystem = _.find(newValueSet.systems, (system) => {
                         return system.uri === include.system;
                     });
                     if (!foundSystem) {
@@ -2140,11 +2136,11 @@ var ParseConformance = (function () {
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var foundCodeSystem = _.find(this_1.codeSystems, function (codeSystem) {
+                    const foundCodeSystem = _.find(this.codeSystems, (codeSystem) => {
                         return codeSystem.url === include.system;
                     });
                     if (foundCodeSystem) {
-                        var codes = _.map(foundCodeSystem.concept, function (concept) {
+                        const codes = _.map(foundCodeSystem.concept, (concept) => {
                             return {
                                 code: concept.code,
                                 display: concept.display
@@ -2154,10 +2150,10 @@ var ParseConformance = (function () {
                     }
                 }
                 if (include.valueSet) {
-                    var includeValueSet = this_1.parsedValueSets[include.valueSet];
+                    const includeValueSet = this.parsedValueSets[include.valueSet];
                     if (includeValueSet) {
-                        _.each(includeValueSet.systems, function (includeSystem) {
-                            var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
+                        _.each(includeValueSet.systems, (includeSystem) => {
+                            const foundSystem = _.find(newValueSet.systems, (nextSystem) => {
                                 return nextSystem.uri === includeSystem.uri;
                             });
                             if (!foundSystem) {
@@ -2173,18 +2169,18 @@ var ParseConformance = (function () {
                     }
                 }
                 if (include.concept) {
-                    var systemUri_1 = include.system || '';
-                    var foundSystem = _.find(newValueSet.systems, function (nextSystem) {
-                        return nextSystem.uri === systemUri_1;
+                    const systemUri = include.system || '';
+                    let foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                        return nextSystem.uri === systemUri;
                     });
                     if (!foundSystem) {
                         foundSystem = {
-                            uri: systemUri_1,
+                            uri: systemUri,
                             codes: []
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    var codes = _.map(include.concept, function (concept) {
+                    const codes = _.map(include.concept, (concept) => {
                         return {
                             code: concept.code,
                             display: concept.display
@@ -2192,23 +2188,19 @@ var ParseConformance = (function () {
                     });
                     foundSystem.codes = foundSystem.codes.concat(codes);
                 }
-            };
-            var this_1 = this;
-            for (var i = 0; i < valueSet.compose.include.length; i++) {
-                _loop_2(i);
             }
         }
-        var systemsWithCodes = _.filter(newValueSet.systems, function (system) {
+        const systemsWithCodes = _.filter(newValueSet.systems, (system) => {
             return system.codes && system.codes.length > 0;
         });
         if (systemsWithCodes.length > 0) {
             this.parsedValueSets[valueSet.url] = newValueSet;
             return newValueSet;
         }
-    };
-    ParseConformance.prototype.populateValueSet = function (element, property) {
+    }
+    populateValueSet(element, property) {
         if (element.binding) {
-            var binding = element.binding;
+            const binding = element.binding;
             if (binding.strength) {
                 property._valueSetStrength = binding.strength;
             }
@@ -2219,31 +2211,28 @@ var ParseConformance = (function () {
                 property._valueSet = binding.valueSetReference.reference;
             }
         }
-    };
-    ParseConformance.prototype.populateBackboneElement = function (resourceType, parentElementId, profile) {
-        var _loop_3 = function (y) {
-            var backboneElement = profile.snapshot.element[y];
-            var backboneElementId = backboneElement.id;
+    }
+    populateBackboneElement(resourceType, parentElementId, profile) {
+        for (let y in profile.snapshot.element) {
+            const backboneElement = profile.snapshot.element[y];
+            let backboneElementId = backboneElement.id;
             if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
-                return "continue";
+                continue;
             }
             backboneElementId = backboneElementId.substring(profile.id.length + 1);
-            var parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
-            var parentBackboneElement = null;
-            var _loop_4 = function (j) {
-                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, function (property) {
+            const parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
+            let parentBackboneElement = null;
+            for (let j = 0; j < parentElementIdSplit.length; j++) {
+                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, (property) => {
                     return property._name == parentElementIdSplit[j];
                 });
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';
                 }
-            };
-            for (var j = 0; j < parentElementIdSplit.length; j++) {
-                _loop_4(j);
             }
             if (parentBackboneElement) {
                 if (!backboneElement.type) {
-                    var type = 'string';
+                    let type = 'string';
                     if (backboneElement.contentReference) {
                         type = backboneElement.contentReference;
                     }
@@ -2255,7 +2244,7 @@ var ParseConformance = (function () {
                     });
                 }
                 else if (backboneElement.type.length == 1) {
-                    var newProperty = {
+                    const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: backboneElement.type[0].code,
                         _multiple: backboneElement.max !== '1',
@@ -2263,30 +2252,30 @@ var ParseConformance = (function () {
                         _properties: []
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+                    this.populateValueSet(backboneElement, newProperty);
                     if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
-                        this_2.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
+                        this.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
                     }
                 }
                 else if (backboneElement.id.endsWith('[x]')) {
-                    for (var y_1 in backboneElement.type) {
-                        var choiceType = backboneElement.type[y_1].code;
+                    for (let y in backboneElement.type) {
+                        let choiceType = backboneElement.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
-                        var choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
-                        var newProperty = {
+                        const choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
+                        const newProperty = {
                             _name: choiceElementId,
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
-                            _type: backboneElement.type[y_1].code,
+                            _type: backboneElement.type[y].code,
                             _multiple: backboneElement.max !== '1',
                             _required: backboneElement.min === 1
                         };
                         parentBackboneElement._properties.push(newProperty);
-                        this_2.populateValueSet(backboneElement, newProperty);
+                        this.populateValueSet(backboneElement, newProperty);
                     }
                 }
                 else {
-                    var isReference = true;
-                    for (var z in backboneElement.type) {
+                    let isReference = true;
+                    for (let z in backboneElement.type) {
                         if (backboneElement.type[z].code !== 'Reference') {
                             isReference = false;
                             break;
@@ -2295,27 +2284,22 @@ var ParseConformance = (function () {
                     if (!isReference) {
                         throw 'Did not find a reference... not sure what to do';
                     }
-                    var newProperty = {
+                    let newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: 'Reference',
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1
                     };
                     parentBackboneElement._properties.push(newProperty);
-                    this_2.populateValueSet(backboneElement, newProperty);
+                    this.populateValueSet(backboneElement, newProperty);
                 }
             }
             else {
                 throw 'Unexpected backbone parent element id';
             }
-        };
-        var this_2 = this;
-        for (var y in profile.snapshot.element) {
-            _loop_3(y);
         }
-    };
-    return ParseConformance;
-}());
+    }
+}
 exports.ParseConformance = ParseConformance;
 //# sourceMappingURL=parseConformance.js.map
 
@@ -5767,64 +5751,63 @@ module.exports = {
 
 "use strict";
 
-exports.__esModule = true;
-var parseConformance_1 = __webpack_require__(5);
-var validator_1 = __webpack_require__(29);
-var convertToJs_1 = __webpack_require__(17);
-var convertToXml_1 = __webpack_require__(47);
-var fhirPath_1 = __webpack_require__(48);
-var snapshotGenerator_1 = __webpack_require__(49);
+Object.defineProperty(exports, "__esModule", { value: true });
+const parseConformance_1 = __webpack_require__(5);
+const validator_1 = __webpack_require__(29);
+const convertToJs_1 = __webpack_require__(17);
+const convertToXml_1 = __webpack_require__(47);
+const fhirPath_1 = __webpack_require__(48);
+const snapshotGenerator_1 = __webpack_require__(49);
 var Versions;
 (function (Versions) {
     Versions["STU3"] = "STU3";
     Versions["R4"] = "R4";
 })(Versions = exports.Versions || (exports.Versions = {}));
-var Fhir = (function () {
-    function Fhir(parser) {
+class Fhir {
+    constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    Fhir.prototype.jsonToXml = function (json) {
-        var obj = JSON.parse(json);
+    jsonToXml(json) {
+        const obj = JSON.parse(json);
         return this.objToXml(obj);
-    };
-    Fhir.prototype.objToXml = function (obj) {
-        var convertToXML = new convertToXml_1.ConvertToXml(this.parser);
-        var xml = convertToXML.convert(obj);
+    }
+    objToXml(obj) {
+        const convertToXML = new convertToXml_1.ConvertToXml(this.parser);
+        const xml = convertToXML.convert(obj);
         return xml;
-    };
+    }
     ;
-    Fhir.prototype.xmlToObj = function (xml) {
-        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
-        var obj = convertToJs.convert(xml);
+    xmlToObj(xml) {
+        const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        const obj = convertToJs.convert(xml);
         return obj;
-    };
+    }
     ;
-    Fhir.prototype.xmlToJson = function (xml) {
-        var convertToJs = new convertToJs_1.ConvertToJs(this.parser);
-        var json = convertToJs.convertToJSON(xml);
+    xmlToJson(xml) {
+        const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
+        const json = convertToJs.convertToJSON(xml);
         return json;
-    };
+    }
     ;
-    Fhir.prototype.validate = function (input, options) {
-        var validator = new validator_1.Validator(this.parser, options);
+    validate(input, options) {
+        const validator = new validator_1.Validator(this.parser, options);
         return validator.validate(input);
-    };
+    }
     ;
-    Fhir.prototype.evaluate = function (resource, fhirPathString) {
-        var fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
+    evaluate(resource, fhirPathString) {
+        const fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
         fhirPath.resolve = this.resolve;
         return fhirPath.evaluate(fhirPathString);
-    };
+    }
     ;
-    Fhir.prototype.resolve = function (reference) {
+    resolve(reference) {
         return;
-    };
-    Fhir.prototype.generateSnapshot = function (bundle) {
-        var snapshotGenerator = new snapshotGenerator_1.SnapshotGenerator(this.parser, bundle);
+    }
+    generateSnapshot(bundle) {
+        const snapshotGenerator = new snapshotGenerator_1.SnapshotGenerator(this.parser, bundle);
         snapshotGenerator.generate();
-    };
-    return Fhir;
-}());
+    }
+}
 exports.Fhir = Fhir;
 //# sourceMappingURL=fhir.js.map
 
@@ -5834,62 +5817,62 @@ exports.Fhir = Fhir;
 
 "use strict";
 
-exports.__esModule = true;
-var convert = __webpack_require__(18);
-var _ = __webpack_require__(0);
-var parseConformance_1 = __webpack_require__(5);
-var xmlHelper_1 = __webpack_require__(26);
-var ConvertToJs = (function () {
-    function ConvertToJs(parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const convert = __webpack_require__(18);
+const _ = __webpack_require__(0);
+const parseConformance_1 = __webpack_require__(5);
+const xmlHelper_1 = __webpack_require__(26);
+class ConvertToJs {
+    constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    ConvertToJs.prototype.convert = function (xml) {
-        var xmlObj = convert.xml2js(xml);
-        var firstElement = _.find(xmlObj.elements, function (element) { return element.type === 'element'; });
+    convert(xml) {
+        const xmlObj = convert.xml2js(xml);
+        const firstElement = _.find(xmlObj.elements, (element) => element.type === 'element');
         if (firstElement) {
             return this.resourceToJS(firstElement, null);
         }
-    };
-    ConvertToJs.prototype.convertToJSON = function (xml) {
-        var xmlObj = convert.xml2js(xml);
+    }
+    convertToJSON(xml) {
+        const xmlObj = convert.xml2js(xml);
         if (xmlObj.elements.length !== 1) {
             return;
         }
-        var surroundDecimalsWith = {};
-        var jsObj = this.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
-        var maxDLength = this.maxLengthOfDs(jsObj);
-        var rpt = '';
-        for (var i = 0; i < maxDLength + 5; i++) {
+        const surroundDecimalsWith = {};
+        const jsObj = this.resourceToJS(xmlObj.elements[0], surroundDecimalsWith);
+        const maxDLength = this.maxLengthOfDs(jsObj);
+        let rpt = '';
+        for (let i = 0; i < maxDLength + 5; i++) {
             rpt += 'D';
         }
         surroundDecimalsWith['str'] = rpt;
-        var json = JSON.stringify(jsObj, null, '\t');
-        var replaceRegex = new RegExp('"?' + surroundDecimalsWith['str'] + '"?', 'g');
-        var json2 = json.replace(replaceRegex, '');
+        const json = JSON.stringify(jsObj, null, '\t');
+        const replaceRegex = new RegExp('"?' + surroundDecimalsWith['str'] + '"?', 'g');
+        const json2 = json.replace(replaceRegex, '');
         return json2;
-    };
-    ConvertToJs.prototype.maxLengthOfDs = function (obj) {
+    }
+    maxLengthOfDs(obj) {
         function maxSubstringLengthStr(str) {
-            var matches = str.match(/DDDD+/g);
+            const matches = str.match(/DDDD+/g);
             if (!matches) {
                 return 0;
             }
-            var ret = matches
-                .map(function (substr) { return substr.length; })
-                .reduce(function (p, c) { return Math.max(p, c); }, 0);
+            const ret = matches
+                .map((substr) => { return substr.length; })
+                .reduce((p, c) => { return Math.max(p, c); }, 0);
             return ret;
         }
         function maxSubstringLength(currentMax, obj) {
-            var ret;
+            let ret;
             if (typeof (obj) === 'string') {
                 ret = Math.max(currentMax, maxSubstringLengthStr(obj));
             }
             else if (typeof (obj) === 'object') {
                 ret = Object.keys(obj)
-                    .map(function (k) {
+                    .map((k) => {
                     return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]));
                 })
-                    .reduce(function (p, c) { return Math.max(p, c); }, currentMax);
+                    .reduce((p, c) => { return Math.max(p, c); }, currentMax);
             }
             else {
                 ret = currentMax;
@@ -5897,59 +5880,52 @@ var ConvertToJs = (function () {
             return ret;
         }
         return maxSubstringLength(0, obj);
-    };
-    ConvertToJs.prototype.resourceToJS = function (xmlObj, surroundDecimalsWith) {
-        var _this = this;
-        var typeDefinition = this.parser.parsedStructureDefinitions[xmlObj.name];
-        var resource = {
+    }
+    resourceToJS(xmlObj, surroundDecimalsWith) {
+        const typeDefinition = this.parser.parsedStructureDefinitions[xmlObj.name];
+        const resource = {
             resourceType: xmlObj.name
         };
         if (!typeDefinition) {
             throw new Error('Unknown resource type: ' + xmlObj.name);
         }
-        _.each(typeDefinition._properties, function (property) {
-            _this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
+        _.each(typeDefinition._properties, (property) => {
+            this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
         });
         return resource;
-    };
-    ConvertToJs.prototype.findReferenceType = function (relativeType) {
+    }
+    findReferenceType(relativeType) {
         if (!relativeType || !relativeType.startsWith('#')) {
             return;
         }
-        var resourceType = relativeType.substring(1, relativeType.indexOf('.'));
-        var path = relativeType.substring(resourceType.length + 2);
-        var resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
-        var pathSplit = path.split('.');
+        const resourceType = relativeType.substring(1, relativeType.indexOf('.'));
+        const path = relativeType.substring(resourceType.length + 2);
+        const resourceDefinition = this.parser.parsedStructureDefinitions[resourceType];
+        const pathSplit = path.split('.');
         if (!resourceDefinition) {
             throw new Error('Could not find resource definition for ' + resourceType);
         }
-        var current = resourceDefinition;
-        var _loop_1 = function (i) {
-            var nextPath = pathSplit[i];
-            current = _.find(current._properties, function (property) {
+        let current = resourceDefinition;
+        for (let i = 0; i < pathSplit.length; i++) {
+            const nextPath = pathSplit[i];
+            current = _.find(current._properties, (property) => {
                 return property._name === nextPath;
             });
             if (!current) {
-                return { value: void 0 };
+                return;
             }
-        };
-        for (var i = 0; i < pathSplit.length; i++) {
-            var state_1 = _loop_1(i);
-            if (typeof state_1 === "object")
-                return state_1.value;
         }
         return JSON.parse(JSON.stringify(current));
-    };
-    ConvertToJs.prototype.propertyToJS = function (xmlObj, obj, property, surroundDecimalsWith) {
-        var _this = this;
-        var xmlElements = _.filter(xmlObj.elements, function (element) {
+    }
+    propertyToJS(xmlObj, obj, property, surroundDecimalsWith) {
+        const xmlElements = _.filter(xmlObj.elements, (element) => {
             return element.name === property._name;
         });
-        var xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
-            .filter(function (key) {
+        const xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
+            .filter((key) => {
             return key === property._name;
         })
-            .map(function (key) {
+            .map((key) => {
             return {
                 name: key,
                 type: 'attribute',
@@ -5957,12 +5933,12 @@ var ConvertToJs = (function () {
             };
         })
             .value() : [];
-        var xmlProperty = xmlElements.concat(xmlAttributes);
+        const xmlProperty = xmlElements.concat(xmlAttributes);
         if (!xmlProperty || xmlProperty.length === 0) {
             return;
         }
         if (property._type && property._type.indexOf('#') === 0) {
-            var relativeType = this.findReferenceType(property._type);
+            const relativeType = this.findReferenceType(property._type);
             if (!relativeType) {
                 throw new Error('Could not find reference to element definition ' + relativeType);
             }
@@ -5970,19 +5946,19 @@ var ConvertToJs = (function () {
             relativeType._required = property._required;
             property = relativeType;
         }
-        var addExtra = function (element, index) {
-            var hasId = element.attributes && element.attributes.id;
-            var hasExtensions = !!_.find(element.elements, function (next) { return next.name === 'extension'; });
+        const addExtra = (element, index) => {
+            const hasId = element.attributes && element.attributes.id;
+            const hasExtensions = !!_.find(element.elements, (next) => next.name === 'extension');
             if (hasId || hasExtensions) {
                 if (!obj['_' + property._name]) {
                     obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
                 }
             }
-            var dest = obj['_' + property._name];
+            const dest = obj['_' + property._name];
             if (hasId || hasExtensions) {
                 if (dest instanceof Array) {
                     if (dest.length < index + 1) {
-                        for (var i = 0; i < index; i++) {
+                        for (let i = 0; i < index; i++) {
                             if (!dest[i]) {
                                 dest[i] = null;
                             }
@@ -6000,16 +5976,16 @@ var ConvertToJs = (function () {
                 }
             }
             if (hasExtensions) {
-                var extensionProperty = {
+                const extensionProperty = {
                     _name: 'extension',
                     _type: 'Extension',
                     _multiple: true,
                     _required: false
                 };
-                _this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
+                this.propertyToJS(element, dest instanceof Array ? dest[index] : dest, extensionProperty, surroundDecimalsWith);
             }
         };
-        var pushValue = function (value, index) {
+        const pushValue = (value, index) => {
             if (!value)
                 return;
             switch (property._type) {
@@ -6073,7 +6049,7 @@ var ConvertToJs = (function () {
                     break;
                 case 'xhtml':
                     if (value.elements && value.elements.length > 0) {
-                        var div = convert.js2xml({ elements: [xmlHelper_1.XmlHelper.escapeInvalidCharacters(value)] });
+                        const div = convert.js2xml({ elements: [xmlHelper_1.XmlHelper.escapeInvalidCharacters(value)] });
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(div);
                         }
@@ -6084,10 +6060,10 @@ var ConvertToJs = (function () {
                     break;
                 case 'Element':
                 case 'BackboneElement':
-                    var newValue = {};
-                    for (var x in property._properties) {
-                        var nextProperty = property._properties[x];
-                        _this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
+                    const newValue = {};
+                    for (let x in property._properties) {
+                        const nextProperty = property._properties[x];
+                        this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                     }
                     if (obj[property._name] instanceof Array) {
                         obj[property._name].push(newValue);
@@ -6099,28 +6075,28 @@ var ConvertToJs = (function () {
                 case 'Resource':
                     if (value.elements.length === 1) {
                         if (obj[property._name] instanceof Array) {
-                            obj[property._name].push(_this.resourceToJS(value.elements[0], surroundDecimalsWith));
+                            obj[property._name].push(this.resourceToJS(value.elements[0], surroundDecimalsWith));
                         }
                         else {
-                            obj[property._name] = _this.resourceToJS(value.elements[0], surroundDecimalsWith);
+                            obj[property._name] = this.resourceToJS(value.elements[0], surroundDecimalsWith);
                         }
                     }
                     break;
                 default:
-                    var nextType = _this.parser.parsedStructureDefinitions[property._type];
+                    const nextType = this.parser.parsedStructureDefinitions[property._type];
                     if (!nextType) {
                         console.log('do something');
                     }
                     else {
-                        var newValue_1 = {};
-                        _.each(nextType._properties, function (nextProperty) {
-                            _this.propertyToJS(value, newValue_1, nextProperty, surroundDecimalsWith);
+                        const newValue = {};
+                        _.each(nextType._properties, (nextProperty) => {
+                            this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                         });
                         if (obj[property._name] instanceof Array) {
-                            obj[property._name].push(newValue_1);
+                            obj[property._name].push(newValue);
                         }
                         else {
-                            obj[property._name] = newValue_1;
+                            obj[property._name] = newValue;
                         }
                     }
                     break;
@@ -6162,12 +6138,11 @@ var ConvertToJs = (function () {
         if (property._multiple) {
             obj[property._name] = [];
         }
-        for (var i in xmlProperty) {
+        for (let i in xmlProperty) {
             pushValue(xmlProperty[i], i);
         }
-    };
-    return ConvertToJs;
-}());
+    }
+}
 exports.ConvertToJs = ConvertToJs;
 //# sourceMappingURL=convertToJs.js.map
 
@@ -8220,13 +8195,11 @@ module.exports = function (js, options) {
 
 "use strict";
 
-exports.__esModule = true;
-var _ = __webpack_require__(0);
-var XmlHelper = (function () {
-    function XmlHelper() {
-    }
-    XmlHelper.escapeInvalidCharacters = function (element) {
-        _.each(element.attributes, function (attribute, index) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = __webpack_require__(0);
+class XmlHelper {
+    static escapeInvalidCharacters(element) {
+        _.each(element.attributes, (attribute, index) => {
             element.attributes[index] = element.attributes[index]
                 .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
         });
@@ -8236,9 +8209,9 @@ var XmlHelper = (function () {
         }
         _.each(element.elements, XmlHelper.escapeInvalidCharacters);
         return element;
-    };
-    XmlHelper.unescapeInvalidCharacters = function (element) {
-        _.each(element.attributes, function (attribute, index) {
+    }
+    static unescapeInvalidCharacters(element) {
+        _.each(element.attributes, (attribute, index) => {
             element.attributes[index] = element.attributes[index]
                 .replace(/&amp;/g, '&');
         });
@@ -8248,9 +8221,8 @@ var XmlHelper = (function () {
         }
         _.each(element.elements, XmlHelper.unescapeInvalidCharacters);
         return element;
-    };
-    return XmlHelper;
-}());
+    }
+}
 exports.XmlHelper = XmlHelper;
 //# sourceMappingURL=xmlHelper.js.map
 
@@ -8272,9 +8244,9 @@ module.exports = {"http://hl7.org/fhir/ValueSet/example-extensional":{"systems":
 
 "use strict";
 
-exports.__esModule = true;
-var _ = __webpack_require__(0);
-var convertToJs_1 = __webpack_require__(17);
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = __webpack_require__(0);
+const convertToJs_1 = __webpack_require__(17);
 var Severities;
 (function (Severities) {
     Severities["Fatal"] = "fatal";
@@ -8282,26 +8254,23 @@ var Severities;
     Severities["Warning"] = "warning";
     Severities["Information"] = "info";
 })(Severities = exports.Severities || (exports.Severities = {}));
-var Constants = (function () {
-    function Constants() {
-    }
-    Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'url', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'canonical', 'Element'];
-    Constants.DataTypes = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
-    Constants.PrimitiveNumberTypes = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
-    Constants.PrimitiveDateRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
-    Constants.PrimitiveDateTimeRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/i;
-    Constants.PrimitiveTimeRegex = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/i;
-    Constants.PrimitiveCodeRegex = /[^\s]+(\s[^\s]+)*/i;
-    Constants.PrimitiveOidRegex = /urn:oid:[0-2](\.[1-9]\d*)+/i;
-    Constants.PrimitiveIdRegex = /[A-Za-z0-9\-\.]{1,64}/i;
-    Constants.PrimitivePositiveIntRegex = /^(?!0+$)\d+$/i;
-    Constants.PrimitiveUnsignedIntRegex = /[0]|([1-9][0-9]*)/i;
-    Constants.PrimitiveIntegerRegex = /[0]|[-+]?[1-9][0-9]*/i;
-    Constants.PrimitiveDecimalRegex = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
-    return Constants;
-}());
-var Validator = (function () {
-    function Validator(parser, options, resourceId, isXml, obj) {
+class Constants {
+}
+Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'url', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'canonical', 'Element'];
+Constants.DataTypes = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
+Constants.PrimitiveNumberTypes = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
+Constants.PrimitiveDateRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
+Constants.PrimitiveDateTimeRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/i;
+Constants.PrimitiveTimeRegex = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/i;
+Constants.PrimitiveCodeRegex = /[^\s]+(\s[^\s]+)*/i;
+Constants.PrimitiveOidRegex = /urn:oid:[0-2](\.[1-9]\d*)+/i;
+Constants.PrimitiveIdRegex = /[A-Za-z0-9\-\.]{1,64}/i;
+Constants.PrimitivePositiveIntRegex = /^(?!0+$)\d+$/i;
+Constants.PrimitiveUnsignedIntRegex = /[0]|([1-9][0-9]*)/i;
+Constants.PrimitiveIntegerRegex = /[0]|[-+]?[1-9][0-9]*/i;
+Constants.PrimitiveDecimalRegex = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
+class Validator {
+    constructor(parser, options, resourceId, isXml, obj) {
         this.isXml = false;
         this.response = {
             valid: true,
@@ -8313,7 +8282,7 @@ var Validator = (function () {
         this.isXml = isXml;
         this.obj = obj;
     }
-    Validator.prototype.validate = function (input) {
+    validate(input) {
         if (typeof (input) === 'string' && input.indexOf('{') === 0) {
             this.obj = JSON.parse(input);
         }
@@ -8324,10 +8293,10 @@ var Validator = (function () {
         else {
             this.obj = input;
         }
-        var typeDefinition = this.parser.parsedStructureDefinitions[this.obj.resourceType];
+        const typeDefinition = this.parser.parsedStructureDefinitions[this.obj.resourceType];
         this.resourceId = this.obj.id || '#initial';
         if (this.options && this.options.onBeforeValidateResource) {
-            var eventMessages = this.options.onBeforeValidateResource(this.obj);
+            const eventMessages = this.options.onBeforeValidateResource(this.obj);
             if (eventMessages) {
                 this.response.messages = this.response.messages.concat(eventMessages);
             }
@@ -8339,10 +8308,10 @@ var Validator = (function () {
             this.validateProperties(this.obj, typeDefinition._properties, [this.obj.resourceType]);
         }
         return this.response;
-    };
-    Validator.getTreeDisplay = function (tree, isXml, leaf) {
-        var display = '';
-        for (var i = 0; i < tree.length; i++) {
+    }
+    static getTreeDisplay(tree, isXml, leaf) {
+        let display = '';
+        for (let i = 0; i < tree.length; i++) {
             if (display) {
                 if (isXml) {
                     display += '/';
@@ -8365,14 +8334,14 @@ var Validator = (function () {
             display += leaf;
         }
         return display;
-    };
-    Validator.prototype.checkCode = function (valueSet, code, system) {
+    }
+    checkCode(valueSet, code, system) {
         if (system) {
-            var foundSystem = _.find(valueSet.systems, function (nextSystem) {
+            const foundSystem = _.find(valueSet.systems, (nextSystem) => {
                 return nextSystem.uri === system;
             });
             if (foundSystem) {
-                var foundCode = _.find(foundSystem.codes, function (nextCode) {
+                const foundCode = _.find(foundSystem.codes, (nextCode) => {
                     return nextCode.code === code;
                 });
                 return !!foundCode;
@@ -8382,20 +8351,20 @@ var Validator = (function () {
             }
         }
         else {
-            var valid_1 = false;
+            let valid = false;
             _.each(valueSet.systems, function (nextSystem) {
-                var foundCode = _.find(nextSystem.codes, function (nextCode) {
+                const foundCode = _.find(nextSystem.codes, (nextCode) => {
                     return nextCode.code === code;
                 });
                 if (foundCode) {
-                    valid_1 = true;
+                    valid = true;
                 }
             });
-            return valid_1;
+            return valid;
         }
-    };
-    Validator.prototype.addError = function (location, message) {
-        var theMessage = {
+    }
+    addError(location, message) {
+        const theMessage = {
             location: location,
             resourceId: this.resourceId,
             severity: Severities.Error,
@@ -8406,9 +8375,9 @@ var Validator = (function () {
         if (this.options.onError) {
             this.options.onError(theMessage);
         }
-    };
+    }
     ;
-    Validator.prototype.addFatal = function (location, message) {
+    addFatal(location, message) {
         this.response.valid = false;
         this.response.messages.push({
             location: location,
@@ -8416,62 +8385,61 @@ var Validator = (function () {
             severity: Severities.Fatal,
             message: message
         });
-    };
+    }
     ;
-    Validator.prototype.addWarn = function (location, message) {
+    addWarn(location, message) {
         this.response.messages.push({
             location: location,
             resourceId: this.resourceId,
             severity: Severities.Warning,
             message: message
         });
-    };
+    }
     ;
-    Validator.prototype.addInfo = function (location, message) {
+    addInfo(location, message) {
         this.response.messages.push({
             location: location,
             resourceId: this.resourceId,
             severity: Severities.Information,
             message: message
         });
-    };
+    }
     ;
-    Validator.prototype.validateNext = function (obj, property, tree) {
-        var _this = this;
-        var treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
-        var propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
+    validateNext(obj, property, tree) {
+        const treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
+        const propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
         if (property._valueSet) {
-            var valueSetUrl_1 = property._valueSet;
-            if (valueSetUrl_1 && valueSetUrl_1.indexOf('|') > 0) {
-                valueSetUrl_1 = valueSetUrl_1.substring(0, valueSetUrl_1.indexOf('|'));
+            let valueSetUrl = property._valueSet;
+            if (valueSetUrl && valueSetUrl.indexOf('|') > 0) {
+                valueSetUrl = valueSetUrl.substring(0, valueSetUrl.indexOf('|'));
             }
-            var foundValueSet_1 = _.find(this.parser.parsedValueSets, function (valueSet, valueSetKey) { return valueSetKey === valueSetUrl_1; });
-            if (!foundValueSet_1) {
+            const foundValueSet = _.find(this.parser.parsedValueSets, (valueSet, valueSetKey) => valueSetKey === valueSetUrl);
+            if (!foundValueSet) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
             }
             else {
                 if (property._type === 'CodeableConcept') {
-                    var found_1 = false;
-                    _.each(obj.coding, function (coding) {
-                        if (_this.checkCode(foundValueSet_1, coding.code, coding.system)) {
-                            found_1 = true;
+                    let found = false;
+                    _.each(obj.coding, (coding) => {
+                        if (this.checkCode(foundValueSet, coding.code, coding.system)) {
+                            found = true;
                         }
                         else {
-                            var msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
+                            const msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
                             if (property._valueSetStrength === 'required') {
-                                _this.addError(treeDisplay, msg);
+                                this.addError(treeDisplay, msg);
                             }
                             else {
-                                _this.addWarn(treeDisplay, msg);
+                                this.addWarn(treeDisplay, msg);
                             }
                         }
                     });
-                    if (!found_1) {
+                    if (!found) {
                     }
                 }
                 else if (property._type === 'Coding') {
-                    if (!this.checkCode(foundValueSet_1, obj.code, obj.system)) {
-                        var msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                    if (!this.checkCode(foundValueSet, obj.code, obj.system)) {
+                        const msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
                         if (property._valueSetStrength === 'required') {
                             this.addError(treeDisplay, msg);
                         }
@@ -8481,7 +8449,7 @@ var Validator = (function () {
                     }
                 }
                 else if (property._type === 'code') {
-                    if (!this.checkCode(foundValueSet_1, obj)) {
+                    if (!this.checkCode(foundValueSet, obj)) {
                         if (property._valueSetStrength === 'required') {
                             this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
                         }
@@ -8532,10 +8500,10 @@ var Validator = (function () {
             }
         }
         else if (property._type === 'Resource') {
-            var typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
-            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
+            const typeDefinition = this.parser.parsedStructureDefinitions[obj.resourceType];
+            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
             if (this.options && this.options.onBeforeValidateResource) {
-                var eventMessages = this.options.onBeforeValidateResource(obj);
+                const eventMessages = this.options.onBeforeValidateResource(obj);
                 if (eventMessages) {
                     this.response.messages = this.response.messages.concat(eventMessages);
                 }
@@ -8546,23 +8514,23 @@ var Validator = (function () {
             else {
                 nextValidationInstance.validateProperties(obj, typeDefinition._properties, [obj.resourceType]);
             }
-            var nextValidationResponse = nextValidationInstance.response;
+            const nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         }
         else if (property._type === 'ElementDefinition') {
-            var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            var nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
+            const typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+            const nextValidationInstance = new Validator(this.parser, this.options, obj.id || Validator.getTreeDisplay(tree, this.isXml), this.isXml, obj);
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
-            var nextValidationResponse = nextValidationInstance.response;
+            const nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         }
         else if (Constants.DataTypes.indexOf(property._type) >= 0) {
-            var typeDefinition = this.parser.parsedStructureDefinitions[property._type];
-            var nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml, obj);
+            const typeDefinition = this.parser.parsedStructureDefinitions[property._type];
+            const nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml, obj);
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);
-            var nextValidationResponse = nextValidationInstance.response;
+            const nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         }
@@ -8572,86 +8540,77 @@ var Validator = (function () {
         else if (property._properties) {
             this.validateProperties(obj, property._properties, tree);
         }
-    };
-    Validator.prototype.validateProperties = function (obj, properties, tree) {
-        var _loop_1 = function (i) {
-            var property = properties[i];
-            var foundProperty = obj.hasOwnProperty(property._name);
-            var propertyValue = obj[property._name];
-            var treeDisplay = Validator.getTreeDisplay(tree.concat([property._name]));
-            if (propertyValue && this_1.options.onBeforeValidateProperty) {
-                var eventMessages = this_1.options.onBeforeValidateProperty(this_1.obj, property, treeDisplay, propertyValue);
+    }
+    validateProperties(obj, properties, tree) {
+        for (let i = 0; i < properties.length; i++) {
+            const property = properties[i];
+            const foundProperty = obj.hasOwnProperty(property._name);
+            const propertyValue = obj[property._name];
+            const treeDisplay = Validator.getTreeDisplay(tree.concat([property._name]));
+            if (propertyValue && this.options.onBeforeValidateProperty) {
+                const eventMessages = this.options.onBeforeValidateProperty(this.obj, property, treeDisplay, propertyValue);
                 if (eventMessages) {
-                    this_1.response.messages = this_1.response.messages.concat(eventMessages);
+                    this.response.messages = this.response.messages.concat(eventMessages);
                 }
             }
             if (property._required && !foundProperty) {
-                var satisfied = false;
+                let satisfied = false;
                 if (property._choice) {
-                    satisfied = _.filter(properties, function (nextProperty) {
+                    satisfied = _.filter(properties, (nextProperty) => {
                         return nextProperty._choice === property._choice && !!obj[nextProperty._name];
                     }).length > 0;
                 }
                 if (!satisfied) {
-                    this_1.addError(Validator.getTreeDisplay(tree, this_1.isXml, property._choice ? property._choice : property._name), 'Missing property');
+                    this.addError(Validator.getTreeDisplay(tree, this.isXml, property._choice ? property._choice : property._name), 'Missing property');
                 }
             }
             if (foundProperty) {
                 if (property._multiple) {
                     if (propertyValue instanceof Array) {
                         if (property._required && propertyValue.length === 0) {
-                            this_1.addError(treeDisplay, 'A ' + property._name + ' entry is required');
+                            this.addError(treeDisplay, 'A ' + property._name + ' entry is required');
                         }
-                        for (var x = 0; x < propertyValue.length; x++) {
-                            var foundPropertyElement = propertyValue[x];
-                            var treeItem = property._name;
-                            if (this_1.isXml) {
+                        for (let x = 0; x < propertyValue.length; x++) {
+                            const foundPropertyElement = propertyValue[x];
+                            let treeItem = property._name;
+                            if (this.isXml) {
                                 treeItem += '[' + (x + 1) + ']';
                             }
                             else {
                                 treeItem += '[' + x + ']';
                             }
-                            this_1.validateNext(foundPropertyElement, property, tree.concat([treeItem]));
+                            this.validateNext(foundPropertyElement, property, tree.concat([treeItem]));
                         }
                     }
                     else {
-                        this_1.addError(treeDisplay, 'Property is not an array');
+                        this.addError(treeDisplay, 'Property is not an array');
                     }
                 }
                 else {
-                    this_1.validateNext(propertyValue, property, tree.concat([property._name]));
+                    this.validateNext(propertyValue, property, tree.concat([property._name]));
                 }
             }
-        };
-        var this_1 = this;
-        for (var i = 0; i < properties.length; i++) {
-            _loop_1(i);
         }
-        var objKeys = Object.keys(obj);
-        var _loop_2 = function (i) {
-            var objKey = objKeys[i];
+        const objKeys = Object.keys(obj);
+        for (let i = 0; i < objKeys.length; i++) {
+            const objKey = objKeys[i];
             if (objKey === 'resourceType') {
-                return "continue";
+                continue;
             }
-            var foundProperty = _.find(properties, function (property) {
+            const foundProperty = _.find(properties, function (property) {
                 return property._name === objKey;
             });
             if (!foundProperty) {
-                if (this_2.options.errorOnUnexpected) {
-                    this_2.addError(Validator.getTreeDisplay(tree, this_2.isXml, objKey), 'Unexpected property');
+                if (this.options.errorOnUnexpected) {
+                    this.addError(Validator.getTreeDisplay(tree, this.isXml, objKey), 'Unexpected property');
                 }
                 else {
-                    this_2.addWarn(Validator.getTreeDisplay(tree, this_2.isXml, objKey), 'Unexpected property');
+                    this.addWarn(Validator.getTreeDisplay(tree, this.isXml, objKey), 'Unexpected property');
                 }
             }
-        };
-        var this_2 = this;
-        for (var i = 0; i < objKeys.length; i++) {
-            _loop_2(i);
         }
-    };
-    return Validator;
-}());
+    }
+}
 exports.Validator = Validator;
 //# sourceMappingURL=validator.js.map
 
@@ -11152,27 +11111,26 @@ module.exports = function (json, options) {
 
 "use strict";
 
-exports.__esModule = true;
-var convert = __webpack_require__(18);
-var _ = __webpack_require__(0);
-var parseConformance_1 = __webpack_require__(5);
-var xmlHelper_1 = __webpack_require__(26);
-var ConvertToXml = (function () {
-    function ConvertToXml(parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const convert = __webpack_require__(18);
+const _ = __webpack_require__(0);
+const parseConformance_1 = __webpack_require__(5);
+const xmlHelper_1 = __webpack_require__(26);
+class ConvertToXml {
+    constructor(parser) {
         this.attributeProperties = {
             'Extension': 'url'
         };
         this.parser = parser || new parseConformance_1.ParseConformance(true);
     }
-    ConvertToXml.prototype.convert = function (obj) {
+    convert(obj) {
         if (obj.hasOwnProperty('resourceType')) {
-            var xmlObj = this.resourceToXML(obj);
+            const xmlObj = this.resourceToXML(obj);
             return convert.js2xml(xmlObj);
         }
-    };
-    ConvertToXml.prototype.resourceToXML = function (obj, xmlObj) {
-        var _this = this;
-        var resourceElement = {
+    }
+    resourceToXML(obj, xmlObj) {
+        const resourceElement = {
             type: 'element',
             name: obj.resourceType,
             attributes: {
@@ -11194,17 +11152,16 @@ var ConvertToXml = (function () {
         if (!this.parser.parsedStructureDefinitions[obj.resourceType]) {
             throw new Error('Unknown resource type: ' + obj.resourceType);
         }
-        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, function (property) {
-            _this.propertyToXML(resourceElement, _this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
+        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, (property) => {
+            this.propertyToXML(resourceElement, this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
         });
         return xmlObj;
-    };
-    ConvertToXml.prototype.propertyToXML = function (parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
-        var _this = this;
-        var isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
+    }
+    propertyToXML(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
+        const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
         if (!obj || obj[propertyName] === undefined || obj[propertyName] === null)
             return;
-        var propertyType = _.find(parentType._properties, function (property) { return property._name == propertyName; });
+        const propertyType = _.find(parentType._properties, (property) => property._name == propertyName);
         function xmlEscapeString(value) {
             return value
                 .replace(/&/g, '&amp;')
@@ -11213,10 +11170,10 @@ var ConvertToXml = (function () {
                 .replace(/\r/g, '&#xD;')
                 .replace(/\n/g, '&#xA;');
         }
-        var pushProperty = function (value, extra) {
+        const pushProperty = (value, extra) => {
             if (value === undefined || value === null)
                 return;
-            var nextXmlObj = {
+            const nextXmlObj = {
                 type: 'element',
                 name: propertyName,
                 elements: [],
@@ -11227,8 +11184,8 @@ var ConvertToXml = (function () {
                     nextXmlObj.attributes.id = extra.id;
                 }
                 if (extra.extension) {
-                    var extensionStructure = _this.parser.parsedStructureDefinitions['Extension'];
-                    _this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
+                    const extensionStructure = this.parser.parsedStructureDefinitions['Extension'];
+                    this.propertyToXML(nextXmlObj, extensionStructure, extra, 'extension');
                 }
             }
             switch (propertyType._type) {
@@ -11250,12 +11207,12 @@ var ConvertToXml = (function () {
                 case 'dateTime':
                 case 'time':
                 case 'instant':
-                    var actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
+                    const actual = !value || !(typeof value === 'string') ? value : xmlEscapeString(value);
                     nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
                     if (propertyName === 'div') {
-                        var divXmlObj = void 0;
+                        let divXmlObj;
                         try {
                             divXmlObj = convert.xml2js(value);
                             divXmlObj = xmlHelper_1.XmlHelper.escapeInvalidCharacters(divXmlObj);
@@ -11272,46 +11229,41 @@ var ConvertToXml = (function () {
                     }
                     break;
                 case 'Resource':
-                    var resourceXmlObj = _this.resourceToXML(value).elements[0];
+                    const resourceXmlObj = this.resourceToXML(value).elements[0];
                     delete resourceXmlObj.attributes.xmlns;
                     nextXmlObj.elements.push(resourceXmlObj);
                     break;
                 case 'Element':
                 case 'BackboneElement':
-                    for (var x in propertyType._properties) {
-                        var nextProperty = propertyType._properties[x];
-                        _this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
+                    for (let x in propertyType._properties) {
+                        const nextProperty = propertyType._properties[x];
+                        this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
                     }
                     break;
                 default:
-                    var nextType_1 = _this.parser.parsedStructureDefinitions[propertyType._type];
+                    let nextType = this.parser.parsedStructureDefinitions[propertyType._type];
                     if (propertyType._type.startsWith('#')) {
-                        var typeSplit_1 = propertyType._type.substring(1).split('.');
-                        var _loop_1 = function (i) {
+                        const typeSplit = propertyType._type.substring(1).split('.');
+                        for (let i = 0; i < typeSplit.length; i++) {
                             if (i == 0) {
-                                nextType_1 = _this.parser.parsedStructureDefinitions[typeSplit_1[i]];
+                                nextType = this.parser.parsedStructureDefinitions[typeSplit[i]];
                             }
                             else {
-                                nextType_1 = _.find(nextType_1._properties, function (nextTypeProperty) {
-                                    return nextTypeProperty._name === typeSplit_1[i];
+                                nextType = _.find(nextType._properties, (nextTypeProperty) => {
+                                    return nextTypeProperty._name === typeSplit[i];
                                 });
                             }
-                            if (!nextType_1) {
-                                return "break";
-                            }
-                        };
-                        for (var i = 0; i < typeSplit_1.length; i++) {
-                            var state_1 = _loop_1(i);
-                            if (state_1 === "break")
+                            if (!nextType) {
                                 break;
+                            }
                         }
                     }
-                    if (!nextType_1) {
+                    if (!nextType) {
                         console.log('Could not find type ' + propertyType._type);
                     }
                     else {
-                        _.each(nextType_1._properties, function (nextProperty) {
-                            _this.propertyToXML(nextXmlObj, nextType_1, value, nextProperty._name, propertyType._type);
+                        _.each(nextType._properties, (nextProperty) => {
+                            this.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                         });
                     }
             }
@@ -11326,17 +11278,16 @@ var ConvertToXml = (function () {
             }
         };
         if (obj[propertyName] && propertyType._multiple) {
-            for (var i = 0; i < obj[propertyName].length; i++) {
-                var extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+            for (let i = 0; i < obj[propertyName].length; i++) {
+                const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
                 pushProperty(obj[propertyName][i], extra);
             }
         }
         else {
             pushProperty(obj[propertyName], obj['_' + propertyName]);
         }
-    };
-    return ConvertToXml;
-}());
+    }
+}
 exports.ConvertToXml = ConvertToXml;
 //# sourceMappingURL=convertToXml.js.map
 
@@ -11346,18 +11297,18 @@ exports.ConvertToXml = ConvertToXml;
 
 "use strict";
 
-exports.__esModule = true;
-var parseConformance_1 = __webpack_require__(5);
-var _ = __webpack_require__(0);
-var FhirPath = (function () {
-    function FhirPath(resources, parser) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const parseConformance_1 = __webpack_require__(5);
+const _ = __webpack_require__(0);
+class FhirPath {
+    constructor(resources, parser) {
         this.operators = ['=', '!', '&', '<', '>', '~'];
         this.resources = resources instanceof Array ? resources : [resources];
         this.parser = parser ? parser : new parseConformance_1.ParseConformance(true);
     }
-    FhirPath.prototype.findClosingParenIndex = function (string, startIndex) {
-        var parenLevel = 0;
-        for (var i = startIndex; i < string.length; i++) {
+    findClosingParenIndex(string, startIndex) {
+        let parenLevel = 0;
+        for (let i = startIndex; i < string.length; i++) {
             if (string[i] === '(') {
                 parenLevel++;
             }
@@ -11370,9 +11321,9 @@ var FhirPath = (function () {
                 }
             }
         }
-    };
-    FhirPath.prototype.findClosingQuoteIndex = function (string, startIndex) {
-        for (var i = startIndex; i < string.length; i++) {
+    }
+    findClosingQuoteIndex(string, startIndex) {
+        for (let i = startIndex; i < string.length; i++) {
             if (string[i] === '\'') {
                 if (string[i - 1] === '\\') {
                     continue;
@@ -11380,18 +11331,18 @@ var FhirPath = (function () {
                 return i;
             }
         }
-    };
-    FhirPath.prototype.internalResolve = function (reference) {
-        var regex = /^([A-z]+)\/(.+?)$/;
-        var match = reference.trim().match(regex);
+    }
+    internalResolve(reference) {
+        const regex = /^([A-z]+)\/(.+?)$/;
+        const match = reference.trim().match(regex);
         function find(resources, resourceType, id) {
-            for (var i = 0; i < resources.length; i++) {
-                var resource = resources[i];
+            for (let i = 0; i < resources.length; i++) {
+                const resource = resources[i];
                 if (resource.resourceType === 'Bundle') {
-                    var childResources = _.map(resource.entry, function (entry) {
+                    const childResources = _.map(resource.entry, function (entry) {
                         return entry.resource;
                     });
-                    var found = find(childResources, resourceType, id);
+                    const found = find(childResources, resourceType, id);
                     if (found) {
                         return found;
                     }
@@ -11406,51 +11357,51 @@ var FhirPath = (function () {
             }
         }
         if (match) {
-            var found = find(this.resources, match[1], match[2]);
+            const found = find(this.resources, match[1], match[2]);
             if (found) {
                 return found;
             }
         }
         return this.resolve(reference);
-    };
-    FhirPath.prototype.resolve = function (reference) {
+    }
+    resolve(reference) {
         return;
-    };
-    FhirPath.prototype.getResourceTypes = function () {
-        var self = this;
-        var keys = Object.keys(this.parser.parsedStructureDefinitions);
+    }
+    getResourceTypes() {
+        const self = this;
+        const keys = Object.keys(this.parser.parsedStructureDefinitions);
         return _.chain(keys)
             .filter(function (key) {
             return self.parser.parsedStructureDefinitions[key]._kind === 'resource';
         })
             .value();
-    };
-    FhirPath.prototype.parse = function (fhirPath) {
-        var statements = [];
-        var ns = {};
-        var fhirPathSplit = fhirPath.split('.');
-        var resourceTypes = this.getResourceTypes();
+    }
+    parse(fhirPath) {
+        const statements = [];
+        let ns = {};
+        const fhirPathSplit = fhirPath.split('.');
+        const resourceTypes = this.getResourceTypes();
         if (fhirPathSplit.length > 0 && resourceTypes.indexOf(fhirPathSplit[0]) >= 0) {
             ns.resourceType = fhirPathSplit[0];
             fhirPath = fhirPath.substring(fhirPathSplit[0].length + 1);
         }
-        for (var i = 0; i < fhirPath.length; i++) {
-            var char = fhirPath[i];
+        for (let i = 0; i < fhirPath.length; i++) {
+            const char = fhirPath[i];
             if (char === '\'') {
                 if (i === 0) {
-                    var closingQuoteIndex = this.findClosingQuoteIndex(fhirPath, i + 1);
+                    const closingQuoteIndex = this.findClosingQuoteIndex(fhirPath, i + 1);
                     ns.value = fhirPath.substring(i + 1, closingQuoteIndex);
                     i = closingQuoteIndex;
                 }
             }
             else if (char === '(') {
                 if (ns.path && ns.path.length > 0) {
-                    var fn = {
+                    const fn = {
                         name: ns.path.pop().toLowerCase()
                     };
                     ns.path.push(fn);
-                    var closingParenIndex = this.findClosingParenIndex(fhirPath, i + 1);
-                    var fnParams = fhirPath.substring(i + 1, closingParenIndex);
+                    const closingParenIndex = this.findClosingParenIndex(fhirPath, i + 1);
+                    const fnParams = fhirPath.substring(i + 1, closingParenIndex);
                     fn.params = this.parse(fnParams);
                     i = closingParenIndex;
                 }
@@ -11460,9 +11411,9 @@ var FhirPath = (function () {
             else if (char === ' ') {
             }
             else if (this.operators.indexOf(char) >= 0) {
-                var left = ns;
-                var rightPath = fhirPath.substring(i + 1);
-                var operator = char;
+                const left = ns;
+                let rightPath = fhirPath.substring(i + 1);
+                let operator = char;
                 if (this.operators.indexOf(rightPath[0]) >= 0) {
                     operator += rightPath[0];
                     rightPath = rightPath.substring(1);
@@ -11492,22 +11443,22 @@ var FhirPath = (function () {
         }
         statements.push(ns);
         return statements;
-    };
-    FhirPath.prototype.getValue = function (current, paths) {
+    }
+    getValue(current, paths) {
         if (current === undefined || current == null) {
             return current;
         }
         if (!paths || paths.length === 0) {
             return current;
         }
-        var nextPath = paths[0];
-        var nextPaths = paths.slice(1);
+        const nextPath = paths[0];
+        const nextPaths = paths.slice(1);
         if (current instanceof Array) {
             if (typeof nextPath === 'string') {
-                var ret = [];
+                let ret = [];
                 nextPaths.unshift(nextPath);
-                for (var i = 0; i < current.length; i++) {
-                    var currentRet = this.getValue(current[i], nextPaths);
+                for (let i = 0; i < current.length; i++) {
+                    const currentRet = this.getValue(current[i], nextPaths);
                     if (currentRet instanceof Array) {
                         ret = ret.concat(currentRet);
                     }
@@ -11527,10 +11478,10 @@ var FhirPath = (function () {
                 if (!nextPath.params || nextPath.params.length === 0) {
                     throw new Error('Expected .where() to have a parameter');
                 }
-                var filtered = [];
-                for (var i = 0; i < current.length; i++) {
-                    var paramsClone = JSON.parse(JSON.stringify(nextPath.params));
-                    var results = this.internalEvaluate(current[i], paramsClone);
+                const filtered = [];
+                for (let i = 0; i < current.length; i++) {
+                    const paramsClone = JSON.parse(JSON.stringify(nextPath.params));
+                    const results = this.internalEvaluate(current[i], paramsClone);
                     if (typeof results === 'boolean' && results === true) {
                         filtered.push(current[i]);
                     }
@@ -11549,8 +11500,8 @@ var FhirPath = (function () {
                 return this.getValue(current[nextPath], nextPaths);
             }
             else if (nextPath.name === 'resolve') {
-                var reference = typeof current === 'string' ? current : current.reference;
-                var resource = this.internalResolve(reference);
+                const reference = typeof current === 'string' ? current : current.reference;
+                const resource = this.internalResolve(reference);
                 return this.getValue(resource, nextPaths);
             }
             else if (nextPath.name === 'startswith') {
@@ -11560,7 +11511,7 @@ var FhirPath = (function () {
                 if (typeof current !== 'string') {
                     throw new Error('startsWith() must be used on string types');
                 }
-                var paramValue = nextPath.params[0].value || this.getValue(current, nextPath.params[0].path);
+                const paramValue = nextPath.params[0].value || this.getValue(current, nextPath.params[0].path);
                 if (!paramValue || current.indexOf(paramValue) !== 0) {
                     return false;
                 }
@@ -11570,11 +11521,11 @@ var FhirPath = (function () {
                 throw new Error('Unsupported function for objects ' + nextPath.name);
             }
         }
-    };
-    FhirPath.prototype.internalEvaluate = function (resource, statements) {
-        var ret = [];
-        for (var i = 0; i < statements.length; i++) {
-            var statement = statements[i];
+    }
+    internalEvaluate(resource, statements) {
+        let ret = [];
+        for (let i = 0; i < statements.length; i++) {
+            const statement = statements[i];
             if (statement.path) {
                 statement.value = this.getValue(resource, statement.path);
             }
@@ -11606,10 +11557,10 @@ var FhirPath = (function () {
             }
         }
         return ret;
-    };
-    FhirPath.prototype.shouldReturnArray = function (statements) {
+    }
+    shouldReturnArray(statements) {
         if (statements.length === 1) {
-            var statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
+            const statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
                 return nextPath.name === 'where';
             });
             if (statementHasWhereFn.length > 0) {
@@ -11617,24 +11568,23 @@ var FhirPath = (function () {
             }
         }
         return false;
-    };
-    FhirPath.prototype.evaluate = function (fhirPath) {
+    }
+    evaluate(fhirPath) {
         if (!fhirPath) {
             return;
         }
-        var statements = this.parse(fhirPath);
-        var ret = [];
-        for (var r = 0; r < this.resources.length; r++) {
-            var resource = this.resources[r];
+        const statements = this.parse(fhirPath);
+        let ret = [];
+        for (let r = 0; r < this.resources.length; r++) {
+            const resource = this.resources[r];
             ret = ret.concat(this.internalEvaluate(resource, statements));
         }
         if (this.resources.length === 1 && ret.length === 1 && !this.shouldReturnArray(statements)) {
             return ret[0];
         }
         return ret;
-    };
-    return FhirPath;
-}());
+    }
+}
 exports.FhirPath = FhirPath;
 //# sourceMappingURL=fhirPath.js.map
 
@@ -11644,108 +11594,227 @@ exports.FhirPath = FhirPath;
 
 "use strict";
 
-exports.__esModule = true;
-var _ = __webpack_require__(0);
-var SnapshotGenerator = (function () {
-    function SnapshotGenerator(parser, bundle) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = __webpack_require__(0);
+class SnapshotGenerator {
+    constructor(parser, bundle) {
         this.choiceRegexString = '(Instant|Time|Date|DateTime|Decimal|Boolean|Integer|String|Uri|Base64Binary|Code|Id|Oid|UnsignedInt|PositiveInt|Markdown|Url|Canonical|Uuid|Identifier|HumanName|Address|ContactPoint|Timing|Quantity|SimpleQuantity|Attachment|Range|Period|Ratio|CodeableConcept|Coding|SampledData|Age|Distance|Duration|Count|Money|MoneyQuantity|Annotation|Signature|ContactDetail|Contributor|DataRequirement|ParameterDefinition|RelatedArtifact|TriggerDefinition|UsageContext|Expression|Reference|Narrative|Extension|Meta|ElementDefinition|Dosage|Xhtml)';
         this.processedUrls = [];
         this.parser = parser;
         this.bundle = bundle;
     }
-    SnapshotGenerator.createBundle = function () {
-        var structureDefinitions = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            structureDefinitions[_i] = arguments[_i];
-        }
-        var bundle = {
+    static createBundle(...structureDefinitions) {
+        const bundle = {
             resourceType: 'Bundle',
             total: structureDefinitions.length,
-            entry: _.map(structureDefinitions, function (sd) {
+            entry: _.map(structureDefinitions, (sd) => {
                 return { resource: sd };
             })
         };
         return bundle;
-    };
-    SnapshotGenerator.prototype.getStructureDefinition = function (url, type) {
-        var isBaseProfile = this.parser.isBaseProfile(url);
-        var fhirBase = isBaseProfile ?
-            _.find(this.parser.structureDefinitions, function (sd) { return sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase(); }) :
+    }
+    getStructureDefinition(url, type) {
+        const isBaseProfile = this.parser.isBaseProfile(url);
+        const fhirBase = isBaseProfile ?
+            _.find(this.parser.structureDefinitions, (sd) => sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase()) :
             null;
         if (isBaseProfile && !fhirBase) {
-            throw new Error("Base profile for " + url + " not found. Perhaps the structures have not been loaded?");
+            throw new Error(`Base profile for ${url} not found. Perhaps the structures have not been loaded?`);
         }
         if (fhirBase) {
             return fhirBase;
         }
-        var parentEntry = _.find(this.bundle.entry, function (entry) { return entry.resource.url === url; });
+        const parentEntry = _.find(this.bundle.entry, (entry) => entry.resource.url === url);
         if (!parentEntry) {
-            throw new Error("Cannot find base definition \"" + url + "\" in bundle or core FHIR specification.");
+            throw new Error(`Cannot find base definition "${url}" in bundle or core FHIR specification.`);
         }
         this.process(parentEntry.resource);
         return parentEntry.resource;
-    };
-    SnapshotGenerator.prototype.process = function (structureDefinition) {
-        var _this = this;
+    }
+    merge(diff, snapshot) {
+        const dest = JSON.parse(JSON.stringify(snapshot));
+        const explicitOverwrites = ['id', 'representation', 'sliceName', 'sliceIsConstraining', 'label', 'code', 'short', 'definition', 'comment', 'requirements', 'alias', 'min', 'max', 'contentReference',
+            'meaningWhenMissing', 'orderMeaning', 'maxLength', 'condition', 'mustSupport', 'isModifier', 'isModifierReason', 'isSummary', 'example'];
+        for (let eo of explicitOverwrites) {
+            if (diff.hasOwnProperty(eo))
+                dest[eo] = diff[eo];
+        }
+        if (diff.slicing && dest.slicing) {
+            if (diff.slicing.hasOwnProperty('discriminator'))
+                dest.slicing.discriminator = diff.slicing.discriminator;
+            if (diff.slicing.hasOwnProperty('description'))
+                dest.slicing.description = diff.slicing.description;
+            if (diff.slicing.hasOwnProperty('ordered'))
+                dest.slicing.ordered = diff.slicing.ordered;
+            if (diff.slicing.hasOwnProperty('rules'))
+                dest.slicing.rules = diff.slicing.rules;
+        }
+        else if (diff.slicing) {
+            dest.slicing = diff.slicing;
+        }
+        if (diff.base && dest.base) {
+            if (diff.base.hasOwnProperty('path'))
+                dest.base.path = diff.base.path;
+            if (diff.base.hasOwnProperty('min'))
+                dest.base.min = diff.base.min;
+            if (diff.base.hasOwnProperty('max'))
+                dest.base.max = diff.base.max;
+        }
+        else if (diff.base) {
+            dest.base = diff.base;
+        }
+        if (diff.type && dest.type) {
+            for (let dt of dest.type) {
+                const diffType = diff.type.find(t => t.code === dt.code);
+                if (diffType) {
+                    if (diffType.hasOwnProperty('profile'))
+                        dt.profile = diffType.profile;
+                    if (diffType.hasOwnProperty('targetProfile'))
+                        dt.targetProfile = diffType.targetProfile;
+                    if (diffType.hasOwnProperty('aggregation'))
+                        dt.aggregation = diffType.aggregation;
+                    if (diffType.hasOwnProperty('versioning'))
+                        dt.versioning = diffType.versioning;
+                }
+            }
+            for (let diffType of diff.type) {
+                if (!dest.type.find(t => t.code === diffType.code)) {
+                    dest.type.push(JSON.parse(JSON.stringify(diffType)));
+                }
+            }
+        }
+        else if (diff.type) {
+            dest.type = diff.type;
+        }
+        if (diff.constraint && dest.constraint) {
+            for (let dc of dest.constraint) {
+                const diffConstraint = diff.constraint.find(c => c.key === dc.key);
+                if (diffConstraint) {
+                    if (diffConstraint.hasOwnProperty('requirements'))
+                        dc.requirements = diffConstraint.requirements;
+                    if (diffConstraint.hasOwnProperty('severity'))
+                        dc.severity = diffConstraint.severity;
+                    if (diffConstraint.hasOwnProperty('human'))
+                        dc.human = diffConstraint.human;
+                    if (diffConstraint.hasOwnProperty('expression'))
+                        dc.expression = diffConstraint.expression;
+                    if (diffConstraint.hasOwnProperty('xpath'))
+                        dc.xpath = diffConstraint.xpath;
+                    if (diffConstraint.hasOwnProperty('source'))
+                        dc.source = diffConstraint.source;
+                }
+            }
+            for (let diffConstraint of diff.constraint) {
+                if (!dest.constraint.find(c => c.key === diffConstraint.key)) {
+                    dest.constraint.push(JSON.parse(JSON.stringify(diffConstraint)));
+                }
+            }
+        }
+        else if (diff.constraint) {
+            dest.constraint = diff.constraint;
+        }
+        const diffKeys = Object.keys(diff);
+        const destKeys = Object.keys(dest);
+        const diffDefaultValueKey = diffKeys.find(k => k.startsWith('defaultValue'));
+        const diffMinValueKey = diffKeys.find(k => k.startsWith('minValue'));
+        const diffMaxValueKey = diffKeys.find(k => k.startsWith('maxValue'));
+        const diffFixedKey = diffKeys.find(k => k.startsWith('fixed'));
+        const diffPatternKey = diffKeys.find(k => k.startsWith('pattern'));
+        const destDefaultValueKey = destKeys.find(k => k.startsWith('defaultValue'));
+        const destMinValueKey = destKeys.find(k => k.startsWith('minValue'));
+        const destMaxValueKey = destKeys.find(k => k.startsWith('maxValue'));
+        const destFixedKey = destKeys.find(k => k.startsWith('fixed'));
+        const destPatternKey = destKeys.find(k => k.startsWith('pattern'));
+        if (diffDefaultValueKey) {
+            if (destDefaultValueKey)
+                delete dest[destDefaultValueKey];
+            dest[diffDefaultValueKey] = diff[diffDefaultValueKey];
+        }
+        if (diffMinValueKey) {
+            if (destMinValueKey)
+                delete dest[destMinValueKey];
+            dest[diffMinValueKey] = diff[diffMinValueKey];
+        }
+        if (diffMaxValueKey) {
+            if (destMaxValueKey)
+                delete dest[destMaxValueKey];
+            dest[diffMaxValueKey] = diff[diffMaxValueKey];
+        }
+        if (diffFixedKey) {
+            if (destFixedKey)
+                delete dest[destFixedKey];
+            dest[diffFixedKey] = diff[diffFixedKey];
+        }
+        if (diffPatternKey) {
+            if (destPatternKey)
+                delete dest[destPatternKey];
+            dest[diffPatternKey] = diff[diffPatternKey];
+        }
+        return dest;
+    }
+    process(structureDefinition) {
         if (this.parser.isBaseProfile(structureDefinition.url) || this.processedUrls.indexOf(structureDefinition.url) >= 0) {
             return;
         }
         if (!structureDefinition.differential || !structureDefinition.differential.element || structureDefinition.differential.element.length === 0) {
-            throw new Error("Structure " + structureDefinition.url + " does not have a differential.");
+            throw new Error(`Structure ${structureDefinition.url} does not have a differential.`);
         }
-        var base = this.getStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
-        var newElements = JSON.parse(JSON.stringify(base.snapshot.element));
-        var matched = _.filter(newElements, function (newElement) {
+        const base = this.getStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
+        const newElements = JSON.parse(JSON.stringify(base.snapshot.element));
+        const matched = _.filter(newElements, (newElement) => {
             if (newElement.path === structureDefinition.type) {
                 return false;
             }
-            var choiceName = newElement.path.match(/^(.*\.)?(.+)\[x\]/);
-            var matching = structureDefinition.differential.element.filter(function (element) {
-                var regexString = newElement.path
-                    .replace(/\[x\]/g, _this.choiceRegexString)
+            const choiceName = newElement.path.match(/^(.*\.)?(.+)\[x\]/);
+            const matching = structureDefinition.differential.element.filter((element) => {
+                const regexString = newElement.path
+                    .replace(/\[x\]/g, this.choiceRegexString)
                     .replace(/\./g, '\\.');
-                var regex = new RegExp(regexString, 'gm');
-                var isMatch = regex.test(element.path);
+                const regex = new RegExp(regexString, 'gm');
+                const isMatch = regex.test(element.path);
                 return isMatch;
             });
             return matching.length > 0;
         });
-        matched.forEach(function (snapshotElement) {
-            var snapshotIndex = newElements.indexOf(snapshotElement);
-            var differentialElements = _.filter(structureDefinition.differential.element, function (element) {
-                var regexString = snapshotElement.path
-                    .replace(/\[x\]/g, _this.choiceRegexString)
+        matched.forEach((snapshotElement) => {
+            const snapshotIndex = newElements.indexOf(snapshotElement);
+            const differentialElements = _.filter(structureDefinition.differential.element, (element) => {
+                const regexString = snapshotElement.path
+                    .replace(/\[x\]/g, this.choiceRegexString)
                     .replace(/\./g, '\\.') +
                     '(\\..*)?';
-                var regex = new RegExp(regexString, 'gm');
+                const regex = new RegExp(regexString, 'gm');
                 return regex.test(element.path);
             });
-            var removeElements = newElements.filter(function (next) { return next === snapshotElement || next.path.indexOf(snapshotElement.path + '.') === 0; });
-            _.each(removeElements, function (removeElement) {
-                var index = newElements.indexOf(removeElement);
+            const removeElements = newElements.filter((next) => next === snapshotElement || next.path.indexOf(snapshotElement.path + '.') === 0);
+            _.each(removeElements, (removeElement) => {
+                const index = newElements.indexOf(removeElement);
                 newElements.splice(index, 1);
             });
-            newElements.splice.apply(newElements, [snapshotIndex, 0].concat(differentialElements));
+            for (let i = differentialElements.length - 1; i >= 0; i--) {
+                const found = (base.snapshot && base.snapshot.element ? base.snapshot.element : [])
+                    .find(e => e.path === differentialElements[i].path);
+                const diff = found ? this.merge(differentialElements[i], found) : differentialElements[i];
+                newElements.splice(snapshotIndex, 0, diff);
+            }
         });
         structureDefinition.snapshot = {
             element: newElements
         };
         this.processedUrls.push(structureDefinition.url);
-    };
-    SnapshotGenerator.prototype.generate = function () {
-        var _this = this;
+    }
+    generate() {
         this.processedUrls = [];
         if (this.bundle && this.bundle.entry) {
-            this.bundle.entry.forEach(function (entry) {
+            this.bundle.entry.forEach((entry) => {
                 if (!entry.resource || entry.resource.resourceType !== 'StructureDefinition') {
                     return;
                 }
-                _this.process(entry.resource);
+                this.process(entry.resource);
             });
         }
-    };
-    return SnapshotGenerator;
-}());
+    }
+}
 exports.SnapshotGenerator = SnapshotGenerator;
 //# sourceMappingURL=snapshotGenerator.js.map
 

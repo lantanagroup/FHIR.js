@@ -1,11 +1,9 @@
 "use strict";
-exports.__esModule = true;
-var _ = require("underscore");
-var XmlHelper = (function () {
-    function XmlHelper() {
-    }
-    XmlHelper.escapeInvalidCharacters = function (element) {
-        _.each(element.attributes, function (attribute, index) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = require("underscore");
+class XmlHelper {
+    static escapeInvalidCharacters(element) {
+        _.each(element.attributes, (attribute, index) => {
             element.attributes[index] = element.attributes[index]
                 .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
         });
@@ -15,9 +13,9 @@ var XmlHelper = (function () {
         }
         _.each(element.elements, XmlHelper.escapeInvalidCharacters);
         return element;
-    };
-    XmlHelper.unescapeInvalidCharacters = function (element) {
-        _.each(element.attributes, function (attribute, index) {
+    }
+    static unescapeInvalidCharacters(element) {
+        _.each(element.attributes, (attribute, index) => {
             element.attributes[index] = element.attributes[index]
                 .replace(/&amp;/g, '&');
         });
@@ -27,8 +25,7 @@ var XmlHelper = (function () {
         }
         _.each(element.elements, XmlHelper.unescapeInvalidCharacters);
         return element;
-    };
-    return XmlHelper;
-}());
+    }
+}
 exports.XmlHelper = XmlHelper;
 //# sourceMappingURL=xmlHelper.js.map
