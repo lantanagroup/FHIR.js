@@ -388,6 +388,10 @@ export class Validator {
     }
 
     public validateProperties(obj, properties, tree) {
+        if (!obj) {
+            return;
+        }
+
         for (let i = 0; i < properties.length; i++) {
             const property = properties[i];
             const foundProperty = obj.hasOwnProperty(property._name);

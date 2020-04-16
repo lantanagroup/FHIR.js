@@ -84,7 +84,7 @@ function assertArray(obj, expectedLength) {
 describe('Serialization', function () {
     var fhir = new Fhir();
 
-    describe('escaping', function() {
+    describe('Escaping', function() {
         it('should escape invalid xml characters when serializing to XML', function() {
             var valueSet = {
                 resourceType: 'ValueSet',

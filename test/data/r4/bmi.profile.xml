@@ -1756,7 +1756,17 @@
       </base>
       <type>
         <code value="Quantity"/>
-        <profile value="http://hl7.org/fhir/StructureDefinition/SimpleQuantity"/>
+        <profile value="http://hl7.org/fhir/StructureDefinition/SimpleQuantity">
+          <extension url="http://test.com">
+            <valueString value="test" />
+          </extension>
+        </profile>
+        <profile value="http://hl7.org/fhir/StructureDefinition/SimpleQuantity2" />
+        <profile value="http://hl7.org/fhir/StructureDefinition/SimpleQuantity3">
+          <extension url="http://test.com">
+            <valueString value="test" />
+          </extension>
+        </profile>
       </type>
       <condition value="obs-3"/>
       <mapping>
