@@ -63,6 +63,7 @@
     "xml-js"
   ],
   "files": [
+    "model/",
     "profiles/types.json",
     "profiles/valuesets.json",
     "dist/bundle.js",
