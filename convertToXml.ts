@@ -1,6 +1,8 @@
 import * as convert from 'xml-js';
 import * as _ from 'underscore';
-import {ParseConformance, ParsedProperty, ParsedStructure} from './parseConformance';
+import {ParseConformance} from './parseConformance';
+import {ParsedStructure} from "./model/parsed-structure";
+import {ParsedProperty} from "./model/parsed-property";
 import {XmlHelper} from './xmlHelper';
 
 interface XmlDeclaration {

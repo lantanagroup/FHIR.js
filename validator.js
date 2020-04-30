@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const _ = require("underscore");
 const convertToJs_1 = require("./convertToJs");
+const constants_1 = require("./constants");
 var Severities;
 (function (Severities) {
     Severities["Fatal"] = "fatal";
@@ -9,21 +10,6 @@ var Severities;
     Severities["Warning"] = "warning";
     Severities["Information"] = "info";
 })(Severities = exports.Severities || (exports.Severities = {}));
-class Constants {
-}
-Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'url', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'canonical', 'Element'];
-Constants.DataTypes = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
-Constants.PrimitiveNumberTypes = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
-Constants.PrimitiveDateRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/i;
-Constants.PrimitiveDateTimeRegex = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)))?)?)?/i;
-Constants.PrimitiveTimeRegex = /([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)?/i;
-Constants.PrimitiveCodeRegex = /[^\s]+(\s[^\s]+)*/i;
-Constants.PrimitiveOidRegex = /urn:oid:[0-2](\.[1-9]\d*)+/i;
-Constants.PrimitiveIdRegex = /[A-Za-z0-9\-\.]{1,64}/i;
-Constants.PrimitivePositiveIntRegex = /^(?!0+$)\d+$/i;
-Constants.PrimitiveUnsignedIntRegex = /[0]|([1-9][0-9]*)/i;
-Constants.PrimitiveIntegerRegex = /[0]|[-+]?[1-9][0-9]*/i;
-Constants.PrimitiveDecimalRegex = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
 class Validator {
     constructor(parser, options, resourceId, isXml, obj) {
         this.isXml = false;
@@ -215,42 +201,42 @@ class Validator {
                 }
             }
         }
-        if (Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
+        if (constants_1.Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
             if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
                 this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
             }
-            else if (Constants.PrimitiveNumberTypes.indexOf(property._type) >= 0) {
+            else if (constants_1.Constants.PrimitiveNumberTypes.indexOf(property._type) >= 0) {
                 if (typeof (obj) === 'string') {
-                    if (property._type === 'integer' && !Constants.PrimitiveIntegerRegex.test(obj)) {
+                    if (property._type === 'integer' && !constants_1.Constants.PrimitiveIntegerRegex.test(obj)) {
                         this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
                     }
-                    else if (property._type === 'decimal' && !Constants.PrimitiveDecimalRegex.test(obj)) {
+                    else if (property._type === 'decimal' && !constants_1.Constants.PrimitiveDecimalRegex.test(obj)) {
                         this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
                     }
-                    else if (property._type === 'unsignedInt' && !Constants.PrimitiveUnsignedIntRegex.test(obj)) {
+                    else if (property._type === 'unsignedInt' && !constants_1.Constants.PrimitiveUnsignedIntRegex.test(obj)) {
                         this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
                     }
-                    else if (property._type === 'positiveInt' && !Constants.PrimitivePositiveIntRegex.test(obj)) {
+                    else if (property._type === 'positiveInt' && !constants_1.Constants.PrimitivePositiveIntRegex.test(obj)) {
                         this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
                     }
                 }
             }
-            else if (property._type === 'date' && !Constants.PrimitiveDateRegex.test(obj)) {
+            else if (property._type === 'date' && !constants_1.Constants.PrimitiveDateRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid date format for value "' + obj + '"');
             }
-            else if (property._type === 'dateTime' && !Constants.PrimitiveDateTimeRegex.test(obj)) {
+            else if (property._type === 'dateTime' && !constants_1.Constants.PrimitiveDateTimeRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid dateTime format for value "' + obj + '"');
             }
-            else if (property._type === 'time' && !Constants.PrimitiveTimeRegex.test(obj)) {
+            else if (property._type === 'time' && !constants_1.Constants.PrimitiveTimeRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid time format for value "' + obj + '"');
             }
-            else if (property._type === 'code' && !Constants.PrimitiveCodeRegex.test(obj)) {
+            else if (property._type === 'code' && !constants_1.Constants.PrimitiveCodeRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid code format for value "' + obj + '"');
             }
-            else if (property._type === 'oid' && !Constants.PrimitiveOidRegex.test(obj)) {
+            else if (property._type === 'oid' && !constants_1.Constants.PrimitiveOidRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid oid format for value "' + obj + '"');
             }
-            else if (property._type === 'id' && !Constants.PrimitiveIdRegex.test(obj)) {
+            else if (property._type === 'id' && !constants_1.Constants.PrimitiveIdRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid id format for value "' + obj + '"');
             }
         }
@@ -281,7 +267,7 @@ class Validator {
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
         }
-        else if (Constants.DataTypes.indexOf(property._type) >= 0) {
+        else if (constants_1.Constants.DataTypes.indexOf(property._type) >= 0) {
             const typeDefinition = this.parser.parsedStructureDefinitions[property._type];
             const nextValidationInstance = new Validator(this.parser, this.options, this.resourceId, this.isXml, obj);
             nextValidationInstance.validateProperties(obj, typeDefinition._properties, tree);

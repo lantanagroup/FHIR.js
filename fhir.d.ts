@@ -1,4 +1,5 @@
-import { Bundle, ParseConformance } from './parseConformance';
+import { ParseConformance } from './parseConformance';
+import { Bundle } from "./model/bundle";
 import { ValidatorOptions } from './validator';
 export declare enum Versions {
     STU3 = "STU3",

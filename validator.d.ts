@@ -1,4 +1,5 @@
-import { ParseConformance, ParsedProperty } from './parseConformance';
+import { ParseConformance } from './parseConformance';
+import { ParsedProperty } from "./model/parsed-property";
 export interface ValidatorOptions {
     errorOnUnexpected?: boolean;
     onBeforeValidateResource?: (resource: any) => ValidatorMessage[];

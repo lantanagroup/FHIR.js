@@ -1,4 +1,7 @@
-import {Bundle, ElementDefinition, ParseConformance, ParsedProperty, StructureDefinition} from './parseConformance';
+import {Bundle} from "./model/bundle";
+import {StructureDefinition} from "./model/structure-definition";
+import {ElementDefinition} from "./model/element-definition";
+import {ParseConformance} from "./parseConformance";
 import * as _ from 'underscore';
 
 /**

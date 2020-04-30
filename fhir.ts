@@ -1,4 +1,5 @@
-import {Bundle, ParseConformance, StructureDefinition} from './parseConformance';
+import {ParseConformance} from './parseConformance';
+import {Bundle} from "./model/bundle";
 import {Validator, ValidatorOptions} from './validator';
 import {ConvertToJs} from './convertToJs';
 import {ConvertToXml} from './convertToXml';
