@@ -18,6 +18,12 @@
   "url": "http://hl7.org/fhir/StructureDefinition/clinicaldocument",
   "name": "Clinical Document Profile for Composition",
   "title": "test",
+  "_title": {
+    "extension": [{
+      "url": "http://test.com/test/ext",
+      "valueString": "test"
+    }]
+  },
   "status": "draft",
   "experimental": false,
   "date": "2015-03-17",

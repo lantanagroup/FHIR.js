@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const _ = require("underscore");
 const fhir_1 = require("./fhir");
+const constants_1 = require("./constants");
 class ParseConformance {
     constructor(loadCached, version) {
         this.structureDefinitions = [];
@@ -9,6 +10,7 @@ class ParseConformance {
         this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
         this.version = version || fhir_1.Versions.R4;
         this.codeSystems = [];
+        this.ensurePropertyMetaData();
     }
     isBaseProfile(url) {
         let urls;
@@ -21,6 +23,30 @@ class ParseConformance {
                 break;
         }
         return urls.indexOf(url) >= 0;
+    }
+    ensurePropertyMetaData(properties) {
+        if (properties) {
+            const primitiveProperties = properties.filter(p => constants_1.Constants.PrimitiveTypes.indexOf(p._type) >= 0);
+            for (let primitiveProp of primitiveProperties) {
+                const primitivePropIndex = properties.indexOf(primitiveProp);
+                let foundMeta = properties.find(p => p._name === "_" + primitiveProp._name);
+                if (!foundMeta) {
+                    foundMeta = {
+                        _name: "_" + primitiveProp._name,
+                        _type: "Element",
+                        _multiple: false
+                    };
+                    properties.splice(primitivePropIndex + 1, 0, foundMeta);
+                }
+                this.ensurePropertyMetaData(primitiveProp._properties || []);
+            }
+        }
+        else {
+            for (let i = 0; i < this.parsedStructureDefinitions.length; i++) {
+                const parsedProfile = this.parsedStructureDefinitions[i];
+                this.ensurePropertyMetaData(parsedProfile._properties);
+            }
+        }
     }
     sortValueSetDependencies(valueSets) {
         const ret = [];
@@ -168,6 +194,7 @@ class ParseConformance {
                 }
             }
         }
+        this.ensurePropertyMetaData(parsedStructureDefinition._properties);
         return parsedStructureDefinition;
     }
     parseValueSet(valueSet) {

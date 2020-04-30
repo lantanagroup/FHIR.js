@@ -5,6 +5,7 @@ import {ParsedValueSet} from "./model/parsed-value-set";
 import {ParsedProperty} from "./model/parsed-property";
 import {ParsedSystem} from "./model/parsed-system";
 import {ParsedConcept} from "./model/parsed-concept";
+import {Constants} from "./constants";
 
 export class ParseConformance {
     public parsedStructureDefinitions: ParsedStructure[];
@@ -25,6 +26,8 @@ export class ParseConformance {
         this.parsedValueSets = loadCached ? require('./profiles/valuesets.json') : {};
         this.version = version || Versions.R4;
         this.codeSystems = [];
+
+        this.ensurePropertyMetaData();
     }
 
     isBaseProfile(url: string) {
@@ -40,6 +43,33 @@ export class ParseConformance {
         }
 
         return urls.indexOf(url) >= 0;
+    }
+
+    private ensurePropertyMetaData(properties?: ParsedProperty[]) {
+        if (properties) {
+            const primitiveProperties = properties.filter(p => Constants.PrimitiveTypes.indexOf(p._type) >= 0);
+
+            for (let primitiveProp of primitiveProperties) {
+                const primitivePropIndex = properties.indexOf(primitiveProp);
+                let foundMeta = properties.find(p => p._name === "_" + primitiveProp._name);
+
+                if (!foundMeta) {
+                    foundMeta = {
+                        _name: "_" + primitiveProp._name,
+                        _type: "Element",
+                        _multiple: false
+                    };
+                    properties.splice(primitivePropIndex + 1, 0, foundMeta);
+                }
+
+                this.ensurePropertyMetaData(primitiveProp._properties || []);
+            }
+        } else {
+            for (let i = 0; i < this.parsedStructureDefinitions.length; i++) {
+                const parsedProfile = this.parsedStructureDefinitions[i];
+                this.ensurePropertyMetaData(parsedProfile._properties);
+            }
+        }
     }
     
     /**
@@ -237,6 +267,8 @@ export class ParseConformance {
                 }
             }
         }
+
+        this.ensurePropertyMetaData(parsedStructureDefinition._properties);
 
         return parsedStructureDefinition;
     }

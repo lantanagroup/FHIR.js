@@ -9,6 +9,7 @@ export declare class ParseConformance {
     private codeSystems;
     constructor(loadCached?: boolean, version?: string);
     isBaseProfile(url: string): boolean;
+    private ensurePropertyMetaData;
     private sortValueSetDependencies;
     loadCodeSystem(codeSystem: any): void;
     parseBundle(bundle: any): void;

@@ -42,11 +42,11 @@ describe('Validation', function () {
                     validatePropertyCount++;
                 }
             });
-            assert(results.valid === true);
+            assert.strictEqual(results.valid, true);
             assert(results.messages);
-            assert.equal(results.messages.length, 10);
-            assert.equal(validateResourceCount, 1);
-            assert.equal(validatePropertyCount, 606);
+            assert.strictEqual(results.messages.length, 10);
+            assert.strictEqual(validateResourceCount, 1);
+            assert.strictEqual(validatePropertyCount, 607);
         });
 
         it('should validate R4 structure definition, add extra messages from events', function() {

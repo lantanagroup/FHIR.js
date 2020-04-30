@@ -65,18 +65,18 @@ describe('Parse', function () {
         var parsedStructureDefinition = parser.parsedStructureDefinitions['StructureDefinition'];
         assert(parsedStructureDefinition);
         assert(parsedStructureDefinition._properties);
-        assert(parsedStructureDefinition._properties.length === 36);
+        assert.strictEqual(parsedStructureDefinition._properties.length, 59);
 
-        var parsedDifferential = parsedStructureDefinition._properties[35];
-        assert(parsedDifferential._name === 'differential');
+        var parsedDifferential = parsedStructureDefinition._properties[58];
+        assert.strictEqual(parsedDifferential._name, 'differential');
         assert(parsedDifferential._properties);
-        assert(parsedDifferential._properties.length === 4);
+        assert.strictEqual(parsedDifferential._properties.length, 4);
 
         var parsedDifferentialElement = parsedDifferential._properties[3];
         assert(parsedDifferentialElement);
         assert(parsedDifferentialElement._properties);
-        assert(parsedDifferentialElement._properties.length === 0);
-        assert(parsedDifferentialElement._type === 'ElementDefinition');
+        assert.strictEqual(parsedDifferentialElement._properties.length, 0);
+        assert.strictEqual(parsedDifferentialElement._type, 'ElementDefinition');
     });
 
     it('should parse SD bundles for STU3', function() {
@@ -95,11 +95,11 @@ describe('Parse', function () {
         var parsedAddress = parser.parsedStructureDefinitions['Address'];
         assert(parsedAddress);
         assert(parsedAddress._properties);
-        assert(parsedAddress._properties.length === 12);
-        assert(parsedAddress._properties[2]._name === 'use');
-        assert(parsedAddress._properties[2]._type === 'code');
-        assert(parsedAddress._properties[2]._valueSet === 'http://hl7.org/fhir/ValueSet/address-use');
-        assert(parsedAddress._properties[2]._valueSetStrength === 'required');
+        assert.strictEqual(parsedAddress._properties.length, 22);
+        assert.strictEqual(parsedAddress._properties[3]._name, 'use');
+        assert.strictEqual(parsedAddress._properties[3]._type, 'code');
+        assert.strictEqual(parsedAddress._properties[3]._valueSet, 'http://hl7.org/fhir/ValueSet/address-use');
+        assert.strictEqual(parsedAddress._properties[3]._valueSetStrength, 'required');
 
         // TODO: Should have more unit tests to verify that parsing STU3 resources works properly
     });
