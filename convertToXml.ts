@@ -96,7 +96,7 @@ export class ConvertToXml {
         // id without a parentPropertyType means it is an id of a resource, which would produce an <id> element
         const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
 
-        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null) return;
+        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null || propertyName.startsWith('_')) return;
 
         const propertyType = _.find(parentType._properties, (property: ParsedProperty) => property._name == propertyName);
 

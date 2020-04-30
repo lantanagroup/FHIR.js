@@ -34,7 +34,7 @@ class ParseConformance {
                     foundMeta = {
                         _name: "_" + primitiveProp._name,
                         _type: "Element",
-                        _multiple: false
+                        _multiple: primitiveProp._multiple
                     };
                     properties.splice(primitivePropIndex + 1, 0, foundMeta);
                 }

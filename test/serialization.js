@@ -151,7 +151,7 @@ describe('Serialization', function () {
 
             var xml = fhir.objToXml(resource);
             var expected = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id" value="test"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
-            assert.equal(xml, expected);
+            assert.strictEqual(xml, expected);
         });
 
         it('should serialize extensions for an array of primitive data types in JSON', function () {
@@ -172,7 +172,7 @@ describe('Serialization', function () {
 
             var xml = fhir.objToXml(resource);
             var expected = '<?xml version="1.0" encoding="UTF-8"?><ImplementationGuide xmlns="http://hl7.org/fhir"><fhirVersion value="1.0"/><fhirVersion id="super-id" value="1.1"><extension url="http://test.com"><valueString value="blah"/></extension></fhirVersion></ImplementationGuide>';
-            assert.equal(xml, expected);
+            assert.strictEqual(xml, expected);
         });
 
         it('should serialize extensions for an array of primitive data types in XML', function () {

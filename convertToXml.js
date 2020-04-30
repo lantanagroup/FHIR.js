@@ -47,7 +47,7 @@ class ConvertToXml {
     }
     propertyToXML(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
         const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
-        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null)
+        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null || propertyName.startsWith('_'))
             return;
         const propertyType = _.find(parentType._properties, (property) => property._name == propertyName);
         function xmlEscapeString(value) {
