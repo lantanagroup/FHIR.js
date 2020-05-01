@@ -180,7 +180,7 @@ export class ConvertToXml {
                 case 'BackboneElement':
                     for (let x in propertyType._properties) {
                         const nextProperty = propertyType._properties[x];
-                        this.propertyToXML(nextXmlObj, propertyType, value, nextProperty._name, propertyType._type);
+                        this.propertyToXML(nextXmlObj, <ParsedStructure><any> propertyType, value, nextProperty._name, propertyType._type);
                     }
                     break;
                 default:
