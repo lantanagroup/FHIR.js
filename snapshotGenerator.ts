@@ -2,7 +2,6 @@ import {Bundle} from "./model/bundle";
 import {StructureDefinition} from "./model/structure-definition";
 import {ElementDefinition} from "./model/element-definition";
 import {ParseConformance} from "./parseConformance";
-import * as _ from 'underscore';
 
 /**
  * Responsible for creating snapshots on StructureDefinition resources based on the differential of the profile.
@@ -44,12 +43,13 @@ export class SnapshotGenerator {
      * @param structureDefinitions
      */
     static createBundle(...structureDefinitions: StructureDefinition[]) {
+        const entries = structureDefinitions.map((sd: StructureDefinition) => {
+            return {resource: sd};
+        });
         const bundle: Bundle = {
             resourceType: 'Bundle',
             total: structureDefinitions.length,
-            entry: _.map(structureDefinitions, (sd) => {
-                return {resource: sd};
-            })
+            entry: entries
         };
         return bundle;
     }
@@ -63,7 +63,7 @@ export class SnapshotGenerator {
     private getStructureDefinition(url: string, type: string) {
         const isBaseProfile = this.parser.isBaseProfile(url);
         const fhirBase = isBaseProfile ?
-            _.find(this.parser.structureDefinitions, (sd) => sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase()) :
+            this.parser.structureDefinitions.find(sd => sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase()) :
             null;
 
         if (isBaseProfile && !fhirBase) {
@@ -74,7 +74,7 @@ export class SnapshotGenerator {
             return fhirBase;
         }
 
-        const parentEntry = _.find(this.bundle.entry, (entry) => entry.resource.url === url);
+        const parentEntry = this.bundle.entry.find(entry => entry.resource.url === url);
 
         if (!parentEntry) {
             throw new Error(`Cannot find base definition "${url}" in bundle or core FHIR specification.`)
@@ -212,7 +212,7 @@ export class SnapshotGenerator {
 
         const base = this.getStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
         const newElements: ElementDefinition[] = JSON.parse(JSON.stringify(base.snapshot.element));
-        const matched = _.filter(newElements, (newElement) => {
+        const matched = newElements.filter(newElement => {
             if (newElement.path === structureDefinition.type) {
                 return false;
             }
@@ -232,7 +232,7 @@ export class SnapshotGenerator {
 
         matched.forEach((snapshotElement) => {
             const snapshotIndex = newElements.indexOf(snapshotElement);
-            const differentialElements = _.filter(structureDefinition.differential.element, (element) => {
+            const differentialElements = structureDefinition.differential.element.filter(element => {
                 const regexString = snapshotElement.path
                         .replace(/\[x\]/g, this.choiceRegexString)
                         .replace(/\./g, '\\.') +
@@ -242,7 +242,7 @@ export class SnapshotGenerator {
             });
             const removeElements = newElements.filter((next) => next === snapshotElement || next.path.indexOf(snapshotElement.path + '.') === 0);
 
-            _.each(removeElements, (removeElement) => {
+            removeElements.forEach(removeElement => {
                 const index = newElements.indexOf(removeElement);
                 newElements.splice(index, 1);
             });

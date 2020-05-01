@@ -2,7 +2,6 @@ var Fhir = require('../fhir').Fhir;
 var FhirPath = require('../fhirPath').FhirPath;
 var fs = require('fs');
 var assert = require('assert');
-var _ = require('underscore');
 
 var documentBundleJson = fs.readFileSync('./test/data/stu3/document-example-dischargesummary.json').toString();
 var questionnaireResponseJson = fs.readFileSync('./test/data/r4/QuestionnaireResponse_01.json').toString();
@@ -201,7 +200,7 @@ describe('FhirPath', function() {
             assert(results);
             assert(results.length === 4);
 
-            var questionnaires = _.filter(results, function(result) {
+            var questionnaires = results.filter((result) => {
                 return result.resourceType === 'Questionnaire';
             });
 

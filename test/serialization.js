@@ -3,7 +3,6 @@ var Versions = require('../fhir').Versions;
 var ParseConformance = require('../parseConformance').ParseConformance;
 var fs = require('fs');
 var assert = require('assert');
-var _ = require('underscore');
 var xml2js = require('xml-js').xml2js;
 
 var bundleTransactionJson = fs.readFileSync('./test/data/stu3/bundle-transaction.json').toString();

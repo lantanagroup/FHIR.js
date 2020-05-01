@@ -2,7 +2,6 @@ var Fhir = require('../fhir').Fhir;
 var ParseConformance = require('../parseConformance').ParseConformance;
 var Versions = require('../fhir').Versions;
 var fs = require('fs');
-var _ = require('underscore');
 var assert = require('assert');
 
 var capabilityStatementJson = fs.readFileSync('./test/data/stu3/capabilitystatement-example.json').toString();
@@ -199,7 +198,7 @@ describe('Validation', function () {
             assert.equal(results.valid, false);
             assert(results.messages);
 
-            const errors = _.filter(results.messages, function(message) {
+            const errors = results.messages.filter((message) => {
                 return message.severity === 'error';
             });
 
@@ -215,7 +214,7 @@ describe('Validation', function () {
             assert(results);
             assert.equal(results.valid, true);
 
-            var warnings = _.filter(results.messages, function(message) {
+            var warnings = results.messages.filter((message) => {
                 return message.severity === 'warning';
             });
             assert.equal(warnings.length, 1);

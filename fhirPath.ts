@@ -1,5 +1,4 @@
 import {ParseConformance} from './parseConformance';
-import * as _ from 'underscore';
 
 interface PathStructure {
     name?: string;
@@ -76,10 +75,7 @@ export class FhirPath {
 
                 if (resource.resourceType === 'Bundle') {
                     // recursively search through resources in the bundle
-                    const childResources = _.map(resource.entry, function(entry) {
-                        return entry.resource;
-                    });
-
+                    const childResources = resource.entry.map(e => e.resource);
                     const found = find(childResources, resourceType, id);
 
                     if (found) {
@@ -129,11 +125,7 @@ export class FhirPath {
     private getResourceTypes() {
         const self = this;
         const keys = Object.keys(this.parser.parsedStructureDefinitions);
-        return _.chain(keys)
-            .filter(function(key) {
-                return self.parser.parsedStructureDefinitions[key]._kind === 'resource';
-            })
-            .value();
+        return keys.filter(key => self.parser.parsedStructureDefinitions[key]._kind === 'resource');
     }
 
     /**
@@ -366,9 +358,8 @@ export class FhirPath {
         // It could instead determine if the last actual path represents
         // an array, based on the definitions stored in ParseConformance class.
         if (statements.length === 1) {
-            const statementHasWhereFn = _.filter(statements[0].path, function(nextPath) {
-                return nextPath.name === 'where';
-            });
+            const statementHasWhereFn = (statements[0].path || []).filter(nextPath => nextPath.name === 'where');
+
             if (statementHasWhereFn.length > 0) {
                 return true;
             }

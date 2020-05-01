@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const convert = require("xml-js");
-const _ = require("underscore");
 const parseConformance_1 = require("./parseConformance");
 const xmlHelper_1 = require("./xmlHelper");
 class ConvertToJs {
@@ -10,7 +9,7 @@ class ConvertToJs {
     }
     convert(xml) {
         const xmlObj = convert.xml2js(xml);
-        const firstElement = _.find(xmlObj.elements, (element) => element.type === 'element');
+        const firstElement = xmlObj.elements.find((element) => element.type === 'element');
         if (firstElement) {
             return this.resourceToJS(firstElement, null);
         }
@@ -71,7 +70,7 @@ class ConvertToJs {
         if (!typeDefinition) {
             throw new Error('Unknown resource type: ' + xmlObj.name);
         }
-        _.each(typeDefinition._properties, (property) => {
+        typeDefinition._properties.forEach((property) => {
             this.propertyToJS(xmlObj, resource, property, surroundDecimalsWith);
         });
         return resource;
@@ -90,9 +89,7 @@ class ConvertToJs {
         let current = resourceDefinition;
         for (let i = 0; i < pathSplit.length; i++) {
             const nextPath = pathSplit[i];
-            current = _.find(current._properties, (property) => {
-                return property._name === nextPath;
-            });
+            current = current._properties.find((property) => property._name === nextPath);
             if (!current) {
                 return;
             }
@@ -100,21 +97,17 @@ class ConvertToJs {
         return JSON.parse(JSON.stringify(current));
     }
     propertyToJS(xmlObj, obj, property, surroundDecimalsWith) {
-        const xmlElements = _.filter(xmlObj.elements, (element) => {
-            return element.name === property._name;
-        });
-        const xmlAttributes = xmlObj.attributes ? _.chain(Object.keys(xmlObj.attributes))
-            .filter((key) => {
-            return key === property._name;
-        })
-            .map((key) => {
-            return {
-                name: key,
-                type: 'attribute',
-                attributes: { value: xmlObj.attributes[key] }
-            };
-        })
-            .value() : [];
+        const xmlElements = (xmlObj.elements || []).filter((element) => element.name === property._name);
+        const xmlAttributes = xmlObj.attributes ?
+            Object.keys(xmlObj.attributes)
+                .filter((key) => key === property._name)
+                .map((key) => {
+                return {
+                    name: key,
+                    type: 'attribute',
+                    attributes: { value: xmlObj.attributes[key] }
+                };
+            }) : [];
         const xmlProperty = xmlElements.concat(xmlAttributes);
         if (!xmlProperty || xmlProperty.length === 0) {
             return;
@@ -130,7 +123,7 @@ class ConvertToJs {
         }
         const addExtra = (element, index) => {
             const hasId = element.attributes && element.attributes.id;
-            const hasExtensions = !!_.find(element.elements, (next) => next.name === 'extension');
+            const hasExtensions = !!(element.elements || []).find((next) => next.name === 'extension');
             if (hasId || hasExtensions) {
                 if (!obj['_' + property._name]) {
                     obj['_' + property._name] = obj[property._name] instanceof Array ? [] : {};
@@ -271,7 +264,7 @@ class ConvertToJs {
                     }
                     else {
                         const newValue = {};
-                        _.each(nextType._properties, (nextProperty) => {
+                        nextType._properties.forEach(nextProperty => {
                             this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                         });
                         if (obj[property._name] instanceof Array) {

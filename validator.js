@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("underscore");
 const convertToJs_1 = require("./convertToJs");
 const constants_1 = require("./constants");
 var Severities;
@@ -78,13 +77,11 @@ class Validator {
     }
     checkCode(valueSet, code, system) {
         if (system) {
-            const foundSystem = _.find(valueSet.systems, (nextSystem) => {
+            const foundSystem = valueSet.systems.find(nextSystem => {
                 return nextSystem.uri === system;
             });
             if (foundSystem) {
-                const foundCode = _.find(foundSystem.codes, (nextCode) => {
-                    return nextCode.code === code;
-                });
+                const foundCode = foundSystem.codes.find(nextCode => nextCode.code === code);
                 return !!foundCode;
             }
             else {
@@ -93,10 +90,8 @@ class Validator {
         }
         else {
             let valid = false;
-            _.each(valueSet.systems, function (nextSystem) {
-                const foundCode = _.find(nextSystem.codes, (nextCode) => {
-                    return nextCode.code === code;
-                });
+            valueSet.systems.forEach(function (nextSystem) {
+                const foundCode = nextSystem.codes.find(nextCode => nextCode.code === code);
                 if (foundCode) {
                     valid = true;
                 }
@@ -154,14 +149,14 @@ class Validator {
             if (valueSetUrl && valueSetUrl.indexOf('|') > 0) {
                 valueSetUrl = valueSetUrl.substring(0, valueSetUrl.indexOf('|'));
             }
-            const foundValueSet = _.find(this.parser.parsedValueSets, (valueSet, valueSetKey) => valueSetKey === valueSetUrl);
+            const foundValueSet = this.parser.parsedValueSets[valueSetUrl];
             if (!foundValueSet) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
             }
             else {
                 if (property._type === 'CodeableConcept') {
                     let found = false;
-                    _.each(obj.coding, (coding) => {
+                    (obj.coding || []).forEach(coding => {
                         if (this.checkCode(foundValueSet, coding.code, coding.system)) {
                             found = true;
                         }
@@ -300,7 +295,7 @@ class Validator {
             if (property._required && !foundProperty) {
                 let satisfied = false;
                 if (property._choice) {
-                    satisfied = _.filter(properties, (nextProperty) => {
+                    satisfied = properties.filter(nextProperty => {
                         return nextProperty._choice === property._choice && !!obj[nextProperty._name];
                     }).length > 0;
                 }
@@ -341,9 +336,7 @@ class Validator {
             if (objKey === 'resourceType') {
                 continue;
             }
-            const foundProperty = _.find(properties, function (property) {
-                return property._name === objKey;
-            });
+            const foundProperty = properties.find((property) => property._name === objKey);
             if (!foundProperty) {
                 if (this.options.errorOnUnexpected) {
                     this.addError(Validator.getTreeDisplay(tree, this.isXml, objKey), 'Unexpected property');

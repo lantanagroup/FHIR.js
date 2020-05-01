@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("underscore");
 const fhir_1 = require("./fhir");
 const constants_1 = require("./constants");
 class ParseConformance {
@@ -51,14 +50,12 @@ class ParseConformance {
     sortValueSetDependencies(valueSets) {
         const ret = [];
         function addValueSet(valueSetUrl) {
-            const foundValueSet = _.find(valueSets, (nextValueSet) => {
-                return nextValueSet.url === valueSetUrl;
-            });
+            const foundValueSet = valueSets.find(nextValueSet => nextValueSet.url === valueSetUrl);
             if (!foundValueSet) {
                 return;
             }
             if (foundValueSet.compose) {
-                _.each(foundValueSet.compose.include, (include) => {
+                (foundValueSet.compose.include || []).forEach(include => {
                     addValueSet(include.valueSet);
                 });
             }
@@ -66,7 +63,7 @@ class ParseConformance {
                 ret.push(foundValueSet);
             }
         }
-        _.each(valueSets, (valueSet) => {
+        valueSets.forEach(valueSet => {
             addValueSet(valueSet.url);
         });
         return ret;
@@ -75,7 +72,7 @@ class ParseConformance {
         if (!codeSystem) {
             return;
         }
-        const foundCodeSystem = _.find(this.codeSystems, (nextCodeSystem) => {
+        const foundCodeSystem = this.codeSystems.find(nextCodeSystem => {
             return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
         });
         if (!foundCodeSystem) {
@@ -87,34 +84,33 @@ class ParseConformance {
         if (!bundle || !bundle.entry) {
             return;
         }
-        _.chain(bundle.entry)
-            .filter((entry) => {
+        bundle.entry
+            .filter(entry => {
             return entry.resource.resourceType === 'CodeSystem';
         })
-            .each((entry) => {
+            .forEach(entry => {
             this.loadCodeSystem(entry.resource);
         });
-        let valueSets = _.chain(bundle.entry)
-            .filter((entry) => {
+        let valueSets = bundle.entry
+            .filter(entry => {
             return entry.resource.resourceType === 'ValueSet';
         })
-            .map((entry) => {
+            .map(entry => {
             return entry.resource;
-        })
-            .value();
+        });
         valueSets = this.sortValueSetDependencies(valueSets);
-        _.each(valueSets, (valueSet) => {
+        valueSets.forEach(valueSet => {
             this.parseValueSet(valueSet);
         });
-        _.chain(bundle.entry)
-            .filter((entry) => {
+        bundle.entry
+            .filter(entry => {
             if (entry.resource.resourceType !== 'StructureDefinition') {
                 return false;
             }
             const resource = entry.resource;
             return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
         })
-            .each((entry) => {
+            .forEach(entry => {
             this.parseStructureDefinition(entry.resource);
         });
     }
@@ -127,7 +123,7 @@ class ParseConformance {
             _properties: []
         };
         this.parsedStructureDefinitions[structureDefinition.id || uid] = parsedStructureDefinition;
-        const loadedStructureDefinition = _.find(this.structureDefinitions, (sd) => sd.url === structureDefinition.url);
+        const loadedStructureDefinition = this.structureDefinitions.find(sd => sd.url === structureDefinition.url);
         if (!loadedStructureDefinition) {
             this.structureDefinitions.push(structureDefinition);
         }
@@ -207,7 +203,7 @@ class ParseConformance {
                 if (contains.inactive || contains.abstract) {
                     continue;
                 }
-                let foundSystem = _.find(newValueSet.systems, (system) => {
+                let foundSystem = newValueSet.systems.find(system => {
                     return system.uri === contains.system;
                 });
                 if (!foundSystem) {
@@ -227,7 +223,7 @@ class ParseConformance {
             for (let i = 0; i < valueSet.compose.include.length; i++) {
                 const include = valueSet.compose.include[i];
                 if (include.system) {
-                    let foundSystem = _.find(newValueSet.systems, (system) => {
+                    let foundSystem = newValueSet.systems.find(system => {
                         return system.uri === include.system;
                     });
                     if (!foundSystem) {
@@ -237,11 +233,11 @@ class ParseConformance {
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    const foundCodeSystem = _.find(this.codeSystems, (codeSystem) => {
+                    const foundCodeSystem = this.codeSystems.find(codeSystem => {
                         return codeSystem.url === include.system;
                     });
                     if (foundCodeSystem) {
-                        const codes = _.map(foundCodeSystem.concept, (concept) => {
+                        const codes = (foundCodeSystem.concept || []).map(concept => {
                             return {
                                 code: concept.code,
                                 display: concept.display
@@ -253,8 +249,8 @@ class ParseConformance {
                 if (include.valueSet) {
                     const includeValueSet = this.parsedValueSets[include.valueSet];
                     if (includeValueSet) {
-                        _.each(includeValueSet.systems, (includeSystem) => {
-                            const foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                        includeValueSet.systems.forEach(includeSystem => {
+                            const foundSystem = newValueSet.systems.find(nextSystem => {
                                 return nextSystem.uri === includeSystem.uri;
                             });
                             if (!foundSystem) {
@@ -271,7 +267,7 @@ class ParseConformance {
                 }
                 if (include.concept) {
                     const systemUri = include.system || '';
-                    let foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                    let foundSystem = newValueSet.systems.find(nextSystem => {
                         return nextSystem.uri === systemUri;
                     });
                     if (!foundSystem) {
@@ -281,7 +277,7 @@ class ParseConformance {
                         };
                         newValueSet.systems.push(foundSystem);
                     }
-                    const codes = _.map(include.concept, (concept) => {
+                    const codes = include.concept.map(concept => {
                         return {
                             code: concept.code,
                             display: concept.display
@@ -291,7 +287,7 @@ class ParseConformance {
                 }
             }
         }
-        const systemsWithCodes = _.filter(newValueSet.systems, (system) => {
+        const systemsWithCodes = newValueSet.systems.filter(system => {
             return system.codes && system.codes.length > 0;
         });
         if (systemsWithCodes.length > 0) {
@@ -324,9 +320,8 @@ class ParseConformance {
             const parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
             let parentBackboneElement = null;
             for (let j = 0; j < parentElementIdSplit.length; j++) {
-                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, (property) => {
-                    return property._name == parentElementIdSplit[j];
-                });
+                const properties = !parentBackboneElement ? resourceType._properties : parentBackboneElement._properties;
+                parentBackboneElement = properties.find(property => property._name == parentElementIdSplit[j]);
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';
                 }

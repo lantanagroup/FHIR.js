@@ -1,4 +1,3 @@
-import * as _ from 'underscore';
 import {ConvertToJs} from './convertToJs';
 import {ParseConformance} from './parseConformance';
 import {ParsedProperty} from "./model/parsed-property";
@@ -172,14 +171,12 @@ export class Validator {
 
     private checkCode(valueSet: ParsedValueSet, code, system?) {
         if (system) {
-            const foundSystem = _.find(valueSet.systems, (nextSystem) => {
+            const foundSystem = valueSet.systems.find(nextSystem => {
                 return nextSystem.uri === system;
             });
 
             if (foundSystem) {
-                const foundCode = _.find(foundSystem.codes, (nextCode) => {
-                    return nextCode.code === code;
-                });
+                const foundCode = foundSystem.codes.find(nextCode => nextCode.code === code);
 
                 return !!foundCode;
             } else {
@@ -188,10 +185,8 @@ export class Validator {
         } else {
             let valid = false;
 
-            _.each(valueSet.systems, function(nextSystem) {
-                const foundCode = _.find(nextSystem.codes, (nextCode) => {
-                    return nextCode.code === code;
-                });
+            valueSet.systems.forEach(function(nextSystem) {
+                const foundCode = nextSystem.codes.find(nextCode => nextCode.code === code);
 
                 if (foundCode) {
                     valid = true;
@@ -257,7 +252,7 @@ export class Validator {
                 valueSetUrl = valueSetUrl.substring(0, valueSetUrl.indexOf('|'));
             }
 
-            const foundValueSet = _.find(this.parser.parsedValueSets, (valueSet, valueSetKey) => valueSetKey === valueSetUrl);
+            const foundValueSet = this.parser.parsedValueSets[valueSetUrl];
 
             if (!foundValueSet) {
                 this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
@@ -265,7 +260,7 @@ export class Validator {
                 if (property._type === 'CodeableConcept') {
                     let found = false;
 
-                    _.each(obj.coding, (coding) => {
+                    (obj.coding || []).forEach(coding => {
                         if (this.checkCode(foundValueSet, coding.code, coding.system)) {
                             found = true;
                         } else {
@@ -398,7 +393,7 @@ export class Validator {
                 let satisfied = false;
 
                 if (property._choice) {
-                    satisfied = _.filter(properties, (nextProperty) => {
+                    satisfied = properties.filter(nextProperty => {
                         return nextProperty._choice === property._choice && !!obj[nextProperty._name];
                     }).length > 0;
                 }
@@ -446,9 +441,7 @@ export class Validator {
                 continue;
             }
 
-            const foundProperty = _.find(properties, function(property) {
-                return property._name === objKey;
-            });
+            const foundProperty = properties.find((property) => property._name === objKey);
 
             if (!foundProperty) {
                 if (this.options.errorOnUnexpected) {

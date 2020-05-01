@@ -1,4 +1,3 @@
-import * as _ from 'underscore';
 import {Versions} from './fhir';
 import {ParsedStructure} from "./model/parsed-structure";
 import {ParsedValueSet} from "./model/parsed-value-set";
@@ -9,7 +8,7 @@ import {Constants} from "./constants";
 
 export class ParseConformance {
     public parsedStructureDefinitions: ParsedStructure[];
-    public parsedValueSets: ParsedValueSet[];
+    public parsedValueSets: { [key: string]: ParsedValueSet };
     public structureDefinitions: any[] = [];
     private version: string;
     private codeSystems: any[];
@@ -84,9 +83,7 @@ export class ParseConformance {
         const ret = [];
 
         function addValueSet(valueSetUrl) {
-            const foundValueSet = _.find(valueSets, (nextValueSet) => {
-                return nextValueSet.url === valueSetUrl;
-            });
+            const foundValueSet = valueSets.find(nextValueSet => nextValueSet.url === valueSetUrl);
 
             if (!foundValueSet) {
                 return;
@@ -94,7 +91,7 @@ export class ParseConformance {
 
             if (foundValueSet.compose) {
                 // Add the include value sets before this value set
-                _.each(foundValueSet.compose.include, (include) => {
+                (foundValueSet.compose.include || []).forEach(include => {
                     addValueSet(include.valueSet);
                 });
             }
@@ -104,7 +101,7 @@ export class ParseConformance {
             }
         }
 
-        _.each(valueSets, (valueSet) => {
+        valueSets.forEach(valueSet => {
             addValueSet(valueSet.url);
         });
 
@@ -116,7 +113,7 @@ export class ParseConformance {
             return;
         }
 
-        const foundCodeSystem = _.find(this.codeSystems, (nextCodeSystem) => {
+        const foundCodeSystem = this.codeSystems.find(nextCodeSystem => {
             return nextCodeSystem.url === codeSystem.url || nextCodeSystem.id === codeSystem.id;
         });
 
@@ -136,33 +133,32 @@ export class ParseConformance {
         }
 
         // load code systems
-        _.chain(bundle.entry)
-            .filter((entry) => {
+        bundle.entry
+            .filter(entry => {
                 return entry.resource.resourceType === 'CodeSystem';
             })
-            .each((entry) => {
+            .forEach(entry => {
                 this.loadCodeSystem(entry.resource);
             });
 
         // parse each value set
-        let valueSets = _.chain(bundle.entry)
-            .filter((entry) => {
+        let valueSets = bundle.entry
+            .filter(entry => {
                 return entry.resource.resourceType === 'ValueSet';
             })
-            .map((entry) => {
+            .map(entry => {
                 return entry.resource;
-            })
-            .value();
+            });
 
         valueSets = this.sortValueSetDependencies(valueSets);
 
-        _.each(valueSets, (valueSet) => {
+        valueSets.forEach(valueSet => {
             this.parseValueSet(valueSet);
         });
 
         // parse structure definitions
-        _.chain(bundle.entry)
-            .filter((entry) => {
+        bundle.entry
+            .filter(entry => {
                 if (entry.resource.resourceType !== 'StructureDefinition') {
                     return false;
                 }
@@ -171,7 +167,7 @@ export class ParseConformance {
 
                 return !(resource.kind != 'resource' && resource.kind != 'complex-type' && resource.kind != 'primitive-type');
             })
-            .each((entry) => {
+            .forEach(entry => {
                 this.parseStructureDefinition(entry.resource);
             });
     }
@@ -193,7 +189,7 @@ export class ParseConformance {
         this.parsedStructureDefinitions[structureDefinition.id || uid] = parsedStructureDefinition;         // TODO: this doesn't work for profiles. should use url instead.
 
         // Store the structure definition in memory for use with SnapshotGenerator
-        const loadedStructureDefinition = _.find(this.structureDefinitions, (sd) => sd.url === structureDefinition.url);
+        const loadedStructureDefinition = this.structureDefinitions.find(sd => sd.url === structureDefinition.url);
         if (!loadedStructureDefinition) {
             this.structureDefinitions.push(structureDefinition);
         }
@@ -292,7 +288,7 @@ export class ParseConformance {
                     continue;
                 }
 
-                let foundSystem: ParsedSystem = _.find(newValueSet.systems, (system) => {
+                let foundSystem: ParsedSystem = newValueSet.systems.find(system => {
                     return system.uri === contains.system;
                 });
 
@@ -314,7 +310,7 @@ export class ParseConformance {
                 const include = valueSet.compose.include[i];
 
                 if (include.system) {
-                    let foundSystem = _.find(newValueSet.systems, (system) => {
+                    let foundSystem = newValueSet.systems.find(system => {
                         return system.uri === include.system;
                     });
 
@@ -327,12 +323,12 @@ export class ParseConformance {
                     }
 
                     // Add all codes from the code system
-                    const foundCodeSystem = _.find(this.codeSystems, (codeSystem) => {
+                    const foundCodeSystem = this.codeSystems.find(codeSystem => {
                         return codeSystem.url === include.system;
                     });
 
                     if (foundCodeSystem) {
-                        const codes = _.map(foundCodeSystem.concept, (concept) => {
+                        const codes = (foundCodeSystem.concept || []).map(concept => {
                             return {
                                 code: concept.code,
                                 display: concept.display
@@ -347,8 +343,8 @@ export class ParseConformance {
                     const includeValueSet = this.parsedValueSets[include.valueSet];
 
                     if (includeValueSet) {
-                        _.each(includeValueSet.systems, (includeSystem) => {
-                            const foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                        includeValueSet.systems.forEach(includeSystem => {
+                            const foundSystem = newValueSet.systems.find(nextSystem => {
                                 return nextSystem.uri === includeSystem.uri;
                             });
 
@@ -367,7 +363,7 @@ export class ParseConformance {
                 if (include.concept) {
                     const systemUri = include.system || '';
 
-                    let foundSystem = _.find(newValueSet.systems, (nextSystem) => {
+                    let foundSystem = newValueSet.systems.find(nextSystem => {
                         return nextSystem.uri === systemUri;
                     });
 
@@ -379,7 +375,7 @@ export class ParseConformance {
                         newValueSet.systems.push(foundSystem);
                     }
 
-                    const codes = _.map(include.concept, (concept) => {
+                    const codes = include.concept.map(concept => {
                         return {
                             code: concept.code,
                             display: concept.display
@@ -391,7 +387,7 @@ export class ParseConformance {
             }
         }
 
-        const systemsWithCodes = _.filter(newValueSet.systems, (system) => {
+        const systemsWithCodes = newValueSet.systems.filter(system => {
             return system.codes && system.codes.length > 0;
         });
 
@@ -441,9 +437,8 @@ export class ParseConformance {
             let parentBackboneElement = null;
 
             for (let j = 0; j < parentElementIdSplit.length; j++) {
-                parentBackboneElement = _.find(!parentBackboneElement ? resourceType._properties : parentBackboneElement._properties, (property) => {
-                    return property._name == parentElementIdSplit[j];
-                });
+                const properties = !parentBackboneElement ? resourceType._properties : parentBackboneElement._properties;
+                parentBackboneElement = properties.find(property => property._name == parentElementIdSplit[j]);
 
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';

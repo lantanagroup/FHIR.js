@@ -3,7 +3,6 @@ var ParseConformance = require('../parseConformance').ParseConformance;
 var SnapshotGenerator = require('../snapshotGenerator').SnapshotGenerator;
 var fs = require('fs');
 var assert = require('assert');
-var _ = require('underscore');
 
 var sd1 = JSON.parse(fs.readFileSync('./test/data/r4/structureDefinition.json').toString());
 var sd2 = JSON.parse(fs.readFileSync('./test/data/r4/inheritedStructureDefinition.json').toString());

@@ -1,9 +1,10 @@
-import * as _ from 'underscore';
 
 export class XmlHelper {
     static escapeInvalidCharacters(element) {
-        _.each(element.attributes, (attribute, index) => {
-            element.attributes[index] = element.attributes[index]
+        if (!element) return element;
+
+        Object.keys(element.attributes || {}).forEach(key => {
+            element.attributes[key] = element.attributes[key]
                 .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
         });
 
@@ -12,14 +13,16 @@ export class XmlHelper {
                 .replace(/&(?!(?:apos|quot|[gl]t|amp);|#)/g, '&amp;');
         }
 
-        _.each(element.elements, XmlHelper.escapeInvalidCharacters);
+        (element.elements || []).forEach(element => XmlHelper.escapeInvalidCharacters(element));
 
         return element;
     }
 
     static unescapeInvalidCharacters(element) {
-        _.each(element.attributes, (attribute, index) => {
-            element.attributes[index] = element.attributes[index]
+        if (!element) return element;
+
+        Object.keys(element.attributes || {}).forEach(key => {
+            element.attributes[key] = element.attributes[key]
                 .replace(/&amp;/g, '&');
         });
 
@@ -28,7 +31,7 @@ export class XmlHelper {
                 .replace(/&amp;/g, '&');
         }
 
-        _.each(element.elements, XmlHelper.unescapeInvalidCharacters);
+        (element.elements || []).forEach(element => XmlHelper.unescapeInvalidCharacters(element));
 
         return element;
     }

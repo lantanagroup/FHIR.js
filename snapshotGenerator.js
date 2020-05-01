@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("underscore");
 class SnapshotGenerator {
     constructor(parser, bundle) {
         this.choiceRegexString = '(Instant|Time|Date|DateTime|Decimal|Boolean|Integer|String|Uri|Base64Binary|Code|Id|Oid|UnsignedInt|PositiveInt|Markdown|Url|Canonical|Uuid|Identifier|HumanName|Address|ContactPoint|Timing|Quantity|SimpleQuantity|Attachment|Range|Period|Ratio|CodeableConcept|Coding|SampledData|Age|Distance|Duration|Count|Money|MoneyQuantity|Annotation|Signature|ContactDetail|Contributor|DataRequirement|ParameterDefinition|RelatedArtifact|TriggerDefinition|UsageContext|Expression|Reference|Narrative|Extension|Meta|ElementDefinition|Dosage|Xhtml)';
@@ -9,19 +8,20 @@ class SnapshotGenerator {
         this.bundle = bundle;
     }
     static createBundle(...structureDefinitions) {
+        const entries = structureDefinitions.map((sd) => {
+            return { resource: sd };
+        });
         const bundle = {
             resourceType: 'Bundle',
             total: structureDefinitions.length,
-            entry: _.map(structureDefinitions, (sd) => {
-                return { resource: sd };
-            })
+            entry: entries
         };
         return bundle;
     }
     getStructureDefinition(url, type) {
         const isBaseProfile = this.parser.isBaseProfile(url);
         const fhirBase = isBaseProfile ?
-            _.find(this.parser.structureDefinitions, (sd) => sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase()) :
+            this.parser.structureDefinitions.find(sd => sd.url.toLowerCase() === ('http://hl7.org/fhir/StructureDefinition/' + type).toLowerCase()) :
             null;
         if (isBaseProfile && !fhirBase) {
             throw new Error(`Base profile for ${url} not found. Perhaps the structures have not been loaded?`);
@@ -29,7 +29,7 @@ class SnapshotGenerator {
         if (fhirBase) {
             return fhirBase;
         }
-        const parentEntry = _.find(this.bundle.entry, (entry) => entry.resource.url === url);
+        const parentEntry = this.bundle.entry.find(entry => entry.resource.url === url);
         if (!parentEntry) {
             throw new Error(`Cannot find base definition "${url}" in bundle or core FHIR specification.`);
         }
@@ -166,7 +166,7 @@ class SnapshotGenerator {
         }
         const base = this.getStructureDefinition(structureDefinition.baseDefinition, structureDefinition.type);
         const newElements = JSON.parse(JSON.stringify(base.snapshot.element));
-        const matched = _.filter(newElements, (newElement) => {
+        const matched = newElements.filter(newElement => {
             if (newElement.path === structureDefinition.type) {
                 return false;
             }
@@ -183,7 +183,7 @@ class SnapshotGenerator {
         });
         matched.forEach((snapshotElement) => {
             const snapshotIndex = newElements.indexOf(snapshotElement);
-            const differentialElements = _.filter(structureDefinition.differential.element, (element) => {
+            const differentialElements = structureDefinition.differential.element.filter(element => {
                 const regexString = snapshotElement.path
                     .replace(/\[x\]/g, this.choiceRegexString)
                     .replace(/\./g, '\\.') +
@@ -192,7 +192,7 @@ class SnapshotGenerator {
                 return regex.test(element.path);
             });
             const removeElements = newElements.filter((next) => next === snapshotElement || next.path.indexOf(snapshotElement.path + '.') === 0);
-            _.each(removeElements, (removeElement) => {
+            removeElements.forEach(removeElement => {
                 const index = newElements.indexOf(removeElement);
                 newElements.splice(index, 1);
             });

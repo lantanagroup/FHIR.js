@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const parseConformance_1 = require("./parseConformance");
-const _ = require("underscore");
 class FhirPath {
     constructor(resources, parser) {
         this.operators = ['=', '!', '&', '<', '>', '~'];
@@ -41,9 +40,7 @@ class FhirPath {
             for (let i = 0; i < resources.length; i++) {
                 const resource = resources[i];
                 if (resource.resourceType === 'Bundle') {
-                    const childResources = _.map(resource.entry, function (entry) {
-                        return entry.resource;
-                    });
+                    const childResources = resource.entry.map(e => e.resource);
                     const found = find(childResources, resourceType, id);
                     if (found) {
                         return found;
@@ -72,11 +69,7 @@ class FhirPath {
     getResourceTypes() {
         const self = this;
         const keys = Object.keys(this.parser.parsedStructureDefinitions);
-        return _.chain(keys)
-            .filter(function (key) {
-            return self.parser.parsedStructureDefinitions[key]._kind === 'resource';
-        })
-            .value();
+        return keys.filter(key => self.parser.parsedStructureDefinitions[key]._kind === 'resource');
     }
     parse(fhirPath) {
         const statements = [];
@@ -262,9 +255,7 @@ class FhirPath {
     }
     shouldReturnArray(statements) {
         if (statements.length === 1) {
-            const statementHasWhereFn = _.filter(statements[0].path, function (nextPath) {
-                return nextPath.name === 'where';
-            });
+            const statementHasWhereFn = (statements[0].path || []).filter(nextPath => nextPath.name === 'where');
             if (statementHasWhereFn.length > 0) {
                 return true;
             }

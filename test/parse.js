@@ -1,7 +1,6 @@
 var ParseConformance = require('../parseConformance').ParseConformance;
 var Versions = require('../fhir').Versions;
 var assert = require('assert');
-var _ = require('underscore');
 
 describe('Parse', function () {
     it('should load parsed structure definitions and value sets from cache/file', function () {
@@ -29,10 +28,11 @@ describe('Parse', function () {
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
         assert.equal(valueSetsCount, 579);
 
-        var noCodeValueSets = _.filter(parser.parsedValueSets, function(valueSet) {
+        var noCodeValueSets = Object.keys(parser.parsedValueSets).filter((valueSetUrl) => {
+            var valueSet = parser.parsedValueSets[valueSetUrl];
             var systemHasCodes = false;
 
-            _.each(valueSet.systems, function(system) {
+            valueSet.systems.forEach((system) => {
                 if (system.codes && system.codes.length >= 0) {
                     systemHasCodes = true;
                 }

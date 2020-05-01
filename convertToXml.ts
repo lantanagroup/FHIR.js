@@ -1,8 +1,6 @@
 import * as convert from 'xml-js';
-import * as _ from 'underscore';
 import {ParseConformance} from './parseConformance';
 import {ParsedStructure} from "./model/parsed-structure";
-import {ParsedProperty} from "./model/parsed-property";
 import {XmlHelper} from './xmlHelper';
 
 interface XmlDeclaration {
@@ -78,7 +76,8 @@ export class ConvertToXml {
             throw new Error('Unknown resource type: ' + obj.resourceType);
         }
 
-        _.each(this.parser.parsedStructureDefinitions[obj.resourceType]._properties, (property) => {
+        const properties = this.parser.parsedStructureDefinitions[obj.resourceType]._properties || [];
+        properties.forEach(property => {
             this.propertyToXML(resourceElement, this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
         });
 
@@ -98,7 +97,7 @@ export class ConvertToXml {
 
         if (!obj || obj[propertyName] === undefined || obj[propertyName] === null || propertyName.startsWith('_')) return;
 
-        const propertyType = _.find(parentType._properties, (property: ParsedProperty) => property._name == propertyName);
+        const propertyType = parentType._properties.find(property => property._name == propertyName);
 
         function xmlEscapeString(value) {
             return value
@@ -193,9 +192,7 @@ export class ConvertToXml {
                             if (i == 0) {
                                 nextType = this.parser.parsedStructureDefinitions[typeSplit[i]];
                             } else {
-                                nextType = _.find(nextType._properties, (nextTypeProperty) => {
-                                    return nextTypeProperty._name === typeSplit[i];
-                                });
+                                nextType = nextType._properties.find(nextTypeProperty => nextTypeProperty._name === typeSplit[i]);
                             }
 
                             if (!nextType) {
@@ -207,7 +204,7 @@ export class ConvertToXml {
                     if (!nextType) {
                         console.log('Could not find type ' + propertyType._type);
                     } else {
-                        _.each(nextType._properties, (nextProperty) => {
+                        nextType._properties.forEach(nextProperty => {
                             this.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                         });
                     }
