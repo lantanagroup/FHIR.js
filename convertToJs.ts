@@ -283,7 +283,7 @@ export class ConvertToJs {
                 case 'positiveInt':
                     addExtra(value, index);
 
-                    if (value.attributes['value']) {
+                    if (value.attributes && value.attributes['value']) {
                         if (obj[property._name] instanceof Array) {
                             obj[property._name].push(toNumber(value.attributes['value']))
                         } else {
