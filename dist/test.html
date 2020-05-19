@@ -20,7 +20,7 @@
         
         textarea {
             width: 100%;
-            height: 100%;
+            height: 300px;
         }
     </style>
     <script type="text/javascript" src="bundle.js"></script>
@@ -29,14 +29,14 @@
         $(document).ready(function() {
             var example = {resourceType: "Observation"};
             $('#jsonText').val(JSON.stringify(example, null, '\t'));
-            var fhir = new Fhir();
+            var fhir = new Fhir.Fhir();
             var xml = fhir.objToXml(example);
             $('#xmlText').val(xml);
             $('#xmlText').change(function() {
                 var xml = $('#xmlText').val();
                 try {
                     var obj = fhir.xmlToObj(xml);
-                    $('#jsonText').val(JSON.stringify(obj));
+                    $('#jsonText').val(JSON.stringify(obj, null, '\t'));
                 } catch (ex) { }
             });
             $('#jsonText').change(function() {
