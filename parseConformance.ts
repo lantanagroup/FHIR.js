@@ -328,14 +328,16 @@ export class ParseConformance {
                     });
 
                     if (foundCodeSystem) {
-                        const codes = (foundCodeSystem.concept || []).map(concept => {
-                            return {
+                        const addConcept = (concept: any) => {
+                            foundSystem.codes.push({
                                 code: concept.code,
                                 display: concept.display
-                            };
-                        });
+                            });
 
-                        foundSystem.codes = foundSystem.codes.concat(codes);
+                            (concept.concept || []).forEach(next => addConcept(next));
+                        };
+
+                        (foundCodeSystem.concept || []).forEach(concept => addConcept(concept));
                     }
                 }
 
