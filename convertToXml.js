@@ -47,7 +47,7 @@ class ConvertToXml {
     }
     propertyToXML(parentXmlObj, parentType, obj, propertyName, parentPropertyType) {
         const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
-        if (!obj || obj[propertyName] === undefined || obj[propertyName] === null || propertyName.startsWith('_'))
+        if (propertyName.startsWith('_'))
             return;
         const propertyType = parentType._properties.find(property => property._name == propertyName);
         function xmlEscapeString(value) {
@@ -59,8 +59,6 @@ class ConvertToXml {
                 .replace(/\n/g, '&#xA;');
         }
         const pushProperty = (value, extra) => {
-            if (value === undefined || value === null)
-                return;
             const nextXmlObj = {
                 type: 'element',
                 name: propertyName,
@@ -117,9 +115,11 @@ class ConvertToXml {
                     }
                     break;
                 case 'Resource':
-                    const resourceXmlObj = this.resourceToXML(value).elements[0];
-                    delete resourceXmlObj.attributes.xmlns;
-                    nextXmlObj.elements.push(resourceXmlObj);
+                    if (value) {
+                        const resourceXmlObj = this.resourceToXML(value).elements[0];
+                        delete resourceXmlObj.attributes.xmlns;
+                        nextXmlObj.elements.push(resourceXmlObj);
+                    }
                     break;
                 case 'Element':
                 case 'BackboneElement':
@@ -153,24 +153,35 @@ class ConvertToXml {
                         });
                     }
             }
+            let hasAttributes = false;
+            let hasElements = nextXmlObj.elements && nextXmlObj.elements.length > 0;
+            if (nextXmlObj.attributes) {
+                for (let attrKey in nextXmlObj.attributes) {
+                    if (nextXmlObj.attributes[attrKey] || nextXmlObj.attributes[attrKey] === false || nextXmlObj.attributes[attrKey] === 0) {
+                        hasAttributes = true;
+                    }
+                }
+            }
             if (isAttribute && nextXmlObj.attributes && nextXmlObj.attributes.hasOwnProperty('value')) {
                 if (!parentXmlObj.attributes) {
                     parentXmlObj.attributes = {};
                 }
                 parentXmlObj.attributes[nextXmlObj.name] = nextXmlObj.attributes['value'];
             }
-            else {
+            else if (hasAttributes || hasElements) {
                 parentXmlObj.elements.push(nextXmlObj);
             }
         };
-        if (obj[propertyName] && propertyType._multiple) {
-            for (let i = 0; i < obj[propertyName].length; i++) {
-                const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
-                pushProperty(obj[propertyName][i], extra);
+        if (obj) {
+            if (obj[propertyName] && propertyType._multiple) {
+                for (let i = 0; i < obj[propertyName].length; i++) {
+                    const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+                    pushProperty(obj[propertyName][i], extra);
+                }
             }
-        }
-        else {
-            pushProperty(obj[propertyName], obj['_' + propertyName]);
+            else {
+                pushProperty(obj[propertyName], obj['_' + propertyName]);
+            }
         }
     }
 }

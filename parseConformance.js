@@ -348,9 +348,6 @@ class ParseConformance {
                         _required: backboneElement.min === 1,
                         _properties: []
                     };
-                    if (parentBackboneElement._properties === undefined || parentBackboneElement._properties === null) {
-                        parentBackboneElement._properties = [];    
-                    }
                     parentBackboneElement._properties.push(newProperty);
                     this.populateValueSet(backboneElement, newProperty);
                     if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {

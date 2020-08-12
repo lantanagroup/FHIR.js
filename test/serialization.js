@@ -58,7 +58,7 @@ function biDirectionalTest(xml) {
 
     var cleanXml1 = cleanXml(xml);          // in
     var cleanXml2 = cleanXml(lastXml);      // out
-    assert.equal(cleanXml2, cleanXml1);
+    assert.strictEqual(cleanXml2, cleanXml1);
 }
 
 function checkJsonHasNumber(json, expectedNumber) {
@@ -68,8 +68,8 @@ function checkJsonHasNumber(json, expectedNumber) {
     assert(expectedNumberPos > 0, "very large decimals kept as JSON numbers");
     assert(json[expectedNumberPos] === firstDigit, "very large decimals kept as JSON numbers");
     assert(json[expectedNumberPos - 1] !== '"', "very large decimals kept as JSON numbers");
-    assert.equal(json[expectedNumberPos + expectedNumber.length - 1], lastDigit, "very large decimals kept as JSON numbers");
-    assert.equal(json[expectedNumberPos + expectedNumber.length], ",", "very large decimals kept as JSON numbers");
+    assert.strictEqual(json[expectedNumberPos + expectedNumber.length - 1], lastDigit, "very large decimals kept as JSON numbers");
+    assert.strictEqual(json[expectedNumberPos + expectedNumber.length], ",", "very large decimals kept as JSON numbers");
 }
 
 function assertArray(obj, expectedLength) {
@@ -113,8 +113,8 @@ describe('Serialization', function () {
         it('should un-escape invalid xml characters when serializing to an object', function() {
             var xml = '<?xml version="1.0" encoding="UTF-8"?><ValueSet xmlns="http://hl7.org/fhir"><text><div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div></text><identifier><value value="value &amp; value &lt; value &gt; value"/></identifier></ValueSet>';
             var obj = fhir.xmlToObj(xml);
-            assert.equal(obj.identifier[0].value, 'value & value < value > value');
-            assert.equal(obj.text.div, '<div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div>');
+            assert.strictEqual(obj.identifier[0].value, 'value & value < value > value');
+            assert.strictEqual(obj.text.div, '<div xmlns="http://www.w3.org/1999/xhtml">This is &amp; a test</div>');
         });
 
         it('should escape invalid xml characters in the xhtml', function() {
@@ -125,7 +125,7 @@ describe('Serialization', function () {
                 '        (IHTSDO), and distributed by agreement between IHTSDO and HL7. Implementer use of SNOMED CT\n' +
                 '        is not covered by this agreement</p><p>This value set includes codes from the following code\n' +
                 '        systems:</p><ul><li>Include these codes as defined in <a href="http://www.snomed.org/"><code>http://snomed.info/sct</code></a><table class="none"><tr><td style="white-space:nowrap"><b>Code</b></td><td><b>Display</b></td></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=449868002">449868002</a></td><td>Current every day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428041000124106">428041000124106</a></td><td>Current some day smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=8517006">8517006</a></td><td>Former smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266919005">266919005</a></td><td>Never smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=77176002">77176002</a></td><td>Smoker, current status unknown</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=266927001">266927001</a></td><td>Unknown if ever smoked</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428071000124103">428071000124103</a></td><td>Current Heavy tobacco smoker</td><td/></tr><tr><td><a href="http://browser.ihtsdotools.org/?perspective=full&amp;conceptId1=428061000124105">428061000124105</a></td><td>Current Light tobacco smoker</td><td/></tr></table></li></ul></div>';
-            assert.equal(obj.text.div, expectedXhtml);
+            assert.strictEqual(obj.text.div, expectedXhtml);
         });
 
         it('should handle already-escaped values in an object', function() {
@@ -135,6 +135,23 @@ describe('Serialization', function () {
     });
 
     describe('Extensions', function () {
+        it('should serialize extensions for primitive data type without value in JSON', function () {
+            var resource = {
+                resourceType: 'Observation',
+                _status: {
+                    id: 'super-id',
+                    extension: [{
+                        url: 'http://test.com',
+                        valueString: 'blah'
+                    }]
+                }
+            };
+
+            var xml = fhir.objToXml(resource);
+            var expected = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
+            assert.strictEqual(xml, expected);
+        });
+
         it('should serialize extensions for primitive data types in JSON', function () {
             var resource = {
                 resourceType: 'Observation',
@@ -179,25 +196,36 @@ describe('Serialization', function () {
             var obj = fhir.xmlToObj(xml);
             assert(obj._fhirVersion);
             assert(obj._fhirVersion instanceof Array);
-            assert.equal(obj._fhirVersion.length, 2);
-            assert.equal(obj._fhirVersion[0], null);
+            assert.strictEqual(obj._fhirVersion.length, 2);
+            assert.strictEqual(obj._fhirVersion[0], null);
             assert(obj._fhirVersion[1]);
-            assert.equal(obj._fhirVersion[1].id, 'super-id');
+            assert.strictEqual(obj._fhirVersion[1].id, 'super-id');
             assert(obj._fhirVersion[1].extension);
             assert(obj._fhirVersion[1].extension instanceof Array);
-            assert.equal(obj._fhirVersion[1].extension.length, 1);
-            assert.equal(obj._fhirVersion[1].extension[0].url, 'http://test.com');
-            assert.equal(obj._fhirVersion[1].extension[0].valueString, 'blah');
+            assert.strictEqual(obj._fhirVersion[1].extension.length, 1);
+            assert.strictEqual(obj._fhirVersion[1].extension[0].url, 'http://test.com');
+            assert.strictEqual(obj._fhirVersion[1].extension[0].valueString, 'blah');
+        });
+
+        it('should serialize extensions for a single primitive data type without a value in XML', function () {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
+            var obj = fhir.xmlToObj(xml);
+            assert(!obj.status);
+            assert(obj._status);
+            assert.strictEqual(obj._status.id, 'super-id');
+            assert.strictEqual(obj._status.extension.length, 1);
+            assert.strictEqual(obj._status.extension[0].url, 'http://test.com');
+            assert.strictEqual(obj._status.extension[0].valueString, 'blah');
         });
 
         it('should serialize extensions for a single primitive data type in XML', function () {
             var xml = '<?xml version="1.0" encoding="UTF-8"?><Observation xmlns="http://hl7.org/fhir"><status id="super-id" value="test"><extension url="http://test.com"><valueString value="blah"/></extension></status></Observation>';
             var obj = fhir.xmlToObj(xml);
             assert(obj._status);
-            assert.equal(obj._status.id, 'super-id');
-            assert.equal(obj._status.extension.length, 1);
-            assert.equal(obj._status.extension[0].url, 'http://test.com');
-            assert.equal(obj._status.extension[0].valueString, 'blah');
+            assert.strictEqual(obj._status.id, 'super-id');
+            assert.strictEqual(obj._status.extension.length, 1);
+            assert.strictEqual(obj._status.extension[0].url, 'http://test.com');
+            assert.strictEqual(obj._status.extension[0].valueString, 'blah');
         });
     });
 
@@ -334,13 +362,13 @@ describe('Serialization', function () {
             var ConvertToJs = require('../convertToJs').ConvertToJs;
             var j = new ConvertToJs();
             var tenDs = "DDDDDDDDDD";
-            assert.equal(j.maxLengthOfDs({}), 0);
-            assert.equal(j.maxLengthOfDs(tenDs), 10);
-            assert.equal(j.maxLengthOfDs({"a": tenDs}), 10);
-            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs + tenDs}), 20);
-            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": tenDs, "c": {"d": tenDs + tenDs}}), 20);
-            assert.equal(j.maxLengthOfDs({"a": tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 20);
-            assert.equal(j.maxLengthOfDs({[tenDs + tenDs + tenDs]: tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 30)
+            assert.strictEqual(j.maxLengthOfDs({}), 0);
+            assert.strictEqual(j.maxLengthOfDs(tenDs), 10);
+            assert.strictEqual(j.maxLengthOfDs({"a": tenDs}), 10);
+            assert.strictEqual(j.maxLengthOfDs({"a": tenDs, "b": tenDs + tenDs}), 20);
+            assert.strictEqual(j.maxLengthOfDs({"a": tenDs, "b": tenDs, "c": {"d": tenDs + tenDs}}), 20);
+            assert.strictEqual(j.maxLengthOfDs({"a": tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 20);
+            assert.strictEqual(j.maxLengthOfDs({[tenDs + tenDs + tenDs]: tenDs, "b": 55, "c": {"d": tenDs + tenDs}}), 30)
         });
 
         it('should correctly parse crucible\'s patient', function () {
@@ -387,36 +415,36 @@ describe('Serialization', function () {
 
             assert(xml);
             assert(xml.elements);
-            assert.equal(xml.elements.length, 1);
+            assert.strictEqual(xml.elements.length, 1);
 
             const resourceEle = xml.elements[0];
             assert(resourceEle.elements);
 
             const idEle = resourceEle.elements[0];
             assert(idEle.attributes);
-            assert.equal('id', idEle.name);                                                 // Communication.id
-            assert.equal('rr-communication-single-single', idEle.attributes.value);
+            assert.strictEqual('id', idEle.name);                                                 // Communication.id
+            assert.strictEqual('rr-communication-single-single', idEle.attributes.value);
 
             const payload1Ele = resourceEle.elements[11];
             assert(payload1Ele.elements);
             assert(payload1Ele.attributes);
-            assert.equal('reportability-response-summary', payload1Ele.attributes.id);      // payload[1]/@id
+            assert.strictEqual('reportability-response-summary', payload1Ele.attributes.id);      // payload[1]/@id
 
             const payload2Ele = resourceEle.elements[12];
             assert(payload2Ele.elements);
             assert(payload2Ele.attributes);
-            assert.equal('relevant-reportable-condition', payload2Ele.attributes.id);       // payload[2]/@id
+            assert.strictEqual('relevant-reportable-condition', payload2Ele.attributes.id);       // payload[2]/@id
 
             const payload3Ele = resourceEle.elements[13];
             assert(payload3Ele.elements);
             assert(payload3Ele.attributes);
-            assert.equal('eicr-information', payload3Ele.attributes.id);
+            assert.strictEqual('eicr-information', payload3Ele.attributes.id);
             assert(payload3Ele.elements);
-            assert.equal(3, payload3Ele.elements.length);
+            assert.strictEqual(3, payload3Ele.elements.length);
 
             const extension1Ele = payload3Ele.elements[0];
             assert(extension1Ele.attributes);
-            assert.equal('eicr-processing-status', extension1Ele.attributes.id);
+            assert.strictEqual('eicr-processing-status', extension1Ele.attributes.id);
         });
 
         it('should create XML Bundle from bundle-transaction.json', function () {
