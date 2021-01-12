@@ -131,14 +131,14 @@ class ParseConformance {
             for (let x in structureDefinition.snapshot.element) {
                 const element = structureDefinition.snapshot.element[x];
                 let elementId = structureDefinition.snapshot.element[x].id;
-                elementId = elementId.substring(structureDefinition.id.length + 1);
+                elementId = elementId.substring(structureDefinition.type.length + 1);
                 if (!element.max) {
                     throw 'Expected all base resource elements to have a max value';
                 }
                 if (!elementId || elementId.indexOf('.') > 0 || !element.type) {
                     continue;
                 }
-                if (element.type.length === 1) {
+                if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
                     const newProperty = {
                         _name: elementId,
                         _type: element.type[0].code || 'string',
@@ -149,11 +149,14 @@ class ParseConformance {
                     this.populateValueSet(element, newProperty);
                     if (element.type[0].code == 'BackboneElement' || element.type[0].code == 'Element') {
                         newProperty._properties = [];
-                        this.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[x].id, structureDefinition);
+                        this.populateBackboneElement(parsedStructureDefinition, element.id, structureDefinition);
                     }
                 }
-                else if (elementId.endsWith('[x]')) {
+                else if (elementId.endsWith('[x]') && !elementId.includes(':')) {
                     elementId = elementId.substring(0, elementId.length - 3);
+                    const anySliceRequired = structureDefinition.snapshot.element
+                        .filter((e) => e.id.includes(elementId) && e.min >= 1)
+                        .length > 0;
                     for (let y in element.type) {
                         let choiceType = element.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
@@ -163,13 +166,13 @@ class ParseConformance {
                             _choice: elementId,
                             _type: element.type[y].code,
                             _multiple: element.max !== '1',
-                            _required: element.min === 1
+                            _required: element.min === 1 || anySliceRequired
                         };
                         this.populateValueSet(element, newProperty);
                         parsedStructureDefinition._properties.push(newProperty);
                     }
                 }
-                else {
+                else if (!elementId.includes(':')) {
                     let isReference = true;
                     for (let y in element.type) {
                         if (element.type[y].code !== 'Reference') {
@@ -310,18 +313,18 @@ class ParseConformance {
             }
         }
     }
-    populateBackboneElement(resourceType, parentElementId, profile) {
-        for (let y in profile.snapshot.element) {
-            const backboneElement = profile.snapshot.element[y];
+    populateBackboneElement(parsedStructureDefinition, parentElementId, structureDefinition) {
+        for (let y in structureDefinition.snapshot.element) {
+            const backboneElement = structureDefinition.snapshot.element[y];
             let backboneElementId = backboneElement.id;
             if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
                 continue;
             }
-            backboneElementId = backboneElementId.substring(profile.id.length + 1);
-            const parentElementIdSplit = parentElementId.substring(profile.id.length + 1).split('.');
+            backboneElementId = backboneElementId.substring(structureDefinition.type.length + 1);
+            const parentElementIdSplit = parentElementId.substring(structureDefinition.type.length + 1).split('.');
             let parentBackboneElement = null;
             for (let j = 0; j < parentElementIdSplit.length; j++) {
-                const properties = !parentBackboneElement ? resourceType._properties : parentBackboneElement._properties;
+                const properties = !parentBackboneElement ? parsedStructureDefinition._properties : parentBackboneElement._properties;
                 parentBackboneElement = properties.find(property => property._name == parentElementIdSplit[j]);
                 if (!parentBackboneElement) {
                     throw 'Parent backbone element not found';
@@ -340,7 +343,7 @@ class ParseConformance {
                         _required: backboneElement.min === 1
                     });
                 }
-                else if (backboneElement.type.length == 1) {
+                else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: backboneElement.type[0].code,
@@ -351,10 +354,13 @@ class ParseConformance {
                     parentBackboneElement._properties.push(newProperty);
                     this.populateValueSet(backboneElement, newProperty);
                     if (backboneElement.type[0].code === 'BackboneElement' || backboneElement.type[0].code == 'Element') {
-                        this.populateBackboneElement(resourceType, profile.snapshot.element[y].id, profile);
+                        this.populateBackboneElement(parsedStructureDefinition, structureDefinition.snapshot.element[y].id, structureDefinition);
                     }
                 }
                 else if (backboneElement.id.endsWith('[x]')) {
+                    const anySliceRequired = structureDefinition.snapshot.element
+                        .filter((e) => e.id.includes(backboneElement) && e.min >= 1)
+                        .length > 0;
                     for (let y in backboneElement.type) {
                         let choiceType = backboneElement.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
@@ -364,13 +370,13 @@ class ParseConformance {
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
                             _type: backboneElement.type[y].code,
                             _multiple: backboneElement.max !== '1',
-                            _required: backboneElement.min === 1
+                            _required: backboneElement.min === 1 || anySliceRequired
                         };
                         parentBackboneElement._properties.push(newProperty);
                         this.populateValueSet(backboneElement, newProperty);
                     }
                 }
-                else {
+                else if (!backboneElementId.includes(':')) {
                     let isReference = true;
                     for (let z in backboneElement.type) {
                         if (backboneElement.type[z].code !== 'Reference') {

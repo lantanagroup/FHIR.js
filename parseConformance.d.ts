@@ -18,5 +18,5 @@ export declare class ParseConformance {
     parseStructureDefinition(structureDefinition: any): ParsedStructure;
     parseValueSet(valueSet: any): ParsedValueSet;
     populateValueSet(element: any, property: ParsedProperty): void;
-    populateBackboneElement(resourceType: any, parentElementId: any, profile: any): void;
+    populateBackboneElement(parsedStructureDefinition: any, parentElementId: any, structureDefinition: any): void;
 }

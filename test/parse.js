@@ -103,4 +103,18 @@ describe('Parse', function () {
 
         // TODO: Should have more unit tests to verify that parsing STU3 resources works properly
     });
+
+    it('should parse custom profiles', function() {
+        var bmiProfile = require('./data/r4/customProfile.json');
+
+        var parser = new ParseConformance(true);
+        parser.parseStructureDefinition(bmiProfile)
+        assert.strictEqual(Object.keys(parser.parsedStructureDefinitions).length, 212);
+        assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.length, 38)
+        // valueQuantity should be the only value field, because of the cardinality restriction in the bmi profile
+        // valueQuantity should be required because at least one slice has a cardinality of 1
+        assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.filter((p) => {
+            return p._name == 'valueQuantity' && p._required == true
+        }).length, 1)
+    });
 });
