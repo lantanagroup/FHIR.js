@@ -41,8 +41,8 @@ class ParseConformance {
             }
         }
         else {
-            for (let i = 0; i < this.parsedStructureDefinitions.length; i++) {
-                const parsedProfile = this.parsedStructureDefinitions[i];
+            for (const profileId in this.parsedStructureDefinitions) {
+                const parsedProfile = this.parsedStructureDefinitions[profileId];
                 this.ensurePropertyMetaData(parsedProfile._properties);
             }
         }

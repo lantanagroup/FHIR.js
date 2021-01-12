@@ -1,18 +1,18 @@
-import {Versions} from './fhir';
-import {ParsedStructure} from "./model/parsed-structure";
-import {ParsedValueSet} from "./model/parsed-value-set";
-import {ParsedProperty} from "./model/parsed-property";
-import {ParsedSystem} from "./model/parsed-system";
-import {ParsedConcept} from "./model/parsed-concept";
-import {Constants} from "./constants";
+import { Versions } from './fhir';
+import { ParsedStructure } from "./model/parsed-structure";
+import { ParsedValueSet } from "./model/parsed-value-set";
+import { ParsedProperty } from "./model/parsed-property";
+import { ParsedSystem } from "./model/parsed-system";
+import { ParsedConcept } from "./model/parsed-concept";
+import { Constants } from "./constants";
 
 export class ParseConformance {
-    public parsedStructureDefinitions: ParsedStructure[];
+    public parsedStructureDefinitions: { [key: string]: ParsedStructure };
     public parsedValueSets: { [key: string]: ParsedValueSet };
     public structureDefinitions: any[] = [];
     private version: string;
     private codeSystems: any[];
-    
+
     /**
      * Class responsible for parsing StructureDefinition and ValueSet resources into bare-minimum information
      * needed for serialization and validation.
@@ -64,13 +64,13 @@ export class ParseConformance {
                 this.ensurePropertyMetaData(primitiveProp._properties || []);
             }
         } else {
-            for (let i = 0; i < this.parsedStructureDefinitions.length; i++) {
-                const parsedProfile = this.parsedStructureDefinitions[i];
+            for (const profileId in this.parsedStructureDefinitions) {
+                const parsedProfile = this.parsedStructureDefinitions[profileId]
                 this.ensurePropertyMetaData(parsedProfile._properties);
             }
         }
     }
-    
+
     /**
      * Sorts an array of value sets based on each value set's dependencies.
      * If a value set depends on another value set, the dependent value set
@@ -244,8 +244,8 @@ export class ParseConformance {
 
                         parsedStructureDefinition._properties.push(newProperty);
                     }
-                // Skip slices for now...
-                } else if(!elementId.includes(':')) {
+                    // Skip slices for now...
+                } else if (!elementId.includes(':')) {
                     let isReference = true;
 
                     for (let y in element.type) {
@@ -357,7 +357,7 @@ export class ParseConformance {
                             if (!foundSystem) {
                                 newValueSet.systems.push({
                                     uri: includeSystem.uri,
-                                    codes: [].concat(<ParsedConcept[]> includeSystem.codes)
+                                    codes: [].concat(<ParsedConcept[]>includeSystem.codes)
                                 });
                             } else {
                                 foundSystem.codes = foundSystem.codes.concat(includeSystem.codes);
@@ -499,7 +499,7 @@ export class ParseConformance {
 
                         this.populateValueSet(backboneElement, newProperty);
                     }
-                // Skip slices for now...
+                    // Skip slices for now...
                 } else if (!backboneElementId.includes(':')) {
                     let isReference = true;
 
