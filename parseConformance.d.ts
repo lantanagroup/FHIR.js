@@ -2,7 +2,9 @@ import { ParsedStructure } from "./model/parsed-structure";
 import { ParsedValueSet } from "./model/parsed-value-set";
 import { ParsedProperty } from "./model/parsed-property";
 export declare class ParseConformance {
-    parsedStructureDefinitions: ParsedStructure[];
+    parsedStructureDefinitions: {
+        [key: string]: ParsedStructure;
+    };
     parsedValueSets: {
         [key: string]: ParsedValueSet;
     };
@@ -18,5 +20,5 @@ export declare class ParseConformance {
     parseStructureDefinition(structureDefinition: any): ParsedStructure;
     parseValueSet(valueSet: any): ParsedValueSet;
     populateValueSet(element: any, property: ParsedProperty): void;
-    populateBackboneElement(resourceType: any, parentElementId: any, profile: any): void;
+    populateBackboneElement(parsedStructureDefinition: any, parentElementId: any, structureDefinition: any): void;
 }

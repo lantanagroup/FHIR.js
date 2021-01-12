@@ -1,7 +1,8 @@
 import * as convert from 'xml-js';
-import {ParseConformance} from './parseConformance';
-import {ParsedStructure} from "./model/parsed-structure";
-import {XmlHelper} from './xmlHelper';
+import { ParseConformance } from './parseConformance';
+import { ParsedStructure } from "./model/parsed-structure";
+import { ParsedProperty } from './model/parsed-property';
+import { XmlHelper } from './xmlHelper';
 
 interface XmlDeclaration {
     attributes?: { [id: string]: any };
@@ -25,9 +26,9 @@ export class ConvertToXml {
     readonly attributeProperties = {
         'Extension': 'url'
     };
-    
+
     private parser: ParseConformance;
-    
+
     constructor(parser?: ParseConformance) {
         this.parser = parser || new ParseConformance(true);
     }
@@ -91,7 +92,7 @@ export class ConvertToXml {
      * @param propertyName
      * @private
      */
-    private propertyToXML(parentXmlObj: XmlElement, parentType: ParsedStructure, obj: any, propertyName: string, parentPropertyType?: string) {
+    private propertyToXML(parentXmlObj: XmlElement, parentType: ParsedStructure | ParsedProperty, obj: any, propertyName: string, parentPropertyType?: string) {
         // id without a parentPropertyType means it is an id of a resource, which would produce an <id> element
         const isAttribute = (propertyName === 'id' && !!parentPropertyType) || this.attributeProperties[parentPropertyType] === propertyName;
 
@@ -180,11 +181,11 @@ export class ConvertToXml {
                 case 'BackboneElement':
                     for (let x in propertyType._properties) {
                         const nextProperty = propertyType._properties[x];
-                        this.propertyToXML(nextXmlObj, <ParsedStructure><any> propertyType, value, nextProperty._name, propertyType._type);
+                        this.propertyToXML(nextXmlObj, <ParsedStructure><any>propertyType, value, nextProperty._name, propertyType._type);
                     }
                     break;
                 default:
-                    let nextType = this.parser.parsedStructureDefinitions[propertyType._type];
+                    let nextType: ParsedStructure | ParsedProperty = this.parser.parsedStructureDefinitions[propertyType._type];
 
                     if (propertyType._type.startsWith('#')) {
                         const typeSplit = propertyType._type.substring(1).split('.');
