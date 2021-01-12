@@ -119,7 +119,13 @@ describe('Parse', function () {
         // Latest FHIR resources use code "http://hl7.org/fhirpath/System.String" instead of "id" for id
         assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties[0]._type, 'id')
         // Type of BackboneElement id should be string
-        assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.filter(
-            (p) => p._name === 'referenceRange' && p._properties[0]._type === 'string').length, 1)
+        assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.filter((p) => 
+            p._name === 'referenceRange' && 
+            p._properties[0]._name === 'id' &&
+            p._properties[0]._type === 'string').length, 1)
+        assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.filter((p) => 
+            p._name === 'referenceRange' && 
+            p._properties[1]._name == '_id' && 
+            p._properties[1]._type == 'Element').length, 1)
     });
 });

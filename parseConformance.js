@@ -39,6 +39,10 @@ class ParseConformance {
                 }
                 this.ensurePropertyMetaData(primitiveProp._properties || []);
             }
+            const backboneProperties = properties.filter(p => p._type === 'BackboneElement');
+            for (let backboneProp of backboneProperties) {
+                this.ensurePropertyMetaData(backboneProp._properties || []);
+            }
         }
         else {
             for (const profileId in this.parsedStructureDefinitions) {
