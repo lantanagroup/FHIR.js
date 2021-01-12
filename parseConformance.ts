@@ -209,9 +209,11 @@ export class ParseConformance {
                 }
 
                 if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
+                    // Latest FHIR resources use code "http://hl7.org/fhirpath/System.String" instead of "id" for element ids
+                    const type = elementId === 'id' ? 'id' : element.type[0].code || 'string'
                     const newProperty: ParsedProperty = {
                         _name: elementId,
-                        _type: element.type[0].code || 'string',
+                        _type: type,
                         _multiple: element.max !== '1',
                         _required: element.min === 1
                     };
@@ -425,9 +427,9 @@ export class ParseConformance {
     }
 
     /**
-     * @param {ParsedStructureDefinition} resource
+     * @param {ParsedStructureDefinition} parsedStructureDefinition
      * @param {string} parentElementId
-     * @param {StructureDefinition} profile
+     * @param {StructureDefinition} structureDefinition
      * @private
      */
     public populateBackboneElement(parsedStructureDefinition, parentElementId, structureDefinition) {
@@ -466,9 +468,11 @@ export class ParseConformance {
                         _required: backboneElement.min === 1
                     });
                 } else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
+                    // BackboneElement uses string as type of the id property
+                    const type = backboneElementId.endsWith('.id') ? 'string' : backboneElement.type[0].code
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                        _type: backboneElement.type[0].code,
+                        _type: type,
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1,
                         _properties: []

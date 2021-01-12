@@ -139,9 +139,10 @@ class ParseConformance {
                     continue;
                 }
                 if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
+                    const type = elementId === 'id' ? 'id' : element.type[0].code || 'string';
                     const newProperty = {
                         _name: elementId,
-                        _type: element.type[0].code || 'string',
+                        _type: type,
                         _multiple: element.max !== '1',
                         _required: element.min === 1
                     };
@@ -344,9 +345,10 @@ class ParseConformance {
                     });
                 }
                 else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
+                    const type = backboneElementId.endsWith('.id') ? 'string' : backboneElement.type[0].code;
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
-                        _type: backboneElement.type[0].code,
+                        _type: type,
                         _multiple: backboneElement.max !== '1',
                         _required: backboneElement.min === 1,
                         _properties: []
