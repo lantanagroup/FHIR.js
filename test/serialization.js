@@ -81,6 +81,8 @@ function assertArray(obj, expectedLength) {
 }
 
 describe('Serialization', function () {
+    this.timeout(5000);
+
     var fhir = new Fhir();
 
     describe('Escaping', function() {

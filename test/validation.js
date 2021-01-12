@@ -17,6 +17,8 @@ var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.
 var implementationGuideJson = fs.readFileSync('./test/data/r4/implementationGuide.json').toString();
 
 describe('Validation', function () {
+    this.timeout(5000);
+
     describe('JS', function () {
         var fhirR4 = new Fhir();
         var stu3Parser = new ParseConformance(false, Versions.STU3);

@@ -8,6 +8,8 @@ var sd1 = JSON.parse(fs.readFileSync('./test/data/r4/structureDefinition.json').
 var sd2 = JSON.parse(fs.readFileSync('./test/data/r4/inheritedStructureDefinition.json').toString());
 
 describe('SnapshotGenerator', function() {
+    this.timeout(5000);
+    
     var types = require('../profiles/r4/profiles-types.json');
     var resources = require('../profiles/r4/profiles-resources.json');
     var valueSets = require('../profiles/r4/valuesets.json');
