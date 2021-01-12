@@ -70,9 +70,9 @@ describe('Parse', function () {
         var parsedDifferential = parsedStructureDefinition._properties[58];
         assert.strictEqual(parsedDifferential._name, 'differential');
         assert(parsedDifferential._properties);
-        assert.strictEqual(parsedDifferential._properties.length, 4);
+        assert.strictEqual(parsedDifferential._properties.length, 5);
 
-        var parsedDifferentialElement = parsedDifferential._properties[3];
+        var parsedDifferentialElement = parsedDifferential._properties[4];
         assert(parsedDifferentialElement);
         assert(parsedDifferentialElement._properties);
         assert.strictEqual(parsedDifferentialElement._properties.length, 0);
