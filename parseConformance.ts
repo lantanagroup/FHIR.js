@@ -216,7 +216,11 @@ export class ParseConformance {
 
                 if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
                     // Latest FHIR resources use code "http://hl7.org/fhirpath/System.String" instead of "id" for element ids
-                    const type = elementId === 'id' ? 'id' : element.type[0].code || 'string'
+                    let type = elementId === 'id' ? 'id' : element.type[0].code || 'string'
+                    if (type.startsWith('http://hl7.org/fhirpath/System.')) {
+                        type = type.substring('http://hl7.org/fhirpath/System.'.length)
+                        type = type.charAt(0).toLowerCase() + type.substring(1)
+                    }
                     const newProperty: ParsedProperty = {
                         _name: elementId,
                         _type: type,
@@ -475,7 +479,11 @@ export class ParseConformance {
                     });
                 } else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
                     // BackboneElement uses string as type of the id property
-                    const type = backboneElementId.endsWith('.id') ? 'string' : backboneElement.type[0].code
+                    let type = backboneElement.type[0].code
+                    if (type.startsWith('http://hl7.org/fhirpath/System.')) {
+                        type = type.substring('http://hl7.org/fhirpath/System.'.length)
+                        type = type.charAt(0).toLowerCase() + type.substring(1)
+                    }
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
