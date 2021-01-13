@@ -46,7 +46,10 @@ export class ParseConformance {
 
     private ensurePropertyMetaData(properties?: ParsedProperty[]) {
         if (properties) {
-            const primitiveProperties = properties.filter(p => Constants.PrimitiveTypes.indexOf(p._type) >= 0);
+            const primitiveProperties = properties
+                .filter(p => Constants.PrimitiveTypes.indexOf(p._type) >= 0)
+                // Constants.PrimitiveTypes contains Element so an additional check for leading underscores is necessary
+                .filter(p => !p._name.startsWith('_'));
 
             for (let primitiveProp of primitiveProperties) {
                 const primitivePropIndex = properties.indexOf(primitiveProp);

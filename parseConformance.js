@@ -25,7 +25,9 @@ class ParseConformance {
     }
     ensurePropertyMetaData(properties) {
         if (properties) {
-            const primitiveProperties = properties.filter(p => constants_1.Constants.PrimitiveTypes.indexOf(p._type) >= 0);
+            const primitiveProperties = properties
+                .filter(p => constants_1.Constants.PrimitiveTypes.indexOf(p._type) >= 0)
+                .filter(p => !p._name.startsWith('_'));
             for (let primitiveProp of primitiveProperties) {
                 const primitivePropIndex = properties.indexOf(primitiveProp);
                 let foundMeta = properties.find(p => p._name === "_" + primitiveProp._name);
