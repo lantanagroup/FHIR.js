@@ -9,6 +9,12 @@ describe('Parse', function () {
         assert(parser.parsedStructureDefinitions);
         assert.equal(Object.keys(parser.parsedStructureDefinitions).length, 211);
         assert.equal(Object.keys(parser.parsedValueSets).length, 579);
+        
+        // make sure that ensurePropertyMetaData does not add _meta fields for primitives that already exist
+        assert.strictEqual(
+            parser.parsedStructureDefinitions['Bundle']._properties
+                .find(p => p._name === 'entry')._properties
+                .filter(e => e._name === '__id').length, 0);
     });
 
     it('should parse bundles', function () {
