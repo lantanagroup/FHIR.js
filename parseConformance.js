@@ -145,7 +145,11 @@ class ParseConformance {
                     continue;
                 }
                 if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
-                    const type = elementId === 'id' ? 'id' : element.type[0].code || 'string';
+                    let type = elementId === 'id' ? 'id' : element.type[0].code || 'string';
+                    if (type.startsWith('http://hl7.org/fhirpath/System.')) {
+                        type = type.substring('http://hl7.org/fhirpath/System.'.length);
+                        type = type.charAt(0).toLowerCase() + type.substring(1);
+                    }
                     const newProperty = {
                         _name: elementId,
                         _type: type,
@@ -351,7 +355,11 @@ class ParseConformance {
                     });
                 }
                 else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
-                    const type = backboneElementId.endsWith('.id') ? 'string' : backboneElement.type[0].code;
+                    let type = backboneElement.type[0].code;
+                    if (type.startsWith('http://hl7.org/fhirpath/System.')) {
+                        type = type.substring('http://hl7.org/fhirpath/System.'.length);
+                        type = type.charAt(0).toLowerCase() + type.substring(1);
+                    }
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
