@@ -238,10 +238,20 @@ export class ParseConformance {
                         newProperty._properties = [];
                         this.populateBackboneElement(parsedStructureDefinition, element.id, structureDefinition);
                     }
-                } else if (elementId.endsWith('[x]') && !elementId.includes(':')) {
+                } else if (elementId.endsWith('[x]')) {
                     elementId = elementId.substring(0, elementId.length - 3);
-                    const anySliceRequired = structureDefinition.snapshot.element
-                        .filter((e) => e.id.includes(elementId) && e.min >= 1)
+                    const elementPrevPath = element.id.substring(0, element.id.lastIndexOf('.'));
+                    const elementRequired = structureDefinition.snapshot.element
+                        .filter((e) => {
+                            const choiceRequired = e.id.startsWith(elementPrevPath + '.' + elementId) &&
+                                e.id !== elementPrevPath + '.' + elementId + '[x]' &&
+                                e.id.split('.').length === element.id.split('.').length &&
+                                e.min >= 1;
+                            const sliceRequired = e.id.startsWith(elementPrevPath + '.' + elementId + '[x]:') &&
+                                e.id.split('.').length === element.id.split('.').length &&
+                                e.min >= 1;
+                            return choiceRequired || sliceRequired;
+                        })
                         .length > 0;
                     for (let y in element.type) {
                         let choiceType = element.type[y].code;
@@ -252,7 +262,7 @@ export class ParseConformance {
                             _choice: elementId,
                             _type: element.type[y].code,
                             _multiple: element.max !== '1',
-                            _required: element.min === 1 || anySliceRequired
+                            _required: element.min === 1 || elementRequired
                         };
 
                         this.populateValueSet(element, newProperty);
