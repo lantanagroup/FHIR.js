@@ -285,18 +285,18 @@ class ConvertToJs {
                 return false;
             }
             else {
-                throw new Error("value supposed to be a boolean but got: " + value);
+                throw new Error("Value should be a boolean but got: " + value);
             }
         }
         function toNumber(value) {
             if (/^-?\d+$/.test(value) == false) {
-                throw new Error("value supposed to be a number but got: " + value);
+                throw new Error("Value should be a number but got: " + value);
             }
             return parseInt(value, 10);
         }
         function convertDecimal(value, surroundDecimalsWith) {
             if (/^-?([0]|([1-9][0-9]*))(\.[0-9]+)?$/.test(value) == false) {
-                throw new Error("value supposed to be a decimal number but got: " + value);
+                throw new Error("Value should be a decimal number but got: " + value);
             }
             if (surroundDecimalsWith) {
                 return {

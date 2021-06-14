@@ -24,6 +24,7 @@ var bmiProfileXml = fs.readFileSync('./test/data/r4/bmi.profile.xml').toString()
 var vsSmokeStatusXml = fs.readFileSync('./test/data/r4/ValueSet-us-core-observation-ccdasmokingstatus.xml').toString();
 var communicationJson = fs.readFileSync('./test/data/stu3/communication.json').toString();
 var implementationGuideXml = fs.readFileSync('./test/data/r4/implementationGuide.xml').toString();
+var bundleXml = fs.readFileSync('./test/data/r4/bundle-example.xml').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -40,6 +41,7 @@ function cleanXml(xml) {
     next = next.replace(/\s{2,20}/g, ' ');
     next = next.replace(/\>\s+\</g, '><');
     next = next.replace(/\s\/>/g, '/>');
+    // next = next.replace(/\w+(\s)\\>/g, '');   // slow performance
     return next.trim();
 }
 
@@ -53,11 +55,13 @@ function biDirectionalTest(xml) {
     // Convert to JS obj, and then back to XML
     var obj = fhir.xmlToObj(xml);
     var nextXml = fhir.objToXml(obj);
+    var cleanedNextXml = cleanXml(nextXml);
     var lastObj = fhir.xmlToObj(nextXml);
     var lastXml = fhir.objToXml(lastObj);
 
     var cleanXml1 = cleanXml(xml);          // in
     var cleanXml2 = cleanXml(lastXml);      // out
+    assert.strictEqual(cleanXml1, cleanedNextXml);
     assert.strictEqual(cleanXml2, cleanXml1);
 }
 
@@ -232,6 +236,10 @@ describe('Serialization', function () {
     });
 
     describe('XML bi-directional', function () {
+        it('should serialize bundle xml', function() {
+            biDirectionalTest(bundleXml);
+        });
+
         it('should serialize value set xml', function() {
             biDirectionalTest(vsSmokeStatusXml);
         });
@@ -240,7 +248,7 @@ describe('Serialization', function () {
             biDirectionalTest(bmiProfileXml);
         });
 
-        it('should serialize bundle xml', function () {
+        it('should serialize adrenal bundle xml', function () {
             biDirectionalTest(bundleTransactionXml);
         });
 
