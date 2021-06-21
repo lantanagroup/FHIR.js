@@ -144,7 +144,7 @@ class ParseConformance {
                 if (!elementId || elementId.indexOf('.') > 0 || !element.type) {
                     continue;
                 }
-                if (element.type.length === 1 && !elementId.includes('[x]') && !elementId.includes(':')) {
+                if (element.type.length === 1 && element.type[0].code !== 'Reference' && !elementId.includes('[x]') && !elementId.includes(':')) {
                     let type = elementId === 'id' ? 'id' : element.type[0].code || 'string';
                     if (type.startsWith('http://hl7.org/fhirpath/System.')) {
                         type = type.substring('http://hl7.org/fhirpath/System.'.length);
@@ -201,11 +201,17 @@ class ParseConformance {
                             break;
                         }
                     }
+                    let targetProfiles = null;
+                    if (element.type.length > 0) {
+                        targetProfiles = element.type[0].targetProfile;
+                    }
                     if (isReference) {
                         parsedStructureDefinition._properties.push({
                             _name: elementId,
                             _type: 'Reference',
-                            _multiple: element.max !== '1'
+                            _targetProfiles: targetProfiles,
+                            _multiple: element.max !== '1',
+                            _required: element.min === 1
                         });
                     }
                     else {
