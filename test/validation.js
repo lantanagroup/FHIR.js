@@ -324,6 +324,19 @@ describe('Validation', function () {
             assert.equal(result.messages.length, 1);
         });
 
+        it('should fail wrong reference type', function () {
+            var immunization = JSON.parse(immunizationExampleJson);
+            immunization.patient.reference = 'Abc/xyz';
+
+            var result = fhirR4.validate(immunization);
+
+            assert(result);
+            assert.equal(result.valid, false);
+
+            assert(result.messages);
+            assert.equal(result.messages.length, 2);
+        });
+
         it('should validate audit-event-example.json successfully, with required boolean', function () {
             var auditEvent = JSON.parse(auditEventExampleJson);
             var result = fhirR4.validate(auditEvent);
