@@ -269,6 +269,32 @@ class Validator {
             const nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
+            const targetProfiles = (property
+                ._targetProfiles || [])
+                .map((p) => {
+                const split = p.split('/');
+                return split[split.length - 1];
+            });
+            if (property._type === 'Reference' && targetProfiles.length != 0 && targetProfiles.indexOf('Resource') < 0) {
+                const targetProfiles = property
+                    ._targetProfiles
+                    .map((p) => {
+                    const split = p.split('/');
+                    return split[split.length - 1];
+                });
+                const referenceSplit = obj.reference.split('|')[0].split('/');
+                if (obj.type != null) {
+                    if (targetProfiles.indexOf(obj.type) < 0) {
+                        this.addError(treeDisplay, 'Invalid type for reference ' + JSON.stringify(obj));
+                    }
+                }
+                else if (referenceSplit.length >= 2) {
+                    const type = referenceSplit[referenceSplit.length - 2];
+                    if (targetProfiles.indexOf(type) < 0) {
+                        this.addError(treeDisplay, 'Invalid type for reference ' + JSON.stringify(obj));
+                    }
+                }
+            }
         }
         else if (property._type !== 'xhtml' && property._type !== 'BackboneElement' && propertyTypeStructure && propertyTypeStructure._properties) {
             this.validateProperties(obj, propertyTypeStructure._properties, tree);
