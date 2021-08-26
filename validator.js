@@ -76,9 +76,16 @@ class Validator {
         }
         return display;
     }
-    checkCode(valueSet, code, system) {
+    checkCode(treeDisplay, parsedValueSet, valueSetUrl, code, system) {
+        if (this.options && this.options.beforeCheckCode && this.options.beforeCheckCode(valueSetUrl, code, system)) {
+            return true;
+        }
+        if (!parsedValueSet) {
+            this.addInfo(treeDisplay, 'Value set "' + valueSetUrl + '" could not be found.');
+            return null;
+        }
         if (system) {
-            const foundSystem = valueSet.systems.find(nextSystem => {
+            const foundSystem = parsedValueSet.systems.find(nextSystem => {
                 return nextSystem.uri === system;
             });
             if (foundSystem) {
@@ -91,7 +98,7 @@ class Validator {
         }
         else {
             let valid = false;
-            valueSet.systems.forEach(function (nextSystem) {
+            parsedValueSet.systems.forEach(function (nextSystem) {
                 const foundCode = nextSystem.codes.find(nextCode => nextCode.code === code);
                 if (foundCode) {
                     valid = true;
@@ -145,38 +152,20 @@ class Validator {
     validateNext(obj, property, tree) {
         const treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
         const propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
-        if (property._valueSet) {
+        if (property._valueSet && !this.options.skipCodeValidation) {
             let valueSetUrl = property._valueSet;
             if (valueSetUrl && valueSetUrl.indexOf('|') > 0) {
                 valueSetUrl = valueSetUrl.substring(0, valueSetUrl.indexOf('|'));
             }
             const foundValueSet = this.parser.parsedValueSets[valueSetUrl];
-            if (!foundValueSet) {
-                this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
-            }
-            else {
-                if (property._type === 'CodeableConcept') {
-                    let found = false;
-                    (obj.coding || []).forEach(coding => {
-                        if (this.checkCode(foundValueSet, coding.code, coding.system)) {
-                            found = true;
-                        }
-                        else {
-                            const msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
-                            if (property._valueSetStrength === 'required') {
-                                this.addError(treeDisplay, msg);
-                            }
-                            else {
-                                this.addWarn(treeDisplay, msg);
-                            }
-                        }
-                    });
-                    if (!found) {
+            if (property._type === 'CodeableConcept') {
+                let found = false;
+                (obj.coding || []).forEach(coding => {
+                    if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, coding.code, coding.system)) {
+                        found = true;
                     }
-                }
-                else if (property._type === 'Coding') {
-                    if (!this.checkCode(foundValueSet, obj.code, obj.system)) {
-                        const msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                    else {
+                        const msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
                         if (property._valueSetStrength === 'required') {
                             this.addError(treeDisplay, msg);
                         }
@@ -184,15 +173,28 @@ class Validator {
                             this.addWarn(treeDisplay, msg);
                         }
                     }
+                });
+                if (!found) {
                 }
-                else if (property._type === 'code') {
-                    if (!this.checkCode(foundValueSet, obj)) {
-                        if (property._valueSetStrength === 'required') {
-                            this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
-                        }
-                        else {
-                            this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
-                        }
+            }
+            else if (property._type === 'Coding') {
+                if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, obj.code, obj.system) === false) {
+                    const msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                    if (property._valueSetStrength === 'required') {
+                        this.addError(treeDisplay, msg);
+                    }
+                    else {
+                        this.addWarn(treeDisplay, msg);
+                    }
+                }
+            }
+            else if (property._type === 'code') {
+                if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, obj) === false) {
+                    if (property._valueSetStrength === 'required') {
+                        this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
+                    }
+                    else {
+                        this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
                     }
                 }
             }

@@ -219,7 +219,7 @@ describe('Validation', function () {
             var warnings = results.messages.filter((message) => {
                 return message.severity === 'warning';
             });
-            assert.equal(warnings.length, 1);
+            assert.equal(warnings.length, 5);
         });
 
         it('should fail JS bundle with incorrect type', function () {
@@ -321,7 +321,7 @@ describe('Validation', function () {
             assert.equal(result.valid, true);
 
             assert(result.messages);
-            assert.equal(result.messages.length, 1);
+            assert.equal(result.messages.length, 2);
         });
 
         it('should fail wrong reference type', function () {
@@ -334,7 +334,7 @@ describe('Validation', function () {
             assert.equal(result.valid, false);
 
             assert(result.messages);
-            assert.equal(result.messages.length, 2);
+            assert.equal(result.messages.length, 3);
         });
 
         it('should validate audit-event-example.json successfully, with required boolean', function () {
@@ -436,6 +436,86 @@ describe('Validation', function () {
             };
 
             var results = fhirR4.validate(ig);
+        });
+
+        it('should validate code using beforeCheckCode()', function() {
+            const obs = {
+                resourceType: 'Observation',
+                id: 'test',
+                status: 'preliminary',
+                code: {
+                    coding: [{
+                        code: 'test-code',
+                        system: 'http://test.com'
+                    }]
+                }
+            };
+
+            let beforeCheckCodeCalled = false;
+            const results = fhirR4.validate(obs, {
+                beforeCheckCode: function (valueSetUrl, code, system) {
+                    if (valueSetUrl === 'http://hl7.org/fhir/ValueSet/observation-codes' && code === 'test-code' && system === 'http://test.com') {
+                        beforeCheckCodeCalled = true;
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+
+            assert.strictEqual(beforeCheckCodeCalled, true);
+            assert.strictEqual(results.messages.length, 0);
+        });
+
+        it('should skip code validation', function() {
+            const obs = {
+                resourceType: 'Observation',
+                id: 'test',
+                status: 'preliminary',
+                code: {
+                    coding: [{
+                        code: 'test-code',
+                        system: 'http://test.com'
+                    }]
+                }
+            };
+
+            let beforeCheckCodeCalled = false;
+            const results = fhirR4.validate(obs, {
+                skipCodeValidation: true,
+                beforeCheckCode: function (valueSetUrl, code, system) {
+                    beforeCheckCodeCalled = true;
+                    return false;
+                }
+            });
+
+            assert.strictEqual(beforeCheckCodeCalled, false);
+            assert.strictEqual(results.messages.length, 0);
+        });
+
+        it('should validate code using beforeCheckCode and return warnings', function() {
+            const obs = {
+                resourceType: 'Observation',
+                id: 'test',
+                status: 'preliminary',
+                code: {
+                    coding: [{
+                        code: 'test-code',
+                        system: 'http://test.com'
+                    }]
+                }
+            };
+
+            let beforeCheckCodeCalled = false;
+            const results = fhirR4.validate(obs, {
+                beforeCheckCode: function (valueSetUrl, code, system) {
+                    beforeCheckCodeCalled = true;
+                    return false;
+                }
+            });
+
+            assert.strictEqual(beforeCheckCodeCalled, true);
+            assert.strictEqual(results.messages.length, 2);
         });
     });
 });

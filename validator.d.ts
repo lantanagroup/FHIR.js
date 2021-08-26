@@ -5,6 +5,8 @@ export interface ValidatorOptions {
     onBeforeValidateResource?: (resource: any) => ValidatorMessage[];
     onBeforeValidateProperty?: (resource: any, property: ParsedProperty, treeDisplay: string, value: any) => ValidatorMessage[];
     onError?: (message: ValidatorMessage) => void;
+    beforeCheckCode?: (valueSetUrl: string, code: string, system?: string) => boolean;
+    skipCodeValidation?: boolean;
 }
 export interface ValidatorMessage {
     location?: string;

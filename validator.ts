@@ -31,6 +31,21 @@ export interface ValidatorOptions {
      * An event that is triggered when an error is encountered during validation
      */
     onError?: (message: ValidatorMessage) => void;
+
+    /**
+     * @event
+     * An event that is triggered before validating a code for a value set to indicate if the code is valid
+     * @param valueSetUrl The url of the value set the code should be validated against
+     * @param code The code to validate
+     * @param system? The system to validate (optional)
+     * @return true to indicate that the code is valid, otherwise false to continue validating using loaded CodeSystems and ValueSets
+     */
+    beforeCheckCode?: (valueSetUrl: string, code: string, system?: string) => boolean;
+
+    /**
+     * Indicates whether terminology/code validation should be skipped.
+     */
+    skipCodeValidation?: boolean;
 }
 
 export interface ValidatorMessage {
@@ -169,15 +184,23 @@ export class Validator {
         return display;
     }
 
-    private checkCode(valueSet: ParsedValueSet, code, system?) {
+    private checkCode(treeDisplay: string, parsedValueSet: ParsedValueSet, valueSetUrl: string, code, system?): boolean|null {
+        if (this.options && this.options.beforeCheckCode && this.options.beforeCheckCode(valueSetUrl, code, system)) {
+            return true;
+        }
+
+        if (!parsedValueSet) {
+            this.addInfo(treeDisplay, 'Value set "' + valueSetUrl + '" could not be found.');
+            return null;
+        }
+
         if (system) {
-            const foundSystem = valueSet.systems.find(nextSystem => {
+            const foundSystem = parsedValueSet.systems.find(nextSystem => {
                 return nextSystem.uri === system;
             });
 
             if (foundSystem) {
                 const foundCode = foundSystem.codes.find(nextCode => nextCode.code === code);
-
                 return !!foundCode;
             } else {
                 return false;
@@ -185,7 +208,7 @@ export class Validator {
         } else {
             let valid = false;
 
-            valueSet.systems.forEach(function(nextSystem) {
+            parsedValueSet.systems.forEach(function(nextSystem) {
                 const foundCode = nextSystem.codes.find(nextCode => nextCode.code === code);
 
                 if (foundCode) {
@@ -245,7 +268,7 @@ export class Validator {
         const treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
         const propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
 
-        if (property._valueSet) {
+        if (property._valueSet && !this.options.skipCodeValidation) {
             let valueSetUrl = property._valueSet;
 
             if (valueSetUrl && valueSetUrl.indexOf('|') > 0) {
@@ -254,44 +277,40 @@ export class Validator {
 
             const foundValueSet = this.parser.parsedValueSets[valueSetUrl];
 
-            if (!foundValueSet) {
-                this.addInfo(treeDisplay, 'Value set "' + property._valueSet + '" could not be found.');
-            } else {
-                if (property._type === 'CodeableConcept') {
-                    let found = false;
+            if (property._type === 'CodeableConcept') {
+                let found = false;
 
-                    (obj.coding || []).forEach(coding => {
-                        if (this.checkCode(foundValueSet, coding.code, coding.system)) {
-                            found = true;
-                        } else {
-                            const msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
-                            if (property._valueSetStrength === 'required') {
-                                this.addError(treeDisplay, msg);
-                            } else {
-                                this.addWarn(treeDisplay, msg);
-                            }
-                        }
-                    });
-
-                    if (!found) {
-                        // TODO: If the CodeableConcept is required, does that mean a coding is required? Don't think so...
-                    }
-                } else if (property._type === 'Coding') {
-                    if (!this.checkCode(foundValueSet, obj.code, obj.system)) {
-                        const msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                (obj.coding || []).forEach(coding => {
+                    if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, coding.code, coding.system)) {
+                        found = true;
+                    } else {
+                        const msg = 'Code "' + coding.code + '" ' + (coding.system ? '(' + coding.system + ')' : '') + ' not found in value set';
                         if (property._valueSetStrength === 'required') {
                             this.addError(treeDisplay, msg);
                         } else {
                             this.addWarn(treeDisplay, msg);
                         }
                     }
-                } else if (property._type === 'code') {
-                    if (!this.checkCode(foundValueSet, obj)) {
-                        if (property._valueSetStrength === 'required') {
-                            this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
-                        } else {
-                            this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
-                        }
+                });
+
+                if (!found) {
+                    // TODO: If the CodeableConcept is required, does that mean a coding is required? Don't think so...
+                }
+            } else if (property._type === 'Coding') {
+                if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, obj.code, obj.system) === false) {
+                    const msg = 'Code "' + obj.code + '" ' + (obj.system ? '(' + obj.system + ')' : '') + ' not found in value set';
+                    if (property._valueSetStrength === 'required') {
+                        this.addError(treeDisplay, msg);
+                    } else {
+                        this.addWarn(treeDisplay, msg);
+                    }
+                }
+            } else if (property._type === 'code') {
+                if (this.checkCode(treeDisplay, foundValueSet, valueSetUrl, obj) === false) {
+                    if (property._valueSetStrength === 'required') {
+                        this.addError(treeDisplay, 'Code "' + obj + '" not found in value set');
+                    } else {
+                        this.addWarn(treeDisplay, 'Code "' + obj + '" not found in value set');
                     }
                 }
             }
