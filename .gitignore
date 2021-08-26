@@ -27,5 +27,4 @@ build/Release
 node_modules
 .idea/
 *.xpr
-docs/
 gh-pages/
