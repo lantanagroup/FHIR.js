@@ -83,6 +83,7 @@
 						<section class="tsd-index-section ">
 							<h3>Events</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#beforeCheckCode" class="tsd-kind-icon">before<wbr>Check<wbr>Code</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#onBeforeValidateProperty" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Property</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#onBeforeValidateResource" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Resource</a></li>
 								<li class="tsd-kind-event tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#onError" class="tsd-kind-icon">on<wbr>Error</a></li>
@@ -92,6 +93,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#errorOnUnexpected" class="tsd-kind-icon">error<wbr>OnUnexpected</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="validator.ValidatorOptions.html#skipCodeValidation" class="tsd-kind-icon">skip<wbr>Code<wbr>Validation</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,6 +101,42 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Events</h2>
+				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface">
+					<a name="beforeCheckCode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> before<wbr>Check<wbr>Code</h3>
+					<ul class="tsd-signatures tsd-kind-event tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">before<wbr>Check<wbr>Code<span class="tsd-signature-symbol">(</span>valueSetUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, system<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L43">validator.ts:43</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>valueSetUrl: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The url of the value set the code should be validated against</p>
+									</div>
+								</li>
+								<li>
+									<h5>code: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The code to validate</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> system: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>true to indicate that the code is valid, otherwise false to continue validating using loaded CodeSystems and ValueSets</p>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-event tsd-parent-kind-interface">
 					<a name="onBeforeValidateProperty" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Before<wbr>Validate<wbr>Property</h3>
@@ -109,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/992850d/validator.ts#L27">validator.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L27">validator.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -141,7 +179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/992850d/validator.ts#L20">validator.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L20">validator.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -164,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/992850d/validator.ts#L33">validator.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L33">validator.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -186,12 +224,27 @@
 					<div class="tsd-signature tsd-kind-icon">error<wbr>OnUnexpected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/992850d/validator.ts#L13">validator.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L13">validator.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Indicates an error should be thrown when an unexpected property is found</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="skipCodeValidation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> skip<wbr>Code<wbr>Validation</h3>
+					<div class="tsd-signature tsd-kind-icon">skip<wbr>Code<wbr>Validation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lantanagroup/fhir.js/blob/d6c2b37/validator.ts#L48">validator.ts:48</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Indicates whether terminology/code validation should be skipped.</p>
 						</div>
 					</div>
 				</section>
@@ -273,6 +326,9 @@
 						<a href="validator.ValidatorOptions.html" class="tsd-kind-icon">Validator<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-event tsd-parent-kind-interface">
+								<a href="validator.ValidatorOptions.html#beforeCheckCode" class="tsd-kind-icon">before<wbr>Check<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-event tsd-parent-kind-interface">
 								<a href="validator.ValidatorOptions.html#onBeforeValidateProperty" class="tsd-kind-icon">on<wbr>Before<wbr>Validate<wbr>Property</a>
 							</li>
 							<li class=" tsd-kind-event tsd-parent-kind-interface">
@@ -283,6 +339,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="validator.ValidatorOptions.html#errorOnUnexpected" class="tsd-kind-icon">error<wbr>OnUnexpected</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="validator.ValidatorOptions.html#skipCodeValidation" class="tsd-kind-icon">skip<wbr>Code<wbr>Validation</a>
 							</li>
 						</ul>
 					</li>
