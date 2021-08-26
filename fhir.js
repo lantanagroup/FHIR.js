@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Fhir = exports.Versions = void 0;
 const parseConformance_1 = require("./parseConformance");
 const validator_1 = require("./validator");
 const convertToJs_1 = require("./convertToJs");

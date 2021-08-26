@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Constants = void 0;
 class Constants {
 }
+exports.Constants = Constants;
 Constants.PrimitiveTypes = ['instant', 'time', 'date', 'dateTime', 'decimal', 'boolean', 'integer', 'base64Binary', 'string', 'uri', 'url', 'unsignedInt', 'positiveInt', 'code', 'id', 'oid', 'markdown', 'canonical', 'Element'];
 Constants.DataTypes = ['Reference', 'Narrative', 'Ratio', 'Period', 'Range', 'Attachment', 'Identifier', 'HumanName', 'Annotation', 'Address', 'ContactPoint', 'SampledData', 'Quantity', 'CodeableConcept', 'Signature', 'Coding', 'Timing', 'Age', 'Distance', 'SimpleQuantity', 'Duration', 'Count', 'Money'];
 Constants.PrimitiveNumberTypes = ['unsignedInt', 'positiveInt', 'decimal', 'integer'];
@@ -15,5 +17,4 @@ Constants.PrimitivePositiveIntRegex = /^(?!0+$)\d+$/i;
 Constants.PrimitiveUnsignedIntRegex = /[0]|([1-9][0-9]*)/i;
 Constants.PrimitiveIntegerRegex = /[0]|[-+]?[1-9][0-9]*/i;
 Constants.PrimitiveDecimalRegex = /-?([0]|([1-9][0-9]*))(\.[0-9]+)?/i;
-exports.Constants = Constants;
 //# sourceMappingURL=constants.js.map

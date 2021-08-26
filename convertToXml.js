@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConvertToXml = void 0;
 const convert = require("xml-js");
 const parseConformance_1 = require("./parseConformance");
 const xmlHelper_1 = require("./xmlHelper");

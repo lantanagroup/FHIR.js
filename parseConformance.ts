@@ -5,12 +5,13 @@ import { ParsedProperty } from "./model/parsed-property";
 import { ParsedSystem } from "./model/parsed-system";
 import { ParsedConcept } from "./model/parsed-concept";
 import { Constants } from "./constants";
+import {ElementDefinition} from "./model/element-definition";
 
 export class ParseConformance {
     public parsedStructureDefinitions: { [key: string]: ParsedStructure };
     public parsedValueSets: { [key: string]: ParsedValueSet };
     public structureDefinitions: any[] = [];
-    private version: string;
+    private readonly version: string;
     private codeSystems: any[];
 
     /**
@@ -205,7 +206,7 @@ export class ParseConformance {
 
         if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
             for (let x in structureDefinition.snapshot.element) {
-                const element = structureDefinition.snapshot.element[x];
+                const element = structureDefinition.snapshot.element[x] as ElementDefinition;
                 let elementId = structureDefinition.snapshot.element[x].id;
                 elementId = elementId.substring(structureDefinition.type.length + 1);
 
@@ -227,7 +228,7 @@ export class ParseConformance {
                     const newProperty: ParsedProperty = {
                         _name: elementId,
                         _type: type,
-                        _multiple: element.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(element),
                         _required: element.min === 1
                     };
                     parsedStructureDefinition._properties.push(newProperty);
@@ -261,7 +262,7 @@ export class ParseConformance {
                             _name: choiceElementId,
                             _choice: elementId,
                             _type: element.type[y].code,
-                            _multiple: element.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(element),
                             _required: element.min === 1 || elementRequired
                         };
 
@@ -290,7 +291,7 @@ export class ParseConformance {
                             _name: elementId,
                             _type: 'Reference',
                             _targetProfiles: targetProfiles,
-                            _multiple: element.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(element),
                             _required: element.min === 1
                         });
                     } else {
@@ -494,7 +495,7 @@ export class ParseConformance {
                     parentBackboneElement._properties.push({
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1
                     });
                 } else if (backboneElement.type.length == 1 && !backboneElementId.includes('[x]') && !backboneElementId.includes(':')) {
@@ -507,7 +508,7 @@ export class ParseConformance {
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1,
                         _properties: []
                     };
@@ -530,7 +531,7 @@ export class ParseConformance {
                             _name: choiceElementId,
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
                             _type: backboneElement.type[y].code,
-                            _multiple: backboneElement.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                             _required: backboneElement.min === 1 || anySliceRequired
                         };
                         parentBackboneElement._properties.push(newProperty);
@@ -555,7 +556,7 @@ export class ParseConformance {
                     let newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: 'Reference',
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1
                     };
                     parentBackboneElement._properties.push(newProperty);
@@ -566,5 +567,13 @@ export class ParseConformance {
                 throw 'Unexpected backbone parent element id';
             }
         }
+    }
+
+    private static isMultipleAllowed(element: ElementDefinition) {
+        if (element.base && element.base.hasOwnProperty('max')) {
+            return element.base.max !== '0' && element.base.max !== '1';
+        }
+
+        return element.max !== '0' && element.max !== '1';
     }
 }

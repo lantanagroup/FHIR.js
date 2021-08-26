@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FhirPath = void 0;
 const parseConformance_1 = require("./parseConformance");
 class FhirPath {
     constructor(resources, parser) {

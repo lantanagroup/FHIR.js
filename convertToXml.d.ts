@@ -1,7 +1,7 @@
 import { ParseConformance } from './parseConformance';
 export declare class ConvertToXml {
     readonly attributeProperties: {
-        'Extension': string;
+        Extension: string;
     };
     private parser;
     constructor(parser?: ParseConformance);

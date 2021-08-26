@@ -9,7 +9,7 @@ export declare class ParseConformance {
         [key: string]: ParsedValueSet;
     };
     structureDefinitions: any[];
-    private version;
+    private readonly version;
     private codeSystems;
     constructor(loadCached?: boolean, version?: string);
     isBaseProfile(url: string): boolean;
@@ -21,4 +21,5 @@ export declare class ParseConformance {
     parseValueSet(valueSet: any): ParsedValueSet;
     populateValueSet(element: any, property: ParsedProperty): void;
     populateBackboneElement(parsedStructureDefinition: any, parentElementId: any, structureDefinition: any): void;
+    private static isMultipleAllowed;
 }

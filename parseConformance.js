@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ParseConformance = void 0;
 const fhir_1 = require("./fhir");
 const constants_1 = require("./constants");
 class ParseConformance {
@@ -153,7 +154,7 @@ class ParseConformance {
                     const newProperty = {
                         _name: elementId,
                         _type: type,
-                        _multiple: element.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(element),
                         _required: element.min === 1
                     };
                     parsedStructureDefinition._properties.push(newProperty);
@@ -186,7 +187,7 @@ class ParseConformance {
                             _name: choiceElementId,
                             _choice: elementId,
                             _type: element.type[y].code,
-                            _multiple: element.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(element),
                             _required: element.min === 1 || elementRequired
                         };
                         this.populateValueSet(element, newProperty);
@@ -210,7 +211,7 @@ class ParseConformance {
                             _name: elementId,
                             _type: 'Reference',
                             _targetProfiles: targetProfiles,
-                            _multiple: element.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(element),
                             _required: element.min === 1
                         });
                     }
@@ -366,7 +367,7 @@ class ParseConformance {
                     parentBackboneElement._properties.push({
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1
                     });
                 }
@@ -379,7 +380,7 @@ class ParseConformance {
                     const newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: type,
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1,
                         _properties: []
                     };
@@ -401,7 +402,7 @@ class ParseConformance {
                             _name: choiceElementId,
                             _choice: backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1),
                             _type: backboneElement.type[y].code,
-                            _multiple: backboneElement.max !== '1',
+                            _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                             _required: backboneElement.min === 1 || anySliceRequired
                         };
                         parentBackboneElement._properties.push(newProperty);
@@ -422,7 +423,7 @@ class ParseConformance {
                     let newProperty = {
                         _name: backboneElementId.substring(backboneElementId.lastIndexOf('.') + 1),
                         _type: 'Reference',
-                        _multiple: backboneElement.max !== '1',
+                        _multiple: ParseConformance.isMultipleAllowed(backboneElement),
                         _required: backboneElement.min === 1
                     };
                     parentBackboneElement._properties.push(newProperty);
@@ -433,6 +434,12 @@ class ParseConformance {
                 throw 'Unexpected backbone parent element id';
             }
         }
+    }
+    static isMultipleAllowed(element) {
+        if (element.base && element.base.hasOwnProperty('max')) {
+            return element.base.max !== '0' && element.base.max !== '1';
+        }
+        return element.max !== '0' && element.max !== '1';
     }
 }
 exports.ParseConformance = ParseConformance;
