@@ -392,7 +392,11 @@ class ParseConformance {
                 }
                 else if (backboneElement.id.endsWith('[x]')) {
                     const anySliceRequired = structureDefinition.snapshot.element
-                        .filter((e) => e.id.includes(backboneElement) && e.min >= 1)
+                        .filter((e) => {
+                        return backboneElement.id.split('.').length === e.id.split('.').length &&
+                            e.id.includes(backboneElement) &&
+                            e.min >= 1;
+                    })
                         .length > 0;
                     for (let y in backboneElement.type) {
                         let choiceType = backboneElement.type[y].code;
