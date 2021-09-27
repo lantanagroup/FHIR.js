@@ -152,7 +152,7 @@ export class ConvertToXml {
                     nextXmlObj.attributes.value = actual;
                     break;
                 case 'xhtml':
-                    if (propertyName === 'div') {
+                    if (propertyName === 'div' && value) {
                         let divXmlObj;
 
                         try {
