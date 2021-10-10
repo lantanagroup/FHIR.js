@@ -5,7 +5,7 @@ import {ParsedProperty} from "./model/parsed-property";
 
 export class ConvertToJs {
     private parser: ParseConformance;
-    
+
     constructor(parser?: ParseConformance) {
         this.parser = parser || new ParseConformance(true);
     }
@@ -178,6 +178,7 @@ export class ConvertToJs {
                 throw new Error('Could not find reference to element definition ' + relativeType);
             }
 
+            relativeType._name = property._name;
             relativeType._multiple = property._multiple;
             relativeType._required = property._required;
 
@@ -392,7 +393,7 @@ export class ConvertToJs {
             TODO: Maybe consider preserving the comments in JSON format.
             However, according to a FHIR Chat conversation, fhir_comments won't be supported in JSON going forward
             https://chat.fhir.org/#narrow/stream/4-implementers/subject/fhir_comments
-    
+
             const xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
             const xmlComment = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex-1].type === 'comment' ?
                 xmlObj.elements[xmlPropertyIndex-1] :
