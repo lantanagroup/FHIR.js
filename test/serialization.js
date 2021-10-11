@@ -326,6 +326,56 @@ describe('Serialization', function () {
     });
 
     describe('XML one-way', function () {
+        it('should have all includes/excludes', function() {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                '<ValueSet xmlns="http://hl7.org/fhir">\n' +
+                '    <url value="https://fhir.kbv.de/ValueSet/KBV_VS_AW_Patient_VSDM_Gender" />\n' +
+                '    <version value="1.2.0" />\n' +
+                '    <name value="KBV_VS_AW_Patient_VSDM_Gender" />\n' +
+                '    <status value="active" />\n' +
+                '    <experimental value="false" />\n' +
+                '    <date value="2018-10-06" />\n' +
+                '    <publisher value="Kassenaerztliche Bundesvereinigung" />\n' +
+                '    <contact>\n' +
+                '        <telecom>\n' +
+                '            <system value="url" />\n' +
+                '            <value value="http://www.kbv.de" />\n' +
+                '        </telecom>\n' +
+                '    </contact>\n' +
+                '    <description value="Genderauswahl zur Nutzung in VSDM Extension" />\n' +
+                '    <copyright value="Kassenaerztliche Bundesvereinigung" />\n' +
+                '    <compose>\n' +
+                '        <include>\n' +
+                '            <valueSet value="http://hl7.org/fhir/ValueSet/administrative-gender" />\n' +
+                '        </include>\n' +
+                '        <include>\n' +
+                '            <valueSet value="http://fhir.de/ValueSet/gender-amtlich-de" />\n' +
+                '        </include>\n' +
+                '        <exclude>\n' +
+                '            <system value="http://hl7.org/fhir/administrative-gender" />\n' +
+                '            <concept>\n' +
+                '                <code value="other" />\n' +
+                '            </concept>\n' +
+                '        </exclude>\n' +
+                '    </compose>\n' +
+                '</ValueSet>';
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(xml);
+
+            assert(obj);
+            assert(obj.compose);
+            assert(obj.compose.include);
+            assert.strictEqual(obj.compose.include.length, 2);
+            assert(obj.compose.include[0].valueSet);
+            assert.strictEqual(obj.compose.include[0].valueSet.length, 1);
+            assert.strictEqual(obj.compose.include[0].valueSet[0], 'http://hl7.org/fhir/ValueSet/administrative-gender');
+            assert.strictEqual(obj.compose.include[1].valueSet.length, 1);
+            assert.strictEqual(obj.compose.include[1].valueSet[0], 'http://fhir.de/ValueSet/gender-amtlich-de');
+            assert(obj.compose.exclude);
+            assert.strictEqual(obj.compose.exclude.length, 1);
+            assert.strictEqual(obj.compose.exclude[0].system, 'http://hl7.org/fhir/administrative-gender');
+        });
+
         it('should correctly type output json', function () {
             var fhir = new Fhir();
             var obj = fhir.xmlToObj(patient1Xml);

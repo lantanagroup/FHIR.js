@@ -98,17 +98,27 @@ class ConvertToJs {
         return JSON.parse(JSON.stringify(current));
     }
     propertyToJS(xmlObj, obj, property, surroundDecimalsWith) {
-        const xmlElements = (xmlObj.elements || []).filter((element) => element.name === property._name);
-        const xmlAttributes = xmlObj.attributes ?
-            Object.keys(xmlObj.attributes)
-                .filter((key) => key === property._name)
-                .map((key) => {
-                return {
-                    name: key,
-                    type: 'attribute',
-                    attributes: { value: xmlObj.attributes[key] }
-                };
-            }) : [];
+        const xmlElements = [];
+        if (xmlObj.elements) {
+            for (let element of xmlObj.elements) {
+                if (element.name === property._name) {
+                    xmlElements.push(element);
+                }
+            }
+        }
+        const xmlAttributes = [];
+        if (xmlObj.attributes) {
+            const attributeKeys = Object.keys(xmlObj.attributes);
+            for (let attributeKey of attributeKeys) {
+                if (attributeKey === property._name) {
+                    xmlAttributes.push({
+                        name: attributeKey,
+                        type: 'attribute',
+                        attributes: { value: xmlObj.attributes[attributeKey] }
+                    });
+                }
+            }
+        }
         const xmlProperty = xmlElements.concat(xmlAttributes);
         if (!xmlProperty || xmlProperty.length === 0) {
             return;
@@ -118,6 +128,7 @@ class ConvertToJs {
             if (!relativeType) {
                 throw new Error('Could not find reference to element definition ' + relativeType);
             }
+            relativeType._name = property._name;
             relativeType._multiple = property._multiple;
             relativeType._required = property._required;
             property = relativeType;

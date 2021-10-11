@@ -78,9 +78,10 @@ export class ConvertToXml {
         }
 
         const properties = this.parser.parsedStructureDefinitions[obj.resourceType]._properties || [];
-        properties.forEach(property => {
+
+        for (let property of properties) {
             this.propertyToXML(resourceElement, this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
-        });
+        }
 
         return xmlObj;
     }
@@ -205,9 +206,9 @@ export class ConvertToXml {
                     if (!nextType) {
                         console.log('Could not find type ' + propertyType._type);
                     } else {
-                        nextType._properties.forEach(nextProperty => {
+                        for (let nextProperty of nextType._properties) {
                             this.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
-                        });
+                        }
                     }
             }
 
