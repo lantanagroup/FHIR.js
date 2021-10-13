@@ -383,22 +383,24 @@ export class Validator {
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
             
-            const targetProfiles = (property
-                ._targetProfiles || [])
+            const targetProfiles = (property._targetProfiles || [])
+                .filter(p => !!p && p.indexOf('/') >= 0)
                 .map((p) => {
                     const split = p.split('/');
                     return split[split.length - 1];
                 });
 
             if (property._type === 'Reference' && targetProfiles.length != 0 && targetProfiles.indexOf('Resource') < 0) {
-                const targetProfiles = property
-                    ._targetProfiles
+                const targetProfiles = (property._targetProfiles || [])
+                    .filter(p => !!p && p.indexOf('/') >= 0)
                     .map((p) => {
-                    const split = p.split('/');
-                    return split[split.length - 1];
-                });
+                        const split = p.split('/');
+                        return split[split.length - 1];
+                    });
     
-                const referenceSplit = obj.reference.split('|')[0].split('/');
+                const referenceSplit = obj.reference ?
+                    obj.reference.split('|')[0].split('/') :
+                    [];
     
                 if (obj.type != null) {
                     if (targetProfiles.indexOf(obj.type) < 0) {

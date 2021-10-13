@@ -337,6 +337,26 @@ describe('Validation', function () {
             assert.equal(result.messages.length, 3);
         });
 
+        it('should validate patient with identifier without reference', function() {
+            var patient = {
+                resourceType: 'Patient',
+                identifier: [{
+                    type: {
+                        text: 'MR'
+                    },
+                    value: '1000011131',
+                    assigner: {
+                        type: 'Organization',
+                        display: 'TEST'
+                    }
+                }]
+            };
+
+            var results = fhirR4.validate(patient);
+            assert(results);
+            assert.equal(results.valid, true);
+        });
+
         it('should validate audit-event-example.json successfully, with required boolean', function () {
             var auditEvent = JSON.parse(auditEventExampleJson);
             var result = fhirR4.validate(auditEvent);
