@@ -242,7 +242,7 @@ export class ConvertToXml {
         if (obj) {
             let extra;
 
-            if (obj[propertyName] && propertyType._multiple) {
+            if (propertyType._multiple && obj[propertyName]) {
                 for (let i = 0; i < obj[propertyName].length; i++) {
                     if (Constants.PrimitiveTypes.indexOf(propertyType._type) >= 0) {
                         if (obj['_' + propertyName]) {
@@ -250,21 +250,17 @@ export class ConvertToXml {
                         }
                     } else {
                         extra = {
-                            extension: obj[propertyName][i].extension,
-                            id: obj[propertyName][i].id,
                             fhir_comments: obj[propertyName][i].fhir_comments
                         };
                     }
 
                     pushProperty(obj[propertyName][i], extra);
                 }
-            } else if (obj[propertyName]) {
+            } else {
                 if (Constants.PrimitiveTypes.indexOf(propertyType._type) >= 0) {
                     extra = obj['_' + propertyName];
-                } else {
+                } else if (obj[propertyName]) {
                     extra = {
-                        extension: obj[propertyName].extension,
-                        id: obj[propertyName].id,
                         fhir_comments: obj[propertyName].fhir_comments
                     };
                 }

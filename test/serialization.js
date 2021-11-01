@@ -375,7 +375,6 @@ describe('Serialization', function () {
             assert.strictEqual(obj._valueInteger.fhir_comments, 'another comment');
             assert.strictEqual(obj._focus[0].fhir_comments, 'comment on focus1');
             assert.strictEqual(obj._focus[1].fhir_comments, 'comment on focus2');
-            console.log('test')
         })
 
         it('should have all includes/excludes', function () {
@@ -647,8 +646,6 @@ describe('Serialization', function () {
             assert.strictEqual(xml.includes('<!--another comment-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus1-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus2-->'), true);
-            console.log('test')
-
-        })
+        });
     });
 });
