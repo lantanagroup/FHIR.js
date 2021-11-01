@@ -2,10 +2,11 @@ import * as convert from 'xml-js';
 import {ParseConformance} from './parseConformance';
 import {XmlHelper} from './xmlHelper';
 import {ParsedProperty} from "./model/parsed-property";
+import {Constants} from "./constants";
 
 export class ConvertToJs {
     private parser: ParseConformance;
-    
+
     constructor(parser?: ParseConformance) {
         this.parser = parser || new ParseConformance(true);
     }
@@ -66,29 +67,37 @@ export class ConvertToJs {
                 return 0;
             }
             const ret = matches
-                .map((substr) => { return substr.length })
-                .reduce((p,c) => { return Math.max(p,c)}, 0);
+                .map((substr) => {
+                    return substr.length
+                })
+                .reduce((p, c) => {
+                    return Math.max(p, c)
+                }, 0);
             return ret;
         }
+
         /**
          * look through object to find longest sequence of 'D' characters
          * so we can safely wrap decimals
          */
         function maxSubstringLength(currentMax, obj) {
             let ret;
-            if (typeof(obj) === 'string') {
-                ret =  Math.max(currentMax, maxSubstringLengthStr(obj));
-            } else if (typeof(obj) === 'object') {
-                ret =  Object.keys(obj)
+            if (typeof (obj) === 'string') {
+                ret = Math.max(currentMax, maxSubstringLengthStr(obj));
+            } else if (typeof (obj) === 'object') {
+                ret = Object.keys(obj)
                     .map((k) => {
                         return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]))
                     })
-                    .reduce((p,c) => { return Math.max(p,c) }, currentMax);
+                    .reduce((p, c) => {
+                        return Math.max(p, c)
+                    }, currentMax);
             } else {
-                ret =  currentMax;
+                ret = currentMax;
             }
             return ret;
         }
+
         return maxSubstringLength(0, obj);
     }
 
@@ -132,7 +141,7 @@ export class ConvertToJs {
             throw new Error('Could not find resource definition for ' + resourceType);
         }
 
-        let current = <ParsedProperty><any> resourceDefinition;
+        let current = <ParsedProperty><any>resourceDefinition;
         for (let i = 0; i < pathSplit.length; i++) {
             const nextPath = pathSplit[i];
             current = current._properties.find((property) => property._name === nextPath);
@@ -171,7 +180,7 @@ export class ConvertToJs {
                     xmlAttributes.push({
                         name: attributeKey,
                         type: 'attribute',
-                        attributes: { value: xmlObj.attributes[attributeKey] }
+                        attributes: {value: xmlObj.attributes[attributeKey]}
                     });
                 }
             }
@@ -213,7 +222,7 @@ export class ConvertToJs {
             if (hasId || hasExtensions) {
                 if (dest instanceof Array) {
                     // Fill in previous element indexes with null
-                    if (dest.length < index+1) {
+                    if (dest.length < index + 1) {
                         for (let i = 0; i < index; i++) {
                             if (!dest[i]) {
                                 dest[i] = null;
@@ -359,6 +368,8 @@ export class ConvertToJs {
                     }
                     break;
             }
+
+
         }
 
         function toBoolean(value) {
@@ -386,7 +397,7 @@ export class ConvertToJs {
             if (surroundDecimalsWith) {
                 return {
                     value: value,
-                    toJSON: function() {
+                    toJSON: function () {
                         // surrounding str used as a marker to remove quotes to turn this
                         // into a JSON number as per FHIR spec..
                         return surroundDecimalsWith.str + value + surroundDecimalsWith.str;
@@ -401,19 +412,53 @@ export class ConvertToJs {
             obj[property._name] = [];
         }
 
-        for (let i in xmlProperty) {
-            /*
-            TODO: Maybe consider preserving the comments in JSON format.
-            However, according to a FHIR Chat conversation, fhir_comments won't be supported in JSON going forward
-            https://chat.fhir.org/#narrow/stream/4-implementers/subject/fhir_comments
-    
+        let index1 = 0;
+        let index2 = 0;
+
+        for (let i = 0; i < xmlProperty.length; i++) {
             const xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
-            const xmlComment = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex-1].type === 'comment' ?
-                xmlObj.elements[xmlPropertyIndex-1] :
+            const extraPropertyName = '_' + property._name;
+            const xmlCommentElement = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex - 1].type === 'comment' ?
+                xmlObj.elements[xmlPropertyIndex - 1] :
                 null;
-            */
 
             pushValue(xmlProperty[i], i);
+
+            if (xmlCommentElement) {
+                if (Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
+                    if (property._multiple) {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = [];
+                        }
+                        if (!obj[extraPropertyName][index1]) {
+                            obj[extraPropertyName][index1] = {};
+                        }
+                        obj[extraPropertyName][index1].fhir_comments = xmlCommentElement.comment.trim();
+                        index1++;
+                    } else {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = {};
+                        }
+                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                    }
+                } else {
+                    if (property._multiple) {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = [];
+                        }
+                        if (!obj[extraPropertyName][index2]) {
+                            obj[extraPropertyName][index2] = {};
+                        }
+                        obj[extraPropertyName][index2].fhir_comments = xmlCommentElement.comment.trim();
+                        index2++;
+                    } else {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = {};
+                        }
+                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                    }
+                }
+            }
         }
     }
 }

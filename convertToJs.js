@@ -4,6 +4,7 @@ exports.ConvertToJs = void 0;
 const convert = require("xml-js");
 const parseConformance_1 = require("./parseConformance");
 const xmlHelper_1 = require("./xmlHelper");
+const constants_1 = require("./constants");
 class ConvertToJs {
     constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);
@@ -40,8 +41,12 @@ class ConvertToJs {
                 return 0;
             }
             const ret = matches
-                .map((substr) => { return substr.length; })
-                .reduce((p, c) => { return Math.max(p, c); }, 0);
+                .map((substr) => {
+                return substr.length;
+            })
+                .reduce((p, c) => {
+                return Math.max(p, c);
+            }, 0);
             return ret;
         }
         function maxSubstringLength(currentMax, obj) {
@@ -54,7 +59,9 @@ class ConvertToJs {
                     .map((k) => {
                     return Math.max(maxSubstringLengthStr(k), maxSubstringLength(currentMax, obj[k]));
                 })
-                    .reduce((p, c) => { return Math.max(p, c); }, currentMax);
+                    .reduce((p, c) => {
+                    return Math.max(p, c);
+                }, currentMax);
             }
             else {
                 ret = currentMax;
@@ -325,8 +332,53 @@ class ConvertToJs {
         if (property._multiple) {
             obj[property._name] = [];
         }
-        for (let i in xmlProperty) {
+        let index1 = 0;
+        let index2 = 0;
+        for (let i = 0; i < xmlProperty.length; i++) {
+            const xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
+            const extraPropertyName = '_' + property._name;
+            const xmlCommentElement = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex - 1].type === 'comment' ?
+                xmlObj.elements[xmlPropertyIndex - 1] :
+                null;
             pushValue(xmlProperty[i], i);
+            if (xmlCommentElement) {
+                if (constants_1.Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
+                    if (property._multiple) {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = [];
+                        }
+                        if (!obj[extraPropertyName][index1]) {
+                            obj[extraPropertyName][index1] = {};
+                        }
+                        obj[extraPropertyName][index1].fhir_comments = xmlCommentElement.comment.trim();
+                        index1++;
+                    }
+                    else {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = {};
+                        }
+                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                    }
+                }
+                else {
+                    if (property._multiple) {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = [];
+                        }
+                        if (!obj[extraPropertyName][index2]) {
+                            obj[extraPropertyName][index2] = {};
+                        }
+                        obj[extraPropertyName][index2].fhir_comments = xmlCommentElement.comment.trim();
+                        index2++;
+                    }
+                    else {
+                        if (!obj[extraPropertyName]) {
+                            obj[extraPropertyName] = {};
+                        }
+                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                    }
+                }
+            }
         }
     }
 }

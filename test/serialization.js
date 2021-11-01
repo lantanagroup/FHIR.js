@@ -326,7 +326,59 @@ describe('Serialization', function () {
     });
 
     describe('XML one-way', function () {
-        it('should have all includes/excludes', function() {
+        it('should serialize XML Patient with comments', function () {
+            var xml = '<Patient>\n' +
+                '<address>\n' +
+                '<!--comment on addr 1-->\n' +
+                '<line value="addr 1"/>\n' +
+                '<!--comment on addr 2-->\n' +
+                '<line value="addr 2"/>\n' +
+                '</address>\n'
+            '</Patient>';
+
+
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(xml);
+
+            assert(obj);
+            assert.strictEqual(obj.address[0]._line[0].fhir_comments, 'comment on addr 1');
+            assert.strictEqual(obj.address[0]._line[1].fhir_comments, 'comment on addr 2');
+
+        })
+        it('should serialize XML Observation comments', function () {
+            var xml = '<Observation>\n' +
+                '<!-- some comment -->\n' +
+                '<id value="test" />\n' +
+                '<!-- comment on enc -->\n' +
+                '<encounter>\n' +
+                '  <reference value="Encounter/123" />\n' +
+                '</encounter>\n' +
+                '<!-- another comment -->\n' +
+                '<valueInteger value="90283" />\n' +
+                '<!--comment on focus1-->\n' +
+                '<focus>\n' +
+                '  <reference value="Patient/X123"/>\n' +
+                '</focus>\n' +
+                '<!--comment on focus2-->\n' +
+                '<focus>\n' +
+                '<reference value="Patient/Y123"/>\n' +
+                '</focus>\n' +
+                '</Observation>';
+
+            var fhir = new Fhir();
+            var obj = fhir.xmlToObj(xml);
+
+            assert(obj);
+            assert(obj._id);
+            assert.strictEqual(obj._id.fhir_comments, 'some comment');
+            assert.strictEqual(obj._encounter.fhir_comments, 'comment on enc');
+            assert.strictEqual(obj._valueInteger.fhir_comments, 'another comment');
+            assert.strictEqual(obj._focus[0].fhir_comments, 'comment on focus1');
+            assert.strictEqual(obj._focus[1].fhir_comments, 'comment on focus2');
+            console.log('test')
+        })
+
+        it('should have all includes/excludes', function () {
             var xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
                 '<ValueSet xmlns="http://hl7.org/fhir">\n' +
                 '    <url value="https://fhir.kbv.de/ValueSet/KBV_VS_AW_Patient_VSDM_Gender" />\n' +
@@ -538,5 +590,65 @@ describe('Serialization', function () {
             assert(questionnaireResponseXmlObj.elements[6].elements[1].elements[0].name === 'linkId');
             assert(questionnaireResponseXmlObj.elements[6].elements[1].elements[1].name === 'answer');
         });
+
+        it('should serialize JSON Patient with comments', function () {
+            var json = {
+                "resourceType": "Patient",
+                "address": [{
+                    "line": ["addr 1", "addr 2"],
+                    "_line": [{
+                        "fhir_comments": "comment on addr 1"
+                    }, {
+                        "fhir_comments": "comment on addr 2"
+                    }]
+                }]
+            };
+
+            var fhir = new Fhir();
+            var xml = fhir.objToXml(json);
+
+            assert(xml);
+
+            assert.strictEqual(xml.includes('<!--comment on addr 1-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on addr 2-->'), true);
+        });
+
+        it('should serialize JSON Observation comments', function () {
+            var json = {
+                "resourceType": "Observation",
+                "id": "test",
+                "_id": {
+                    "fhir_comments": "some comment"
+                },
+                "encounter": {
+                    "reference": "Encounter/123",
+                    "fhir_comments": "comment on enc"
+                },
+                "valueInteger": 90283,
+                "_valueInteger": {
+                    "fhir_comments": "another comment"
+                },
+                "focus": [{
+                    "reference": "Patient/X123",
+                    "fhir_comments": "comment on focus1"
+                }, {
+                    "reference": "Patient/Y123",
+                    "fhir_comments": "comment on focus2"
+                }]
+            };
+
+            var fhir = new Fhir();
+            var xml = fhir.objToXml(json);
+
+            assert(xml);
+
+            assert.strictEqual(xml.includes('<!--some comment-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on enc-->'), true);
+            assert.strictEqual(xml.includes('<!--another comment-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on focus1-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on focus2-->'), true);
+            console.log('test')
+
+        })
     });
 });

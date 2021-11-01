@@ -1,8 +1,9 @@
 import * as convert from 'xml-js';
-import { ParseConformance } from './parseConformance';
-import { ParsedStructure } from "./model/parsed-structure";
-import { ParsedProperty } from './model/parsed-property';
-import { XmlHelper } from './xmlHelper';
+import {ParseConformance} from './parseConformance';
+import {ParsedStructure} from "./model/parsed-structure";
+import {ParsedProperty} from './model/parsed-property';
+import {XmlHelper} from './xmlHelper';
+import {Constants} from "./constants";
 
 interface XmlDeclaration {
     attributes?: { [id: string]: any };
@@ -14,6 +15,7 @@ interface XmlElement {
     elements?: XmlElement[];
     declaration?: XmlDeclaration;
     type?: string;
+    comment?: any;
 }
 
 export class ConvertToXml {
@@ -121,6 +123,10 @@ export class ConvertToXml {
             if (extra) {
                 if (extra.id) {
                     nextXmlObj.attributes.id = extra.id;
+                }
+
+                if (extra.fhir_comments) {
+                    parentXmlObj.elements.push({type: 'comment', comment: extra.fhir_comments})
                 }
 
                 if (extra.extension) {
@@ -234,13 +240,36 @@ export class ConvertToXml {
         }
 
         if (obj) {
+            let extra;
+
             if (obj[propertyName] && propertyType._multiple) {
                 for (let i = 0; i < obj[propertyName].length; i++) {
-                    const extra = obj['_' + propertyName] && obj['_' + propertyName] instanceof Array ? obj['_' + propertyName][i] : undefined;
+                    if (Constants.PrimitiveTypes.indexOf(propertyType._type) >= 0) {
+                        if (obj['_' + propertyName]) {
+                            extra = obj['_' + propertyName][i];
+                        }
+                    } else {
+                        extra = {
+                            extension: obj[propertyName][i].extension,
+                            id: obj[propertyName][i].id,
+                            fhir_comments: obj[propertyName][i].fhir_comments
+                        };
+                    }
+
                     pushProperty(obj[propertyName][i], extra);
                 }
-            } else {
-                pushProperty(obj[propertyName], obj['_' + propertyName]);
+            } else if (obj[propertyName]) {
+                if (Constants.PrimitiveTypes.indexOf(propertyType._type) >= 0) {
+                    extra = obj['_' + propertyName];
+                } else {
+                    extra = {
+                        extension: obj[propertyName].extension,
+                        id: obj[propertyName].id,
+                        fhir_comments: obj[propertyName].fhir_comments
+                    };
+                }
+
+                pushProperty(obj[propertyName], extra);
             }
         }
     }
