@@ -3,6 +3,7 @@ import {ParseConformance} from './parseConformance';
 import {XmlHelper} from './xmlHelper';
 import {ParsedProperty} from "./model/parsed-property";
 import {Constants} from "./constants";
+import {XmlElement} from "./convertToXml";
 
 export class ConvertToJs {
     private parser: ParseConformance;
@@ -412,50 +413,63 @@ export class ConvertToJs {
             obj[property._name] = [];
         }
 
-        let index1 = 0;
-        let index2 = 0;
-
         for (let i = 0; i < xmlProperty.length; i++) {
+            let xmlCommentElements: XmlElement[];
+            let nextXmlComment;
             const xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
+
+            while (nextXmlComment != null || !xmlCommentElements) {
+                if (!xmlCommentElements) {
+                    xmlCommentElements = [];
+                }
+                const nextIndex = xmlCommentElements.length + 1;
+                if ((xmlPropertyIndex - nextIndex) < 0)
+                    break;
+                nextXmlComment = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex - nextIndex].type === 'comment' ?
+                    xmlObj.elements[xmlPropertyIndex - nextIndex] :
+                    null;
+                if (nextXmlComment) {
+                    xmlCommentElements.push(nextXmlComment);
+                }
+            }
+
             const extraPropertyName = '_' + property._name;
-            const xmlCommentElement = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex - 1].type === 'comment' ?
+            /*const xmlCommentElement = xmlPropertyIndex > 0 && xmlObj.elements[xmlPropertyIndex - 1].type === 'comment' ?
                 xmlObj.elements[xmlPropertyIndex - 1] :
                 null;
-
+*/
             pushValue(xmlProperty[i], i);
 
-            if (xmlCommentElement) {
+            if (xmlCommentElements && xmlCommentElements.length > 0) {
                 if (Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
                     if (property._multiple) {
                         if (!obj[extraPropertyName]) {
                             obj[extraPropertyName] = [];
                         }
-                        if (!obj[extraPropertyName][index1]) {
-                            obj[extraPropertyName][index1] = {};
+                        if (!obj[extraPropertyName][i]) {
+                            obj[extraPropertyName][i] = {};
                         }
-                        obj[extraPropertyName][index1].fhir_comments = xmlCommentElement.comment.trim();
-                        index1++;
+                        obj[extraPropertyName][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
                     } else {
                         if (!obj[extraPropertyName]) {
                             obj[extraPropertyName] = {};
                         }
-                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                        obj[extraPropertyName].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
                     }
                 } else {
                     if (property._multiple) {
-                        if (!obj[extraPropertyName]) {
-                            obj[extraPropertyName] = [];
+                        if (!obj[property._name]) {
+                            obj[property._name] = [];
                         }
-                        if (!obj[extraPropertyName][index2]) {
-                            obj[extraPropertyName][index2] = {};
+                        if (!obj[property._name][i]) {
+                            obj[property._name][i] = {};
                         }
-                        obj[extraPropertyName][index2].fhir_comments = xmlCommentElement.comment.trim();
-                        index2++;
+                        obj[property._name][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
                     } else {
-                        if (!obj[extraPropertyName]) {
-                            obj[extraPropertyName] = {};
+                        if (!obj[property._name]) {
+                            obj[property._name] = {};
                         }
-                        obj[extraPropertyName].fhir_comments = xmlCommentElement.comment.trim();
+                        obj[property._name].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
                     }
                 }
             }

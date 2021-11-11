@@ -341,8 +341,8 @@ describe('Serialization', function () {
             var obj = fhir.xmlToObj(xml);
 
             assert(obj);
-            assert.strictEqual(obj.address[0]._line[0].fhir_comments, 'comment on addr 1');
-            assert.strictEqual(obj.address[0]._line[1].fhir_comments, 'comment on addr 2');
+            assert.strictEqual(obj.address[0]._line[0].fhir_comments[0], 'comment on addr 1');
+            assert.strictEqual(obj.address[0]._line[1].fhir_comments[0], 'comment on addr 2');
 
         })
         it('should serialize XML Observation comments', function () {
@@ -350,6 +350,7 @@ describe('Serialization', function () {
                 '<!-- some comment -->\n' +
                 '<id value="test" />\n' +
                 '<!-- comment on enc -->\n' +
+                '<!-- comment on enc2 -->\n' +
                 '<encounter>\n' +
                 '  <reference value="Encounter/123" />\n' +
                 '</encounter>\n' +
@@ -370,11 +371,12 @@ describe('Serialization', function () {
 
             assert(obj);
             assert(obj._id);
-            assert.strictEqual(obj._id.fhir_comments, 'some comment');
-            assert.strictEqual(obj._encounter.fhir_comments, 'comment on enc');
-            assert.strictEqual(obj._valueInteger.fhir_comments, 'another comment');
-            assert.strictEqual(obj._focus[0].fhir_comments, 'comment on focus1');
-            assert.strictEqual(obj._focus[1].fhir_comments, 'comment on focus2');
+            assert.strictEqual(obj._id.fhir_comments[0], 'some comment');
+            assert.strictEqual(obj.encounter.fhir_comments[0], 'comment on enc');
+            assert.strictEqual(obj.encounter.fhir_comments[1], 'comment on enc2');
+            assert.strictEqual(obj._valueInteger.fhir_comments[0], 'another comment');
+            assert.strictEqual(obj.focus[0].fhir_comments[0], 'comment on focus1');
+            assert.strictEqual(obj.focus[1].fhir_comments[0], 'comment on focus2');
         })
 
         it('should have all includes/excludes', function () {
@@ -596,9 +598,9 @@ describe('Serialization', function () {
                 "address": [{
                     "line": ["addr 1", "addr 2"],
                     "_line": [{
-                        "fhir_comments": "comment on addr 1"
+                        "fhir_comments": ["comment on addr 1"]
                     }, {
-                        "fhir_comments": "comment on addr 2"
+                        "fhir_comments": ["comment on addr 2 #1", "comment on addr 2 #2"]
                     }]
                 }]
             };
@@ -609,7 +611,8 @@ describe('Serialization', function () {
             assert(xml);
 
             assert.strictEqual(xml.includes('<!--comment on addr 1-->'), true);
-            assert.strictEqual(xml.includes('<!--comment on addr 2-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on addr 2 #1-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on addr 2 #2-->'), true);
         });
 
         it('should serialize JSON Observation comments', function () {
@@ -617,22 +620,22 @@ describe('Serialization', function () {
                 "resourceType": "Observation",
                 "id": "test",
                 "_id": {
-                    "fhir_comments": "some comment"
+                    "fhir_comments": ["some comment"]
                 },
                 "encounter": {
                     "reference": "Encounter/123",
-                    "fhir_comments": "comment on enc"
+                    "fhir_comments": ["comment on enc", "comment on enc2"]
                 },
                 "valueInteger": 90283,
                 "_valueInteger": {
-                    "fhir_comments": "another comment"
+                    "fhir_comments": ["another comment"]
                 },
                 "focus": [{
                     "reference": "Patient/X123",
-                    "fhir_comments": "comment on focus1"
+                    "fhir_comments": ["comment on focus1"]
                 }, {
                     "reference": "Patient/Y123",
-                    "fhir_comments": "comment on focus2"
+                    "fhir_comments": ["comment on focus2"]
                 }]
             };
 
@@ -643,6 +646,7 @@ describe('Serialization', function () {
 
             assert.strictEqual(xml.includes('<!--some comment-->'), true);
             assert.strictEqual(xml.includes('<!--comment on enc-->'), true);
+            assert.strictEqual(xml.includes('<!--comment on enc2-->'), true);
             assert.strictEqual(xml.includes('<!--another comment-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus1-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus2-->'), true);

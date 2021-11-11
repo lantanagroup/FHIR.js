@@ -5,11 +5,11 @@ import {ParsedProperty} from './model/parsed-property';
 import {XmlHelper} from './xmlHelper';
 import {Constants} from "./constants";
 
-interface XmlDeclaration {
+export interface XmlDeclaration {
     attributes?: { [id: string]: any };
 }
 
-interface XmlElement {
+export interface XmlElement {
     name?: string;
     attributes?: { [id: string]: any };
     elements?: XmlElement[];
@@ -126,7 +126,9 @@ export class ConvertToXml {
                 }
 
                 if (extra.fhir_comments) {
-                    parentXmlObj.elements.push({type: 'comment', comment: extra.fhir_comments})
+                    for (let fhirComment of extra.fhir_comments) {
+                        parentXmlObj.elements.push({type: 'comment', comment: fhirComment})
+                    }
                 }
 
                 if (extra.extension) {

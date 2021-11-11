@@ -72,7 +72,9 @@ class ConvertToXml {
                     nextXmlObj.attributes.id = extra.id;
                 }
                 if (extra.fhir_comments) {
-                    parentXmlObj.elements.push({ type: 'comment', comment: extra.fhir_comments });
+                    for (let fhirComment of extra.fhir_comments) {
+                        parentXmlObj.elements.push({ type: 'comment', comment: fhirComment });
+                    }
                 }
                 if (extra.extension) {
                     const extensionStructure = this.parser.parsedStructureDefinitions['Extension'];
