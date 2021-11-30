@@ -3,6 +3,7 @@
   "version": "4.11.1",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
+  "types": "index.d.ts",
   "bugs": {
     "url": "https://github.com/lantanagroup/FHIR.js/issues",
     "email": "sean.mcilvenna@lantanagroup.com"
