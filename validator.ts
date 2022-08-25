@@ -382,8 +382,8 @@ export class Validator {
             const nextValidationResponse = nextValidationInstance.response;
             this.response.valid = !this.response.valid ? this.response.valid : nextValidationResponse.valid;
             this.response.messages = this.response.messages.concat(nextValidationResponse.messages);
-            
-            const targetProfiles = (property._targetProfiles || [])
+
+            const targetProfiles = (property._targetProfiles ? (Array.isArray(property._targetProfiles) ? property._targetProfiles : [property._targetProfiles]) : [])
                 .filter(p => !!p && p.indexOf('/') >= 0)
                 .map((p) => {
                     const split = p.split('/');
@@ -391,7 +391,7 @@ export class Validator {
                 });
 
             if (property._type === 'Reference' && targetProfiles.length != 0 && targetProfiles.indexOf('Resource') < 0) {
-                const targetProfiles = (property._targetProfiles || [])
+                const targetProfiles = (property._targetProfiles ? (Array.isArray(property._targetProfiles) ? property._targetProfiles : [property._targetProfiles]) : [])
                     .filter(p => !!p && p.indexOf('/') >= 0)
                     .map((p) => {
                         const split = p.split('/');

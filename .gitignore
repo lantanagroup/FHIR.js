@@ -28,3 +28,4 @@ node_modules
 .idea/
 *.xpr
 gh-pages/
+/.nyc_output/
