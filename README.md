@@ -74,7 +74,7 @@ var newResources = JSON.parse(fs.readFileSync('..path..to..profiles-resources.js
 var parser = new ParseConformance(false, FhirVersions.STU3);           // don't load pre-parsed data
 parser.parseBundle(newValueSets);
 parser.parseBundle(newTypes);
-parser.parseResources(newResources);
+parser.parseBundle(newResources);
 
 var fhir = new Fhir(parser);
 fhir.xmlToJson(...);
