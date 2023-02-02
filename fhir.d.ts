@@ -3,7 +3,8 @@ import { Bundle } from "./model/bundle";
 import { ValidatorOptions } from './validator';
 export declare enum Versions {
     STU3 = "STU3",
-    R4 = "R4"
+    R4 = "R4",
+    R5 = "R5"
 }
 export declare class Fhir {
     readonly parser: ParseConformance;

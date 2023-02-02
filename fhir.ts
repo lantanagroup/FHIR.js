@@ -8,7 +8,8 @@ import {SnapshotGenerator} from './snapshotGenerator';
 
 export enum Versions {
     STU3 = 'STU3',
-    R4 = 'R4'
+    R4 = 'R4',
+    R5 = 'R5'
 }
 
 export class Fhir {

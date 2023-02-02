@@ -11,6 +11,7 @@ var Versions;
 (function (Versions) {
     Versions["STU3"] = "STU3";
     Versions["R4"] = "R4";
+    Versions["R5"] = "R5";
 })(Versions = exports.Versions || (exports.Versions = {}));
 class Fhir {
     constructor(parser) {
