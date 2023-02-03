@@ -1,7 +1,7 @@
-import {Bundle} from "./model/bundle";
-import {StructureDefinition} from "./model/structure-definition";
-import {ElementDefinition} from "./model/element-definition";
-import {ParseConformance} from "./parseConformance";
+import type { Bundle } from "./model/bundle";
+import type { StructureDefinition } from "./model/structure-definition";
+import type { ElementDefinition } from "./model/element-definition";
+import type { ParseConformance } from "./parseConformance";
 
 /**
  * Responsible for creating snapshots on StructureDefinition resources based on the differential of the profile.

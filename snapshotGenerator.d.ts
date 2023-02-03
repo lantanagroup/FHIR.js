@@ -1,6 +1,6 @@
-import { Bundle } from "./model/bundle";
-import { StructureDefinition } from "./model/structure-definition";
-import { ParseConformance } from "./parseConformance";
+import type { Bundle } from "./model/bundle";
+import type { StructureDefinition } from "./model/structure-definition";
+import type { ParseConformance } from "./parseConformance";
 export declare class SnapshotGenerator {
     private readonly choiceRegexString;
     private readonly parser;

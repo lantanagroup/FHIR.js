@@ -1,9 +1,9 @@
 import * as convert from 'xml-js';
-import {ParseConformance} from './parseConformance';
-import {ParsedStructure} from "./model/parsed-structure";
-import {ParsedProperty} from './model/parsed-property';
-import {XmlHelper} from './xmlHelper';
-import {Constants} from "./constants";
+import { ParseConformance } from './parseConformance';
+import type { ParsedStructure } from "./model/parsed-structure";
+import type { ParsedProperty } from './model/parsed-property';
+import { XmlHelper } from './xmlHelper';
+import { Constants } from "./constants";
 
 export interface XmlDeclaration {
     attributes?: { [id: string]: any };

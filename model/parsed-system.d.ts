@@ -1,4 +1,4 @@
-import { ParsedConcept } from "./parsed-concept";
+import type { ParsedConcept } from "./parsed-concept";
 export interface ParsedSystem {
     uri: string;
     codes: ParsedConcept[];

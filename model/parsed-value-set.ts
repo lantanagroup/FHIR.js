@@ -1,4 +1,4 @@
-import {ParsedSystem} from "./parsed-system";
+import type { ParsedSystem } from "./parsed-system";
 
 export interface ParsedValueSet {
     systems: ParsedSystem[];

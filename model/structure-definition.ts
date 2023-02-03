@@ -1,4 +1,4 @@
-import {ElementDefinition} from "./element-definition";
+import type { ElementDefinition } from "./element-definition";
 
 export interface StructureDefinition {
     resourceType: string;

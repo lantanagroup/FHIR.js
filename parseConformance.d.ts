@@ -1,6 +1,6 @@
-import { ParsedStructure } from "./model/parsed-structure";
-import { ParsedValueSet } from "./model/parsed-value-set";
-import { ParsedProperty } from "./model/parsed-property";
+import type { ParsedStructure } from "./model/parsed-structure";
+import type { ParsedValueSet } from "./model/parsed-value-set";
+import type { ParsedProperty } from "./model/parsed-property";
 export declare class ParseConformance {
     parsedStructureDefinitions: {
         [key: string]: ParsedStructure;

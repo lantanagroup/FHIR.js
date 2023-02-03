@@ -1,9 +1,9 @@
 import * as convert from 'xml-js';
-import {ParseConformance} from './parseConformance';
-import {XmlHelper} from './xmlHelper';
-import {ParsedProperty} from "./model/parsed-property";
-import {Constants} from "./constants";
-import {XmlElement} from "./convertToXml";
+import { ParseConformance } from './parseConformance';
+import { XmlHelper } from './xmlHelper';
+import type { ParsedProperty } from "./model/parsed-property";
+import { Constants } from "./constants";
+import type { XmlElement } from "./convertToXml";
 
 export class ConvertToJs {
     private parser: ParseConformance;
