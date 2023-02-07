@@ -1,4 +1,4 @@
-import {ParseConformance} from './parseConformance';
+import { ParseConformance } from './parseConformance';
 
 interface PathStructure {
     name?: string;

@@ -1,10 +1,11 @@
-import {ParseConformance} from './parseConformance';
-import {Bundle} from "./model/bundle";
-import {Validator, ValidatorOptions} from './validator';
-import {ConvertToJs} from './convertToJs';
-import {ConvertToXml} from './convertToXml';
-import {FhirPath} from './fhirPath';
-import {SnapshotGenerator} from './snapshotGenerator';
+import { ParseConformance } from './parseConformance';
+import type { Bundle } from "./model/bundle";
+import type { ValidatorOptions } from './validator';
+import { Validator } from './validator';
+import { ConvertToJs } from './convertToJs';
+import { ConvertToXml } from './convertToXml';
+import { FhirPath } from './fhirPath';
+import { SnapshotGenerator } from './snapshotGenerator';
 
 export enum Versions {
     STU3 = 'STU3',

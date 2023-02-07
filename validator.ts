@@ -1,9 +1,9 @@
-import {ConvertToJs} from './convertToJs';
-import {ParseConformance} from './parseConformance';
-import {ParsedProperty} from "./model/parsed-property";
-import {ParsedStructure} from "./model/parsed-structure";
-import {ParsedValueSet} from "./model/parsed-value-set";
-import {Constants} from "./constants";
+import { ConvertToJs } from './convertToJs';
+import type { ParseConformance } from './parseConformance';
+import type { ParsedProperty } from "./model/parsed-property";
+import type { ParsedStructure } from "./model/parsed-structure";
+import type { ParsedValueSet } from "./model/parsed-value-set";
+import { Constants } from "./constants";
 
 export interface ValidatorOptions {
 

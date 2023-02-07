@@ -1,11 +1,11 @@
 import { Versions } from './fhir';
-import { ParsedStructure } from "./model/parsed-structure";
-import { ParsedValueSet } from "./model/parsed-value-set";
-import { ParsedProperty } from "./model/parsed-property";
-import { ParsedSystem } from "./model/parsed-system";
-import { ParsedConcept } from "./model/parsed-concept";
+import type { ParsedStructure } from "./model/parsed-structure";
+import type { ParsedValueSet } from "./model/parsed-value-set";
+import type { ParsedProperty } from "./model/parsed-property";
+import type { ParsedSystem } from "./model/parsed-system";
+import type { ParsedConcept } from "./model/parsed-concept";
 import { Constants } from "./constants";
-import {ElementDefinition} from "./model/element-definition";
+import type {ElementDefinition} from "./model/element-definition";
 
 export class ParseConformance {
     public parsedStructureDefinitions: { [key: string]: ParsedStructure };

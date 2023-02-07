@@ -1,4 +1,4 @@
-import { ParsedProperty } from "./parsed-property";
+import type { ParsedProperty } from "./parsed-property";
 export interface ParsedStructure {
     _url: string;
     _type: string;
