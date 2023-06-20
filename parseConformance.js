@@ -29,7 +29,7 @@ class ParseConformance {
             const primitiveProperties = properties
                 .filter(p => constants_1.Constants.PrimitiveTypes.indexOf(p._type) >= 0)
                 .filter(p => !p._name.startsWith('_'));
-            for (let primitiveProp of primitiveProperties) {
+            for (const primitiveProp of primitiveProperties) {
                 const primitivePropIndex = properties.indexOf(primitiveProp);
                 let foundMeta = properties.find(p => p._name === "_" + primitiveProp._name);
                 if (!foundMeta) {
@@ -43,7 +43,7 @@ class ParseConformance {
                 this.ensurePropertyMetaData(primitiveProp._properties || []);
             }
             const backboneProperties = properties.filter(p => p._type === 'BackboneElement');
-            for (let backboneProp of backboneProperties) {
+            for (const backboneProp of backboneProperties) {
                 this.ensurePropertyMetaData(backboneProp._properties || []);
             }
         }
@@ -86,7 +86,6 @@ class ParseConformance {
             this.codeSystems.push(codeSystem);
         }
     }
-    ;
     parseBundle(bundle) {
         if (!bundle || !bundle.entry) {
             return;
@@ -135,7 +134,7 @@ class ParseConformance {
             this.structureDefinitions.push(structureDefinition);
         }
         if (structureDefinition.snapshot && structureDefinition.snapshot.element) {
-            for (let x in structureDefinition.snapshot.element) {
+            for (const x in structureDefinition.snapshot.element) {
                 const element = structureDefinition.snapshot.element[x];
                 let elementId = structureDefinition.snapshot.element[x].id;
                 elementId = elementId.substring(structureDefinition.type.length + 1);
@@ -179,7 +178,7 @@ class ParseConformance {
                         return choiceRequired || sliceRequired;
                     })
                         .length > 0;
-                    for (let y in element.type) {
+                    for (const y in element.type) {
                         let choiceType = element.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
                         const choiceElementId = elementId + choiceType;
@@ -196,7 +195,7 @@ class ParseConformance {
                 }
                 else if (!elementId.includes(':')) {
                     let isReference = true;
-                    for (let y in element.type) {
+                    for (const y in element.type) {
                         if (element.type[y].code !== 'Reference') {
                             isReference = false;
                             break;
@@ -342,7 +341,7 @@ class ParseConformance {
         }
     }
     populateBackboneElement(parsedStructureDefinition, parentElementId, structureDefinition) {
-        for (let y in structureDefinition.snapshot.element) {
+        for (const y in structureDefinition.snapshot.element) {
             const backboneElement = structureDefinition.snapshot.element[y];
             let backboneElementId = backboneElement.id;
             if (!backboneElementId.startsWith(parentElementId + '.') || backboneElementId.split('.').length !== parentElementId.split('.').length + 1) {
@@ -398,7 +397,7 @@ class ParseConformance {
                             e.min >= 1;
                     })
                         .length > 0;
-                    for (let y in backboneElement.type) {
+                    for (const y in backboneElement.type) {
                         let choiceType = backboneElement.type[y].code;
                         choiceType = choiceType.substring(0, 1).toUpperCase() + choiceType.substring(1);
                         const choiceElementId = backboneElement.id.substring(backboneElement.id.lastIndexOf('.') + 1, backboneElement.id.length - 3) + choiceType;
@@ -415,7 +414,7 @@ class ParseConformance {
                 }
                 else if (!backboneElementId.includes(':')) {
                     let isReference = true;
-                    for (let z in backboneElement.type) {
+                    for (const z in backboneElement.type) {
                         if (backboneElement.type[z].code !== 'Reference') {
                             isReference = false;
                             break;

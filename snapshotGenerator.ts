@@ -89,7 +89,7 @@ export class SnapshotGenerator {
         const explicitOverwrites = ['id', 'representation', 'sliceName', 'sliceIsConstraining', 'label', 'code', 'short', 'definition', 'comment', 'requirements', 'alias', 'min', 'max', 'contentReference',
             'meaningWhenMissing', 'orderMeaning', 'maxLength', 'condition', 'mustSupport', 'isModifier', 'isModifierReason', 'isSummary', 'example'];
 
-        for (let eo of explicitOverwrites) {
+        for (const eo of explicitOverwrites) {
             if (diff.hasOwnProperty(eo)) dest[eo] = diff[eo];
         }
         
@@ -111,7 +111,7 @@ export class SnapshotGenerator {
         }
         
         if (diff.type && dest.type) {
-            for (let dt of dest.type) {
+            for (const dt of dest.type) {
                 const diffType = diff.type.find(t => t.code === dt.code);
                 
                 if (diffType) {
@@ -122,7 +122,7 @@ export class SnapshotGenerator {
                 }
             }
             
-            for (let diffType of diff.type) {
+            for (const diffType of diff.type) {
                 if (!dest.type.find(t => t.code === diffType.code)) {
                     dest.type.push(JSON.parse(JSON.stringify(diffType)));
                 }
@@ -132,7 +132,7 @@ export class SnapshotGenerator {
         }
 
         if (diff.constraint && dest.constraint) {
-            for (let dc of dest.constraint) {
+            for (const dc of dest.constraint) {
                 const diffConstraint = diff.constraint.find(c => c.key === dc.key);
 
                 if (diffConstraint) {
@@ -145,7 +145,7 @@ export class SnapshotGenerator {
                 }
             }
 
-            for (let diffConstraint of diff.constraint) {
+            for (const diffConstraint of diff.constraint) {
                 if (!dest.constraint.find(c => c.key === diffConstraint.key)) {
                     dest.constraint.push(JSON.parse(JSON.stringify(diffConstraint)));
                 }

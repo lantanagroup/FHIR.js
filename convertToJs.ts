@@ -165,7 +165,7 @@ export class ConvertToJs {
         const xmlElements = [];
 
         if (xmlObj.elements) {
-            for (let element of xmlObj.elements) {
+            for (const element of xmlObj.elements) {
                 if (element.name === property._name) {
                     xmlElements.push(element);
                 }
@@ -176,7 +176,7 @@ export class ConvertToJs {
 
         if (xmlObj.attributes) {
             const attributeKeys = Object.keys(xmlObj.attributes);
-            for (let attributeKey of attributeKeys) {
+            for (const attributeKey of attributeKeys) {
                 if (attributeKey === property._name) {
                     xmlAttributes.push({
                         name: attributeKey,
@@ -329,7 +329,7 @@ export class ConvertToJs {
                 case 'BackboneElement':
                     const newValue = {};
 
-                    for (let x in property._properties) {
+                    for (const x in property._properties) {
                         const nextProperty = property._properties[x];
                         this.propertyToJS(value, newValue, nextProperty, surroundDecimalsWith);
                     }

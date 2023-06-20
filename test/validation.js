@@ -10,11 +10,13 @@ var r4StructureDefinitionJson = fs.readFileSync('./test/data/r4/structureDefinit
 var badDocumentBundleXml = fs.readFileSync('./test/data/r4/bad-document-example-dischargesummary.xml').toString();
 var operationDefinitionJson = fs.readFileSync('./test/data/stu3/OperationDefinition_example.json').toString();
 var bundleTransactionXml = fs.readFileSync('./test/data/stu3/bundle-transaction.xml').toString();
+var medicationStatementJson = fs.readFileSync('./test/data/r4/medicationStatement.json').toString();
 var medicationStatementXml = fs.readFileSync('./test/data/r4/medicationStatement.xml').toString();
 var condition2Json = fs.readFileSync('./test/data/stu3/condition-example2.json').toString();
 var immunizationExampleJson = fs.readFileSync('./test/data/r4/immunization-example.json').toString();
 var auditEventExampleJson = fs.readFileSync('./test/data/r4/audit-event-example.json').toString();
 var implementationGuideJson = fs.readFileSync('./test/data/r4/implementationGuide.json').toString();
+var locationXml = fs.readFileSync('./test/data/r4/location.xml').toString();
 
 describe('Validation', function () {
     this.timeout(5000);
@@ -220,6 +222,21 @@ describe('Validation', function () {
                 return message.severity === 'warning';
             });
             assert.equal(warnings.length, 5);
+        });
+
+        it('should fail medication statement JSON', function () {
+            var results = fhirR4.validate(medicationStatementJson);
+            assert(results);
+            assert.equal(results.valid, false);
+
+            var errors = results.messages.filter((message) => {
+                return message.severity === 'error';
+            });
+            assert.equal(errors[0].location, 'MedicationStatement.dosage[0].sequence');
+            assert.equal(errors[0].message, 'Number type expected but string received for value "1"');
+            assert.equal(errors[0].resourceId, 'example001');
+            assert.equal(errors[0].severity, 'error');
+
         });
 
         it('should fail JS bundle with incorrect type', function () {
@@ -537,5 +554,87 @@ describe('Validation', function () {
             assert.strictEqual(beforeCheckCodeCalled, true);
             assert.strictEqual(results.messages.length, 2);
         });
+
+
+        it('should validate location with correct position data types', function() {
+            const location = {
+                resourceType: "Location",
+                id: "1",
+                meta: {
+                    versionId: "20"
+                },
+                position: {
+                    "longitude": -83.6945691,
+                    "latitude": 42.25475478,
+                    "altitude": 0
+                }
+            };
+
+            var results = fhirR4.validate(location);
+            assert(results);
+            assert.equal(results.valid, true);
+
+            assert(results.messages);
+            assert.equal(results.messages.length, 0);
+            
+        });
+        
+        it('should fail location validation with incorrect position data types', function() {
+            const location = {
+                resourceType: "Location",
+                id: "1",
+                meta: {
+                    versionId: "20"
+                },
+                position: {
+                    "longitude": "-83.6945691",
+                    "latitude": "42.25475478",
+                    "altitude": 0
+                }
+            }
+
+            var results = fhirR4.validate(location);
+            assert(results);
+            assert.equal(results.valid, false);
+
+            assert.equal(results.messages[0].location, 'Location.position.longitude');
+            assert.equal(results.messages[0].resourceId, '1');
+            assert.equal(results.messages[0].severity, 'error');
+            assert.equal(results.messages[0].message, 'Number type expected but string received for value "-83.6945691"');
+            assert.equal(results.messages[1].location, 'Location.position.latitude');
+            assert.equal(results.messages[1].resourceId, '1');
+            assert.equal(results.messages[1].severity, 'error');
+            assert.equal(results.messages[1].message, 'Number type expected but string received for value "42.25475478"');
+
+        });
+
+        
+        it('should validate location from XML file', function () {
+            var results = fhirR4.validate(locationXml);
+            assert(results);
+            assert.equal(results.valid, true);
+        });
+
+
+        it('should fail patient validation with string instead of bool', function () {
+            const patient = {
+                resourceType: "Patient",
+                id: "patient-example",
+                meta: {
+                    versionId: "20"
+                },
+                active: "true"
+            }
+
+            var results = fhirR4.validate(patient);
+            assert(results);
+            assert.equal(results.valid, false);
+
+            assert.equal(results.messages[0].location, 'Patient.active');
+            assert.equal(results.messages[0].resourceId, 'patient-example');
+            assert.equal(results.messages[0].severity, 'error');
+            assert.equal(results.messages[0].message, 'Invalid format for boolean value "true"');
+        });
+
     });
 });

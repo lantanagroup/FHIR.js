@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Location
+    xmlns="http://hl7.org/fhir">
+    <id value="1"/>
+    <meta>
+        <versionId value="12"/>
+    </meta>
+    <text>
+        <status value="generated"/>
+        <div
+            xmlns="http://www.w3.org/1999/xhtml">Burgers UMC, South Wing, second floor
+        </div>
+    </text>
+    <status value="active"/>
+    <name value="South Wing, second floor"/>
+    <position>
+        <longitude value="-83.6945691"/>
+        <latitude value="42.25475478"/>
+        <altitude value="0"/>
+    </position>
+    <hoursOfOperation>
+        <allDay value="true"/>
+    </hoursOfOperation>
+</Location>

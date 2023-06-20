@@ -1,6 +1,6 @@
 import { ParseConformance } from './parseConformance';
 import type { Bundle } from "./model/bundle";
-import type { ValidatorOptions } from './validator';
+import type { ValidatorOptions, ValidatorResponse } from './validator';
 import { Validator } from './validator';
 import { ConvertToJs } from './convertToJs';
 import { ConvertToXml } from './convertToXml';
@@ -39,7 +39,7 @@ export class Fhir {
         const convertToXML = new ConvertToXml(this.parser);
         const xml = convertToXML.convert(obj);
         return xml;
-    };
+    }
 
     /**
      * Serializes an XML resource to a JS object
@@ -50,7 +50,7 @@ export class Fhir {
         const convertToJs = new ConvertToJs(this.parser);
         const obj = convertToJs.convert(xml);
         return obj;
-    };
+    }
 
     /**
      * Serializes an XML resource to JSON
@@ -61,7 +61,7 @@ export class Fhir {
         const convertToJs = new ConvertToJs(this.parser);
         const json = convertToJs.convertToJSON(xml);
         return json;
-    };
+    }
 
     /**
      * Validates the specified resource (either a JS object or XML string)
@@ -69,10 +69,10 @@ export class Fhir {
      * @param {ValidatorOptions?} options The options to use while validating
      * @returns {ValidatorResponse} The results of the validation
      */
-    public validate(input: string | Object, options?: ValidatorOptions) {
+    public validate(input: string | Object, options?: ValidatorOptions): ValidatorResponse {
         const validator = new Validator(this.parser, options);
         return validator.validate(input);
-    };
+    }
 
     /**
      * Evaluates a FhirPath against the specified resource(s)
@@ -97,7 +97,7 @@ export class Fhir {
         const fhirPath = new FhirPath(resource, this.parser);
         fhirPath.resolve = this.resolve;
         return fhirPath.evaluate(fhirPathString);
-    };
+    }
 
     /**
      * A callback which is executed when a reference needs to be resolved to a resource during evaluation of FhirPath.

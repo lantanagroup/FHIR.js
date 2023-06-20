@@ -128,7 +128,7 @@ export class Validator {
         if (typeof(input) === 'string' && input.indexOf('{') === 0) {
             this.obj = JSON.parse(input);
         } else if (typeof(input) === 'string') {
-            this.obj = new ConvertToJs().convert(input);
+            this.obj = JSON.parse(new ConvertToJs().convertToJSON(input));
             this.isXml = true;
         } else {
             this.obj = input;
@@ -234,7 +234,7 @@ export class Validator {
         if (this.options.onError) {
             this.options.onError(theMessage);
         }
-    };
+    }
 
     private addFatal(location: string, message: string) {
         this.response.valid = false;
@@ -244,7 +244,7 @@ export class Validator {
             severity: Severities.Fatal,
             message: message
         });
-    };
+    }
 
     private addWarn(location: string, message: string) {
         this.response.messages.push({
@@ -253,7 +253,7 @@ export class Validator {
             severity: Severities.Warning,
             message: message
         });
-    };
+    }
 
     private addInfo(location: string, message: string) {
         this.response.messages.push({
@@ -262,7 +262,7 @@ export class Validator {
             severity: Severities.Information,
             message: message
         });
-    };
+    }
 
     private validateNext(obj, property: ParsedProperty, tree) {
         const treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
@@ -317,19 +317,19 @@ export class Validator {
         }
 
         if (Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
-            if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
+            if (property._type === 'boolean' && typeof(obj) !== 'boolean') {
                 this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
             } else if (Constants.PrimitiveNumberTypes.indexOf(property._type) >= 0) {
                 if (typeof(obj) === 'string') {
-                    if (property._type === 'integer' && !Constants.PrimitiveIntegerRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
-                    } else if (property._type === 'decimal' && !Constants.PrimitiveDecimalRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
-                    } else if (property._type === 'unsignedInt' && !Constants.PrimitiveUnsignedIntRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
-                    } else if (property._type === 'positiveInt' && !Constants.PrimitivePositiveIntRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
-                    }
+                    this.addError(treeDisplay, 'Number type expected but string received for value "' + obj + '"');
+                } else if (property._type === 'integer' && !Constants.PrimitiveIntegerRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
+                } else if (property._type === 'decimal' && !Constants.PrimitiveDecimalRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
+                } else if (property._type === 'unsignedInt' && !Constants.PrimitiveUnsignedIntRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
+                } else if (property._type === 'positiveInt' && !Constants.PrimitivePositiveIntRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
                 }
             } else if (property._type === 'date' && !Constants.PrimitiveDateRegex.test(obj)) {
                 this.addError(treeDisplay, 'Invalid date format for value "' + obj + '"');
