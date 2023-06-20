@@ -1,6 +1,6 @@
 {
   "name": "fhir",
-  "version": "4.11.2",
+  "version": "4.11.3",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "types": "index.d.ts",
@@ -57,9 +57,9 @@
     "yargs": "^3.25.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/**/*.js",
-    "prepublish": "./node_modules/.bin/tsc & node profiles/packageProfiles.js & webpack --config webpack.config.js",
-    "docs": "./node_modules/.bin/typedoc -out ./docs -exclude node_modules ./",
+    "test": "mocha test/**/*.js",
+    "prepare": "tsc & eslint . --ext .ts --fix & node profiles/packageProfiles.js & webpack --config webpack.config.js",
+    "docs": "typedoc -out ./docs -exclude node_modules ./",
     "tsc": "tsc",
     "lint": "eslint . --ext .ts"
   },

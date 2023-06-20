@@ -134,7 +134,7 @@
   ],
   "dosage": [
     {
-      "sequence": 1,
+      "sequence": "1",
       "text": "1-2 tablets once daily at bedtime as needed for restless legs",
       "additionalInstruction": [
         {

@@ -28,7 +28,7 @@ class Validator {
             this.obj = JSON.parse(input);
         }
         else if (typeof (input) === 'string') {
-            this.obj = new convertToJs_1.ConvertToJs().convert(input);
+            this.obj = JSON.parse(new convertToJs_1.ConvertToJs().convertToJSON(input));
             this.isXml = true;
         }
         else {
@@ -120,7 +120,6 @@ class Validator {
             this.options.onError(theMessage);
         }
     }
-    ;
     addFatal(location, message) {
         this.response.valid = false;
         this.response.messages.push({
@@ -130,7 +129,6 @@ class Validator {
             message: message
         });
     }
-    ;
     addWarn(location, message) {
         this.response.messages.push({
             location: location,
@@ -139,7 +137,6 @@ class Validator {
             message: message
         });
     }
-    ;
     addInfo(location, message) {
         this.response.messages.push({
             location: location,
@@ -148,7 +145,6 @@ class Validator {
             message: message
         });
     }
-    ;
     validateNext(obj, property, tree) {
         const treeDisplay = Validator.getTreeDisplay(tree, this.isXml);
         const propertyTypeStructure = this.parser.parsedStructureDefinitions[property._type];
@@ -200,23 +196,24 @@ class Validator {
             }
         }
         if (constants_1.Constants.PrimitiveTypes.indexOf(property._type) >= 0) {
-            if (property._type === 'boolean' && obj.toString().toLowerCase() !== 'true' && obj.toString().toLowerCase() !== 'false') {
+            if (property._type === 'boolean' && typeof (obj) !== 'boolean') {
                 this.addError(treeDisplay, 'Invalid format for boolean value "' + obj.toString() + '"');
             }
             else if (constants_1.Constants.PrimitiveNumberTypes.indexOf(property._type) >= 0) {
                 if (typeof (obj) === 'string') {
-                    if (property._type === 'integer' && !constants_1.Constants.PrimitiveIntegerRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
-                    }
-                    else if (property._type === 'decimal' && !constants_1.Constants.PrimitiveDecimalRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
-                    }
-                    else if (property._type === 'unsignedInt' && !constants_1.Constants.PrimitiveUnsignedIntRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
-                    }
-                    else if (property._type === 'positiveInt' && !constants_1.Constants.PrimitivePositiveIntRegex.test(obj)) {
-                        this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
-                    }
+                    this.addError(treeDisplay, 'Number type expected but string received for value "' + obj + '"');
+                }
+                else if (property._type === 'integer' && !constants_1.Constants.PrimitiveIntegerRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid integer format for value "' + obj + '"');
+                }
+                else if (property._type === 'decimal' && !constants_1.Constants.PrimitiveDecimalRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid decimal format for value "' + obj + '"');
+                }
+                else if (property._type === 'unsignedInt' && !constants_1.Constants.PrimitiveUnsignedIntRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid unsigned integer format for value "' + obj + '"');
+                }
+                else if (property._type === 'positiveInt' && !constants_1.Constants.PrimitivePositiveIntRegex.test(obj)) {
+                    this.addError(treeDisplay, 'Invalid positive integer format for value "' + obj + '"');
                 }
             }
             else if (property._type === 'date' && !constants_1.Constants.PrimitiveDateRegex.test(obj)) {

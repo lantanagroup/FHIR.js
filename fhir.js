@@ -26,30 +26,25 @@ class Fhir {
         const xml = convertToXML.convert(obj);
         return xml;
     }
-    ;
     xmlToObj(xml) {
         const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
         const obj = convertToJs.convert(xml);
         return obj;
     }
-    ;
     xmlToJson(xml) {
         const convertToJs = new convertToJs_1.ConvertToJs(this.parser);
         const json = convertToJs.convertToJSON(xml);
         return json;
     }
-    ;
     validate(input, options) {
         const validator = new validator_1.Validator(this.parser, options);
         return validator.validate(input);
     }
-    ;
     evaluate(resource, fhirPathString) {
         const fhirPath = new fhirPath_1.FhirPath(resource, this.parser);
         fhirPath.resolve = this.resolve;
         return fhirPath.evaluate(fhirPathString);
     }
-    ;
     resolve(reference) {
         return;
     }

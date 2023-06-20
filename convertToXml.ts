@@ -81,7 +81,7 @@ export class ConvertToXml {
 
         const properties = this.parser.parsedStructureDefinitions[obj.resourceType]._properties || [];
 
-        for (let property of properties) {
+        for (const property of properties) {
             this.propertyToXML(resourceElement, this.parser.parsedStructureDefinitions[obj.resourceType], obj, property._name);
         }
 
@@ -126,7 +126,7 @@ export class ConvertToXml {
                 }
 
                 if (extra.fhir_comments) {
-                    for (let fhirComment of extra.fhir_comments) {
+                    for (const fhirComment of extra.fhir_comments) {
                         parentXmlObj.elements.push({type: 'comment', comment: fhirComment})
                     }
                 }
@@ -188,7 +188,7 @@ export class ConvertToXml {
                     break;
                 case 'Element':
                 case 'BackboneElement':
-                    for (let x in propertyType._properties) {
+                    for (const x in propertyType._properties) {
                         const nextProperty = propertyType._properties[x];
                         this.propertyToXML(nextXmlObj, <ParsedStructure><any>propertyType, value, nextProperty._name, propertyType._type);
                     }
@@ -214,17 +214,17 @@ export class ConvertToXml {
                     if (!nextType) {
                         console.log('Could not find type ' + propertyType._type);
                     } else {
-                        for (let nextProperty of nextType._properties) {
+                        for (const nextProperty of nextType._properties) {
                             this.propertyToXML(nextXmlObj, nextType, value, nextProperty._name, propertyType._type);
                         }
                     }
             }
 
             let hasAttributes = false;
-            let hasElements = nextXmlObj.elements && nextXmlObj.elements.length > 0;
+            const hasElements = nextXmlObj.elements && nextXmlObj.elements.length > 0;
 
             if (nextXmlObj.attributes) {
-                for (let attrKey in nextXmlObj.attributes) {
+                for (const attrKey in nextXmlObj.attributes) {
                     if (nextXmlObj.attributes[attrKey] || nextXmlObj.attributes[attrKey] === false || nextXmlObj.attributes[attrKey] === 0) {
                         hasAttributes = true;
                     }
