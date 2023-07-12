@@ -1,4 +1,4 @@
-import { ParseConformance } from './parseConformance';
+import type { ParseConformance } from './parseConformance';
 export declare class ConvertToJs {
     private parser;
     constructor(parser?: ParseConformance);

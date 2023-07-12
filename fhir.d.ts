@@ -1,4 +1,4 @@
-import { ParseConformance } from './parseConformance';
+import type { ParseConformance } from './parseConformance';
 import type { Bundle } from "./model/bundle";
 import type { ValidatorOptions, ValidatorResponse } from './validator';
 export declare enum Versions {

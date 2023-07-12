@@ -1,4 +1,4 @@
-import { ParseConformance } from './parseConformance';
+import type { ParseConformance } from './parseConformance';
 export interface XmlDeclaration {
     attributes?: {
         [id: string]: any;
