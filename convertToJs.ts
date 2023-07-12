@@ -415,8 +415,8 @@ export class ConvertToJs {
 
         for (let i = 0; i < xmlProperty.length; i++) {
             let xmlCommentElements: XmlElement[];
-            let nextXmlComment;
-            const xmlPropertyIndex = xmlObj.elements.indexOf(xmlProperty[i]);
+            let nextXmlComment = null;
+            const xmlPropertyIndex = (xmlObj.elements || []).indexOf(xmlProperty[i]);
 
             while (nextXmlComment != null || !xmlCommentElements) {
                 if (!xmlCommentElements) {
