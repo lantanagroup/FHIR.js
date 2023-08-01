@@ -341,11 +341,26 @@ export class ConvertToJs {
                     }
                     break;
                 case 'Resource':
-                    if (value.elements.length === 1) {
+                    
+                    if (value.elements && value.elements.length > 0) {
+
+                        const elementIndex = value.elements.findIndex(e => e.type === 'element');
+                        const newJS = this.resourceToJS(value.elements[elementIndex], surroundDecimalsWith);
+                        
+                        if (value.elements.length > 1) {
+                            const comments = value.elements.filter(e => e.type === 'comment');
+                            if (comments && comments.length > 0) {
+                                if (!newJS['fhir_comments']) {
+                                    newJS['fhir_comments'] = [];
+                                }
+                                newJS['fhir_comments'].push(... comments.map(e => e.comment));
+                            }
+                        }                        
+
                         if (obj[property._name] instanceof Array) {
-                            obj[property._name].push(this.resourceToJS(value.elements[0], surroundDecimalsWith))
+                            obj[property._name].push(newJS)
                         } else {
-                            obj[property._name] = this.resourceToJS(value.elements[0], surroundDecimalsWith);
+                            obj[property._name] = newJS;
                         }
                     }
                     break;
@@ -449,12 +464,12 @@ export class ConvertToJs {
                         if (!obj[extraPropertyName][i]) {
                             obj[extraPropertyName][i] = {};
                         }
-                        obj[extraPropertyName][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
+                        obj[extraPropertyName][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment);
                     } else {
                         if (!obj[extraPropertyName]) {
                             obj[extraPropertyName] = {};
                         }
-                        obj[extraPropertyName].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
+                        obj[extraPropertyName].fhir_comments = xmlCommentElements.reverse().map(c => c.comment);
                     }
                 } else {
                     if (property._multiple) {
@@ -464,12 +479,12 @@ export class ConvertToJs {
                         if (!obj[property._name][i]) {
                             obj[property._name][i] = {};
                         }
-                        obj[property._name][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
+                        obj[property._name][i].fhir_comments = xmlCommentElements.reverse().map(c => c.comment);
                     } else {
                         if (!obj[property._name]) {
                             obj[property._name] = {};
                         }
-                        obj[property._name].fhir_comments = xmlCommentElements.reverse().map(c => c.comment.trim());
+                        obj[property._name].fhir_comments = xmlCommentElements.reverse().map(c => c.comment);
                     }
                 }
             }

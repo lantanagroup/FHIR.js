@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bundle xmlns="http://hl7.org/fhir">
+  <id value="bundle-response"/>
+<!--   this example bundle is a transaction response    -->
+  <meta>
+	<!-- comment above tag in meta -->
+	<tag>
+		<system value="http://terminology.hl7.org/CodeSystem/v3-ObservationValue"/>
+		<code value="SUBSETTED"/>
+		<display value="Resource encoded in summary mode"/>
+	</tag>
+  <!-- comment above lastUpdated element under bundle.meta.tag element -->
+    <lastUpdated value="2014-08-18T01:43:33Z"/>
+  <!--   when the transaction response was constructed   -->
+  </meta>
+  <type value="transaction-response"/>
+<!--   
+    one entry for each entry in the transaction, in order, with a 
+    response
+    -->
+  <entry>
+	<!-- comment above fullUrl element -->
+    <fullUrl value="http://example.org/fhir/Patient/12423"/>
+    <!--   comment above resource element   -->
+    <resource>
+      <!--   comment above Patient element under resource element   -->
+      <Patient>
+	    <!-- comment under Patient element and above id element -->
+        <id value="12423"/>
+        <meta>
+          <versionId value="1"/>
+          <lastUpdated value="2014-08-18T01:43:31Z"/>
+        </meta>
+        <!-- text element comment here -->
+        <text>
+          <status value="generated"/>
+          <div xmlns="http://www.w3.org/1999/xhtml">Some narrative</div>
+        </text>
+        <active value="true"/>
+        <name>
+          <use value="official"/>
+          <family value="Chalmers"/>
+          <given value="Peter"/>
+          <given value="James"/>
+        </name>
+        <gender value="male"/>
+        <birthDate value="1974-12-25"/>
+      </Patient>
+    </resource>
+  <!--   now, details about the action to take with the resource   -->
+    <response>
+    <!--   important responses from the server   -->
+      <status value="201 Created"/>
+      <location value="Patient/12423/_history/1"/>
+      <etag value="W/&quot;1&quot;"/>
+      <lastModified value="2014-08-18T01:43:33Z"/>
+      <outcome>
+        <OperationOutcome>
+          <issue>
+             <severity value="warning"/>
+             <code value="not-found"/>
+             <details>
+               <text value="The Managing organization was not known and was deleted"/>
+             </details> 
+             <expression value="Patient.managingOrganization"/>
+          </issue>
+        </OperationOutcome>
+      </outcome>
+    </response>
+  </entry>
+</Bundle>

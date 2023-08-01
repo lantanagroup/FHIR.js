@@ -25,6 +25,7 @@ var vsSmokeStatusXml = fs.readFileSync('./test/data/r4/ValueSet-us-core-observat
 var communicationJson = fs.readFileSync('./test/data/stu3/communication.json').toString();
 var implementationGuideXml = fs.readFileSync('./test/data/r4/implementationGuide.xml').toString();
 var bundleXml = fs.readFileSync('./test/data/r4/bundle-example.xml').toString();
+var bundleXmlComments = fs.readFileSync('./test/data/r4/bundle-response.xml').toString();
 
 /**
  * Cleans up XML to remove as much un-necessary characters/info as possible so
@@ -349,8 +350,8 @@ describe('Serialization', function () {
             var xml = '<Observation>\n' +
                 '<!-- some comment -->\n' +
                 '<id value="test" />\n' +
-                '<!-- comment on enc -->\n' +
-                '<!-- comment on enc2 -->\n' +
+                '<!--comment on enc-->\n' +
+                '<!--  comment on enc2  -->\n' +
                 '<encounter>\n' +
                 '  <reference value="Encounter/123" />\n' +
                 '</encounter>\n' +
@@ -371,10 +372,10 @@ describe('Serialization', function () {
 
             assert(obj);
             assert(obj._id);
-            assert.strictEqual(obj._id.fhir_comments[0], 'some comment');
+            assert.strictEqual(obj._id.fhir_comments[0], ' some comment ');
             assert.strictEqual(obj.encounter.fhir_comments[0], 'comment on enc');
-            assert.strictEqual(obj.encounter.fhir_comments[1], 'comment on enc2');
-            assert.strictEqual(obj._valueInteger.fhir_comments[0], 'another comment');
+            assert.strictEqual(obj.encounter.fhir_comments[1], '  comment on enc2  ');
+            assert.strictEqual(obj._valueInteger.fhir_comments[0], ' another comment ');
             assert.strictEqual(obj.focus[0].fhir_comments[0], 'comment on focus1');
             assert.strictEqual(obj.focus[1].fhir_comments[0], 'comment on focus2');
         })
@@ -620,7 +621,7 @@ describe('Serialization', function () {
                 "resourceType": "Observation",
                 "id": "test",
                 "_id": {
-                    "fhir_comments": ["some comment"]
+                    "fhir_comments": [" some comment "]
                 },
                 "encounter": {
                     "reference": "Encounter/123",
@@ -644,12 +645,29 @@ describe('Serialization', function () {
 
             assert(xml);
 
-            assert.strictEqual(xml.includes('<!--some comment-->'), true);
+            assert.strictEqual(xml.includes('<!-- some comment -->'), true);
             assert.strictEqual(xml.includes('<!--comment on enc-->'), true);
             assert.strictEqual(xml.includes('<!--comment on enc2-->'), true);
             assert.strictEqual(xml.includes('<!--another comment-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus1-->'), true);
             assert.strictEqual(xml.includes('<!--comment on focus2-->'), true);
         });
+
+
+        it('should deserialize XML bundle containing comments', function () {
+            var fhir = new Fhir();
+            var bundleNoComments = fhir.xmlToObj(bundleXml);
+            var bundleComments = fhir.xmlToObj(bundleXmlComments);
+            
+            assert.strictEqual(bundleNoComments.resourceType, 'Bundle');
+            assert.strictEqual(bundleNoComments.entry[1].resource.resourceType, 'Patient');
+            assert.strictEqual(bundleNoComments.entry[1].resource.name[0].given[0], 'Jose');
+
+            assert.strictEqual(bundleComments.resourceType, 'Bundle');
+            assert.strictEqual(bundleComments.entry[0].resource.resourceType, 'Patient');
+            assert.strictEqual(bundleComments.entry[0].resource.name[0].given[0], 'Peter');
+
+        });
+
     });
 });

@@ -123,9 +123,13 @@ class ConvertToXml {
                     break;
                 case 'Resource':
                     if (value) {
-                        const resourceXmlObj = this.resourceToXML(value).elements[0];
-                        delete resourceXmlObj.attributes.xmlns;
-                        nextXmlObj.elements.push(resourceXmlObj);
+                        const elements = this.resourceToXML(value).elements;
+                        for (const e in elements) {
+                            if (elements[e].attributes) {
+                                delete elements[e].attributes.xmlns;
+                            }
+                        }
+                        nextXmlObj.elements.push(...elements);
                     }
                     break;
                 case 'Element':
