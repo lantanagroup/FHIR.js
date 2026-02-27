@@ -36,10 +36,6 @@
     "test": "test"
   },
   "dependencies": {
-    "lodash": "^4.17.19",
-    "path": "^0.12.7",
-    "q": "^1.4.1",
-    "randomatic": "^3.1.0",
     "xml-js": "^1.6.8"
   },
   "devDependencies": {
@@ -63,12 +59,6 @@
     "tsc": "tsc",
     "lint": "eslint . --ext .ts"
   },
-  "bundleDependencies": [
-    "lodash",
-    "path",
-    "q",
-    "xml-js"
-  ],
   "files": [
     "model/",
     "profiles/types.json",
