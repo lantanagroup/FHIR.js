@@ -7,7 +7,7 @@ describe('Parse', function () {
         var parser = new ParseConformance(true);
 
         assert(parser.parsedStructureDefinitions);
-        assert.equal(Object.keys(parser.parsedStructureDefinitions).length, 211);
+        assert.equal(Object.keys(parser.parsedStructureDefinitions).length, 422);
         assert.equal(Object.keys(parser.parsedValueSets).length, 579);
         
         // make sure that ensurePropertyMetaData does not add _meta fields for primitives that already exist
@@ -29,7 +29,7 @@ describe('Parse', function () {
 
         assert(parser.parsedStructureDefinitions);
         var structureDefinitionsCount = Object.keys(parser.parsedStructureDefinitions).length;
-        assert.equal(structureDefinitionsCount, 211);
+        assert.equal(structureDefinitionsCount, 422);
         assert(parser.parsedValueSets);
         var valueSetsCount = Object.keys(parser.parsedValueSets).length;
         assert.equal(valueSetsCount, 579);
@@ -96,7 +96,7 @@ describe('Parse', function () {
         assert(parser.parsedStructureDefinitions);
 
         var sdKeys = Object.keys(parser.parsedStructureDefinitions);
-        assert(sdKeys.length === 173);
+        assert(sdKeys.length === 346);
 
         var parsedAddress = parser.parsedStructureDefinitions['Address'];
         assert(parsedAddress);
@@ -115,7 +115,7 @@ describe('Parse', function () {
 
         var parser = new ParseConformance(true);
         parser.parseStructureDefinition(bmiProfile)
-        assert.strictEqual(Object.keys(parser.parsedStructureDefinitions).length, 212);
+        assert.strictEqual(Object.keys(parser.parsedStructureDefinitions).length, 424);
         assert.strictEqual(parser.parsedStructureDefinitions['bmi']._properties.length, 39)
         // valueQuantity should be the only value field, because of the cardinality restriction in the bmi profile
         // valueQuantity should be required because at least one slice has a minimum cardinality of 1

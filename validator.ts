@@ -134,7 +134,17 @@ export class Validator {
             this.obj = input;
         }
 
-        const typeDefinition: ParsedStructure = this.parser.parsedStructureDefinitions[this.obj.resourceType];
+        let typeDefinition: ParsedStructure = this.parser.parsedStructureDefinitions[this.obj.resourceType];
+
+        if (this.obj.meta && this.obj.meta.profile && this.obj.meta.profile.length > 0) {
+            for (let i = 0; i < this.obj.meta.profile.length; i++) {
+                const profileDefinition = this.parser.parsedStructureDefinitions[this.obj.meta.profile[i]];
+                if (profileDefinition) {
+                    typeDefinition = profileDefinition;
+                    break;
+                }
+            }
+        }
 
         this.resourceId = this.obj.id || '#initial';
 

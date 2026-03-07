@@ -1,4 +1,6 @@
 # FHIR.js
+
+> **Note**: This package has been renamed from `fhir` to `fhir-tool` on npm. Please update your dependencies to use `fhir-tool`.
 Node.JS library for serializing/deserializing FHIR resources between JS and XML, and validating FHIR resources.
 The library uses technologies that are safe for use in browser-only applications (node.js is not required). 
 
@@ -13,27 +15,28 @@ The library uses technologies that are safe for use in browser-only applications
     * Loading from specific downloadable definitions
 
 # Dependencies
-* q 1.4.1
-* underscore 1.8.3
+* lodash 4.17.23
 * path 0.12.7
-* xml-js 1.6.2
+* q 1.5.1
+* randomatic 3.1.1
+* xml-js 1.6.11
 
 # Installation
 ```
-npm install fhir
+npm install fhir-tool
 or
 bower install fhir-js
 ```
 
-To use in a node.js application, require the "fhir" module.
+To use in a node.js application, require the "fhir-tool" module.
 ```js
-var Fhir = require('fhir').Fhir;
+var Fhir = require('fhir-tool').Fhir;
 ```
 
 To use in a browser application, reference dist/bundle.js.
 
 ```html
-<script type="text/javascript" src="node_modules/fhir/dist/bundle.js"></script>
+<script type="text/javascript" src="node_modules/fhir-tool/dist/bundle.js"></script>
 or
 <script type="text/javascript" src="bower_components/fhir-js/dist/bundle.js"></script>
 ```
@@ -61,9 +64,9 @@ FHIR.js supports FHIR version **4.0.0** by default.
 If your implementation needs to support a specific FHIR version (as long as it is 3.0.1 or newer), you may download the "FHIR Definitions" from the [FHIR Downloads](http://build.fhir.org/downloads.html) page in *JSON* format and load them into the FHIR.js module.
 
 ```
-var ParseConformance = require('fhir').ParseConformance;
-var FhirVersions = require('fhir').Versions;
-var Fhir = require('fhir').Fhir;
+var ParseConformance = require('fhir-tool').ParseConformance;
+var FhirVersions = require('fhir-tool').Versions;
+var Fhir = require('fhir-tool').Fhir;
 
 // Get the data
 var newValueSets = JSON.parse(fs.readFileSync('..path..to..valuesets.json').toString());

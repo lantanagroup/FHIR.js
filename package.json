@@ -1,6 +1,6 @@
 {
   "name": "fhir-tool",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "types": "index.d.ts",
