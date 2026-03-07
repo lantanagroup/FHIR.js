@@ -1,6 +1,6 @@
 {
   "name": "fhir-tool",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Library that assists in handling FHIR resources. Supports serialization between JSON and XML, validation and FhirPath evaluation.",
   "readme": "README.md",
   "types": "index.d.ts",
@@ -36,10 +36,6 @@
     "test": "test"
   },
   "dependencies": {
-    "lodash": "^4.17.23",
-    "path": "^0.12.7",
-    "q": "^1.5.1",
-    "randomatic": "^3.1.1",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
@@ -64,9 +60,6 @@
     "lint": "eslint . --ext .ts"
   },
   "bundleDependencies": [
-    "lodash",
-    "path",
-    "q",
     "xml-js"
   ],
   "files": [

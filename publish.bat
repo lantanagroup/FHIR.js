@@ -1,2 +1,2 @@
-﻿npm run prepare
+npm run prepare
 npm publish
