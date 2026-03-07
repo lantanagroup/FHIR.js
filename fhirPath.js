@@ -3,11 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FhirPath = void 0;
 const parseConformance_1 = require("./parseConformance");
 class FhirPath {
-    constructor(resources, parser) {
-        this.operators = ['=', '!', '&', '<', '>', '~'];
-        this.resources = resources instanceof Array ? resources : [resources];
-        this.parser = parser ? parser : new parseConformance_1.ParseConformance(true);
-    }
     findClosingParenIndex(string, startIndex) {
         let parenLevel = 0;
         for (let i = startIndex; i < string.length; i++) {
@@ -33,6 +28,11 @@ class FhirPath {
                 return i;
             }
         }
+    }
+    constructor(resources, parser) {
+        this.operators = ['=', '!', '&', '<', '>', '~'];
+        this.resources = resources instanceof Array ? resources : [resources];
+        this.parser = parser ? parser : new parseConformance_1.ParseConformance(true);
     }
     internalResolve(reference) {
         const regex = /^([A-z]+)\/(.+?)$/;

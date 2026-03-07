@@ -12,7 +12,7 @@ var Versions;
     Versions["STU3"] = "STU3";
     Versions["R4"] = "R4";
     Versions["R5"] = "R5";
-})(Versions = exports.Versions || (exports.Versions = {}));
+})(Versions || (exports.Versions = Versions = {}));
 class Fhir {
     constructor(parser) {
         this.parser = parser || new parseConformance_1.ParseConformance(true);

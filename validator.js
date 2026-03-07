@@ -9,7 +9,7 @@ var Severities;
     Severities["Error"] = "error";
     Severities["Warning"] = "warning";
     Severities["Information"] = "info";
-})(Severities = exports.Severities || (exports.Severities = {}));
+})(Severities || (exports.Severities = Severities = {}));
 class Validator {
     constructor(parser, options, resourceId, isXml, obj) {
         this.isXml = false;
